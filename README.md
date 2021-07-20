@@ -50,18 +50,15 @@ Related to: #48, #45
 
 #### Branch Rule
 
-```markdown
-- Master branch : 제품으로 출시될 수 있는 브랜치
+- `Master` branch : 제품으로 출시될 수 있는 브랜치
 	배포(Release) 이력을 관리하기 위해 사용. 즉, 배포 가능한 상태만을 관리한다.
-
-- Develop branch : 다음 출시 버전을 개발하는 브랜치
+- `Develop` branch : 다음 출시 버전을 개발하는 브랜치
 	기능 개발을 위한 브랜치들을 병합하기 위해 사용.
 	
 	모든 기능이 추가되고 버그가 수정되어 배포 가능한 상태라면 `Develop` 브랜치를 `Master`브랜치에 **Merge**한다.
 	
 	평소에는 Develop 브랜치를 기반으로 개발을 진행한다.
-
-- Feature branch : 기능을 개발하는 브랜치 ( Ex) feature/login )
+- `Feature` branch : 기능을 개발하는 브랜치 ( Ex) `feature/login` )
 	새로운 기능 개발 및 버그 수정이 필요할 때마다 `Develop` 브랜치로부터 분기하여 사용.
 
 	`Feature` 브랜치에서의 작업은 기본적으로 공유할 필요가 없기 때문에, 로컬 저장소에서 관리함.
@@ -73,8 +70,7 @@ Related to: #48, #45
 	3. 작업이 끝나면 `Develop` 브랜치로 **Merge**
 	4. 더 이상 필요하지 않은 `Feature` 브랜치는 삭제
 	5. 새로운 기능에 대한 `Feature` 브랜치를 중앙 원격 저장소에 **Push**
-
-- Release branch : 이번 출시 버전을 준비하는 브랜치 ( Ex) release-1.2 )
+- `Release` branch : 이번 출시 버전을 준비하는 브랜치 ( Ex) `release-1.2` )
 	배포를 위한 전용 브랜치를 사용.
 
 	1. `Develop` 브랜치에서 배포할 수 있는 수준의 기능이 모이면 `Release` 브랜치를 분기한다.
@@ -83,8 +79,7 @@ Related to: #48, #45
 	2. `Release` 브랜치에서 배포 가능한 상태가 되면, 즉 모든 기능이 정상적으로 동작하는 상태가 되면
 		1. `Master` 브랜치에 **Merge**한다. 이 때, Commit에 Release 버전 Tag를 부여한다.
 		2. 배포를 준비하는 동안 `Release` 브랜치에서 변경 사항이 있을 수 있으므로 `Develop` 브랜치에도 **Merge**한다.
-
-- Hotfix branch : 출시 버전에서 발생한 버그를 수정 하는 브랜치 ( Ex) hotfix-1.2.1 )
+- `Hotfix` branch : 출시 버전에서 발생한 버그를 수정 하는 브랜치 ( Ex) `hotfix-1.2.1` )
 	배포한 버전에 긴급하게 수정을 해야 할 필요가 있을 경우 `Master` 브랜치에서 분기하는 브랜치.
 
 	1. 배포 버전에 수정이 필요한 경우 `Master` 브랜치에서 `Hotfix` 브랜치를 분기한다.
@@ -92,7 +87,6 @@ Related to: #48, #45
 	3. 다시 `Master` 브랜치에 **Merge**하여 배포한다.
 		- 새로운 버전 이름으로 태그를 매긴다.
 	4. `Hotfix` 브랜치에서 변경 사항은 `Develop` 브랜치에도 **Merge**한다.
-```
 
 ![image](https://user-images.githubusercontent.com/64021540/126275065-b6c8624e-36de-41b8-90e4-8df422cd2b62.png)
 
