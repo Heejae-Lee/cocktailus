@@ -94,6 +94,7 @@ Related to: #48, #45
 	4. `Hotfix` 브랜치에서 변경 사항은 `Develop` 브랜치에도 **Merge**한다.
 ```
 
+![image](https://user-images.githubusercontent.com/64021540/126275065-b6c8624e-36de-41b8-90e4-8df422cd2b62.png)
 
 ### 3. Jira Issue
 
