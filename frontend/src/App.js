@@ -4,9 +4,7 @@ import './App.css';
 function App() {
   return (
     <div>
-      <img className="logo" src={logo} alt="logo"/>
-      <br/>
-      Do you wanna cocktail with us?
+      Initial Settings
     </div>
   );
 }
