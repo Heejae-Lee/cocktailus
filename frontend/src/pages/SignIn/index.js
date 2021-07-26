@@ -40,13 +40,10 @@ function SignIn() {
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
-            Sign In
+            로그인
           </Typography>
           <Typography variant="body2" align="center">
-            {'Not a member yet? '}
-            <Link href="/premium-themes/onepirate/sign-up/" align="center" underline="always">
-              Sign Up here
-            </Link>
+            {'Cocktailer에 오신 걸 환영합니다!'}
           </Typography>
         </React.Fragment>
         <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
@@ -58,7 +55,7 @@ function SignIn() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
-                label="Email"
+                label="이메일"
                 margin="normal"
                 name="email"
                 required
@@ -72,7 +69,7 @@ function SignIn() {
                 required
                 name="password"
                 autoComplete="current-password"
-                label="Password"
+                label="비밀번호"
                 type="password"
                 margin="normal"
               />
@@ -97,9 +94,9 @@ function SignIn() {
             </form>
           )}
         </Form>
-        <Typography align="center">
-          <Link underline="always" href="/premium-themes/onepirate/forgot-password/">
-            Forgot password?
+        <Typography align="right">
+          <Link href="/signUp/" align="center" underline="always">
+              아이디가 없으신가요?
           </Link>
         </Typography>
       </AppForm>
