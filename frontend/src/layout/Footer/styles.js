@@ -3,43 +3,43 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
-      backgroundColor: theme.palette.secondary.light,
+      backgroundColor: theme.palette.secondary,
     },
     container: {
-      marginTop: theme.spacing(8),
-      marginBottom: theme.spacing(8),
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
       display: 'flex',
-    },
-    iconsWrapper: {
-      height: 120,
-    },
-    icons: {
-      display: 'flex',
-    },
-    icon: {
-      width: 48,
-      height: 48,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: theme.palette.warning.main,
-      marginRight: theme.spacing(1),
-      '&:hover': {
-        backgroundColor: theme.palette.warning.dark,
-      },
     },
     list: {
       margin: 0,
       listStyle: 'none',
       padding: 0,
     },
+    center: {
+      marginTop: theme.spacing(4),
+      marginBottom: theme.spacing(4),
+      marginLeft: theme.spacing(5),
+      fontWeight: 'bold',
+      fontSize: 'auto',
+    },
     listItem: {
       paddingTop: theme.spacing(0.5),
       paddingBottom: theme.spacing(0.5),
     },
-    language: {
-      marginTop: theme.spacing(1),
-      width: 150,
+    right: {
+      marginTop: theme.spacing(4),
+      marginBottom: theme.spacing(4),
+      marginRight: theme.spacing(5),
+      flex: 1,
+      display: 'flex',
+      justifyContent: 'flex-end',
+      fontWeight: 'bold',
+      fontSize: 'auto',
+    },
+    rightLink: {
+      fontSize: 16,
+      color: theme.palette.common.white,
+      marginLeft: theme.spacing(3),
     },
 }));
 
