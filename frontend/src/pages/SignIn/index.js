@@ -30,7 +30,7 @@ function SignIn() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const onSubmit = () => {
     setSent(true);
   };
 
@@ -46,9 +46,9 @@ function SignIn() {
             {'Cocktailer에 오신 걸 환영합니다!'}
           </Typography>
         </React.Fragment>
-        <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
-          {({ handleSubmit2, submitting }) => (
-            <form onSubmit={handleSubmit2} className={classes.form} noValidate>
+        <Form onSubmit={onSubmit} subscription={{ submitting: true }} validate={validate}>
+          {({ handleSubmit, submitting }) => (
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Field
                 autoComplete="email"
                 autoFocus

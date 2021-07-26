@@ -17,7 +17,6 @@ import AppHeader from '../../layout/Header/';
 function SignUp() {
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
-
   const validate = (values) => {
     const errors = required(['email', 'userName', 'password', 'passwordConfirm'], values);
 
@@ -29,23 +28,33 @@ function SignUp() {
     }
 
     if (!errors.userName) {
-      errors.userName = checkNameLength(values.userName);
+      const nameError = checkNameLength(values.userName);
+      if(nameError){
+        errors.userName = nameError;
+      }
     }
 
     if (!errors.password) {
-      errors.password = checkPasswordLength(values.password);
+      const passwordError = checkPasswordLength(values.password);
+      if (passwordError){
+        errors.password = passwordError;
+      }
     }
 
     if (!errors.passwordConfirm) {
-      const passwordConfirmError = checkPasswordConfirm(values.password, values.passwordConfirm);
-      errors.passwordConfirm = passwordConfirmError;
+      const confirmError = checkPasswordConfirm(values.password, values.passwordConfirm);
+      if (confirmError){
+        errors.passwordConfirm = confirmError;
+      }
     }
 
     return errors;
   };
 
-  const handleSubmit = () => {
+  const onSubmit = async (values) => {
     setSent(true);
+    alert("!212321");
+    await console.log(values);
   };
 
   return (
@@ -57,9 +66,11 @@ function SignUp() {
             회원가입
           </Typography>
         </React.Fragment>
-        <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
-          {({ handleSubmit2, submitting }) => (
-            <form onSubmit={handleSubmit2} className={classes.form} noValidate>
+        <Form
+          onSubmit={onSubmit}
+          subscription={{ submitting: true }} validate={validate}
+          render={({ handleSubmit, submitting }) => (
+            <form methods="post" onSubmit={handleSubmit} className={classes.form} noValidate>
               <Field
                 autoFocus
                 autoComplete="email"
@@ -118,7 +129,7 @@ function SignUp() {
               </FormButton>
             </form>
           )}
-        </Form>          
+        />          
         <Typography variant="body2" align="right">
             <Link href="/signIn" underline="always">
               이미 아이디가 있으세요?
