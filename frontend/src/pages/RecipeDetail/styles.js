@@ -13,11 +13,18 @@ const useStyles = makeStyles((theme) => ({
       margin: 'auto',
       marginBottom: 30,
       maxWidth: '1000px',
-      height: 400,
+      height: 480,
+      backgroundColor: '#f3e5f5'
     },
     image: {
+      marginTop: 40,
+      marginLeft: 20,
+      marginRight: 30,
       width: 350,
       height: 350,
+    },
+    detailBody: {
+      marginTop: 50,
     },
     img: {
       margin: 'auto',
@@ -28,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     likeImg: {
       width: 24,
       height: 24,
+      marginLeft: 20,
+      marginRight: 10,
+      cursor: 'pointer'
     }
 }));
 

@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import AppHeader from "../../layout/Header";
 import AppFooter from "../../layout/Footer";
@@ -57,10 +58,10 @@ function RecipeDetail() {
                   />
                 </ButtonBase>
               </Grid>
-              <Grid item xs={12} sm container>
+              <Grid className={classes.detailBody} item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
-                    <Typography gutterBottom variant="h6">
+                    <Typography gutterBottom variant="h6" marked="left">
                       레시피 소개
                     </Typography>
                     <Typography variant="body2" gutterBottom>
@@ -68,53 +69,69 @@ function RecipeDetail() {
                     </Typography>
                   </Grid>
                   <Grid item xs container>
-                    <Typography gutterBottom variant="h6">
+                    <Typography gutterBottom variant="h6" marked="left">
                       제조법
                     </Typography>
-                    <Grid item container xs={12} container direction="row">
+                    <Grid item container xs={12} direction="row">
                       <Grid xs={3} item>
-                        <Typography variant="subtitle1">오렌지 주스</Typography>
+                        <Typography variant="subtitle1">포도 주스</Typography>
                       </Grid>
                       <Grid xs={5} item>
-                        <Typography variant="subtitle1">0.5 샷</Typography>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
                       </Grid>
-                    </Grid><Grid item container xs={12} container direction="row">
+                    </Grid>
+                    <Grid item container xs={12} direction="row">
                       <Grid xs={3} item>
                         <Typography variant="subtitle1">토닉워터</Typography>
                       </Grid>
-                      <Grid xs={5} item>
-                        <Typography variant="subtitle1">0.5 샷</Typography>
+                      <Grid xs={8} item>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
                       </Grid>
-                    </Grid><Grid item container xs={12} container direction="row">
+                    </Grid>
+                    <Grid item container xs={12} direction="row">
                       <Grid xs={3} item>
                         <Typography variant="subtitle1">진</Typography>
                       </Grid>
-                      <Grid xs={5} item>
-                        <Typography variant="subtitle1">0.5 샷</Typography>
+                      <Grid xs={8} item>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
                       </Grid>
-                    </Grid><Grid item container xs={12} container direction="row">
+                    </Grid>
+                    <Grid item container xs={12} direction="row">
                       <Grid xs={3} item>
                         <Typography variant="subtitle1">사이다</Typography>
                       </Grid>
-                      <Grid xs={5} item>
-                        <Typography variant="subtitle1">0.5 샷</Typography>
+                      <Grid xs={8} item>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
+                        <img src={process.env.PUBLIC_URL + "images/tequila.png"} style={{width:50, height:50}}/>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid
-                    style={{ cursor: "pointer" }}
-                    onClick={clickLike}
                     item
                     xs
                     direction="column"
                     spacing={2}
                     align="right"
+                    style={{display: 'flex', flexDirection:'row', justifyContent: 'flex-end', alignItems: 'center'}}
                   >
-                    <Typography variant="button">좋아요</Typography>
+                    <AccountCircleIcon style={{fontSize: 40, marginRight: 10}}/>
+                    <Typography variant="button">세계음료마스터</Typography>
                     <img
                       className={classes.likeImg}
                       src={process.env.PUBLIC_URL + "images/" + likeImg}
+                      alt="칵테일 이미지"
+                      onClick={clickLike}
                     />
+                    <Typography variant="button">좋아요 x개</Typography>
                   </Grid>
                 </Grid>
               </Grid>
