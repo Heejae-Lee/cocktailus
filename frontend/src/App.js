@@ -8,21 +8,24 @@ import Privacy from './pages/Privacy/'
 import SignIn from './pages/SignIn/'
 import SignUp from './pages/SignUp/'
 import Terms from './pages/Terms/'
+import Recipe from './pages/Recipe/'
 import ErrorNotFound from './pages/ErrorNotFound/'
+
 
 function App() {
   return (
     <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/ForgotPassword" component={ForgotPassword} />
-      <Route exact path="/SignUp" component={SignUp} />
-      <Route exact path="/SignIn" component={SignIn} />
-      <Route exact path="/Privacy" component={Privacy} />
-      <Route exact path="/Terms" component={Terms} />
-      <Route exact path="/error" component={ErrorNotFound} />
-      <Redirect to="/error"/>
-    </Switch>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/recipe" component={Recipe} />
+        <Route exact path="/ForgotPassword" component={ForgotPassword} />
+        <Route exact path="/SignUp" component={SignUp} />
+        <Route exact path="/SignIn" component={SignIn} />
+        <Route exact path="/Privacy" component={Privacy} />
+        <Route exact path="/Terms" component={Terms} />
+        <Route exact path="/error" component={ErrorNotFound} />
+        <Redirect to="/error"/>
+      </Switch>
   </BrowserRouter>
     
   );
