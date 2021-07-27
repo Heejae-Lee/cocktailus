@@ -17,6 +17,8 @@ function SignIn() {
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
 
+  // 회원가입 폼에서 입력의 유효성을 확인하기 위한 함수
+  // ex) 이메일 형식, 닉네임, 비밀번호 길이 등등...
   const validate = (values) => {
     const errors = required(['email', 'password'], values);
 
@@ -30,8 +32,13 @@ function SignIn() {
     return errors;
   };
 
-  const onSubmit = () => {
+  // onSubmit : Form 태그가 제출될 때 실행되는 함수
+  const onSubmit = (values) => {
+    // form이 제출되면 회원가입을 더 이상 수정할 수 없도록 함.
     setSent(true);
+    console.log(values);
+
+    // Backend 함수 완성되면 이후 함수 작성 예정
   };
 
   return (
