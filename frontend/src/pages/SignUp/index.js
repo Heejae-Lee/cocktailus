@@ -11,8 +11,9 @@ import AppForm from '../../components/AppForm';
 import RFTextField from '../../components/RFTextField';
 import FormButton from '../../components/FormButton/';
 import FormFeedback from '../../components/FormFeedback';
-import AppFooter from '../../layout/Footer/';
-import AppHeader from '../../layout/Header/';
+import Header from '../../layout/Header'
+import Footer from '../../layout/Footer'
+
 
 function SignUp() {
   const classes = useStyles();
@@ -65,7 +66,7 @@ function SignUp() {
 
   return (
     <React.Fragment>
-      <AppHeader />
+      <Header />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
@@ -142,7 +143,7 @@ function SignUp() {
             </Link>
           </Typography>
       </AppForm>
-      <AppFooter />
+      <Footer />
     </React.Fragment>
   );
 }

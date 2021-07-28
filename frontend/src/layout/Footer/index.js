@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Container from '@material-ui/core/Container';
 import useStyles from './styles'
 import Typography from '../../components/Typography';
-import AppBar from '../Header/AppBar/';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import clsx from 'clsx';
 
 function Copyright() {
@@ -19,19 +19,21 @@ export default function AppFooter() {
   const classes = useStyles();
 
   return (
-    <AppBar>
-      <Typography component="footer" className={clsx(classes.root, classes.listItem)}>
-        <Container className={classes.container}>
+    <div className={clsx(classes.root)}>
+      <CssBaseline />
+      <footer className={clsx(classes.footer)}>
+        <Container className={classes.between}>
           <Typography 
-          color="inherit"
-          className={classes.center}>
-            SSAFY 5th
+            color="inherit"
+            className={classes.start}>
+              SSAFY 5th
           </Typography>
-          <Typography className={classes.right}>
+
+          <Typography className={classes.end}>
             <Copyright />
           </Typography>
         </Container>
-      </Typography>
-    </AppBar>
+      </footer>
+  </div>
   );
 }

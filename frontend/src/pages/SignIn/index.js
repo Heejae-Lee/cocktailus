@@ -5,13 +5,13 @@ import { Field, Form, FormSpy } from 'react-final-form';
 import Link from '@material-ui/core/Link';
 import useStyles from './styles'
 import Typography from '../../components/Typography';
-import AppFooter from '../../layout/Footer/';
-import AppHeader from '../../layout/Header/';
 import AppForm from '../../components/AppForm';
 import { email, required } from '../../common/validation';
 import RFTextField from '../../components/RFTextField';
 import FormButton from '../../components/FormButton/';
 import FormFeedback from '../../components/FormFeedback';
+import Header from '../../layout/Header'
+import Footer from '../../layout/Footer'
 
 function SignIn() {
   const classes = useStyles();
@@ -43,7 +43,7 @@ function SignIn() {
 
   return (
     <React.Fragment>
-      <AppHeader />
+      <Header />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
@@ -107,7 +107,7 @@ function SignIn() {
           </Link>
         </Typography>
       </AppForm>
-      <AppFooter />
+      <Footer />
     </React.Fragment>
   );
 }

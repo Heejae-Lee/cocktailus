@@ -1,0 +1,38 @@
+import withRoot from '../../components/withRoot';
+// --- Post bootstrap -----
+import React from 'react';
+import ImgMediaCard from '../../components/RecipePreview'
+import Header from '../../layout/Header'
+import Footer from '../../layout/Footer'
+import { Container, Grid } from '@material-ui/core';
+import useStyles from './styles';
+import RecipeHeader from '../../layout/RecipeHeader';
+
+function Recipe() {
+  const classes = useStyles();
+
+  return (
+    <React.Fragment>
+      <Header />
+      <RecipeHeader />
+      <Container className={classes.paper}>
+        <Grid container xs={12} spacing={10}>
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+          <ImgMediaCard />
+        </Grid>
+      </Container>
+      <Footer />
+    </React.Fragment>
+  );
+}
+
+export default withRoot(Recipe);

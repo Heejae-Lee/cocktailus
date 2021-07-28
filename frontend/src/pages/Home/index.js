@@ -1,26 +1,26 @@
 import withRoot from '../../components/withRoot';
 // --- Post bootstrap -----
 import React from 'react';
-import AppHeader from '../../layout/Header/';
-import AppFooter from '../../layout/Footer/';
 import ProductCategories from '../../components/ProductCategories';
 import ProductSmokingHero from '../../components/ProductSmokingHero';
 import ProductHero from '../../components/ProductHero/';
 import ProductValues from '../../components/ProductValues/';
 import ProductHowItWorks from '../../components/ProductHowItWorks/';
 import ProductCTA from '../../components/ProductCTA/';
+import Header from '../../layout/Header'
+import Footer from '../../layout/Footer'
 
 function Home() {
   return (
     <React.Fragment>
-      <AppHeader />
+      <Header />
       <ProductHero />
       <ProductValues />
       <ProductCategories />
       <ProductHowItWorks />
       <ProductCTA />
       <ProductSmokingHero />
-      <AppFooter />
+      <Footer />
     </React.Fragment>
   );
 }
