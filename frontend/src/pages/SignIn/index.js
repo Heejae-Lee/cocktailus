@@ -5,18 +5,20 @@ import { Field, Form, FormSpy } from 'react-final-form';
 import Link from '@material-ui/core/Link';
 import useStyles from './styles'
 import Typography from '../../components/Typography';
-import AppFooter from '../../layout/Footer/';
-import AppHeader from '../../layout/Header/';
 import AppForm from '../../components/AppForm';
 import { email, required } from '../../common/validation';
 import RFTextField from '../../components/RFTextField';
 import FormButton from '../../components/FormButton/';
 import FormFeedback from '../../components/FormFeedback';
+import Header from '../../layout/Header'
+import Footer from '../../layout/Footer'
 
 function SignIn() {
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
 
+  // 회원가입 폼에서 입력의 유효성을 확인하기 위한 함수
+  // ex) 이메일 형식, 닉네임, 비밀번호 길이 등등...
   const validate = (values) => {
     const errors = required(['email', 'password'], values);
 
@@ -30,35 +32,37 @@ function SignIn() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  // onSubmit : Form 태그가 제출될 때 실행되는 함수
+  const onSubmit = (values) => {
+    // form이 제출되면 회원가입을 더 이상 수정할 수 없도록 함.
     setSent(true);
+    console.log(values);
+
+    // Backend 함수 완성되면 이후 함수 작성 예정
   };
 
   return (
     <React.Fragment>
-      <AppHeader />
+      <Header />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
-            Sign In
+            로그인
           </Typography>
           <Typography variant="body2" align="center">
-            {'Not a member yet? '}
-            <Link href="/premium-themes/onepirate/sign-up/" align="center" underline="always">
-              Sign Up here
-            </Link>
+            {'Cocktailer에 오신 걸 환영합니다!'}
           </Typography>
         </React.Fragment>
-        <Form onSubmit={handleSubmit} subscription={{ submitting: true }} validate={validate}>
-          {({ handleSubmit2, submitting }) => (
-            <form onSubmit={handleSubmit2} className={classes.form} noValidate>
+        <Form onSubmit={onSubmit} subscription={{ submitting: true }} validate={validate}>
+          {({ handleSubmit, submitting }) => (
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Field
                 autoComplete="email"
                 autoFocus
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
-                label="Email"
+                label="이메일"
                 margin="normal"
                 name="email"
                 required
@@ -72,7 +76,7 @@ function SignIn() {
                 required
                 name="password"
                 autoComplete="current-password"
-                label="Password"
+                label="비밀번호"
                 type="password"
                 margin="normal"
               />
@@ -97,13 +101,13 @@ function SignIn() {
             </form>
           )}
         </Form>
-        <Typography align="center">
-          <Link underline="always" href="/premium-themes/onepirate/forgot-password/">
-            Forgot password?
+        <Typography align="right">
+          <Link href="/signUp/" align="center" underline="always">
+              아이디가 없으신가요?
           </Link>
         </Typography>
       </AppForm>
-      <AppFooter />
+      <Footer />
     </React.Fragment>
   );
 }

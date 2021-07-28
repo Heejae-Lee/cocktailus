@@ -6,8 +6,8 @@ const styles = (theme) => ({
     },
     placeholder: toolbarStyles(theme).root,
     toolbar: {
+      backgroundColor: '#28282A',
       justifyContent: 'space-between',
-      marginLeft: theme.spacing(1),
     },
     left: {
       flex: 1,
