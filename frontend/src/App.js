@@ -26,8 +26,7 @@ function App() {
         <Route exact path="/error" component={ErrorNotFound} />
         <Redirect to="/error"/>
       </Switch>
-  </BrowserRouter>
-    
+    </BrowserRouter>
   );
 }
 

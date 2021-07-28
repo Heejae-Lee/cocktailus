@@ -1,4 +1,6 @@
 import React from 'react';
+import clsx from 'clsx';
+
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -7,11 +9,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Grid } from '@material-ui/core';
+
 import useStyles from './styles';
+
 
 export default function ImgMediaCard() {
   const classes = useStyles();
-
+  
   return (
     <Grid item xs={4}>
       <Card className={classes.root}>
@@ -43,9 +47,12 @@ export default function ImgMediaCard() {
             <Typography variant="subtitle2" className={classes.right}>
               {'103 Likes'}
             </Typography>
+            {/* 좋아요 누르면 Icon 컬러 toggle + 유저가 좋아요 눌렀는지 확인해서 color 설정 */}
+            {/* 좋아요 갯수도 +1, -1*/}
             <FavoriteIcon
-              className={'scaleLike'}
-              style={{color:'red'}}>
+              className={clsx('scaleLike')}
+              style={{color:'red'}}
+              >
             </FavoriteIcon>
           </div>
         </CardActions>

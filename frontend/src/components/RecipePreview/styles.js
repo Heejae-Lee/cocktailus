@@ -12,6 +12,9 @@ const useStyles = makeStyles({
     display: 'flex',
     marginBottom: 3,
   },
+  setRed: {
+    color: 'red',
+  },
 });
 
 export default useStyles;
