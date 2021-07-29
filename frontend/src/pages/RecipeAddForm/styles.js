@@ -5,20 +5,25 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    flex: 1,
+    // flex: 1,
     display: 'flex',
     justifyContent: 'center',
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
-    // left:'50%',
     margin: 'auto',
     textAlign: 'center',
   },
   center: {
+    display:'flex',
+    flexDirection: 'column',
+    border: '3px solid #e5e5e5',
+  },
+  flexRow: {
     display: 'flex',
-    justifyContent: 'center',
-    left: '50%',
-    margin: theme.spacing(3),
+    flexDirection: 'row',
+  },
+  mt5: {
+    marginTop: '20px',
   }
 }));
 

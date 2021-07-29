@@ -10,13 +10,11 @@ function AppForm(props) {
   const { children, classes } = props;
 
   return (
-    <div className={classes.root}>
-      <Container maxWidth="sm">
-        <Box mt={7} mb={12}>
-          <Paper className={classes.paper}>{children}</Paper>
-        </Box>
-      </Container>
-    </div>
+    <Container maxWidth="sm">
+      <Box mt={7} mb={5}>
+        <Paper className={classes.paper}>{children}</Paper>
+      </Box>
+    </Container>
   );
 }
 

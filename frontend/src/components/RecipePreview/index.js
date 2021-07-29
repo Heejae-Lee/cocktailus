@@ -19,7 +19,7 @@ export default function ImgMediaCard() {
   return (
     <Grid item xs={4}>
       <Card className={classes.root}>
-        <CardActionArea>
+        <CardActionArea left="50%">
           <CardMedia
             component="img"
             alt="Cocktail-image"

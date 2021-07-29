@@ -6,12 +6,6 @@
 
 > 프로젝트 환경설정
 
-
-
-
-
-
-
 ## 📃네이밍 규칙
 
 ### 1. Commit Message
@@ -127,3 +121,14 @@ Related to: #48, #45
 
 - UPPERCASE
 
+
+
+## 🎨ProtoType
+
+> https://www.figma.com/file/izR0IDEuFe6mNSpEEZ1WoN/material-kit-free?node-id=0%3A1 - Figma(Web용)
+
+
+
+## ✒API 설계
+
+> https://app.swaggerhub.com/apis/lktg/Cocktailer/1.0.0 - SwaggerHub

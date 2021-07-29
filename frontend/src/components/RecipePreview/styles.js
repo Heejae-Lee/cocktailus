@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    // maxWidth: 300,
+    width: "100%",
   },
   between: {
     display: 'flex',
