@@ -13,7 +13,7 @@ import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 //Tabs
 import useStyles from './styles';
 
-export default function ImageUploadCard() {
+export default function InputImageForm() {
   const classes = useStyles();
 
   const [mainState, setMainState] = useState("initial");

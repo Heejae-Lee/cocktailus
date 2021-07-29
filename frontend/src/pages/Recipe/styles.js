@@ -10,13 +10,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
-    
+    // left:'50%',
     margin: 'auto',
     textAlign: 'center',
   },
   center: {
     display: 'flex',
     justifyContent: 'center',
+    left: '50%',
     margin: theme.spacing(3),
   }
 }));

@@ -5,10 +5,10 @@ import blue from "@material-ui/core/colors/blue";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: 'theme.palette.background.paper',
-    width: '500px',
+    width: "500px",
+    height: "350px",
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-end",
   },
   icon: {
     margin: theme.spacing(2)
@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white"
   },
   input: {
-    display: "none"
+    display: "none",
+    width: "500px",
+    height: "350px",
   },
   button: {
     color: blue[900],

@@ -15,8 +15,15 @@ const useStyles = makeStyles((theme) => ({
   },
   center: {
     display:'flex',
-    height : '500px',
-    width: 'auto',
+    flexDirection: 'column',
+    border: '3px solid #e5e5e5',
+  },
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  mt5: {
+    marginTop: '20px',
   }
 }));
 
