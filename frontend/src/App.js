@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp/'
 import Terms from './pages/Terms/'
 import Recipe from './pages/Recipe/'
 import ErrorNotFound from './pages/ErrorNotFound/'
+import RecipeAddForm from './pages/RecipeAddForm';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/Privacy" component={Privacy} />
         <Route exact path="/Terms" component={Terms} />
         <Route exact path="/error" component={ErrorNotFound} />
+        <Route exact path="/recipe/write" component={RecipeAddForm} />
         <Redirect to="/error"/>
       </Switch>
     </BrowserRouter>

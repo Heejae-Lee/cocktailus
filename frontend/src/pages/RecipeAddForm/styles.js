@@ -5,19 +5,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    flex: 1,
+    // flex: 1,
     display: 'flex',
     justifyContent: 'center',
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
-    
     margin: 'auto',
     textAlign: 'center',
   },
   center: {
-    display: 'flex',
-    justifyContent: 'center',
-    margin: theme.spacing(3),
+    display:'flex',
+    height : '500px',
+    width: 'auto',
   }
 }));
 

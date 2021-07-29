@@ -8,9 +8,9 @@ import { Link } from "@material-ui/core";
 import Search from "@material-ui/icons/Search";
 
 // core components
-import Header from "./RecipeHeaderComponents/Header.js";
+import Header from "./RecipeHeaderComponents/Header";
 import CustomInput from "../../components/CustomInput";
-import Button from "./RecipeHeaderComponents/Button.js";
+import Button from "./RecipeHeaderComponents/Button";
 import styles from "./styles";
 
 
@@ -25,21 +25,13 @@ export default function RecipeHeader() {
       leftLinks={
         <List className={classes.list}>
           <ListItem className={classes.listItem}>
-            <Link
-              href="#pablo"
-              className={classes.navLink}
-              onClick={(e) => e.preventDefault()}
-              color="transparent"
-            >
-              Link
-            </Link>
+
           </ListItem>
           <ListItem className={classes.listItem}>
             <Link
               href="#pablo"
               className={classes.navLink}
               onClick={(e) => e.preventDefault()}
-              color="transparent"
             >
               Link
             </Link>
