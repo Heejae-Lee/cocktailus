@@ -5,13 +5,14 @@ import { Field, Form, FormSpy } from 'react-final-form';
 import Link from '@material-ui/core/Link';
 import useStyles from './styles'
 import Typography from '../../components/Typography';
+import AppFooter from '../../layout/Footer/';
+import AppHeader from '../../layout/Header/';
 import AppForm from '../../components/AppForm';
 import { email, required } from '../../common/validation';
 import RFTextField from '../../components/RFTextField';
 import FormButton from '../../components/FormButton/';
 import FormFeedback from '../../components/FormFeedback';
-import Header from '../../layout/Header'
-import Footer from '../../layout/Footer'
+import { userAPI } from "../../utils/axios";
 
 function SignIn() {
   const classes = useStyles();
@@ -37,13 +38,36 @@ function SignIn() {
     // form이 제출되면 회원가입을 더 이상 수정할 수 없도록 함.
     setSent(true);
     console.log(values);
-
+    
     // Backend 함수 완성되면 이후 함수 작성 예정
+    /*
+    async login() {
+      const { email, password } = this.form;
+      if (!email || !password) {
+        this.status = "이메일과 비밀번호를 입력해 주세요";
+        return;
+      }
+      const result = await userAPI.login(email, password);
+      console.log(result);
+      if (result.data.token) {
+        // 토큰을 저장
+        // localStorage에 저장
+        localStorage.setItem("token", result.data.token);
+        this.SET_USER({ id: result.data.id, name: result.data.name });
+        this.SET_LOGIN_MODAL(false);
+
+        // 이제 로그인 정보를 vuex에 저장한다.
+      } else if (result.data.status === "ERROR") {
+        alert("이메일과 비밀번호를 다시 입력해주세요");
+        this.form.email = "";
+        this.form.password = "";
+      }
+    }*/
   };
 
   return (
     <React.Fragment>
-      <Header />
+      <AppHeader />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
@@ -107,7 +131,7 @@ function SignIn() {
           </Link>
         </Typography>
       </AppForm>
-      <Footer />
+      <AppFooter />
     </React.Fragment>
   );
 }
