@@ -3,6 +3,7 @@ package com.iot.cocktailer.service;
 import com.iot.cocktailer.domain.Member;
 import com.iot.cocktailer.repository.JpaMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -20,18 +22,20 @@ import java.util.Set;
 public class MemberService implements UserDetailsService {
     private final JpaMemberRepository jpaMemberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenService jwtTokenService;
 
     @Autowired
-    public MemberService(JpaMemberRepository jpaMemberRepository, PasswordEncoder passwordEncoder){
+    public MemberService(JpaMemberRepository jpaMemberRepository,@Lazy PasswordEncoder passwordEncoder,@Lazy JwtTokenService jwtTokenService){
         this.jpaMemberRepository = jpaMemberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenService = jwtTokenService;
     }
 
     public String createMember(Member member){
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         validateDuplicateMember(member);
         jpaMemberRepository.save(member);
-        return "Success";
+        return jwtTokenService.createToken(member.getName(),new ArrayList<>());
     }
 
     private void validateDuplicateMember(Member member){
