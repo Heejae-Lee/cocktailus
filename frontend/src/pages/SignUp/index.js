@@ -13,6 +13,7 @@ import FormButton from '../../components/FormButton/';
 import FormFeedback from '../../components/FormFeedback';
 import AppFooter from '../../layout/Footer/';
 import AppHeader from '../../layout/Header/';
+import { userAPI } from "../../utils/axios";
 
 function SignUp() {
   const classes = useStyles();
@@ -54,11 +55,25 @@ function SignUp() {
     return errors;
   };
 
+  const resister = async (formData) => {
+    console.log(formData);
+    const result = await userAPI.register(formData);
+    console.log(result);
+  }
+  
   // onSubmit : Form 태그가 제출될 때 실행되는 함수
   const onSubmit = (values) => {
     // form이 제출되면 회원가입을 더 이상 수정할 수 없도록 함.
     setSent(true);
-    console.log(values);
+    //console.log(values);
+    const formData = {
+      email: values.email,
+      name: values.userName,
+      password: values.password,
+    }
+
+    resister(formData);
+    setSent(false);
 
     // Backend 함수 완성되면 이후 함수 작성 예정
   };
