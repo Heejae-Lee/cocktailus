@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import Container from '@material-ui/core/Container';
-import useStyles from './styles'
 import Typography from '../../components/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import useStyles from './styles'
 import clsx from 'clsx';
 
 function Copyright() {

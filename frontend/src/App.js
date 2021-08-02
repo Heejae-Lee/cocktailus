@@ -11,7 +11,8 @@ import Terms from './pages/Terms/'
 import Recipe from './pages/Recipe/'
 import ErrorNotFound from './pages/ErrorNotFound/'
 import RecipeAddForm from './pages/RecipeAddForm';
-
+import NoticePage from './pages/Notice';
+import RecipeDetail from './pages/RecipeDetail'
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Route exact path="/Terms" component={Terms} />
         <Route exact path="/error" component={ErrorNotFound} />
         <Route exact path="/recipe/write" component={RecipeAddForm} />
+        <Route exact path="/recipe/detail" component={RecipeDetail} />
+        <Route exact path="/notice" component={NoticePage} />
         <Redirect to="/error"/>
       </Switch>
     </BrowserRouter>
