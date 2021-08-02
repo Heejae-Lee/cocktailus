@@ -9,6 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Grid } from '@material-ui/core';
+import { NavLink as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 
 import useStyles from './styles';
 
@@ -20,6 +22,9 @@ export default function ImgMediaCard() {
     <Grid item xs={4}>
       <Card className={classes.root}>
         <CardActionArea left="50%">
+          <Link 
+            component={RouterLink}
+            to='/recipe/detail'>
           <CardMedia
             component="img"
             alt="Cocktail-image"
@@ -29,6 +34,7 @@ export default function ImgMediaCard() {
             className='scale'
           />
           {/* 이미지 누르면 Recipe Detail 페이지로 라우터Link 설정하기 */}
+          </Link>
           </CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
