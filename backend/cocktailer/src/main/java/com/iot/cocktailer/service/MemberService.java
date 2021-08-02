@@ -1,5 +1,6 @@
 package com.iot.cocktailer.service;
 
+import com.iot.cocktailer.domain.LoginForm;
 import com.iot.cocktailer.domain.Member;
 import com.iot.cocktailer.repository.JpaMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,19 @@ public class MemberService implements UserDetailsService {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         validateDuplicateMember(member);
         jpaMemberRepository.save(member);
-        return jwtTokenService.createToken(member.getName(),new ArrayList<>());
+        return jwtTokenService.createToken(member.getName(),"Member");
+    }
+
+    public String loginMember(LoginForm loginForm){
+        Optional<Member> optionalMember = jpaMemberRepository.findByName(loginForm.getName());
+        Member member = optionalMember.orElseThrow(()->
+                new UsernameNotFoundException(loginForm.getName())
+            );
+        if(!passwordEncoder.matches(member.getPassword(),loginForm.getPassword())){
+            throw new IllegalStateException("Wrong password");
+        }
+        String jwtToken = jwtTokenService.createToken(member.getName(),member.getRole());
+        return jwtToken;
     }
 
     private void validateDuplicateMember(Member member){
