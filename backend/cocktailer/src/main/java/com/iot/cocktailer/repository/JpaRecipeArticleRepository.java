@@ -19,7 +19,7 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
     }
 
     @Override
-    public List<RecipeArticle> getRecipeArticles() {
+    public List<RecipeArticle> findAllRecipeArticles() {
         return em.createQuery("select recipe from RecipeArticle recipe",RecipeArticle.class)
                 .getResultList();
     }

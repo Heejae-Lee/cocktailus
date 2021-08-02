@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/recipes")
 @CrossOrigin(origins = "*")
@@ -24,6 +26,7 @@ public class RecipeArticleController {
     }
 
     public ResponseEntity getRecipes(){
-        return new ResponseEntity<>(jpaRecipeArticleRepository.getRecipeArticles(), HttpStatus.OK);
+        List<RecipeArticle> recipeArticles = jpaRecipeArticleRepository.findAllRecipeArticles();
+        return new ResponseEntity<>(jpaRecipeArticleRepository.findAllRecipeArticles(), HttpStatus.OK);
     }
 }
