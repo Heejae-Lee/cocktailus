@@ -54,12 +54,6 @@ function SignUp() {
 
     return errors;
   };
-
-  const resister = async (formData) => {
-    console.log(formData);
-    const result = await userAPI.register(formData);
-    console.log(result);
-  }
   
   // onSubmit : Form 태그가 제출될 때 실행되는 함수
   const onSubmit = (values) => {
@@ -71,11 +65,25 @@ function SignUp() {
       name: values.userName,
       password: values.password,
     }
+    
+    const result = userAPI.register(formData);
+    //console.log(result);
 
-    resister(formData);
+    if (result.state === 'success'){
+      const action = {
+        token: result.token,
+        email: values.email,
+        name: "이희재"
+      };
+      console.log(action);
+      // home으로 redirection
+    } else {
+      console.log("login fail!");
+      // modal 창 띄우기
+    }
+    
+    // form 잠금 해제
     setSent(false);
-
-    // Backend 함수 완성되면 이후 함수 작성 예정
   };
 
   return (
