@@ -11,7 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
+@CrossOrigin(origins = "*")
 public class MemberController {
     private final MemberService memberService;
 
@@ -25,10 +26,7 @@ public class MemberController {
         System.out.println(member.getName());
         String result = memberService.createMember(member);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Access-Control-Allow-Origin","*");
-        headers.set("Access-Control-Allow-Credentials","true");
-        return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
 //    @PostMapping("/login")
