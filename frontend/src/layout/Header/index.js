@@ -55,30 +55,30 @@ function AppHeader(props) {
     } else {
       return (
         <div className={classes.right}>
-            <Link
-              component={RouterLink}
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={classes.imageLink}
-              to="/"
-            >
-              <Avatar className={classes.userAvater}>
-                <ImageIcon />
-              </Avatar>
-              {userName}
-            </Link>
-            <Link
-              component={RouterLink}
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={classes.rightLink}
-              onClick={logOut}
-              to="/"
-            >
-              {"로그아웃"}
-            </Link>
+          <Link
+            component={RouterLink}
+            color="inherit"
+            variant="h6"
+            underline="none"
+            className={classes.imageLink}
+            to="/"
+          >
+            <Avatar className={classes.userAvater}>
+              <ImageIcon />
+            </Avatar>
+            {userName}
+          </Link>
+          <Link
+            component={RouterLink}
+            color="inherit"
+            variant="h6"
+            underline="none"
+            className={classes.rightLink}
+            onClick={logOut}
+            to="/"
+          >
+            {"로그아웃"}
+          </Link>
         </div>
       );
     }
@@ -90,20 +90,8 @@ function AppHeader(props) {
         <Toolbar className={classes.toolbar}>
           {/* <div className={classes.left} /> */}
           {/* 최상단 좌측 메뉴 */}
-          {/* 로고, 공지사항, 레시피, 마이레시피 */}
-          <Link
-            component={RouterLink}
-            variant="h6"
-            underline="none"
-            color="inherit"
-            className={classes.imageLink}
-            to="/"
-          >
-            <img
-              className={ classes.logo }
-              src={ process.env.PUBLIC_URL + '/images/cocktailus_logo3.png'}
-            />
-          </Link>
+          {/* 공지사항, 레시피, 마이레시피 */}
+          <div style={{flex: 1}}>
           <Link
             component={RouterLink}
             variant="h6"
@@ -133,6 +121,21 @@ function AppHeader(props) {
             to="/"
           >
             {"MyRecipe"}
+          </Link>
+          </div>
+          {/* 중앙 로고 */}
+          <Link
+            component={RouterLink}
+            variant="h6"
+            underline="none"
+            color="inherit"
+            className={classes.imageLink}
+            to="/"
+          >
+            <img
+              className={classes.logo}
+              src={process.env.PUBLIC_URL + "/images/cocktailus_logo3.png"}
+            />
           </Link>
           {/* 최상단 우측 메뉴 */}
           {/* 로그인 여부에 따라 바뀜 */}
