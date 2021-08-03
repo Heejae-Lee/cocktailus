@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -25,8 +26,10 @@ public class JpaMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> findByName(String name) {
-        Member member = em.find(Member.class,name);
-        return Optional.ofNullable(member);
+    public Optional<Member> findByEmail(String email) {
+        List<Member> member = em.createQuery("select m from Member m where m.email = :email",Member.class)
+                .setParameter("email",email)
+                .getResultList();
+        return member.stream().findAny();
     }
 }

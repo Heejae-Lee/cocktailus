@@ -2,23 +2,23 @@ package com.iot.cocktailer.domain;
 
 public class LoginForm {
 
-    private String name;
+    private String email;
     private String password;
 
     public LoginForm() {
     }
 
-    public LoginForm(String name, String password) {
-        this.name = name;
+    public LoginForm(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
