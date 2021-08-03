@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -36,9 +38,8 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity loginMember(@RequestBody LoginForm loginForm){
-        String jwtToken = memberService.loginMember(loginForm);
-
-        return new ResponseEntity<>(jwtToken, HttpStatus.OK);
+        Map<String,String> resultMap = memberService.loginMember(loginForm);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @ExceptionHandler(IllegalStateException.class)
