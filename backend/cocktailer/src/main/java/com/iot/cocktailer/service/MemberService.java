@@ -44,7 +44,7 @@ public class MemberService implements UserDetailsService {
         Member member = optionalMember.orElseThrow(()->
                 new UsernameNotFoundException(loginForm.getName())
             );
-        if(!passwordEncoder.matches(member.getPassword(),loginForm.getPassword())){
+        if(!passwordEncoder.matches(loginForm.getPassword(),member.getPassword())){
             throw new IllegalStateException("Wrong password");
         }
         String jwtToken = jwtTokenService.createToken(member.getName(),member.getRole());

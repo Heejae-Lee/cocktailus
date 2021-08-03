@@ -45,7 +45,7 @@ public class MemberController {
         String message = e.getMessage();
         switch(message){
             case "Wrong password":
-                return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
             default:
                 return new ResponseEntity<>("Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
