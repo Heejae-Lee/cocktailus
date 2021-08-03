@@ -35,7 +35,7 @@ public class MemberService implements UserDetailsService {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         validateDuplicateMember(member);
         jpaMemberRepository.save(member);
-        return jwtTokenService.createToken(member.getEmail(),"Member");
+        return jwtTokenService.createToken(member);
     }
 
     public String loginMember(LoginForm loginForm){
@@ -46,7 +46,7 @@ public class MemberService implements UserDetailsService {
         if(!passwordEncoder.matches(loginForm.getPassword(),member.getPassword())){
             throw new IllegalStateException("Wrong password");
         }
-        String jwtToken = jwtTokenService.createToken(member.getEmail(),member.getRole());
+        String jwtToken = jwtTokenService.createToken(member);
         return jwtToken;
     }
 

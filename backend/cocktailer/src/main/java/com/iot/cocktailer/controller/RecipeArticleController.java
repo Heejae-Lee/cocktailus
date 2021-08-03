@@ -30,7 +30,7 @@ public class RecipeArticleController {
     }
 
 //    @PostMapping
-//    public ResponseEntity postRecipeArticles(){
+//    public ResponseEntity postRecipeArticles(RecipeArticle recipeArticle){
 //
 //    }
 }

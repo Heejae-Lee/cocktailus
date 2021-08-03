@@ -28,6 +28,7 @@ public class MemberController {
     @PostMapping
     public ResponseEntity createMember(@RequestBody Member member){
         System.out.println(member.getName());
+        member.setRole("Member");
         String result = memberService.createMember(member);
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
