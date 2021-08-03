@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import styles from './styles';
-import Typography from '../Typography/';
+import Typography from '../Typography';
 
-function ProductValues(props) {
+function CocktailusValues(props) {
   const { classes } = props;
 
   return (
@@ -22,48 +22,54 @@ function ProductValues(props) {
             <div className={classes.item}>
               <img
                 className={classes.image}
-                src={process.env.PUBLIC_URL + "images/productValues1.svg"}
+                src={process.env.PUBLIC_URL + "images/cuba-libre.png"}
                 alt="suitcase"
               />
               <Typography variant="h6" className={classes.title}>
-                The best luxury hotels
+                당신을 위한 레시피
               </Typography>
-              <Typography variant="h5">
-                {'From the latest trendy boutique hotel to the iconic palace with XXL pool'}
-                {', go for a mini-vacation just a few subway stops away from your home.'}
-              </Typography>
+              <span style={{fontSize: 16, textAlign: 'center'}}>
+                {`칵테일 만드는 법을 모르세요?`}<br/>
+                {'😎걱정할 필요가 없어요!'}<br/>
+                {'칵테일러스가 당신이 좋아할만한'}<br/>
+                {'칵테일을 추천할게요👍'}
+              </span>
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
               <img
                 className={classes.image}
-                src={process.env.PUBLIC_URL + "images/productValues2.svg"}
-                alt="graph"
+                src={process.env.PUBLIC_URL + "images/coffee-machine.png"}
+                alt="machine"
               />
               <Typography variant="h6" className={classes.title}>
-                New experiences
+                새로운 칵테일 제조방식
               </Typography>
-              <Typography variant="h5">
-                {'Privatize a pool, take a Japanese bath or wake up in 900m2 of garden… '}
-                {'your Sundays will not be alike.'}
-              </Typography>
+              <span style={{fontSize: 16, textAlign: 'center'}}>
+                {`오늘 하루 많이 힘드셨나요?`}<br/>
+                {'😥그런 당신을 위해서'}<br/>
+                {'칵테일러스가 당신이 쉬는동안'}<br/>
+                {'칵테일을 만들어드려요✌'}
+              </span>
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className={classes.item}>
               <img
                 className={classes.image}
-                src={process.env.PUBLIC_URL + "images/productValues3.svg"}
+                src={process.env.PUBLIC_URL + "images/community.png"}
                 alt="clock"
               />
               <Typography variant="h6" className={classes.title}>
-                Exclusive rates
+                모두와 함께하는 레시피
               </Typography>
-              <Typography variant="h5">
-                {'By registering, you will access specially negotiated rates '}
-                {'that you will not find anywhere else.'}
-              </Typography>
+              <span style={{fontSize: 16, textAlign: 'center'}}>
+                {`당신의 칵테일을 나누고 싶진 않나요?`}<br/>
+                {'👏칵테일러스와 함께'}<br/>
+                {'칵테일을 좋아하는 ✨US✨와'}<br/>
+                {'레시피를 공유해봐요👨‍👨‍👧‍👦'}
+              </span>
             </div>
           </Grid>
         </Grid>
@@ -72,8 +78,8 @@ function ProductValues(props) {
   );
 }
 
-ProductValues.propTypes = {
+CocktailusValues.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProductValues);
+export default withStyles(styles)(CocktailusValues);

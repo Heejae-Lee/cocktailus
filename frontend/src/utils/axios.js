@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://1c93aba2d04f.ngrok.io";
+const baseURL = "https://97629c779094.ngrok.io";
 
 // 유저 관련 API 정의
 export const userAPI = {

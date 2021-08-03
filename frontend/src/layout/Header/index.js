@@ -60,7 +60,7 @@ function AppHeader(props) {
               color="inherit"
               variant="h6"
               underline="none"
-              className={classes.user}
+              className={classes.imageLink}
               to="/"
             >
               <Avatar className={classes.userAvater}>
@@ -96,10 +96,13 @@ function AppHeader(props) {
             variant="h6"
             underline="none"
             color="inherit"
-            className={classes.title}
+            className={classes.imageLink}
             to="/"
           >
-            {"COCKTAILER"}
+            <img
+              className={ classes.logo }
+              src={ process.env.PUBLIC_URL + '/images/cocktailus_logo3.png'}
+            />
           </Link>
           <Link
             component={RouterLink}

@@ -1,6 +1,10 @@
 import { styles as toolbarStyles } from '../../components/Toolbar';
 
 const styles = (theme) => ({
+    logo: {
+      width: '140px',
+      height: '170px',
+    },
     title: {
       fontSize: 24,
     },
@@ -29,10 +33,9 @@ const styles = (theme) => ({
     linkSecondary: {
       color: theme.palette.secondary.main,
     },
-    user: {
+    imageLink: {
       fontSize: 16,
       color: theme.palette.common.white,
-      marginLeft: theme.spacing(3),
       display: 'flex',
       alignItems: 'center',
     },
