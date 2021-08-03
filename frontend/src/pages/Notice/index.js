@@ -1,7 +1,7 @@
 import withRoot from '../../components/withRoot';
 import { withStyles } from '@material-ui/core/styles';
 
-import React from 'react';
+import React, { Fragment,useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,14 +10,22 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import { purple } from '@material-ui/core/colors';
+
+// npm i material-ui-search-bar
+import SearchBar from "material-ui-search-bar";
+
+import { NavLink as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 
 import AppHeader from '../../layout/Header';
 import AppFooter from '../../layout/Footer';
 import useStyles from './styles';
 import Typography from '../../components/Typography';
 import AppForm from '../../components/AppForm';
-import Button from '@material-ui/core/Button';
 
+// 테이블 타이틀 셀
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#F0F0F0',
@@ -28,6 +36,16 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
+// 버튼 커스텀
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
 
 const columns = [
   { id: 'id', label: '글 번호', minWidth: 30 },
@@ -46,34 +64,39 @@ const columns = [
   },
 ];
 
-function createData(id, title, name, created) {
-  return { id, title, name, created };
+function createData(id, title, name, created, auth) {
+  return { id, title, name, created, auth };
 }
 
-const rows = [
-  createData(1,'내가 바로 칵테일메이커', '칵테일러스', '2021.07.28'),
-  createData(2,'내가 바로 칵테일메이커2', '칵테일러스', '2021.07.28'),
-  createData(3,'내가 바로 칵테일메이커3', '칵테일러스', '2021.07.28'),
-  createData(4,'내가 바로 칵테일메이커4', '칵테일러스', '2021.07.28'),
-  createData(5,'내가 바로 칵테일메이커5', '칵테일러스', '2021.07.28'),
-  createData(6,'내가 바로 칵테일메이커6', '칵테일러스', '2021.07.28'),
-  createData(7,'내가 바로 칵테일메이커7', '칵테일러스', '2021.07.27'),
-  createData(8,'내가 바로 칵테일메이커8', '칵테일러스', '2021.07.26'),
-  createData(9,'내가 바로 칵테일메이커9', '칵테일러스', '2021.07.25'),
-  createData(10,'내가 바로 칵테일메이커10', '칵테일러스', '2021.07.25'),
-  createData(11,'내가 바로 칵테일메이커11', '칵테일러스', '2021.07.24'),
-  createData(12,'내가 바로 칵테일메이커12', '칵테일러스', '2021.07.24'),
-  createData(13,'내가 바로 칵테일메이커13', '칵테일러스', '2021.07.24'),
-  createData(14,'내가 바로 칵테일메이커14', '칵테일러스', '2021.07.24'),
-  createData(15,'내가 바로 칵테일메이커15', '칵테일러스', '2021.07.24'),
-  createData(16,'내가 바로 칵테일메이커16', '칵테일러스', '2021.07.24'),
+const data = [
+  createData(1,'내가 바로 칵테일메이커', '칵테일러스', '2021.07.28',0),
+  createData(2,'내가 바로 칵테일메이커2', '칵테일러스', '2021.07.28',0),
+  createData(3,'내가 바로 칵테일메이커3', '칵테일러스', '2021.07.28',1),
+  createData(4,'내가 바로 칵테일메이커4', '칵테일러스', '2021.07.28',1),
+  createData(5,'내가 바로 칵테일메이커5', '칵테일러스', '2021.07.28',1),
+  createData(6,'내가 바로 칵테일메이커6', '칵테일러스', '2021.07.28',1),
+  createData(7,'내가 바로 칵테일메이커7', '칵테일러스', '2021.07.27',1),
+  createData(8,'내가 바로 칵테일메이커8', '칵테일러스', '2021.07.26',1),
+  createData(9,'내가 바로 칵테일메이커9', '칵테일러스', '2021.07.25',1),
+  createData(10,'내가 바로 칵테일메이커10', '칵테일러스', '2021.07.25',1),
+  createData(11,'내가 바로 칵테일메이커11', '칵테일러스', '2021.07.24',1),
+  createData(12,'내가 바로 칵테일메이커12', '칵테일러스', '2021.07.24',1),
+  createData(13,'내가 바로 칵테일메이커13', '칵테일러스', '2021.07.24',1),
+  createData(14,'내가 바로 칵테일메이커14', '칵테일러스', '2021.07.24',1),
+  createData(15,'내가 바로 칵테일메이커15', '칵테일러스', '2021.07.24',1),
+  createData(16,'내가 바로 칵테일메이커16', '칵테일러스', '2021.07.24',1),
 ];
+
+
 
 
 function NoticePage() {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10); // 한번에 보여줄 행 수
+  const [searched, setSearched] = useState(""); // 검색어
+  const [rows, setRows] = useState(data); // 행 데이터
+  // const [filteredData, setFilteredData] = useState(null); // 행 데이터
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -84,8 +107,32 @@ function NoticePage() {
     setPage(0);
   };
 
+  const requestSearch = (searchedVal) => {
+    const filteredRows = data.filter((row) => {
+      return row.title.includes(searchedVal);
+    });
+    setRows(filteredRows);
+    // setFilteredData(filteredRows);
+  };
+  // const handleKeyPress = (event) => {
+  //   if (event.key === 'Enter') {
+  //     runSearch();
+  //   }
+  // };
+
+  // const runSearch = (event) => {
+  //   setRows(filteredData);
+  // };
+
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch(searched);
+  };
+
+
+
   return (
-    <React.Fragment>
+    <Fragment>
     <AppHeader />
 
     <Paper className={classes.root}>
@@ -98,13 +145,13 @@ function NoticePage() {
           </Typography>
         </AppForm>
       {/* 관리자 권한이 있으면 */}
-      <Button
+      <ColorButton
           // component={RouterLink}
-          variant="outlined" color="primary" to="/recipe/write"
+          variant="" color="primary" to="/recipe/write"
           className={classes.right}
           >
           글 작성
-      </Button>
+      </ColorButton>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead aria-label="customized table">
@@ -128,7 +175,11 @@ function NoticePage() {
                     const value = row[column.id];
                     return (
                       <StyledTableCell key={column.id} align={column.align}>
+                        <Link
+                        component={RouterLink}
+                        to="/">
                         {column.format && typeof value === 'number' ? column.format(value) : value}
+                        </Link>
                       </StyledTableCell>
                     );
                   })}
@@ -137,6 +188,15 @@ function NoticePage() {
             })}
           </TableBody>
         </Table>
+        <br></br>
+        <SearchBar
+          className={classes.searchBar}
+          placeholder="제목을 입력하세요"
+          value={searched}
+          onChange={(searchVal) => requestSearch(searchVal)}
+          onCancelSearch={() => cancelSearch()}
+          // onKeyPress={handleKeyPress}
+        />
       </TableContainer>
     
       <TablePagination
@@ -149,9 +209,10 @@ function NoticePage() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
     </Paper>
     <AppFooter />
-    </React.Fragment>
+    </Fragment>
   );
 }
 

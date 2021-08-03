@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#9C27B4',
     color: 'white',
     marginRight: '40px',
+  },
+  searchBar: {
+    marginLeft: '13%',
+    marginRight: '13%',
   }
 }));
 
