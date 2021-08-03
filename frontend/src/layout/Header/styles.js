@@ -11,7 +11,7 @@ const styles = (theme) => ({
     placeholder: toolbarStyles(theme).root,
     toolbar: {
       backgroundColor: '#28282A',
-      justifyContent: 'space-between',
+      display: 'flex',
     },
     left: {
       flex: 1,
@@ -36,8 +36,7 @@ const styles = (theme) => ({
     imageLink: {
       fontSize: 16,
       color: theme.palette.common.white,
-      display: 'flex',
-      alignItems: 'center',
+      position: 'relative',
     },
     userAvater: {
       width: 36,
