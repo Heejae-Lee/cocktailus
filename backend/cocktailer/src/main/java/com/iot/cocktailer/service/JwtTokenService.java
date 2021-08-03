@@ -1,6 +1,5 @@
 package com.iot.cocktailer.service;
 
-import com.iot.cocktailer.domain.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -37,9 +36,9 @@ public class JwtTokenService {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(Member member){
-        Claims claims = Jwts.claims().setSubject(member.getEmail());
-        claims.put("role",member.getRole());
+    public String createToken(String PK, String role){
+        Claims claims = Jwts.claims().setSubject(PK);
+        claims.put("role",role);
 
         Date now = new Date();
         String jwtToken = Jwts.builder()
