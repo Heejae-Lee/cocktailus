@@ -23,11 +23,4 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
         return em.createQuery("select recipe from RecipeArticle recipe",RecipeArticle.class)
                 .getResultList();
     }
-
-    @Override
-    public RecipeArticle save(RecipeArticle recipeArticle) {
-        em.persist(recipeArticle);
-        return recipeArticle;
-    }
-
 }
