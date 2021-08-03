@@ -68,7 +68,7 @@ public class MemberService implements UserDetailsService {
         );
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("Member"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_Member"));
         return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
 }
