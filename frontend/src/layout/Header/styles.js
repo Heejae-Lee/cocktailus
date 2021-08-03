@@ -1,6 +1,10 @@
 import { styles as toolbarStyles } from '../../components/Toolbar';
 
 const styles = (theme) => ({
+    logo: {
+      width: '140px',
+      height: '170px',
+    },
     title: {
       fontSize: 24,
     },
@@ -19,6 +23,7 @@ const styles = (theme) => ({
       flex: 1,
       display: 'flex',
       justifyContent: 'flex-end',
+      alignItems: 'center',
     },
     rightLink: {
       fontSize: 16,
@@ -28,6 +33,17 @@ const styles = (theme) => ({
     linkSecondary: {
       color: theme.palette.secondary.main,
     },
+    imageLink: {
+      fontSize: 16,
+      color: theme.palette.common.white,
+      display: 'flex',
+      alignItems: 'center',
+    },
+    userAvater: {
+      width: 36,
+      height: 36,
+      marginRight: theme.spacing(1),
+    }
 });
 
 export default styles;
