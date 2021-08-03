@@ -7,10 +7,10 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 public class Member {
 
-    @Id
     @NotEmpty
     private String name;
 
+    @Id
     @NotEmpty
     private String email;
 
