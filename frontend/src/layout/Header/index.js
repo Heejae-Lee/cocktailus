@@ -31,7 +31,7 @@ function AppHeader(props) {
             underline="none"
             color="inherit"
             className={classes.rightLink}
-            to="/"
+            to="/notice"
           >
             {'공지사항'}
           </Link>

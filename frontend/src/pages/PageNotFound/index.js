@@ -11,7 +11,7 @@ function PageNotFound() {
   return (
     <React.Fragment>
       <AppHeader />
-        <h1>404 not found error 😥</h1>
+        <h1 className={classes.root}>404 not found error 😥</h1>
       <AppFooter />
     </React.Fragment>
   );
