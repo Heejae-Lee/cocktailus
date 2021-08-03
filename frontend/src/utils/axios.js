@@ -1,45 +1,46 @@
 import axios from "axios";
 
-const request = axios.create({
-    baseURL: "https://aff7e636cd84.ngrok.io"
-});
+const baseURL = "https://1c93aba2d04f.ngrok.io";
 
 // 유저 관련 API 정의
 export const userAPI = {
-    // 회원가입
-    /*
-    register: (name, email, password, role = 'user') =>{
-        return request.post("/member", {
-            name: name,
-            email: email,
-            pssword: password,
-            role: role
-        })
-    },*/
-    register: function (context, credentials) {
-      axios({
-        url: "https://aff7e636cd84.ngrok.io/members",
-        method: 'post',
-        data: credentials,
-        },
-        {withCredentials: true }
-      )
-      .then(() => {
-        console.log("success");
+  // 회원가입
+  register: function (credentials) {
+    return axios({
+      url: baseURL + "/members",
+      method: "post",
+      data: credentials,
+    })
+      .then((res) => {
+        console.log("register success");
+        //console.log(res);
+        return res;
       })
       .catch((err) => {
-        console.log("fail");
-        console.log(err);
+        console.log("register fail");
+        //console.log(err);
+        return err;
+      });
+  },
+  // 로그인
+  login: (credentials) => {
+    return axios({
+      url: baseURL + "/members/login",
+      method: "post",
+      data: credentials,
+    })
+      .then((res) => {
+        console.log("login success!");
+        //console.log(res);
+        return res;
       })
-    },
-    // 로그인
-    login: (email, password) =>{
-        return request.post("/member", {
-            email,
-            password
-        })
-    },
-    /*
+      .catch((err) => {
+        console.log("login fail");
+        //console.log(err);
+        return err;
+      });
+  },
+  /*
     getUserInfo: (id) =>{
       return request.get(`/user/${id}`, {
         headers: {
@@ -77,7 +78,7 @@ export const userAPI = {
         
     }
     */
-}
+};
 /*
 // recipe 관련 API 정의
 export const recipeAPI = {

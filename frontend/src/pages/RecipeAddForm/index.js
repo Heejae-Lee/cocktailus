@@ -3,7 +3,7 @@ import withRoot from '../../components/withRoot';
 import React from 'react';
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
-import { Container, Grid } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
 import Typography from '../../components/Typography';
