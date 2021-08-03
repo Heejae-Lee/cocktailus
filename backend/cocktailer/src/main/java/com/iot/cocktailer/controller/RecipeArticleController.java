@@ -29,8 +29,8 @@ public class RecipeArticleController {
         return new ResponseEntity<>(jpaRecipeArticleRepository.findAllRecipeArticles(), HttpStatus.OK);
     }
 
-//    @PostMapping
-//    public ResponseEntity postRecipeArticles(RecipeArticle recipeArticle){
-//
-//    }
+    @PostMapping
+    public ResponseEntity postRecipeArticles(@RequestBody RecipeArticle recipeArticle){
+        return new ResponseEntity<>(jpaRecipeArticleRepository.save(recipeArticle),HttpStatus.CREATED);
+    }
 }
