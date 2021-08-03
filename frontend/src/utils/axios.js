@@ -1,28 +1,16 @@
 import axios from "axios";
 
-const request = axios.create({
-    baseURL: "https://aff7e636cd84.ngrok.io"
-});
+const baseURL = "https://aff7e636cd84.ngrok.io";
 
 // 유저 관련 API 정의
 export const userAPI = {
     // 회원가입
-    /*
-    register: (name, email, password, role = 'user') =>{
-        return request.post("/member", {
-            name: name,
-            email: email,
-            pssword: password,
-            role: role
-        })
-    },*/
-    register: function (context, credentials) {
+    register: function (credentials) {
       axios({
-        url: "https://aff7e636cd84.ngrok.io/members",
+        url: baseURL + "/members",
         method: 'post',
         data: credentials,
-        },
-        {withCredentials: true }
+        }
       )
       .then(() => {
         console.log("success");
@@ -33,11 +21,20 @@ export const userAPI = {
       })
     },
     // 로그인
-    login: (email, password) =>{
-        return request.post("/member", {
-            email,
-            password
-        })
+    login: (credentials) =>{
+      axios({
+        url: baseURL + "/members/login",
+        method: 'post',
+        data: credentials,
+        }
+      )
+      .then(() => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("fail");
+        console.log(err);
+      })
     },
     /*
     getUserInfo: (id) =>{

@@ -3,10 +3,10 @@ import withRoot from '../../components/withRoot';
 import React from 'react';
 import AppFooter from '../../layout/Footer';
 import AppHeader from '../../layout/Header';
-import useStyles from './styles';
+//import useStyles from './styles';
 
-function ErrorNotFound() {
-  const classes = useStyles();
+function PageNotFound() {
+  //const classes = useStyles();
 
   return (
     <React.Fragment>
@@ -17,4 +17,4 @@ function ErrorNotFound() {
   );
 }
 
-export default withRoot(ErrorNotFound);
+export default withRoot(PageNotFound);

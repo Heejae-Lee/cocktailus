@@ -14,9 +14,14 @@ import FormButton from '../../components/FormButton/';
 import FormFeedback from '../../components/FormFeedback';
 import { userAPI } from "../../utils/axios";
 
+import { useDispatch } from 'react-redux'
+import { getToken, getMemberInfo } from '../../app/reducer'
+
 function SignIn() {
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
+
+  const Dispatch = useDispatch();
 
   // 회원가입 폼에서 입력의 유효성을 확인하기 위한 함수
   // ex) 이메일 형식, 닉네임, 비밀번호 길이 등등...
@@ -35,34 +40,34 @@ function SignIn() {
 
   // onSubmit : Form 태그가 제출될 때 실행되는 함수
   const onSubmit = (values) => {
-    // form이 제출되면 회원가입을 더 이상 수정할 수 없도록 함.
+    // form이 제출되면 로그인을 더 이상 수정할 수 없도록 함.
     setSent(true);
-    console.log(values);
-    
-    // Backend 함수 완성되면 이후 함수 작성 예정
-    /*
-    async login() {
-      const { email, password } = this.form;
-      if (!email || !password) {
-        this.status = "이메일과 비밀번호를 입력해 주세요";
-        return;
-      }
-      const result = await userAPI.login(email, password);
-      console.log(result);
-      if (result.data.token) {
-        // 토큰을 저장
-        // localStorage에 저장
-        localStorage.setItem("token", result.data.token);
-        this.SET_USER({ id: result.data.id, name: result.data.name });
-        this.SET_LOGIN_MODAL(false);
 
-        // 이제 로그인 정보를 vuex에 저장한다.
-      } else if (result.data.status === "ERROR") {
-        alert("이메일과 비밀번호를 다시 입력해주세요");
-        this.form.email = "";
-        this.form.password = "";
-      }
-    }*/
+    const formData = {
+      email: values.email,
+      password: values.password,
+    };
+
+    const result = userAPI.login(formData);
+    //console.log(result);
+
+    if (result.state === 'success'){
+      const action = {
+        token: result.token,
+        email: values.email,
+        name: "이희재"
+      };
+      console.log(action);
+      Dispatch(getToken(action));
+      Dispatch(getMemberInfo(action));
+      // home으로 redirection
+    } else {
+      console.log("login fail!");
+      // modal 창 띄우기
+    }
+    
+    // form 잠금 해제
+    setSent(false);
   };
 
   return (
