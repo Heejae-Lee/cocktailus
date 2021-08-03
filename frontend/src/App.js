@@ -12,9 +12,8 @@ import Recipe from './pages/Recipe/'
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeAddForm from './pages/RecipeAddForm';
 import NoticePage from './pages/Notice';
-import RecipeDetail from './pages/RecipeDetail'
-import PageNotFound from './pages/PageNotFound'
-import WriteNotice from './pages/WriteNotice'
+import PageNotFound from './pages/PageNotFound';
+import WriteNotice from './pages/WriteNotice';
 
 function App() {
   return (
@@ -29,9 +28,7 @@ function App() {
         <Route exact path="/SignIn" component={SignIn} />
         <Route exact path="/Privacy" component={Privacy} />
         <Route exact path="/Terms" component={Terms} />
-        <Route exact path="/error" component={ErrorNotFound} />
         <Route exact path="/recipe/write" component={RecipeAddForm} />
-        <Route exact path="/recipe/detail" component={RecipeDetail} />
         <Route exact path="/notice" component={NoticePage} />
         <Route exact path="/error" component={PageNotFound} />
         <Route exact path="/notice/write" component={WriteNotice} />
