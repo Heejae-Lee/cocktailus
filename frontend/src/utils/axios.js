@@ -1,42 +1,46 @@
 import axios from "axios";
 
-const baseURL = "https://b49f8e996fe3.ngrok.io";
+const baseURL = "https://97629c779094.ngrok.io";
 
 // 유저 관련 API 정의
 export const userAPI = {
-    // 회원가입
-    register: function (credentials) {
-      axios({
-        url: baseURL + "/members",
-        method: 'post',
-        data: credentials,
-        }
-      )
-      .then(() => {
-        console.log("success");
+  // 회원가입
+  register: function (credentials) {
+    return axios({
+      url: baseURL + "/members",
+      method: "post",
+      data: credentials,
+    })
+      .then((res) => {
+        console.log("register success");
+        //console.log(res);
+        return res;
       })
       .catch((err) => {
-        console.log("fail");
-        console.log(err);
-      })
-    },
-    // 로그인
-    login: (credentials) =>{
-      axios({
-        url: baseURL + "/members/login",
-        method: 'post',
-        data: credentials,
-        }
-      )
-      .then(() => {
-        console.log("success");
+        console.log("register fail");
+        //console.log(err);
+        return err;
+      });
+  },
+  // 로그인
+  login: (credentials) => {
+    return axios({
+      url: baseURL + "/members/login",
+      method: "post",
+      data: credentials,
+    })
+      .then((res) => {
+        console.log("login success!");
+        //console.log(res);
+        return res;
       })
       .catch((err) => {
-        console.log("fail");
-        console.log(err);
-      })
-    },
-    /*
+        console.log("login fail");
+        //console.log(err);
+        return err;
+      });
+  },
+  /*
     getUserInfo: (id) =>{
       return request.get(`/user/${id}`, {
         headers: {

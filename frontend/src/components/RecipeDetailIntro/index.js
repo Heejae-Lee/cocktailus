@@ -26,7 +26,7 @@ export default function RecipeDetailIntro(props) {
       for (let i = 0; i < props.num; i++) {
         iterImg.push(
           <img
-            src={process.env.PUBLIC_URL + "images/tequila.png"}
+            src={process.env.PUBLIC_URL + "/images/tequila.png"}
             style={{ width: 50, height: 50 }}
             alt="비율"
           />
@@ -73,7 +73,7 @@ export default function RecipeDetailIntro(props) {
               <img
                 className={classes.img}
                 alt="cocktailImg"
-                src={process.env.PUBLIC_URL + "images/cocktail.png"}
+                src={process.env.PUBLIC_URL + "/images/cocktail.png"}
               />
             </ButtonBase>
           </Grid>
@@ -105,7 +105,7 @@ export default function RecipeDetailIntro(props) {
                   <Typography variant="button">세계음료마스터</Typography>
                   <img
                     className={classes.likeImg}
-                    src={process.env.PUBLIC_URL + "images/" + likeImg}
+                    src={process.env.PUBLIC_URL + "/images/" + likeImg}
                     alt="칵테일 이미지"
                     onClick={clickLike}
                   />

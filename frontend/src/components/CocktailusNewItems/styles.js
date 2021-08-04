@@ -19,18 +19,8 @@ const styles = (theme) => ({
       padding: theme.spacing(0, 5),
     },
     title: {
-      marginBottom: theme.spacing(14),
-    },
-    number: {
-      fontSize: 24,
-      fontFamily: theme.typography.fontFamily,
-      color: theme.palette.secondary.main,
-      fontWeight: theme.typography.fontWeightMedium,
-    },
-    image: {
-      height: 55,
-      marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(4),
+      marginLeft: theme.spacing(5),
+      marginBottom: theme.spacing(5),
     },
     curvyLines: {
       pointerEvents: 'none',
@@ -38,9 +28,16 @@ const styles = (theme) => ({
       top: -180,
       opacity: 0.7,
     },
-    button: {
-      marginTop: theme.spacing(8),
+    btn: {
+      position: 'absolute',
+      height: '44px',
+      borderRadius: '8px',
+      top: 40,
+      right: 0
     },
+    grid: {
+      marginTop: theme.spacing(1)
+    }
 });
 
 export default styles;

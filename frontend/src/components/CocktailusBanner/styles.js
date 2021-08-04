@@ -1,5 +1,5 @@
 const backgroundImage =
-  'https://images.unsplash.com/photo-1534854638093-bada1813ca19?auto=format&fit=crop&w=1400&q=80';
+  'https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1400&q=80';
 
 const styles = (theme) => ({
     background: {
@@ -12,9 +12,9 @@ const styles = (theme) => ({
     },
     h5: {
       marginBottom: theme.spacing(4),
-      marginTop: theme.spacing(4),
+      marginTop: theme.spacing(2),
       [theme.breakpoints.up('sm')]: {
-        marginTop: theme.spacing(10),
+        marginTop: theme.spacing(6),
       },
     },
     more: {
