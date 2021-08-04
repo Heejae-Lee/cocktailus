@@ -43,7 +43,7 @@ class CocktailerApplicationTests {
 		String result = memberService.createMember(member);
 
 		// then
-		Assertions.assertThat(result.equals(jwtTokenService.createToken("test123456",new ArrayList<>())));
+		Assertions.assertThat(result.equals(jwtTokenService.createToken(member)));
 
 	}
 

@@ -48,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .authorizeRequests()
-                .antMatchers("/recipes/**").hasAnyRole()
-                .antMatchers("/notices/**").hasAnyRole()
+                .antMatchers("/recipe-articles/**").hasRole("Member")
+                .antMatchers("/notices/**").hasRole("Member")
                 .anyRequest().permitAll()
             .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenService),
