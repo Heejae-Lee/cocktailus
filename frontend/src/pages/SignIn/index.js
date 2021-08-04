@@ -49,22 +49,22 @@ function SignIn() {
     };
 
     const result = userAPI.login(formData);
-    //console.log(result);
-
-    if (result.state === 'success'){
-      const action = {
-        token: result.token,
-        email: values.email,
-        name: "이희재"
-      };
-      console.log(action);
-      Dispatch(getToken(action));
-      Dispatch(getMemberInfo(action));
-      // home으로 redirection
-    } else {
-      console.log("login fail!");
-      // modal 창 띄우기
-    }
+    // console.log(result);
+    
+    // if (result.state === 'success'){
+    //   const action = {
+    //     token: result.token,
+    //     email: values.email,
+    //     name: "이희재"
+    //   };
+    //   console.log(action);
+    //   Dispatch(getToken(action));
+    //   Dispatch(getMemberInfo(action));
+    //   // home으로 redirection
+    // } else {
+    //   console.log("login fail!");
+    //   // modal 창 띄우기
+    // }
     
     // form 잠금 해제
     setSent(false);

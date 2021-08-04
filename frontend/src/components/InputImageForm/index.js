@@ -1,5 +1,5 @@
 // imports the React Javascript Library
-import React, {useState} from "react";
+import React from "react";
 //Card
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -14,27 +14,6 @@ import useStyles from './styles';
 
 export default function InputImageForm(props) {
   const classes = useStyles();
-
-  // const [mainState, setMainState] = useState("initial");
-  // const [imageUploaded, setImageUploaded] = useState(0);
-  // const [selectedFile, setSelectedFile] = useState(null);
-
-  // function handleUploadClick(event) { // upload 클릭시 uploaded 상태
-  //   console.log();
-  //   var file = event.target.files[0];
-  //   const reader = new FileReader();
-  //   var url = reader.readAsDataURL(file);
-
-  //   reader.onloadend = function(e) {
-  //     setSelectedFile([reader.result])
-  //   };
-  //   console.log(url);
-
-  //   setMainState("uploaded");
-  //   setSelectedFile(event.target.files[0]);
-  //   setImageUploaded(1);
-  // };
-
   
   function RenderInitialState() { // 초기상태
     const classes = useStyles();
@@ -78,13 +57,6 @@ export default function InputImageForm(props) {
       </React.Fragment>
     );
   }
-
-  // function imageResetHandler() { // 이미지 제거, 초기상태로 변경
-  //   // console.log("Click!");
-  //   setMainState("initial");
-  //   setSelectedFile(null);
-  //   setImageUploaded(0);
-  // };
 
   return (
     <div className={classes.root}>

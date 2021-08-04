@@ -25,13 +25,23 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    padding: '15px',
-    marginLeft: '4%'
+    flexDirection: 'column',
+    padding: '10px',
+    marginLeft: '5%',
+    width: '100%',
   },
-  textField: {
+  inputText: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+    width: '85%',
+  },
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
   },
 }));
 

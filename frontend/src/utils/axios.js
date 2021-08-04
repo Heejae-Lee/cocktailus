@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://aff7e636cd84.ngrok.io";
+const baseURL = "https://b49f8e996fe3.ngrok.io";
 
 // 유저 관련 API 정의
 export const userAPI = {
@@ -75,26 +75,26 @@ export const userAPI = {
     }
     */
 }
-/*
+
 // recipe 관련 API 정의
 export const recipeAPI = {
-    // header에 authorization이 필요하다
-    // 게시글 작성
-    post: (formData) => {
-      return request.post("/recipe", formData, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    },
-    // 게시글 가져오기
-    get: (search) => {
-      return request.get("/recipe", {
-        params: {
-          search: search,
-        },
-      });
-    },
-  };
-  */
+  saveRecipe: (data) => {
+    console.log(data)
+    axios({
+      url: baseURL + "/recipe-articles",
+      method: 'post',
+      data: data,
+      }
+    )
+    .then(() => {
+      console.log("Upload Recipe Success");
+      // 성공하면 작성 게시글로 이동 => router추가
+    })
+    .catch((err) => {
+      console.log("Upload failed");
+      console.log(err);
+      alert(err); // 모달창으로 경고표시
+    })
+  }
+
+};
