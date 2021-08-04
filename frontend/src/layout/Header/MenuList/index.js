@@ -14,17 +14,28 @@ import LocalBarIcon from '@material-ui/icons/LocalBar';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 // 기능 관련
+import { useSelector, useDispatch } from 'react-redux';
+import { refreshMemberInfo } from '../../../app/reducer';
 import { useHistory } from "react-router";
 
 export default function MenuList() {
   const classes = useStyles();
+  const { userName } = useSelector((state) => state.member);
+  const Dispatch = useDispatch();
   const history = useHistory();
 
-  return (
-    <div className={clsx(classes.list)}>
-      <List>
+  const logOut = () => {
+    // 데이터 초기화
+    Dispatch(refreshMemberInfo());
+    // modal 창을 띄울 예정
+    alert("로그아웃\n(이후 모달창으로 교체 예정)");
+  };
+  
+  const alreadyLoggedIn = () => {
+    if (userName === null){
+      return (
+        <List>
         <ListItem button key={"SignIn"} onClick={() => history.push("/SignIn")}>
           <ListItemIcon>
             <EmojiPeopleIcon />
@@ -38,6 +49,29 @@ export default function MenuList() {
           <ListItemText primary={"회원가입"} />
         </ListItem>
       </List>
+      )
+    } else {
+      return (
+      <List>
+        <ListItem button key={"SignIn"} onClick={() => alert("유저 버튼 왜 눌러요")}>
+          <ListItemIcon>
+            <EmojiPeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary={userName} />
+        </ListItem>
+        <ListItem button key={"SignUp"} onClick={logOut}>
+          <ListItemIcon>
+            <AssignmentIndIcon />
+          </ListItemIcon>
+          <ListItemText primary={"로그아웃"} />
+        </ListItem>
+      </List>)
+    }
+  }
+
+  return (
+    <div className={clsx(classes.list)}>
+      {alreadyLoggedIn()}
       <Divider />
       <List>
         <ListItem
