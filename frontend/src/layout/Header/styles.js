@@ -8,10 +8,14 @@ const styles = (theme) => ({
     title: {
       fontSize: 24,
     },
+    hamburger: {
+      cursor: 'pointer',
+    },
     placeholder: toolbarStyles(theme).root,
     toolbar: {
       backgroundColor: '#28282A',
       display: 'flex',
+      justifyContent: 'space-between',
     },
     left: {
       flex: 1,

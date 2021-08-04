@@ -6,19 +6,43 @@ import styles from "./styles";
 import React from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import Drawer from "@material-ui/core/Drawer";
+import MenuIcon from "@material-ui/icons/Menu";
 import AppBar from "./AppBar/";
 import Toolbar from "../../components/Toolbar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
+import MenuList from "./MenuList/";
 // 기능 관련
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 import PropTypes from "prop-types";
 import { refreshMemberInfo } from "../../app/reducer";
 
 function AppHeader(props) {
   const { classes } = props;
   const { userName } = useSelector((state) => state.member);
+  const [state, setState] = React.useState({
+    leftMenu: false,
+  });
   const Dispatch = useDispatch();
+
+  const isPc = useMediaQuery({
+    query: "(min-width:768px)",
+  });
+  const isMobile = useMediaQuery({
+    query: "(max-width:767px)",
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setState({ ...state, [anchor]: open });
+  };
 
   const logOut = () => {
     // 데이터 초기화
@@ -88,41 +112,57 @@ function AppHeader(props) {
     <div>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
-          {/* <div className={classes.left} /> */}
           {/* 최상단 좌측 메뉴 */}
-          {/* 공지사항, 레시피, 마이레시피 */}
-          <div style={{flex: 1}}>
-          <Link
-            component={RouterLink}
-            variant="h6"
-            underline="none"
-            color="inherit"
-            className={classes.rightLink}
-            to="/notice"
-          >
-            {"공지사항"}
-          </Link>
-          <Link
-            component={RouterLink}
-            variant="h6"
-            underline="none"
-            color="inherit"
-            className={classes.rightLink}
-            to="/recipe"
-          >
-            {"Recipe"}
-          </Link>
-          <Link
-            component={RouterLink}
-            variant="h6"
-            underline="none"
-            color="inherit"
-            className={classes.rightLink}
-            to="/"
-          >
-            {"MyRecipe"}
-          </Link>
-          </div>
+          {/* 공지사항, 레시피, 마이레시피 (PC 버전) */}
+          {isPc && (
+            <div style={{ flex: 1 }}>
+              <Link
+                component={RouterLink}
+                variant="h6"
+                underline="none"
+                color="inherit"
+                className={classes.rightLink}
+                to="/notice"
+              >
+                {"공지사항"}
+              </Link>
+              <Link
+                component={RouterLink}
+                variant="h6"
+                underline="none"
+                color="inherit"
+                className={classes.rightLink}
+                to="/recipe"
+              >
+                {"Recipe"}
+              </Link>
+              <Link
+                component={RouterLink}
+                variant="h6"
+                underline="none"
+                color="inherit"
+                className={classes.rightLink}
+                to="/"
+              >
+                {"MyRecipe"}
+              </Link>
+            </div>
+          )}
+          {/* 햄버거 메뉴 버튼 (mobile 버전) */}
+          {isMobile && (
+            <div>
+              <MenuIcon
+                className={clsx("scaleLike", classes.hamburger)}
+                onClick={toggleDrawer("left", true)}
+                fontSize={"large"}
+              />
+              <Drawer
+                anchor={"left"}
+                open={state["left"]}
+                onClose={toggleDrawer("left", false)}
+              ><MenuList /></Drawer>
+            </div>
+          )}
           {/* 중앙 로고 */}
           <Link
             component={RouterLink}
@@ -140,7 +180,7 @@ function AppHeader(props) {
           {/* 최상단 우측 메뉴 */}
           {/* 로그인 여부에 따라 바뀜 */}
           {/* 로그인 회원가입 혹은 사용자 정보 */}
-          {alreadyLoggedIn()}
+          {isPc && alreadyLoggedIn()}
         </Toolbar>
       </AppBar>
       <div className={classes.placeholder} />
