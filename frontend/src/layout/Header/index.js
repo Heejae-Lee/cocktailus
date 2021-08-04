@@ -87,10 +87,7 @@ function AppHeader(props) {
             className={classes.imageLink}
             to="/"
           >
-            <Avatar className={classes.userAvater}>
-              <ImageIcon />
-            </Avatar>
-            {userName}
+            {`안녕하세요! ${userName} 님`}
           </Link>
           <Link
             component={RouterLink}
