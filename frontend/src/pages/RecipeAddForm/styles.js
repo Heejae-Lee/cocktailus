@@ -4,16 +4,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    // flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: theme.spacing(7),
-    marginBottom: theme.spacing(7),
-    margin: 'auto',
-    textAlign: 'center',
-  },
-  center: {
+  mainContainer: {
     display:'flex',
     flexDirection: 'column',
     border: '3px solid #e5e5e5',
@@ -22,9 +13,36 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
   },
-  mt5: {
-    marginTop: '20px',
-  }
+  topContainer: {
+    marginTop: '3%',
+    marginBottom: '1%',
+  },
+  subTitle: {
+    marginTop: '8%',
+  },
+  writeButton: {
+    display: 'flex',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '10px',
+    marginLeft: '5%',
+    width: '100%',
+  },
+  inputText: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '85%',
+  },
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }));
 
 export default useStyles;

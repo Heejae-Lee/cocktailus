@@ -145,13 +145,16 @@ function NoticePage() {
           </Typography>
         </AppForm>
       {/* 관리자 권한이 있으면 */}
-      <ColorButton
-          // component={RouterLink}
-          variant="" color="primary" to="/recipe/write"
-          className={classes.right}
-          >
-          글 작성
-      </ColorButton>
+      <Link>
+        <ColorButton
+            component={RouterLink}
+            variant="" 
+            to="/notice/write"
+            className={classes.right}
+            >
+            글 작성
+        </ColorButton>
+      </Link>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead aria-label="customized table">
@@ -176,9 +179,9 @@ function NoticePage() {
                     return (
                       <StyledTableCell key={column.id} align={column.align}>
                         <Link
-                        component={RouterLink}
-                        to="/">
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                          component={RouterLink}
+                          to="/">
+                          {column.format && typeof value === 'number' ? column.format(value) : value}
                         </Link>
                       </StyledTableCell>
                     );

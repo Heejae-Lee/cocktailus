@@ -1,28 +1,40 @@
-import withRoot from '../../components/withRoot';
-// --- Post bootstrap -----
-import React from 'react';
-import Link from '@material-ui/core/Link';
-import useStyles from './styles'
-import { Field, Form, FormSpy } from 'react-final-form';
-
-import { email, checkNameLength, checkPasswordLength, checkPasswordConfirm, required } from '../../common/validation';
-import Typography from '../../components/Typography';
-import AppForm from '../../components/AppForm';
-import RFTextField from '../../components/RFTextField';
-import FormButton from '../../components/FormButton/';
-import FormFeedback from '../../components/FormFeedback';
-import AppFooter from '../../layout/Footer/';
-import AppHeader from '../../layout/Header/';
+// 스타일 관련
+import withRoot from "../../components/withRoot";
+import useStyles from "./styles";
+// 컴포넌트 관련
+import React from "react";
+import Link from "@material-ui/core/Link";
+import { Field, Form, FormSpy } from "react-final-form";
+import Typography from "../../components/Typography";
+import AppForm from "../../components/AppForm";
+import RFTextField from "../../components/RFTextField";
+import FormButton from "../../components/FormButton/";
+import FormFeedback from "../../components/FormFeedback";
+import AppFooter from "../../layout/Footer/";
+import AppHeader from "../../layout/Header/";
+// 기능 관련
+import { required } from "../../common/validation";
+import { email } from "../../common/validation";
+import { checkNameLength } from "../../common/validation";
+import {
+  checkPasswordLength,
+  checkPasswordConfirm,
+} from "../../common/validation";
+import { useHistory } from "react-router";
 import { userAPI } from "../../utils/axios";
 
 function SignUp() {
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
+  const history = useHistory();
 
-  // 회원가입 폼에서 입력의 유효성을 확인하기 위한 함수
+  // 회원가입 폼에서 입력의 유효성을 확인
   // ex) 이메일 형식, 닉네임, 비밀번호 길이 등등...
   const validate = (values) => {
-    const errors = required(['email', 'userName', 'password', 'passwordConfirm'], values);
+    const errors = required(
+      ["email", "userName", "password", "passwordConfirm"],
+      values
+    );
 
     if (!errors.email) {
       const emailError = email(values.email, values);
@@ -33,30 +45,33 @@ function SignUp() {
 
     if (!errors.userName) {
       const nameError = checkNameLength(values.userName);
-      if(nameError){
+      if (nameError) {
         errors.userName = nameError;
       }
     }
 
     if (!errors.password) {
       const passwordError = checkPasswordLength(values.password);
-      if (passwordError){
+      if (passwordError) {
         errors.password = passwordError;
       }
     }
 
     if (!errors.passwordConfirm) {
-      const confirmError = checkPasswordConfirm(values.password, values.passwordConfirm);
-      if (confirmError){
+      const confirmError = checkPasswordConfirm(
+        values.password,
+        values.passwordConfirm
+      );
+      if (confirmError) {
         errors.passwordConfirm = confirmError;
       }
     }
 
     return errors;
   };
-  
+
   // onSubmit : Form 태그가 제출될 때 실행되는 함수
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     // form이 제출되면 회원가입을 더 이상 수정할 수 없도록 함.
     setSent(true);
     //console.log(values);
@@ -64,24 +79,23 @@ function SignUp() {
       email: values.email,
       name: values.userName,
       password: values.password,
-    }
-    
-    const result = userAPI.register(formData);
-    //console.log(result);
+    };
 
-    if (result.state === 'success'){
-      const action = {
-        token: result.token,
-        email: values.email,
-        name: "이희재"
-      };
-      console.log(action);
-      // home으로 redirection
-    } else {
-      console.log("login fail!");
+    const res = await userAPI.register(formData);
+    console.log(res);
+
+    if (res.status === 201) {
+      // SignIn Page로 redirection
+      history.push("/SignIn");
+      
       // modal 창 띄우기
+      alert('회원가입 성공\n로그인 페이지로 이동합니다.')
+
+    } else {
+      // modal 창 띄우기
+      alert('회원가입 실패\n중복된 이메일 혹은 닉네임입니다')
     }
-    
+
     // form 잠금 해제
     setSent(false);
   };
@@ -91,15 +105,23 @@ function SignUp() {
       <AppHeader />
       <AppForm>
         <React.Fragment>
+          {/* 회원가입 배너 */}
           <Typography variant="h3" gutterBottom marked="center" align="center">
             회원가입
           </Typography>
         </React.Fragment>
+        {/* 회원가입을 위한 폼 */}
         <Form
           onSubmit={onSubmit}
-          subscription={{ submitting: true }} validate={validate}
+          subscription={{ submitting: true }}
+          validate={validate}
           render={({ handleSubmit, submitting }) => (
-            <form methods="post" onSubmit={handleSubmit} className={classes.form} noValidate>
+            <form
+              methods="post"
+              onSubmit={handleSubmit}
+              className={classes.form}
+              noValidate
+            >
               <Field
                 autoFocus
                 autoComplete="email"
@@ -112,13 +134,13 @@ function SignUp() {
                 required
               />
               <Field
-                    component={RFTextField}
-                    disabled={submitting || sent}
-                    fullWidth
-                    label="닉네임"
-                    name="userName"
-                    required
-                  />
+                component={RFTextField}
+                disabled={submitting || sent}
+                fullWidth
+                label="닉네임"
+                name="userName"
+                required
+              />
               <Field
                 fullWidth
                 component={RFTextField}
@@ -154,16 +176,16 @@ function SignUp() {
                 color="secondary"
                 fullWidth
               >
-                {submitting || sent ? 'In progress…' : '회원가입'}
+                {submitting || sent ? "In progress…" : "회원가입"}
               </FormButton>
             </form>
           )}
-        />          
+        />
         <Typography variant="body2" align="right">
-            <Link href="/signIn" underline="always">
-              이미 아이디가 있으세요?
-            </Link>
-          </Typography>
+          <Link href="/signIn" underline="always">
+            이미 아이디가 있으세요?
+          </Link>
+        </Typography>
       </AppForm>
       <AppFooter />
     </React.Fragment>
