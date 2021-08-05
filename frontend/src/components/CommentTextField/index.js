@@ -1,44 +1,51 @@
-import React from "react";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
-import Button from "../Button/";
+// 스타일 관련
 import useStyles from "./styles";
+// 컴포넌트 관련
+import React from "react";
+import Typography from "@material-ui/core/Typography";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Button from "../Button/";
+// 기능 관련
+import { useSelector } from "react-redux";
 
 export default function CommentTextField() {
   const classes = useStyles();
-  const [comment, setComment] = React.useState("");
+  const { userName } = useSelector((state) => state.member);
+  const [state, setState] = React.useState("");
 
   const commentChange = (e) => {
-    setComment(e.target.value);
+    setState(e.target.value);
   };
 
   const clickSubmit = () => {
-    console.log(comment);
+    console.log(state);
   };
 
   return (
     <div className={classes.root}>
-      <Avatar>
-        <ImageIcon />
-      </Avatar>
-      <TextareaAutosize
-        className={classes.commentTextArea}
-        onChange={commentChange}
-        resize={"none"}
-        placeholder="덧글을 입력하세요"
-        minRows={3}
-        maxRows={3}
-      />
+      <div className={classes.commentWrite}>
+        <Typography className={classes.commentUser} variant="h6" component="h2">
+          {userName}
+        </Typography>
 
-      <Button
-        variant="contained"
-        size="medium"
-        className={classes.commentButton}
-        onClick={clickSubmit}
-      >
-        댓글 작성
-      </Button>
+        <TextareaAutosize
+          className={classes.commentTextArea}
+          onChange={commentChange}
+          resize={"none"}
+          placeholder="덧글을 입력하세요"
+          minRows={3}
+          maxRows={3}
+        />
+
+        <Button
+          variant="contained"
+          size="medium"
+          className={classes.commentButton}
+          onClick={clickSubmit}
+        >
+          댓글 작성
+        </Button>
+      </div>
     </div>
   );
 }

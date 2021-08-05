@@ -27,7 +27,7 @@ function CocktailusNewItems(props) {
         {/* 새로 추가된 칵테일 추천 타이틀 */}
         <Typography
           variant="h4"
-          marked="Left"
+          marked="left"
           className={classes.title}
         >
           최근 등록된 칵테일

@@ -1,19 +1,58 @@
+// 스타일 관련
 import withRoot from "../../components/withRoot";
+import useStyles from "./styles";
+// 컴포넌트 관련
 import React from "react";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
-
+import { Divider } from "@material-ui/core";
 import AppHeader from "../../layout/Header";
 import AppFooter from "../../layout/Footer";
 import Typography from "../../components/Typography";
 import RecipeDetailIntro from "../../components/RecipeDetailIntro/";
 import Comment from "../../components/Comment";
 import CommentTextField from "../../components/CommentTextField/";
-import useStyles from "./styles";
-import { Divider } from "@material-ui/core";
+// 기능 관련
+import { useSelector } from "react-redux";
 
 function RecipeDetail() {
   const classes = useStyles();
+  const { userName } = useSelector((state) => state.member);
+
+  const [state, setState] = React.useState({
+    title: "",
+    tag: "",
+  });
+
+  React.useEffect(() => {
+    // 더미 데이터 적용
+    // 실제 BE로부터 데이터 받아오는 것으로 교체 예정
+    const dummyData = {
+      title: "보라색 포도주",
+      tag: "보라|포도|단맛|무알콜",
+      drink: "포도 주스|사이다|진|보드카",
+      drink_ratio: "30ml|45ml|60ml|150ml",
+      memberName: "난보라빛이좋아",
+      content: `난 보랏빛이 좋아요.
+      왜냐하면 보랏빛이 좋기때문인데 왜 보라색이 좋냐고 말씀하신다면 그건 그냥 보라색이 좋아서 좋다고 했을 뿐
+      난 보라색을 믿었었던 만큼 내 색감도 믿었기에 난 아무런 부담없이 널 내 웹사이트에 적용 시켜줬고
+      그런 적용이 있은후로부터 우리는 자주 함께 만나며 즐거운 시간을 보내며 함께 어울렸던 것뿐인데
+      그런 스타일이 어디부터 잘못됐었는지 난 알 수 없는 예감에 조금씩 빠져들고 있을때쯤
+      넌 나보다 내 마진에게 관심을 더 보이며 컴포넌트를 밀어내던 그 어느날`,
+      created: "2021-08-05",
+    };
+
+    const tag = dummyData.tag.split("|").reduce((acc, cur) => {
+      acc = acc + `#${cur} `;
+      return acc;
+    }, "");
+    //console.log(tag);
+    setState({
+      title: dummyData.title,
+      tag: tag,
+    });
+    //console.log(state);
+  }, []);
 
   return (
     <Box>
@@ -27,15 +66,15 @@ function RecipeDetail() {
               marked="center"
               align="center"
             >
-              CockTail Recipe
+              {state.title}
             </Typography>
             <Typography variant="body2" align="center">
-              {"보라보라 빔을 받아라! 보랏빛 술!"}
+              {state.tag}
             </Typography>
           </Container>
         </React.Fragment>
-        <RecipeDetailIntro />
-        <CommentTextField />
+        <RecipeDetailIntro data={state} />
+        {()=>{if(userName!==null) return <CommentTextField />}}
         <Comment />
         <div style={{ width: "100%", height: "50px" }} />
         <Divider variant="inset" />
