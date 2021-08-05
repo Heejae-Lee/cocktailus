@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 
 import { useSelector } from 'react-redux'
 import { recipeAPI } from '../../utils/axios';
+import axios from 'axios'
 
 function Recipe() {
   const classes = useStyles();
@@ -19,18 +20,32 @@ function Recipe() {
   const { token } = useSelector((state) => state.member);
 
   const [recipes, setRecipes] = useState([]);
+  const [mounted, setMounted] = useState(false);
+
+  const fetchRecipes = async () => {
+    axios({
+      url: "http://localhost:8080" + "/recipe-articles",
+      method: 'get',
+      headers: {'Auth-Token': `${token}`},
+    })
+    .then((res) => {
+      console.log("Get Recipe Success");
+      setRecipes(res.data);
+      // console.log("레시피:",recipes);
+    })
+    .catch((e) => {
+      console.log("Get Recipe failed");
+    })
+  }
+
   useEffect(()=>{
-    async function getRecipeList(){
-      let data = await recipeAPI.getRecipes(token);
-      setRecipes(data);
-    }
     console.log('mount');
-    getRecipeList();
+    fetchRecipes();
     return () => { // unmount시에 초기화
-      setRecipes([]); 
       console.log('unmount');
+      console.log(recipes);
     }
-  },[]);
+  }, []);
 
   return (
     <React.Fragment>
@@ -46,7 +61,7 @@ function Recipe() {
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서 props로 데이터 줘서 보여주기 */}
-          {/* {recipes.map(recipe => (
+          {recipes.map(recipe => (
             <ImgMediaCard
               key={recipe.id}
               image={recipe.image}
@@ -56,7 +71,7 @@ function Recipe() {
               created={recipe.created}
               updated={recipe.updated}
               />
-          ))} */}
+          ))}
           <ImgMediaCard />
           <ImgMediaCard />
           <ImgMediaCard />

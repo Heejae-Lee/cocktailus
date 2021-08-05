@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://c123ce8a898d.ngrok.io";
+const baseURL = "http://localhost:8080";
 
 // 유저 관련 API 정의
 export const userAPI = {
@@ -112,10 +112,12 @@ export const recipeAPI = {
     )
     .then((res) => {
       console.log("Get Recipe Success");
+      console.log(res)
       return res
     })
     .catch((err) => {
       console.log("Get Recipe failed");
+      console.log(err)
       return err
       // alert(err); // 모달창으로 경고표시
     })
