@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/notices")
+@CrossOrigin(origins = "*")
 public class NoticeController {
     private final JpaNoticeRepository jpaNoticeRepository;
     private final NoticeService noticeService;
