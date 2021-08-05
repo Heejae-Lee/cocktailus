@@ -32,6 +32,8 @@ import { recipeAPI } from "../../utils/axios";
 // Tag
 import TagsInput from '../../components/TagsInput';
 
+import { useHistory } from "react-router";
+
 
 
 const ColorButton = withStyles((theme) => ({
@@ -47,6 +49,7 @@ const ColorButton = withStyles((theme) => ({
 
 function RecipeAddForm() {
   const classes = useStyles();
+  const history = useHistory();
 
   // 저장할 정보
   const [title, setTitle] = useState('');
@@ -109,12 +112,11 @@ function RecipeAddForm() {
     image: selectedFile,
     tag: tags,
     member_name: userName,
-    // token: token,
   };
 
   // 레시피 저장 서버에 요청 보내기
   const onSubmitRecipe = () => {
-    recipeAPI.saveRecipe(data);
+    recipeAPI.saveRecipe(data, token, history);
   }
 
   // title 변경

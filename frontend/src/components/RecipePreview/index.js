@@ -15,7 +15,7 @@ import Link from '@material-ui/core/Link';
 import useStyles from './styles';
 
 
-export default function ImgMediaCard() {
+export default function ImgMediaCard(props) {
   const classes = useStyles();
   
   return (
