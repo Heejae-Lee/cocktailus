@@ -22,7 +22,7 @@ function CocktailusHotItems(props) {
         {/* 높은 트렌드 칵테일 추천 타이틀 */}
         <Typography
           variant="h4"
-          marked="Left"
+          marked="left"
           className={classes.title}
         >
           트렌디한 칵테일

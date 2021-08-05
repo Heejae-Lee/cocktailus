@@ -4,18 +4,30 @@ import { purple } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
+    position: 'relative',
+    width: "100%",
+    maxWidth: 1000,
+    height: "150px",
+    left: "50%",
+    transform: "translateX(-50%)",
+  },
+  commentWrite: {
     display: "flex",
     justifyContent: "center",
-    width: "100%",
-    height: "50px",
+    alignItems: 'flex-start',
+  },
+  commentUser: {
+    marginTop: theme.spacing(2),
+    width: '150px'
   },
   commentTextArea: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    width: "65%",
+    flex: 1,
     resize: "none",
   },
   commentButton: {
+    marginTop: theme.spacing(2),
     borderRadius: 10,
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: purple[500],
