@@ -96,7 +96,8 @@ export const noticeAPI = {
       console.log(err);
       alert(err); // 모달창으로 경고표시
     })
-}}
+  },
+}
 
 // recipe 관련 API 정의
 export const recipeAPI = {
