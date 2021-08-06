@@ -23,48 +23,19 @@ export default function RecipeDetailIntro(props) {
   });
 
   React.useEffect(() => {
-    // 더미 데이터 적용
-    // 실제 BE로부터 데이터 받아오는 것으로 교체 예정
-    const dummyData = {
-      title: "보라색 포도주",
-      tag: "보라|포도|단맛|무알콜",
-      drink: "포도 주스|사이다|진|보드카",
-      drink_ratio: "30ml|45ml|60ml|150ml",
-      memberName: "난보라빛이좋아",
-      content: `난 보랏빛이 좋아요.
-      왜냐하면 보랏빛이 좋기때문인데 왜 보라색이 좋냐고 말씀하신다면 그건 그냥 보라색이 좋아서 좋다고 했을 뿐
-      난 보라색을 믿었었던 만큼 내 색감도 믿었기에 난 아무런 부담없이 널 내 웹사이트에 적용 시켜줬고
-      그런 적용이 있은후로부터 우리는 자주 함께 만나며 즐거운 시간을 보내며 함께 어울렸던 것뿐인데
-      그런 스타일이 어디부터 잘못됐었는지 난 알 수 없는 예감에 조금씩 빠져들고 있을때쯤
-      넌 나보다 내 마진에게 관심을 더 보이며 컴포넌트를 밀어내던 그 어느날`,
-      created: "2021-08-05",
-    };
-
-    const tag = dummyData.tag.split("|").reduce((acc, cur) => {
-      acc = acc + `#${cur} `;
-      return acc;
-    }, "");
-    const drink = dummyData.drink.split("|").map((li) => {
-      return li;
-    });
-    const drink_ratio = dummyData.drink_ratio.split("|").map((li) => {
-      return Number(li.replace("ml", "")) / 15;
-    });
-    //console.log(tag);
-    //console.log(drink);
-    //console.log(drink_ratio)
-    setState({
-      drink: drink,
-      drink_ratio: drink_ratio,
-      memberName: dummyData.memberName,
-      content: dummyData.content,
-      created: dummyData.created,
-      like: false,
-      likeImg: "no_like.png",
-      likeValue: 0,
-    });
-    //console.log(state);
-  }, []);
+    if (props.data.id !== null){
+      setState({
+        drink: props.data.drink,
+        drink_ratio: props.data.drink_ratio,
+        memberName: props.data.memberName,
+        content: props.data.content,
+        created: props.data.created,
+        like: false,
+        likeImg: "no_like.png",
+        likeValue: 0,
+      });
+    }
+  }, [props]);
 
   const ShowRecipeDrinks = () => {
     const recipeData = [];
@@ -92,8 +63,8 @@ export default function RecipeDetailIntro(props) {
 
     return (
       <div style={{ height: 230 }}>
-        {recipeData.map((data) => (
-          <Grid item container direction="row" spacing={2}>
+        {recipeData.map((data, index) => (
+          <Grid item container direction="row" spacing={2} key={index}>
             <Grid xs={3} item>
               <Typography variant="subtitle1">{data.drink}</Typography>
             </Grid>

@@ -12,9 +12,15 @@ export default function Comment(props) {
   const [state, setState] = React.useState([]);
 
   React.useEffect(()=>{
-    // 백엔드 서버로부터 코멘트 데이터 가져옴
-    // 현재 더미데이터
-    setState([
+    // RecipeDetail Page로부터 id 전달받고있음(props.articleId)
+    console.log(`RecipeDetail로부터 Comment로 전달받은 ID는 ${props.articleId} 입니다`);
+    // id를 통해 백엔드 서버로부터 코멘트 데이터(data) 가져와야함 현재 임시 데이터
+    const data = [
+      {
+        member_name: "너구리",
+        content: "하나 더 추가해볼까",
+        created: "2021-07-30",
+      },
       {
         member_name: "익명이",
         content: "삑! 이미 취한 작성자입니다",
@@ -54,22 +60,24 @@ export default function Comment(props) {
         content: "포도주스 마시다 만들었음",
         created: "2021-07-28",
       },
-    ]);
-  },[]);
+    ];
+    
+    setState(data);
+  },[props]);
 
   return (
     <List className={classes.root}>
       <Divider className={classes.dividerTop} variant="middle" />
       {/* 각 코멘트 리스트마다 정해진 형식대로 표현 */}
-      {state.map((el) => (
-        <div>
+      {state.map((el, index) => (
+        <div key={index}>
           <div className={classes.comment}>
             <Typography
               className={classes.commentUser}
               variant="h6"
               component="h2"
             >
-              {el.member_name}
+              {el.member_name}{props.articleID}
             </Typography>
 
             <Typography

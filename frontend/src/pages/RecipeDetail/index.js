@@ -20,18 +20,28 @@ function RecipeDetail() {
   const { userName } = useSelector((state) => state.member);
 
   const [state, setState] = React.useState({
+    id: null,
     title: "",
     tag: "",
+    drink: [],
+    drink_ratio: [],
+    memberName: "",
+    content: "",
+    created: "",
+    like: true,
+    likeImg: "no_like.png",
+    likeValue: 0,
   });
 
   React.useEffect(() => {
     // 더미 데이터 적용
     // 실제 BE로부터 데이터 받아오는 것으로 교체 예정
-    const dummyData = {
+    const data = {
+      id: 0,
       title: "보라색 포도주",
       tag: "보라|포도|단맛|무알콜",
       drink: "포도 주스|사이다|진|보드카",
-      drink_ratio: "30ml|45ml|60ml|150ml",
+      drink_ratio: "135ml|45ml|60ml|150ml",
       memberName: "난보라빛이좋아",
       content: `난 보랏빛이 좋아요.
       왜냐하면 보랏빛이 좋기때문인데 왜 보라색이 좋냐고 말씀하신다면 그건 그냥 보라색이 좋아서 좋다고 했을 뿐
@@ -42,18 +52,32 @@ function RecipeDetail() {
       created: "2021-08-05",
     };
 
-    const tag = dummyData.tag.split("|").reduce((acc, cur) => {
+    const tag = data.tag.split("|").reduce((acc, cur) => {
       acc = acc + `#${cur} `;
       return acc;
     }, "");
     //console.log(tag);
-    setState({
-      title: dummyData.title,
-      tag: tag,
+    const drink = data.drink.split("|").map((li) => {
+      return li;
     });
-    //console.log(state);
+    const drink_ratio = data.drink_ratio.split("|").map((li) => {
+      return Number(li.replace("ml", "")) / 15;
+    });
+    setState({
+      id: data.id,
+      title: data.title,
+      tag: tag,
+      drink: drink,
+      drink_ratio: drink_ratio,
+      memberName: data.memberName,
+      content: data.content,
+      created: data.created,
+      like: false,
+      likeImg: "no_like.png",
+      likeValue: 0,
+    });
   }, []);
-
+  
   return (
     <Box>
       <Container>
@@ -74,8 +98,9 @@ function RecipeDetail() {
           </Container>
         </React.Fragment>
         <RecipeDetailIntro data={state} />
-        {()=>{if(userName!==null) return <CommentTextField />}}
-        <Comment />
+        {/*returnCommentField*/}
+        {userName && <CommentTextField />}
+        <Comment articleId={state.id} />
         <div style={{ width: "100%", height: "50px" }} />
         <Divider variant="inset" />
         <div style={{ width: "100%", height: "50px" }} />
