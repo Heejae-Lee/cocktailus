@@ -122,7 +122,11 @@ function NoticePage() {
     const filteredData = filteredRows.filter((row) => {
       return row.title.includes(searchedVal);
     });
-    setRows(filteredData);
+    if (filteredData.length === 0) {
+      setRows(filteredRows);
+    } else {
+      setRows(filteredData);
+    }
   };
   // const handleKeyPress = (event) => {
   //   if (event.key === 'Enter') {
@@ -189,11 +193,16 @@ function NoticePage() {
                       const value = row[column.id];
                       return (
                         <StyledTableCell key={column.id} align={column.align}>
-                          <Link
+                          {/* 타이틀 누르면 디테일 페이지로 이동 */}
+                          {column.id === 'title' ?
+                          (<Link
                             component={RouterLink}
-                            to="/">
+                            to="/"
+                            >
                             {column.format && typeof value === 'number' ? column.format(value) : value}
-                          </Link>
+                          </Link>) :
+                          <div>{column.format && typeof value === 'number' ? column.format(value) : value}</div> 
+                          }
                         </StyledTableCell>
                       );
                     })}
