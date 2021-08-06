@@ -25,8 +25,6 @@ import RecipeHeader from '../../layout/RecipeHeader';
 import Typography from '../../components/Typography';
 import InputImageForm from '../../components/InputImageForm'
 
-// user 정보
-import { useSelector } from 'react-redux'
 // axios
 import { recipeAPI } from "../../utils/axios";
 // Tag
@@ -74,7 +72,8 @@ function RecipeAddForm() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // 유저 정보
-  const { token, userName } = useSelector((state) => state.member);
+  const token = JSON.parse(window.localStorage.getItem("memberData")).token
+  const userName = JSON.parse(window.localStorage.getItem("memberData")).name
 
   function handleSelecetedTags(items) {
     setTages(items.map(item => item).join("|"));

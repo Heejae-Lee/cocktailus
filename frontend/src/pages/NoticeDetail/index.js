@@ -29,13 +29,12 @@ function NoticeDetail(match) {
   const classes = useStyles();
   const history = useHistory();
   
-  const { token } = useSelector((state) => state.member);
   const [data, setData] = useState({
     title: null,
     content: null,
   });
 
-  const getNoticeList = (id) => {
+  const getNoticeList = (id, token) => {
     axios({
       url: "http://localhost:8080" + `/notices/${id}`,
       method: 'get',
@@ -58,7 +57,8 @@ function NoticeDetail(match) {
 
   useEffect(() => {
     const noticeId = match.match.params.noticeId;
-    getNoticeList(noticeId);
+    const token = JSON.parse(window.localStorage.getItem("memberData")).token
+    getNoticeList(noticeId, token);
     return () => {
       
     }

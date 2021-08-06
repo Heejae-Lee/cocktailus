@@ -26,7 +26,6 @@ import Typography from '../../components/Typography';
 import AppForm from '../../components/AppForm';
 
 import axios from 'axios';
-import { useSelector } from 'react-redux'
 
 // 테이블 타이틀 셀
 const StyledTableCell = withStyles((theme) => ({
@@ -77,18 +76,17 @@ function NoticePage() {
   const [searched, setSearched] = useState(""); // 검색어
   const [rows, setRows] = useState([]); // 행 데이터
   const [filteredRows, setFilteredRows] = useState(null); // 행 데이터
-  const { token } = useSelector((state) => state.member);
-
+  
   useEffect(() => {
+    const token = JSON.parse(window.localStorage.getItem("memberData")).token
     console.log('notice mount')
-    getNoticeList();
+    getNoticeList(token);
     return () => {
       console.log("notice unmount");
     }
   }, [])
 
-
-  const getNoticeList = () => {
+  const getNoticeList = (token) => {
     axios({
       url: "http://localhost:8080" + "/notices",
       method: 'get',
