@@ -11,17 +11,14 @@ import RecipeHeader from '../../layout/RecipeHeader';
 import Button from '@material-ui/core/Button';
 
 import { useSelector } from 'react-redux'
-import { recipeAPI } from '../../utils/axios';
 import axios from 'axios'
 
 function Recipe() {
   const classes = useStyles();
-  // 전체 리스트 받아오는 axios 만들기
   const { token } = useSelector((state) => state.member);
-
   const [recipes, setRecipes] = useState([]);
-  const [mounted, setMounted] = useState(false);
 
+  // 전체 레시피 조회
   const fetchRecipes = async () => {
     axios({
       url: "http://localhost:8080" + "/recipe-articles",
@@ -29,9 +26,8 @@ function Recipe() {
       headers: {'Auth-Token': `${token}`},
     })
     .then((res) => {
-      console.log("Get Recipe Success");
+      // console.log("Get Recipe Success");
       setRecipes(res.data);
-      // console.log("레시피:",recipes);
     })
     .catch((e) => {
       console.log("Get Recipe failed");
@@ -39,10 +35,10 @@ function Recipe() {
   }
 
   useEffect(()=>{
-    console.log('mount');
+    // console.log('mount');
     fetchRecipes();
     return () => { // unmount시에 초기화
-      console.log('unmount');
+      // console.log('unmount');
       console.log(recipes);
     }
   }, []);
@@ -60,7 +56,7 @@ function Recipe() {
       </Grid>
       <Container className={classes.paper}>
         <Grid container spacing={10}>
-          {/* 전체 리스트 반복문 돌면서 props로 데이터 줘서 보여주기 */}
+          {/* 전체 리스트 반복문 돌면서보여주기 */}
           {recipes.map(recipe => (
             <ImgMediaCard
               key={recipe.id}
