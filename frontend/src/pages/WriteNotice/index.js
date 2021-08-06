@@ -13,22 +13,33 @@ import Footer from "../../layout/Footer";
 import Typography from "../../components/Typography";
 import useStyles from "./styles";
 
+import { useSelector } from 'react-redux'
+import { useHistory } from "react-router";
+import { noticeAPI } from "../../utils/axios";
+
+
 function WriteNotice() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const { token, userName } = useSelector((state) => state.member);
+
   const [data, setData] = React.useState({
     title: null,
-    body: null,
+    content: null,
+    member_name: userName,
   });
-
-  const onSubmit = () => {
-    alert(data.body);
-  };
 
   const dataChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     console.log(e.target.value);
     console.log(data);
   };
+
+  const onSubmitNotice = (e) => {
+    e.preventDefault();
+    noticeAPI.saveNotice(data, token, history);
+  }
 
   return (
     <React.Fragment>
@@ -49,7 +60,6 @@ function WriteNotice() {
 
         {/* 제목 및 공지사항 본문 입력을 위한 폼 */}
         <form
-          onSubmit={onSubmit}
           className={classes.form}
           noValidate
           onChange={dataChange}
@@ -64,8 +74,8 @@ function WriteNotice() {
             />
           </div>
           <TextareaAutosize
-            name="body"
-            label="ddd"
+            name="content"
+            label="내용"
             autoComplete="off"
             resize="none"
             placeholder="공지사항을 입력하세요"
@@ -77,6 +87,7 @@ function WriteNotice() {
             size="large"
             color="secondary"
             fullWidth
+            onClick={onSubmitNotice}
           >
             {"작성하기"}
           </FormButton>

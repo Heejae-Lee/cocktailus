@@ -1,7 +1,7 @@
 import withRoot from '../../components/withRoot';
 import { withStyles } from '@material-ui/core/styles';
 
-import React, { Fragment,useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -24,6 +24,9 @@ import AppFooter from '../../layout/Footer';
 import useStyles from './styles';
 import Typography from '../../components/Typography';
 import AppForm from '../../components/AppForm';
+
+import axios from 'axios';
+import { useSelector } from 'react-redux'
 
 // 테이블 타이틀 셀
 const StyledTableCell = withStyles((theme) => ({
@@ -51,7 +54,7 @@ const columns = [
   { id: 'id', label: '글 번호', minWidth: 30 },
   { id: 'title', label: '제목', minWidth: 30 },
   {
-    id: 'name',
+    id: 'member_name',
     label: '작성자',
     minWidth: 30,
     align: 'center',
@@ -64,40 +67,48 @@ const columns = [
   },
 ];
 
-function createData(id, title, name, created, auth) {
-  return { id, title, name, created, auth };
-}
-
-const data = [
-  createData(1,'내가 바로 칵테일메이커', '칵테일러스', '2021.07.28',0),
-  createData(2,'내가 바로 칵테일메이커2', '칵테일러스', '2021.07.28',0),
-  createData(3,'내가 바로 칵테일메이커3', '칵테일러스', '2021.07.28',1),
-  createData(4,'내가 바로 칵테일메이커4', '칵테일러스', '2021.07.28',1),
-  createData(5,'내가 바로 칵테일메이커5', '칵테일러스', '2021.07.28',1),
-  createData(6,'내가 바로 칵테일메이커6', '칵테일러스', '2021.07.28',1),
-  createData(7,'내가 바로 칵테일메이커7', '칵테일러스', '2021.07.27',1),
-  createData(8,'내가 바로 칵테일메이커8', '칵테일러스', '2021.07.26',1),
-  createData(9,'내가 바로 칵테일메이커9', '칵테일러스', '2021.07.25',1),
-  createData(10,'내가 바로 칵테일메이커10', '칵테일러스', '2021.07.25',1),
-  createData(11,'내가 바로 칵테일메이커11', '칵테일러스', '2021.07.24',1),
-  createData(12,'내가 바로 칵테일메이커12', '칵테일러스', '2021.07.24',1),
-  createData(13,'내가 바로 칵테일메이커13', '칵테일러스', '2021.07.24',1),
-  createData(14,'내가 바로 칵테일메이커14', '칵테일러스', '2021.07.24',1),
-  createData(15,'내가 바로 칵테일메이커15', '칵테일러스', '2021.07.24',1),
-  createData(16,'내가 바로 칵테일메이커16', '칵테일러스', '2021.07.24',1),
-];
-
-
-
 
 function NoticePage() {
   const classes = useStyles();
+
+  // const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10); // 한번에 보여줄 행 수
   const [searched, setSearched] = useState(""); // 검색어
-  const [rows, setRows] = useState(data); // 행 데이터
-  // const [filteredData, setFilteredData] = useState(null); // 행 데이터
+  const [rows, setRows] = useState([]); // 행 데이터
+  const [filteredRows, setFilteredRows] = useState(null); // 행 데이터
+  const { token } = useSelector((state) => state.member);
 
+  useEffect(() => {
+    console.log('notice mount')
+    getNoticeList();
+    return () => {
+      console.log("notice unmount");
+    }
+  }, [])
+
+
+  const getNoticeList = () => {
+    axios({
+      url: "http://localhost:8080" + "/notices",
+      method: 'get',
+      headers: { 'Auth-Token': `${token}` },
+      })
+      .then((res) => {
+        console.log("getNoticeList success");
+        let datas = res.data
+        for (let i = 0; i < datas.length; i++) {
+          datas[i].created = datas[i].created.substr(0, 10);
+        }
+        setRows(res.data);
+        setFilteredRows(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("getNoticeList fail");
+        console.log(err);
+      })
+  }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -108,11 +119,14 @@ function NoticePage() {
   };
 
   const requestSearch = (searchedVal) => {
-    const filteredRows = data.filter((row) => {
+    const filteredData = filteredRows.filter((row) => {
       return row.title.includes(searchedVal);
     });
-    setRows(filteredRows);
-    // setFilteredData(filteredRows);
+    if (filteredData.length === 0) {
+      setRows(filteredRows);
+    } else {
+      setRows(filteredData);
+    }
   };
   // const handleKeyPress = (event) => {
   //   if (event.key === 'Enter') {
@@ -121,11 +135,12 @@ function NoticePage() {
   // };
 
   // const runSearch = (event) => {
-  //   setRows(filteredData);
+  //   setRows(filteredRows);
   // };
 
   const cancelSearch = () => {
     setSearched("");
+    setRows(filteredRows);
     requestSearch(searched);
   };
 
@@ -133,9 +148,9 @@ function NoticePage() {
 
   return (
     <Fragment>
-    <AppHeader />
+      <AppHeader />
 
-    <Paper className={classes.root}>
+      <Paper className={classes.root}>
         <AppForm>
           <Typography variant="h3" gutterBottom marked="center" align="center">
             공지사항
@@ -144,77 +159,82 @@ function NoticePage() {
             칵테일러스의 공지사항과 이벤트를 알려드릴게요!
           </Typography>
         </AppForm>
-      {/* 관리자 권한이 있으면 */}
-      <Link>
-        <ColorButton
+        {/* 관리자 권한이 있으면 */}
+        <Link>
+          <ColorButton
             component={RouterLink}
-            variant="" 
+            variant=""
             to="/notice/write"
             className={classes.right}
-            >
+          >
             글 작성
-        </ColorButton>
-      </Link>
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead aria-label="customized table">
-            <TableRow>
-              {columns.map((column) => (
-                <StyledTableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </StyledTableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <StyledTableCell key={column.id} align={column.align}>
-                        <Link
-                          component={RouterLink}
-                          to="/">
-                          {column.format && typeof value === 'number' ? column.format(value) : value}
-                        </Link>
-                      </StyledTableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-        <br></br>
-        <SearchBar
-          className={classes.searchBar}
-          placeholder="제목을 입력하세요"
-          value={searched}
-          onChange={(searchVal) => requestSearch(searchVal)}
-          onCancelSearch={() => cancelSearch()}
+          </ColorButton>
+        </Link>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead aria-label="customized table">
+              <TableRow>
+                {columns.map((column) => (
+                  <StyledTableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <StyledTableCell key={column.id} align={column.align}>
+                          {/* 타이틀 누르면 디테일 페이지로 이동 */}
+                          {column.id === 'title' ?
+                          (<Link
+                            component={RouterLink}
+                            to="/"
+                            >
+                            {column.format && typeof value === 'number' ? column.format(value) : value}
+                          </Link>) :
+                          <div>{column.format && typeof value === 'number' ? column.format(value) : value}</div> 
+                          }
+                        </StyledTableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+          <br></br>
+          <SearchBar
+            className={classes.searchBar}
+            placeholder="제목을 입력하세요"
+            value={searched}
+            onChange={(searchVal) => requestSearch(searchVal)}
+            onCancelSearch={() => cancelSearch()}
           // onKeyPress={handleKeyPress}
-        />
-      </TableContainer>
-    
-      <TablePagination
-        style={{ paddingRight: '40px' }}
-        rowsPerPageOptions={[5, 10, 20]} // 5, 10, 20
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+          />
+        </TableContainer>
 
-    </Paper>
-    <AppFooter />
+        <TablePagination
+          style={{ paddingRight: '40px' }}
+          rowsPerPageOptions={[5, 10, 20]} // 5, 10, 20
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+
+      </Paper>
+      <AppFooter />
     </Fragment>
   );
 }

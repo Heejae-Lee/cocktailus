@@ -115,7 +115,8 @@ function RecipeAddForm() {
   };
 
   // 레시피 저장 서버에 요청 보내기
-  const onSubmitRecipe = () => {
+  const onSubmitRecipe = (e) => {
+    e.preventDefault();
     recipeAPI.saveRecipe(data, token, history);
   }
 
