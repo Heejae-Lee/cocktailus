@@ -197,7 +197,7 @@ function NoticePage() {
                           {column.id === 'title' ?
                           (<Link
                             component={RouterLink}
-                            to="/"
+                            to={`/notice/${row.id}`}
                             >
                             {column.format && typeof value === 'number' ? column.format(value) : value}
                           </Link>) :
