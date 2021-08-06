@@ -10,18 +10,15 @@ import Drawer from "@material-ui/core/Drawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import AppBar from "./AppBar/";
 import Toolbar from "../../components/Toolbar";
-import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
 import MenuList from "./MenuList/";
 // 기능 관련
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import PropTypes from "prop-types";
 import { refreshMemberInfo } from "../../app/reducer";
 
 function AppHeader(props) {
   const { classes } = props;
-  const { userName } = useSelector((state) => state.member);
   const [state, setState] = React.useState({
     leftMenu: false,
   });
@@ -44,15 +41,19 @@ function AppHeader(props) {
     setState({ ...state, [anchor]: open });
   };
 
+  // 로컬 스토리지와 redux에서 멤버 데이터 삭제
   const logOut = () => {
     // 데이터 초기화
     Dispatch(refreshMemberInfo());
+    localStorage.removeItem('memberData');
     // modal 창을 띄울 예정
     alert("로그아웃\n(이후 모달창으로 교체 예정)");
   };
 
   const alreadyLoggedIn = () => {
-    if (userName === null) {
+    const memberData = JSON.parse(window.localStorage.getItem("memberData"))
+
+    if (memberData === null) {
       return (
         <div className={classes.right}>
           <Link
@@ -87,7 +88,7 @@ function AppHeader(props) {
             className={classes.imageLink}
             to="/"
           >
-            {`안녕하세요! ${userName} 님`}
+            {`안녕하세요! ${memberData.name} 님`}
           </Link>
           <Link
             component={RouterLink}
@@ -172,6 +173,7 @@ function AppHeader(props) {
             <img
               className={classes.logo}
               src={process.env.PUBLIC_URL + "/images/cocktailus_logo3.png"}
+              alt={"칵테일러스 로고"}
             />
           </Link>
           {/* 최상단 우측 메뉴 */}
