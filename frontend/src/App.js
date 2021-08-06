@@ -14,6 +14,7 @@ import RecipeAddForm from './pages/RecipeAddForm';
 import NoticePage from './pages/Notice';
 import PageNotFound from './pages/PageNotFound';
 import WriteNotice from './pages/WriteNotice';
+import NoticeDetail from './pages/NoticeDetail';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/notice" component={NoticePage} />
         <Route exact path="/error" component={PageNotFound} />
         <Route exact path="/notice/write" component={WriteNotice} />
+        <Route exact path="/notice/:noticeId" component={NoticeDetail} />
         <Redirect to="/error"/>
       </Switch>
     </BrowserRouter>

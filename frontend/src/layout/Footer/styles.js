@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'static',
+    position: 'fixed',
     left: 0,
     bottom: 0,
     right: 0,
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   footer: {
-    padding: theme.spacing(3, 2),
+    padding: theme.spacing(2, 2),
     marginTop: 'auto',
-    backgroundColor: '#28282A',
-    color: 'white',
+    backgroundColor: 'rgba(40,40,42,0.7)',
+    color: 'rgba(255,255,255,0.9)',
   },
   start: {
     marginRight: theme.spacing(1),
