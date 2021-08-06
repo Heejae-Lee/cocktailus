@@ -5,12 +5,9 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "../Button/";
-// 기능 관련
-import { useSelector } from "react-redux";
 
-export default function CommentTextField() {
+export default function CommentTextField(props) {
   const classes = useStyles();
-  const { userName } = useSelector((state) => state.member);
   const [state, setState] = React.useState("");
 
   const commentChange = (e) => {
@@ -25,7 +22,7 @@ export default function CommentTextField() {
     <div className={classes.root}>
       <div className={classes.commentWrite}>
         <Typography className={classes.commentUser} variant="h6" component="h2">
-          {userName}
+          {props.memberName}
         </Typography>
 
         <TextareaAutosize

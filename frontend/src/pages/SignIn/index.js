@@ -54,6 +54,7 @@ function SignIn() {
     //console.log(res);
 
     // 로그인 성공
+    
     if (res.status === 200) {
       const payload = {
         token: res.data["access-token"],
@@ -66,9 +67,8 @@ function SignIn() {
       Dispatch(getMemberInfo(payload));
       // 유저 데이터 로컬 스토리지에 저장
       window.localStorage.setItem("memberData", JSON.stringify(payload));
-      // 꺼내올 때는 아래와 같이 가져옴
-      // window.localStorage.getItem("memberData");
-      
+      // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
+      // const memberData = JSON.parse(window.localStorage.getItem("memberData"))
       
       // modal 창 띄우기
       // alert는 임시
@@ -86,6 +86,7 @@ function SignIn() {
     // form 잠금 해제
     setSent(false);
   };
+
 
   return (
     <React.Fragment>

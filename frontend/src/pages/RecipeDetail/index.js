@@ -12,12 +12,10 @@ import Typography from "../../components/Typography";
 import RecipeDetailIntro from "../../components/RecipeDetailIntro/";
 import Comment from "../../components/Comment";
 import CommentTextField from "../../components/CommentTextField/";
-// 기능 관련
-import { useSelector } from "react-redux";
 
 function RecipeDetail() {
   const classes = useStyles();
-  const { userName } = useSelector((state) => state.member);
+  const member = JSON.parse(window.localStorage.getItem("memberData"));
 
   const [state, setState] = React.useState({
     id: null,
@@ -98,8 +96,8 @@ function RecipeDetail() {
           </Container>
         </React.Fragment>
         <RecipeDetailIntro data={state} />
-        {/*returnCommentField*/}
-        {userName && <CommentTextField />}
+        {/* 코멘트 입력 컴포넌트, 로그인 정보가 저장되어있을 경우에만 보임 */}
+        {member && <CommentTextField memberName={member.name} />}
         <Comment articleId={state.id} />
         <div style={{ width: "100%", height: "50px" }} />
         <Divider variant="inset" />
