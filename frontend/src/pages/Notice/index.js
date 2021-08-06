@@ -92,6 +92,7 @@ const data = [
 
 function NoticePage() {
   const classes = useStyles();
+  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10); // 한번에 보여줄 행 수
   const [searched, setSearched] = useState(""); // 검색어

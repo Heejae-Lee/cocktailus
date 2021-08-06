@@ -79,6 +79,24 @@ export const userAPI = {
     }
     */
 }
+export const noticeAPI = {
+  saveNotice: (data, token, history) => {
+    axios({
+      url: baseURL + "/notices",
+      method: 'post',
+      headers: {'Auth-Token': `${token}`},
+      data: data,
+      }
+    )
+    .then(() => {
+      history.push("/notice"); // 성공하면 작성 게시글로 이동 => router추가
+    })
+    .catch((err) => {
+      console.log("Upload failed");
+      console.log(err);
+      alert(err); // 모달창으로 경고표시
+    })
+}}
 
 // recipe 관련 API 정의
 export const recipeAPI = {
