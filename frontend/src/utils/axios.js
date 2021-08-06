@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://97629c779094.ngrok.io";
+const baseURL = "http://localhost:8080";
 
 // 유저 관련 API 정의
 export const userAPI = {
@@ -82,23 +82,44 @@ export const userAPI = {
 
 // recipe 관련 API 정의
 export const recipeAPI = {
-  saveRecipe: (data) => {
+  // 레시피 저장
+  saveRecipe: (data,token,history) => {
     console.log(data)
+    console.log(token)
     axios({
       url: baseURL + "/recipe-articles",
       method: 'post',
+      headers: {'Auth-Token': `${token}`},
       data: data,
       }
     )
     .then(() => {
-      console.log("Upload Recipe Success");
-      // 성공하면 작성 게시글로 이동 => router추가
+      // console.log("Upload Recipe Success");
+      history.push("/recipe/detail"); // 성공하면 작성 게시글로 이동 => router추가
     })
     .catch((err) => {
       console.log("Upload failed");
       console.log(err);
       alert(err); // 모달창으로 경고표시
     })
-  }
-
+  },
+  getRecipes: (token) => {
+    axios({
+      url: baseURL + "/recipe-articles",
+      method: 'get',
+      headers: {'Auth-Token': `${token}`},
+      }
+    )
+    .then((res) => {
+      console.log("Get Recipe Success");
+      console.log(res)
+      return res
+    })
+    .catch((err) => {
+      console.log("Get Recipe failed");
+      console.log(err)
+      return err
+      // alert(err); // 모달창으로 경고표시
+    })
+  },
 };

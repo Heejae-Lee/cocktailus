@@ -15,9 +15,9 @@ import Link from '@material-ui/core/Link';
 import useStyles from './styles';
 
 
-export default function ImgMediaCard() {
+export default function ImgMediaCard(props) {
   const classes = useStyles();
-  
+  const created = props.created
   return (
     <Grid item xs={4}>
       <Card className={classes.root}>
@@ -30,6 +30,7 @@ export default function ImgMediaCard() {
             alt="Cocktail-image"
             height="200"
             image="https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
+            // props.image로 변경
             title="Cocktail-image"
             className='scale'
           />
@@ -38,16 +39,16 @@ export default function ImgMediaCard() {
           </CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
-              몽환적인 맛, 펩시 칵테일
+              {props.title}
             </Typography>
             <Typography>
-              길 가던 바텐더
+              {props.name}
             </Typography>
           </CardContent>
 
         <CardActions className={classes.between}>
           <Typography>
-              {'2021. 07. 21'}
+              {String(props.created).substr(0, 10)}
           </Typography>
           <div className={classes.right}>
             <Typography variant="subtitle2" className={classes.right}>
