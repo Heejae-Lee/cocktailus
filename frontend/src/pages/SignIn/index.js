@@ -43,7 +43,7 @@ function SignIn() {
   const onSubmit = async (values) => {
     // form이 제출되면 로그인을 더 이상 수정할 수 없도록 잠금
     setSent(true);
-
+    
     const formData = {
       email: values.email,
       password: values.password,
@@ -53,6 +53,7 @@ function SignIn() {
     const res = await userAPI.login(formData);
     //console.log(res);
 
+    // 로그인 성공
     if (res.status === 200) {
       const payload = {
         token: res.data["access-token"],
@@ -63,7 +64,12 @@ function SignIn() {
       // store에 token 및 유저 데이터 저장
       Dispatch(getToken(payload));
       Dispatch(getMemberInfo(payload));
-
+      // 유저 데이터 로컬 스토리지에 저장
+      window.localStorage.setItem("memberData", JSON.stringify(payload));
+      // 꺼내올 때는 아래와 같이 가져옴
+      // window.localStorage.getItem("memberData");
+      
+      
       // modal 창 띄우기
       // alert는 임시
       alert("로그인 성공!");
@@ -71,11 +77,12 @@ function SignIn() {
       // home으로 redirection
       history.push("/");
     } else {
+      // 로그인 실패
       // modal 창 띄우기
       // alert는 임시
       alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
     }
-
+    
     // form 잠금 해제
     setSent(false);
   };
