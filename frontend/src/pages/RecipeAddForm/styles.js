@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     display:'flex',
     flexDirection: 'column',
     border: '3px solid #e5e5e5',
+    marginBottom: '70px',
   },
   flexRow: {
     display: 'flex',

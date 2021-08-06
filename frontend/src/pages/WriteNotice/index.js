@@ -13,7 +13,7 @@ import Footer from "../../layout/Footer";
 import Typography from "../../components/Typography";
 import useStyles from "./styles";
 
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { useHistory } from "react-router";
 import { noticeAPI } from "../../utils/axios";
 
@@ -22,7 +22,8 @@ function WriteNotice() {
   const classes = useStyles();
   const history = useHistory();
 
-  const { token, userName } = useSelector((state) => state.member);
+  const token = JSON.parse(window.localStorage.getItem("memberData")).token
+  const userName = JSON.parse(window.localStorage.getItem("memberData")).name
 
   const [data, setData] = React.useState({
     title: null,

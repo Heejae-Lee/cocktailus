@@ -10,16 +10,16 @@ import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
 import Button from '@material-ui/core/Button';
 
-import { useSelector } from 'react-redux'
 import axios from 'axios'
 
 function Recipe() {
   const classes = useStyles();
-  const { token } = useSelector((state) => state.member);
+  
+  const token = JSON.parse(window.localStorage.getItem("memberData")).token
   const [recipes, setRecipes] = useState([]);
 
   // 전체 레시피 조회
-  const fetchRecipes = async () => {
+  const getRecipes = () => {
     axios({
       url: "http://localhost:8080" + "/recipe-articles",
       method: 'get',
@@ -29,17 +29,16 @@ function Recipe() {
       // console.log("Get Recipe Success");
       setRecipes(res.data);
     })
-    .catch((e) => {
+    .catch(() => {
       console.log("Get Recipe failed");
     })
   }
 
   useEffect(()=>{
     // console.log('mount');
-    fetchRecipes();
+    getRecipes();
     return () => { // unmount시에 초기화
       // console.log('unmount');
-      console.log(recipes);
     }
   }, []);
 
