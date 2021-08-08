@@ -59,6 +59,7 @@ function Recipe() {
           {recipes.map(recipe => (
             <ImgMediaCard
               key={recipe.id}
+              id = {recipe.id}
               image={recipe.image}
               title={recipe.title}
               content={recipe.content}

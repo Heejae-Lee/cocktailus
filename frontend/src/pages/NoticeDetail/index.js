@@ -34,7 +34,7 @@ function NoticeDetail(match) {
     content: null,
   });
 
-  const getNoticeList = (id, token) => {
+  const getNoticeDetail = (id, token) => {
     axios({
       url: "http://localhost:8080" + `/notices/${id}`,
       method: 'get',
@@ -58,7 +58,7 @@ function NoticeDetail(match) {
   useEffect(() => {
     const noticeId = match.match.params.noticeId;
     const token = JSON.parse(window.localStorage.getItem("memberData")).token
-    getNoticeList(noticeId, token);
+    getNoticeDetail(noticeId, token);
     return () => {
       
     }
