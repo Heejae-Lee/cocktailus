@@ -26,12 +26,6 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     flex: 1,
-  },
-  font: {
-    cursor: "none",
-    color: 'white',
-    fontSize: 24,
-    marginRight: theme.spacing(3),
   }
 }));
 

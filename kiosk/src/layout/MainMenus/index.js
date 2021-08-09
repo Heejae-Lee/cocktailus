@@ -33,6 +33,7 @@ export default function MainMenus() {
                 <img
                   className={classes.menuImg}
                   src={process.env.PUBLIC_URL + value.menuImg}
+                  alt={'value.menuName'}
                 />
                 <span>{value.menuName}</span>
               </Paper>
