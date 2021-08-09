@@ -2,11 +2,13 @@
 import { useStyles } from "./styles";
 // 컴포넌트 관련
 import React from "react";
+import Link from "@material-ui/core/Link";
 import { ColorButton } from "./styles";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import LoginModal from "../../components/LoginModal";
 // 기능 관련
 import { useHistory } from "react-router-dom";
+import { NavLink as RouterLink } from "react-router-dom";
 
 export default function Header(props) {
   const classes = useStyles();
@@ -20,15 +22,24 @@ export default function Header(props) {
     <div className={classes.root}>
       <div className={classes.flexPrev}>
         {props.prev && (
-          <ColorButton
-            onClick={clickPrev}
-            className={classes.buttonPrev}
-            variant="contained"
-            size="large"
-            startIcon={<NavigateBeforeIcon />}
+          <Link
+            component={RouterLink}
+            color="inherit"
+            variant="h6"
+            underline="none"
+            className={classes.rightLink}
+            to={"/"}
           >
-            prev
-          </ColorButton>
+            <ColorButton
+              onClick={clickPrev}
+              className={classes.buttonPrev}
+              variant="contained"
+              size="large"
+              startIcon={<NavigateBeforeIcon />}
+            >
+              prev
+            </ColorButton>
+          </Link>
         )}
       </div>
       {/* 중앙 로고 */}

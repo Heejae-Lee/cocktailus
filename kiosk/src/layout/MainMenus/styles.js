@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     height: '60%',
     marginBottom: theme.spacing(1),
   },
+  menuName: {
+    fontSize: '32px'
+  },
   control: {
     padding: theme.spacing(2),
   },
