@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 
 import Card from '@material-ui/core/Card';
@@ -17,7 +17,24 @@ import useStyles from './styles';
 
 export default function ImgMediaCard(props) {
   const classes = useStyles();
-  const created = props.created
+
+  const [state, setState] = useState(0);
+  const [like, setLike] = useState(false);
+  const [likeValue, setLikeValue] = useState(0);
+  const [likeImg, setLikeImg] = useState("no_like.png");
+
+  const clickLike = () => {
+    if (like) {
+      setLike(!like);
+      setLikeValue(likeValue - 1);
+      setLikeImg("no_like.png");
+    } else {
+      setLike(!like);
+      setLikeValue(likeValue + 1);
+      setLikeImg("like.png");
+    }
+  };
+
   return (
     <Grid item xs={4}>
       <Card className={classes.root}>
@@ -53,15 +70,14 @@ export default function ImgMediaCard(props) {
           </Typography>
           <div className={classes.right}>
             <Typography variant="subtitle2" className={classes.right}>
-              {'103 Likes'}
+              {`${likeValue} Likes`}
             </Typography>
-            {/* 좋아요 누르면 Icon 컬러 toggle + 유저가 좋아요 눌렀는지 확인해서 color 설정 */}
-            {/* 좋아요 갯수도 +1, -1*/}
-            <FavoriteIcon
-              className={clsx('scaleLike')}
-              style={{color:'red'}}
-              >
-            </FavoriteIcon>
+              <img
+                  className={classes.likeImg}
+                  src={process.env.PUBLIC_URL + "/images/" + likeImg}
+                  alt="좋아요 이미지"
+                  onClick={clickLike}
+              />
           </div>
         </CardActions>
       </Card>

@@ -13,8 +13,18 @@ const useStyles = makeStyles({
     display: 'flex',
     marginBottom: 3,
   },
-  setRed: {
-    color: 'red',
+  img: {
+    margin: "auto",
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+  },
+  likeImg: {
+    width: 18,
+    height: 18,
+    marginLeft: 20,
+    marginRight: 10,
+    cursor: "pointer",
   },
 });
 
