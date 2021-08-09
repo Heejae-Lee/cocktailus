@@ -40,7 +40,7 @@ const headerLinksStyle = (theme) => ({
   listItem: {
     float: "left",
     color: "inherit",
-    position: "relative",
+    // position: "relative",
     display: "block",
     width: "auto",
     margin: "0",
@@ -138,6 +138,11 @@ const navbarsStyle = (theme) => ({
     borderRadius: "50%",
     marginLeft: "5px",
   },
+  recipeAddButton: {
+    fontWeight: "bold",
+    fontSize: "11px",
+    border: "1px solid #ccc",
+  }
 });
 
 export default navbarsStyle;

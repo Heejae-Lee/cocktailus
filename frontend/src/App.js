@@ -15,6 +15,7 @@ import NoticePage from './pages/Notice';
 import PageNotFound from './pages/PageNotFound';
 import WriteNotice from './pages/WriteNotice';
 import NoticeDetail from './pages/NoticeDetail';
+import MyRecipe from './pages/MyRecipe';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/recipe" component={Recipe} />
+        <Route exact path="/myRecipe" component={MyRecipe} />
         <Route exact path="/recipe/write" component={RecipeAddForm} />
         <Route exact path="/recipe/detail/:recipeId" component={RecipeDetail} />
         <Route exact path="/ForgotPassword" component={ForgotPassword} />
