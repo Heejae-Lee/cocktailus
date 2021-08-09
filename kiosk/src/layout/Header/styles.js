@@ -30,7 +30,8 @@ export const useStyles = makeStyles((theme) => ({
   font: {
     cursor: "none",
     color: 'white',
-    paddingRight: theme.spacing(3),
+    fontSize: 24,
+    marginRight: theme.spacing(3),
   }
 }));
 
@@ -38,6 +39,7 @@ export const ColorButton = withStyles((theme) => ({
     root: {
       cursor: "none",
       color: theme.palette.getContrastText(purple[500]),
+      fontSize: 20,
       backgroundColor: purple[600],
       '&:hover': {
         backgroundColor: purple[700],

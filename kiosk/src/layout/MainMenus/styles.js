@@ -14,17 +14,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: 150,
-    height: 140,
+    width: '27vw',
+    height: '48vh',
     backgroundColor: "#69696a",
     '&:hover': {
       backgroundColor: "#454563",
     },
   },
   menuImg: {
-    width: 80,
-    height: 80,
-    marginBottom: 10,
+    width: '60%',
+    height: '60%',
+    marginBottom: theme.spacing(1),
   },
   control: {
     padding: theme.spacing(2),
