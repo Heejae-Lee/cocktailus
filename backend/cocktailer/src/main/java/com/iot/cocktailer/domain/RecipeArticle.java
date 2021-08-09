@@ -1,6 +1,7 @@
 package com.iot.cocktailer.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
 public class RecipeArticle {
 
     @Id
@@ -34,6 +36,9 @@ public class RecipeArticle {
 
     @NotEmpty
     private String member_name;
+
+    @Column(columnDefinition = "int default 0")
+    private Integer likeCount;
 
     public Long getId() {
         return id;
@@ -113,5 +118,13 @@ public class RecipeArticle {
 
     public void setMember_name(String member_name) {
         this.member_name = member_name;
+    }
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
     }
 }
