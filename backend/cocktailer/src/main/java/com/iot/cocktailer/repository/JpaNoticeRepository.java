@@ -26,7 +26,7 @@ public class JpaNoticeRepository implements NoticeRepository{
     }
 
     @Override
-    public Notice join(Notice notice) {
+    public Notice save(Notice notice) {
         em.persist(notice);
         return notice;
     }

@@ -14,7 +14,6 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "*")
 public class LikeController {
-
     private final LikeService likeService;
 
     public LikeController(LikeService likeService){

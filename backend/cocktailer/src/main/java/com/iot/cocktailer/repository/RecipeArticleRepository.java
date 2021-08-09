@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RecipeArticleRepository {
-    List<RecipeArticle> findAllRecipeArticles();
+    List<RecipeArticle> findAll();
     RecipeArticle save(RecipeArticle recipeArticle);
     Optional<RecipeArticle> findById(Long id);
 }

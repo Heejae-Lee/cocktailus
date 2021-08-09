@@ -14,40 +14,30 @@ import java.util.Optional;
 @RequestMapping("/notices")
 @CrossOrigin(origins = "*")
 public class NoticeController {
-    private final JpaNoticeRepository jpaNoticeRepository;
     private final NoticeService noticeService;
 
     @Autowired
-    public NoticeController(JpaNoticeRepository jpaNoticeRepository,NoticeService noticeService){
-        this.jpaNoticeRepository = jpaNoticeRepository;
+    public NoticeController(NoticeService noticeService){
         this.noticeService = noticeService;
     }
 
     @GetMapping
-    public ResponseEntity getAllNotices(){
-        return new ResponseEntity<>(jpaNoticeRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity getNotices(){
+        return new ResponseEntity<>(noticeService.getNotices(), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity postNotice(@RequestBody Notice notice){
-        System.out.println(notice.getTitle());
-        jpaNoticeRepository.join(notice);
-        return new ResponseEntity(notice,HttpStatus.CREATED);
+        return new ResponseEntity(noticeService.postNotice(notice),HttpStatus.CREATED);
     }
 
     @GetMapping("/{notice_id}")
     public ResponseEntity getNoticeById(@PathVariable("notice_id") Long id){
-        Optional<Notice> optionalNotice = jpaNoticeRepository.findById(id);
-        Notice notice = optionalNotice.orElseThrow(()
-                -> new IllegalStateException("No matching id")
-            );
-
-        return new ResponseEntity<>(notice,HttpStatus.OK);
+        return new ResponseEntity<>(noticeService.getNotice(id),HttpStatus.OK);
     }
 
     @PutMapping("/{notice_id}")
     public ResponseEntity updateNoticeById(@PathVariable("notice_id") Long id,@RequestBody Notice notice){
-        Notice result = noticeService.update(id,notice);
-        return new ResponseEntity<>(result,HttpStatus.OK);
+        return new ResponseEntity<>(noticeService.update(id,notice),HttpStatus.OK);
     }
 }

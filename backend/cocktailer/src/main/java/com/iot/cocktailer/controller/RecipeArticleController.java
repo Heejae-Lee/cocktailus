@@ -22,43 +22,24 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class RecipeArticleController {
     private final RecipeArticleService recipeArticleService;
-    private final JpaRecipeArticleRepository jpaRecipeArticleRepository;
-    private final JpaCommentRepository jpaCommentRepository;
-    private final S3UploadService s3UploadService;
 
     @Autowired
-    public RecipeArticleController(RecipeArticleService recipeArticleService,JpaRecipeArticleRepository jpaRecipeArticleRepository,JpaCommentRepository jpaCommentRepository,S3UploadService s3UploadService){
+    public RecipeArticleController(RecipeArticleService recipeArticleService){
         this.recipeArticleService = recipeArticleService;
-        this.jpaRecipeArticleRepository = jpaRecipeArticleRepository;
-        this.jpaCommentRepository = jpaCommentRepository;
-        this.s3UploadService = s3UploadService;
     }
 
     @GetMapping
     public ResponseEntity getRecipeArticles(){
-        return new ResponseEntity<>(jpaRecipeArticleRepository.findAllRecipeArticles(), HttpStatus.OK);
+        return new ResponseEntity<>(recipeArticleService.getRecipeArticles(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity postRecipeArticles(@RequestBody RecipeArticle recipeArticle){
-        String imageUrl = s3UploadService.upload(recipeArticle,"static");
-        recipeArticle.setImageURL(imageUrl);
-
-        return new ResponseEntity<>(jpaRecipeArticleRepository.save(recipeArticle),HttpStatus.CREATED);
+    public ResponseEntity postRecipeArticle(@RequestBody RecipeArticle recipeArticle){
+        return new ResponseEntity<>(recipeArticleService.postRecipeArticle(recipeArticle),HttpStatus.CREATED);
     }
 
     @GetMapping("/{recipe-articles_id}")
     public ResponseEntity getRecipeArticle(@PathVariable("recipe-articles_id")Long id){
-        Map<String,Object> result = new HashMap<>();
-        Optional<RecipeArticle> optionalRecipeArticle = jpaRecipeArticleRepository.findById(id);
-        RecipeArticle recipeArticle = optionalRecipeArticle.orElseThrow(()
-                -> new IllegalStateException("No matching id")
-            );
-
-        List<Comment> comments = jpaCommentRepository.findByRecipeArticleId(id);
-
-        result.put("recipe-article",recipeArticle);
-        result.put("comments",comments);
-        return new ResponseEntity<>(result,HttpStatus.OK);
+        return new ResponseEntity<>(recipeArticleService.getRecipeArticle(id),HttpStatus.OK);
     }
 }
