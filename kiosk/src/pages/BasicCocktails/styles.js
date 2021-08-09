@@ -10,6 +10,29 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     backgroundColor: '#28282a',
   },
+  listWrapper:{
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  cards: {
+    flex:1,
+    witdh: '90vw',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap'
+  },
+  nextIcon: {
+    width: '4vw',
+    position: 'relative',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    color: 'white',
+    marginLeft: '2vw',
+    marginRight: '2vw',
+  }
 }));
 
 export default useStyles;

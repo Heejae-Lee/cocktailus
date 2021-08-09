@@ -2,13 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(1),
-    width: "29vw",
+    margin: theme.spacing(1),
+    width: "26vw",
+    borderRadius: "12px"
   },
   between: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: theme.spacing(1),
   },
   right: {
     marginRight: theme.spacing(1),
