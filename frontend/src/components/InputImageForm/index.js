@@ -25,7 +25,6 @@ export default function InputImageForm(props) {
               accept="image/*"
               className={classes.input}
               id="contained-button-file"
-              multiple
               type="file"
               onChange={props.handleUploadClick}
             />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 
 import Card from '@material-ui/core/Card';
@@ -13,15 +13,49 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 
 import useStyles from './styles';
+import axios from 'axios';
 
 
 export default function ImgMediaCard(props) {
   const classes = useStyles();
+  const member = JSON.parse(window.localStorage.getItem("memberData"));
 
   const [state, setState] = useState(0);
   const [like, setLike] = useState(false);
   const [likeValue, setLikeValue] = useState(0);
   const [likeImg, setLikeImg] = useState("no_like.png");
+  
+  // useEffect(() => {
+  //   // like, likeValue, likeImg 셋팅
+  //   if (props.like === true) {
+  //     setLike(true);
+  //     setLikeValue(1); // like 총 숫자
+  //     setLikeImg("like.png");
+  //   } else {
+  //     setLike(false);
+  //     setLikeValue(0);
+  //     setLikeImg("no_like.png");
+  //   }
+  //   return () => {
+      
+  //   }
+  // }, [])
+
+
+  const likeRequest = () => {
+    axios({
+      url: "http://localhost:8080" + `/recipe-articles/like/${props.id}`,
+      method: 'post',
+      headers: { 'Auth-Token': `${member.token}` },
+      })
+      .then((res) => {
+        console.log("like success");
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  };
 
   const clickLike = () => {
     if (like) {

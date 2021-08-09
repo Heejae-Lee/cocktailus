@@ -29,13 +29,14 @@ function RecipeDetail(match) {
     like: true,
     likeImg: "no_like.png",
     likeValue: 0,
+    imageURL: "",
   });
 
-  const getRecipeDetail = (id, token) => {
+  const getRecipeDetail = (id) => {
     axios({
       url: "http://localhost:8080" + `/recipe-articles/${id}`,
       method: 'get',
-      headers: { 'Auth-Token': `${token}` },
+      headers: {'Auth-Token': `${member.token}`},
       })
       .then((res) => {
         console.log("getRecipeDetail success");
@@ -65,6 +66,7 @@ function RecipeDetail(match) {
           like: false,
           likeImg: "no_like.png",
           likeValue: 0,
+          imageURL: recipeData.imageURL,
         });
       })
       .catch((err) => {
@@ -72,52 +74,10 @@ function RecipeDetail(match) {
         console.log(err);
       })
   }
+
   useEffect(() => {
     const recipeId = match.match.params.recipeId;
-    const token = member.token;
-    // 더미 데이터 적용
-    // 실제 BE로부터 데이터 받아오는 것으로 교체 예정
-    getRecipeDetail(recipeId, token);
-    // const data = {
-    //   id: 0,
-    //   title: "보라색 포도주",
-    //   tag: "보라|포도|단맛|무알콜",
-    //   drink: "포도 주스|사이다|진|보드카",
-    //   drink_ratio: "135ml|45ml|60ml|150ml",
-    //   memberName: "난보라빛이좋아",
-    //   content: `난 보랏빛이 좋아요.
-    //   왜냐하면 보랏빛이 좋기때문인데 왜 보라색이 좋냐고 말씀하신다면 그건 그냥 보라색이 좋아서 좋다고 했을 뿐
-    //   난 보라색을 믿었었던 만큼 내 색감도 믿었기에 난 아무런 부담없이 널 내 웹사이트에 적용 시켜줬고
-    //   그런 적용이 있은후로부터 우리는 자주 함께 만나며 즐거운 시간을 보내며 함께 어울렸던 것뿐인데
-    //   그런 스타일이 어디부터 잘못됐었는지 난 알 수 없는 예감에 조금씩 빠져들고 있을때쯤
-    //   넌 나보다 내 마진에게 관심을 더 보이며 컴포넌트를 밀어내던 그 어느날`,
-    //   created: "2021-08-05",
-    // };
-
-    // const tag = data.tag.split("|").reduce((acc, cur) => {
-    //   acc = acc + `#${cur} `;
-    //   return acc;
-    // }, "");
-    // //console.log(tag);
-    // const drink = data.drink.split("|").map((li) => {
-    //   return li;
-    // });
-    // const drink_ratio = data.drink_ratio.split("|").map((li) => {
-    //   return Number(li.replace("ml", "")) / 15;
-    // });
-    // setState({
-    //   id: data.id,
-    //   title: data.title,
-    //   tag: tag,
-    //   drink: drink,
-    //   drink_ratio: drink_ratio,
-    //   memberName: data.memberName,
-    //   content: data.content,
-    //   created: data.created,
-    //   like: false,
-    //   likeImg: "no_like.png",
-    //   likeValue: 0,
-    // });
+    getRecipeDetail(recipeId);
   }, []);
   
   return (

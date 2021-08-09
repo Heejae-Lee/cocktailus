@@ -15,7 +15,6 @@ import axios from 'axios'
 function Recipe() {
   const classes = useStyles();
   
-  const token = JSON.parse(window.localStorage.getItem("memberData")).token
   const [recipes, setRecipes] = useState([]);
 
   // 전체 레시피 조회
@@ -23,7 +22,6 @@ function Recipe() {
     axios({
       url: "http://localhost:8080" + "/recipe-articles",
       method: 'get',
-      headers: {'Auth-Token': `${token}`},
     })
     .then((res) => {
       // console.log("Get Recipe Success");

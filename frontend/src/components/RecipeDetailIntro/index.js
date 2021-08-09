@@ -20,6 +20,7 @@ export default function RecipeDetailIntro(props) {
     like: true,
     likeImg: "no_like.png",
     likeValue: 0,
+    imageURL : "",
   });
 
   React.useEffect(() => {
@@ -33,6 +34,7 @@ export default function RecipeDetailIntro(props) {
         like: false,
         likeImg: "no_like.png",
         likeValue: 0,
+        imageURL : props.data.imageURL,
       });
     }
   }, [props]);
@@ -106,7 +108,7 @@ export default function RecipeDetailIntro(props) {
               <img
                 className={classes.img}
                 alt="cocktailImg"
-                src={process.env.PUBLIC_URL + "/images/cocktail.png"}
+                src={state.imageURL}
               />
             </ButtonBase>
           </Grid>
