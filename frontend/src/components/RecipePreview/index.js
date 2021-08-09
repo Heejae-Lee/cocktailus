@@ -24,7 +24,8 @@ export default function ImgMediaCard(props) {
         <CardActionArea left="50%">
           <Link 
             component={RouterLink}
-            to='/recipe/detail'>
+            to={`/recipe/detail/${props.id}`}
+            >
           <CardMedia
             component="img"
             alt="Cocktail-image"

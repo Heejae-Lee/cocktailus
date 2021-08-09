@@ -22,18 +22,17 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/recipe" component={Recipe} />
-        <Route exact path="/recipe/detail" component={RecipeDetail} />
         <Route exact path="/recipe/write" component={RecipeAddForm} />
+        <Route exact path="/recipe/detail/:recipeId" component={RecipeDetail} />
         <Route exact path="/ForgotPassword" component={ForgotPassword} />
         <Route exact path="/SignUp" component={SignUp} />
         <Route exact path="/SignIn" component={SignIn} />
         <Route exact path="/Privacy" component={Privacy} />
         <Route exact path="/Terms" component={Terms} />
-        <Route exact path="/recipe/write" component={RecipeAddForm} />
         <Route exact path="/notice" component={NoticePage} />
         <Route exact path="/error" component={PageNotFound} />
         <Route exact path="/notice/write" component={WriteNotice} />
-        <Route exact path="/notice/:noticeId" component={NoticeDetail} />
+        <Route exact path="/notice/detail/:noticeId" component={NoticeDetail} />
         <Redirect to="/error"/>
       </Switch>
     </BrowserRouter>
