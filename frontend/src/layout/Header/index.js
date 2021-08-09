@@ -55,30 +55,30 @@ function AppHeader(props) {
     } else {
       return (
         <div className={classes.right}>
-            <Link
-              component={RouterLink}
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={classes.user}
-              to="/"
-            >
-              <Avatar className={classes.userAvater}>
-                <ImageIcon />
-              </Avatar>
-              {userName}
-            </Link>
-            <Link
-              component={RouterLink}
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={classes.rightLink}
-              onClick={logOut}
-              to="/"
-            >
-              {"로그아웃"}
-            </Link>
+          <Link
+            component={RouterLink}
+            color="inherit"
+            variant="h6"
+            underline="none"
+            className={classes.user}
+            to="/"
+          >
+            <Avatar className={classes.userAvater}>
+              <ImageIcon />
+            </Avatar>
+            {userName}
+          </Link>
+          <Link
+            component={RouterLink}
+            color="inherit"
+            variant="h6"
+            underline="none"
+            className={classes.rightLink}
+            onClick={logOut}
+            to="/"
+          >
+            {"로그아웃"}
+          </Link>
         </div>
       );
     }
