@@ -17,7 +17,6 @@ import axios from "axios";
 function RecipeDetail(match) {
   const classes = useStyles();
   const member = JSON.parse(window.localStorage.getItem("memberData"));
-  const [data, setData] = useState({});
   const [state, setState] = useState({
     id: null,
     title: "",
@@ -60,7 +59,7 @@ function RecipeDetail(match) {
           tag: tag,
           drink: drink,
           drink_ratio: drink_ratio,
-          memberName: recipeData.memberName,
+          memberName: recipeData["member_name"],
           content: recipeData.content,
           created: recipeData.created.substr(0, 10),
           like: false,
