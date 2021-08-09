@@ -86,10 +86,7 @@ function NoticePage() {
   }, [])
 
   const getNoticeList = () => {
-    axios({
-      url: "http://localhost:8080" + "/notices",
-      method: 'get',
-      })
+    axios.get("/notices")
       .then((res) => {
         console.log("getNoticeList success");
         let datas = res.data
@@ -98,7 +95,7 @@ function NoticePage() {
         }
         setRows(res.data);
         setFilteredRows(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log("getNoticeList fail");

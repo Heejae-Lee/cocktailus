@@ -43,12 +43,9 @@ export default function ImgMediaCard(props) {
 
 
   const likeRequest = () => {
-    axios({
-      url: "http://localhost:8080" + `/recipe-articles/like/${props.id}`,
-      method: 'post',
-      headers: { 'Auth-Token': `${member.token}` },
-      })
-      .then((res) => {
+    axios.post(`/recipe-articles/like/${props.id}`, { data: {id: props.id}},
+    {headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
         console.log("like success");
       })
       .catch((err) => {
@@ -58,6 +55,8 @@ export default function ImgMediaCard(props) {
   };
 
   const clickLike = () => {
+    likeRequest();
+    console.log("click");
     if (like) {
       setLike(!like);
       setLikeValue(likeValue - 1);
@@ -81,7 +80,7 @@ export default function ImgMediaCard(props) {
             component="img"
             alt="Cocktail-image"
             height="200"
-            image="https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
+            image={props.imageURL}
             // props.image로 변경
             title="Cocktail-image"
             className='scale'

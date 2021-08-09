@@ -11,11 +11,11 @@ import Terms from './pages/Terms/'
 import Recipe from './pages/Recipe/'
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeAddForm from './pages/RecipeAddForm';
+import MyRecipe from './pages/MyRecipe';
 import NoticePage from './pages/Notice';
 import PageNotFound from './pages/PageNotFound';
-import WriteNotice from './pages/WriteNotice';
+import NoticeWrite from './pages/NoticeWrite';
 import NoticeDetail from './pages/NoticeDetail';
-import MyRecipe from './pages/MyRecipe';
 
 function App() {
   return (
@@ -23,18 +23,18 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/recipe" component={Recipe} />
-        <Route exact path="/myRecipe" component={MyRecipe} />
         <Route exact path="/recipe/write" component={RecipeAddForm} />
         <Route exact path="/recipe/detail/:recipeId" component={RecipeDetail} />
-        <Route exact path="/ForgotPassword" component={ForgotPassword} />
-        <Route exact path="/SignUp" component={SignUp} />
+        <Route exact path="/myRecipe" component={MyRecipe} />
         <Route exact path="/SignIn" component={SignIn} />
+        <Route exact path="/SignUp" component={SignUp} />
+        <Route exact path="/ForgotPassword" component={ForgotPassword} />
         <Route exact path="/Privacy" component={Privacy} />
         <Route exact path="/Terms" component={Terms} />
         <Route exact path="/notice" component={NoticePage} />
-        <Route exact path="/error" component={PageNotFound} />
-        <Route exact path="/notice/write" component={WriteNotice} />
+        <Route exact path="/notice/write" component={NoticeWrite} />
         <Route exact path="/notice/detail/:noticeId" component={NoticeDetail} />
+        <Route exact path="/error" component={PageNotFound} />
         <Redirect to="/error"/>
       </Switch>
     </BrowserRouter>

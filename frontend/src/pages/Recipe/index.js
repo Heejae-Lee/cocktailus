@@ -19,10 +19,7 @@ function Recipe() {
 
   // 전체 레시피 조회
   const getRecipes = () => {
-    axios({
-      url: "http://localhost:8080" + "/recipe-articles",
-      method: 'get',
-    })
+    axios.get("/recipe-articles")
     .then((res) => {
       // console.log("Get Recipe Success");
       setRecipes(res.data);
@@ -64,6 +61,7 @@ function Recipe() {
               name={recipe.member_name}
               created={recipe.created}
               updated={recipe.updated}
+              imageURL={recipe.imageURL}
               />
           ))}
           <ImgMediaCard />

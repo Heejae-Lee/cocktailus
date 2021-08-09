@@ -10,10 +10,10 @@ import Typography from "../../components/Typography";
 import useStyles from "./styles";
 
 import { purple } from '@material-ui/core/colors';
-import { useSelector } from 'react-redux'
 import { useHistory } from "react-router";
-import axios from "axios";
 import { Button } from "@material-ui/core";
+
+import axios from "axios";
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -28,18 +28,16 @@ const ColorButton = withStyles((theme) => ({
 function NoticeDetail(match) {
   const classes = useStyles();
   const history = useHistory();
-  
+  const noticeId = match.match.params.noticeId;
+
   const [data, setData] = useState({
     title: null,
     content: null,
   });
 
-  const getNoticeDetail = (id, token) => {
-    axios({
-      url: "http://localhost:8080" + `/notices/${id}`,
-      method: 'get',
-      headers: { 'Auth-Token': `${token}` },
-      })
+  const getNoticeDetail = (id) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    axios.get(`/notices/${id}`, {headers: {'Auth-Token': `${member.token}`}})
       .then((res) => {
         console.log("getNotice success");
         let datas = res.data
@@ -56,13 +54,9 @@ function NoticeDetail(match) {
 
 
   useEffect(() => {
-    const noticeId = match.match.params.noticeId;
     const token = JSON.parse(window.localStorage.getItem("memberData")).token
     getNoticeDetail(noticeId, token);
-    return () => {
-      
-    }
-  }, [])
+  }, [noticeId])
 
 
   return (

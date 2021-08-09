@@ -19,7 +19,7 @@ export default function RecipeDetailIntro(props) {
     created: "",
     like: true,
     likeImg: "no_like.png",
-    likeValue: 0,
+    likeCount: 0,
     imageURL : "",
   });
 
@@ -33,7 +33,7 @@ export default function RecipeDetailIntro(props) {
         created: props.data.created,
         like: false,
         likeImg: "no_like.png",
-        likeValue: 0,
+        likeCount: props.data.likeCount,
         imageURL : props.data.imageURL,
       });
     }
@@ -86,14 +86,14 @@ export default function RecipeDetailIntro(props) {
         ...state,
         like: false,
         likeImg: "no_like.png",
-        likeValue: state.likeValue - 1,
+        likeCount: state.likeCount - 1,
       });
     } else {
       setState({
         ...state,
         like: true,
         likeImg: "like.png",
-        likeValue: state.likeValue + 1,
+        likeCount: state.likeCount + 1,
       });
     }
   };
@@ -134,7 +134,7 @@ export default function RecipeDetailIntro(props) {
                   onClick={clickLike}
                 />
                 <Typography className={classes.bottomInfo} variant="h6">
-                  {state.likeValue}
+                  {state.likeCount}
                 </Typography>
                 </div>
               </div>

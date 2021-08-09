@@ -1,6 +1,7 @@
 // 스타일 관련
 import withRoot from "../../components/withRoot";
 import useStyles from "./styles";
+
 // 컴포넌트 관련
 import React, { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
@@ -12,11 +13,17 @@ import Typography from "../../components/Typography";
 import RecipeDetailIntro from "../../components/RecipeDetailIntro/";
 import Comment from "../../components/Comment";
 import CommentTextField from "../../components/CommentTextField/";
+
+// axios
 import axios from "axios";
+// import BASE_URL from "../../utils/axios"
+
 
 function RecipeDetail(match) {
   const classes = useStyles();
   const member = JSON.parse(window.localStorage.getItem("memberData"));
+  const recipeId = match.match.params.recipeId;
+
   const [state, setState] = useState({
     id: null,
     title: "",
@@ -28,57 +35,52 @@ function RecipeDetail(match) {
     created: "",
     like: true,
     likeImg: "no_like.png",
-    likeValue: 0,
+    likeCount: 0,
     imageURL: "",
   });
 
-  const getRecipeDetail = (id) => {
-    axios({
-      url: "http://localhost:8080" + `/recipe-articles/${id}`,
-      method: 'get',
-      headers: {'Auth-Token': `${member.token}`},
-      })
-      .then((res) => {
-        console.log("getRecipeDetail success");
-        let recipeData = res.data["recipe-article"]
-        console.log(recipeData)
-
-        const tag = recipeData.tag.split("|").reduce((acc, cur) => {
-          acc = acc + `#${cur} `;
-          return acc;
-        }, "");
-        const drink = recipeData.drink.split("|").map((li) => {
-          return li;
-        });
-        const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
-          return Number(li) / 15;
-          // return Number(li.replace("ml", "")) / 15;
-        });
-        setState({
-          id: recipeData.id,
-          title: recipeData.title,
-          tag: tag,
-          drink: drink,
-          drink_ratio: drink_ratio,
-          memberName: recipeData["member_name"],
-          content: recipeData.content,
-          created: recipeData.created.substr(0, 10),
-          like: false,
-          likeImg: "no_like.png",
-          likeValue: 0,
-          imageURL: recipeData.imageURL,
-        });
-      })
-      .catch((err) => {
-        console.log("getRecipeDetail fail");
-        console.log(err);
-      })
-  }
 
   useEffect(() => {
-    const recipeId = match.match.params.recipeId;
+    const getRecipeDetail = (recipeId) => {
+      axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
+        .then((res) => {
+          console.log("getRecipeDetail success");
+          let recipeData = res.data["recipe-article"]
+          console.log(recipeData)
+  
+          const tag = recipeData.tag.split("|").reduce((acc, cur) => {
+            acc = acc + `#${cur} `;
+            return acc;
+          }, "");
+          const drink = recipeData.drink.split("|").map((li) => {
+            return li;
+          });
+          const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
+            return Number(li) / 15;
+            // return Number(li.replace("ml", "")) / 15;
+          });
+          setState({
+            id: recipeData.id,
+            title: recipeData.title,
+            tag: tag,
+            drink: drink,
+            drink_ratio: drink_ratio,
+            memberName: recipeData["member_name"],
+            content: recipeData.content,
+            created: recipeData.created.substr(0, 10),
+            like: false,
+            likeImg: "no_like.png",
+            likeCount: recipeData.likeCount,
+            imageURL: recipeData.imageURL,
+          });
+        })
+        .catch((err) => {
+          console.log("getRecipeDetail fail");
+          console.log(err);
+        })
+    }
     getRecipeDetail(recipeId);
-  }, []);
+  }, [recipeId, member.token]);
   
   return (
     <Box>
