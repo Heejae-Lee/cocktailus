@@ -2,18 +2,16 @@
 import useStyles from "./styles";
 // 컴포넌트 관련
 import React from "react";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
 import { NavLink as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
-export default function RecipeCard() {
+export default function RecipeCard(props) {
   const classes = useStyles();
 
   return (
@@ -32,14 +30,14 @@ export default function RecipeCard() {
 
         <CardContent>
           <Typography variant="h6" component="h2">
-            몽환적인 맛, 펩시 칵테일
+            {props.data.name}
           </Typography>
         </CardContent>
 
         <CardActions className={classes.between}>
-          <Typography className={classes.left}>{"2021. 07. 21"}</Typography>
+          <Typography className={classes.left}>{props.data.created}</Typography>
           <Typography variant="subtitle2" className={classes.right}>
-            길 가던 바텐더
+            {props.data.memberName}
           </Typography>
         </CardActions>
       </Card>
