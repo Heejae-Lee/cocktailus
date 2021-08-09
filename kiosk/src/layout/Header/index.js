@@ -15,7 +15,7 @@ export default function Header(props) {
         <ColorButton
           className={classes.buttonPrev}
           variant="contained"
-          size="small"
+          size="large"
           startIcon={<NavigateBeforeIcon />}
         >
           prev
