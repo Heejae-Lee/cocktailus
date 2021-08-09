@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { Link } from "@material-ui/core";
+import { NavLink as RouterLink } from 'react-router-dom';
+
 // @material-ui/icons
 import Search from "@material-ui/icons/Search";
 
@@ -11,30 +13,31 @@ import Search from "@material-ui/icons/Search";
 import Header from "./RecipeHeaderComponents/Header";
 import CustomInput from "../../components/CustomInput";
 import Button from "./RecipeHeaderComponents/Button";
-import styles from "./styles";
+import navbarsStyle from "./styles";
+import Chip from '@material-ui/core/Chip';
 
+const useStyles = makeStyles(navbarsStyle);
 
-const useStyles = makeStyles(styles);
-
-export default function RecipeHeader() {
+export default function RecipeHeader(props) {
   const classes = useStyles();
   return (
     <Header
-      brand="Brand"
       color="rose"
       leftLinks={
         <List className={classes.list}>
           <ListItem className={classes.listItem}>
-
+            <Chip
+            color="white"
+            label="최신순"
+            clickable variant="outlined"
+            />
           </ListItem>
           <ListItem className={classes.listItem}>
-            <Link
-              href="#pablo"
-              className={classes.navLink}
-              onClick={(e) => e.preventDefault()}
-            >
-              Link
-            </Link>
+            <Chip
+              color="white"
+              label="인기순"
+              clickable variant="outlined"
+            />
           </ListItem>
         </List>
       }
