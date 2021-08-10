@@ -21,9 +21,8 @@ function Recipe() {
   const getRecipes = () => {
     axios.get("/recipe-articles")
     .then((res) => {
-      // console.log("Get Recipe Success");
+      console.log("Get Recipe Success");
       setRecipes(res.data);
-      console.log(res.data);
     })
     .catch(() => {
       console.log("Get Recipe failed");
@@ -31,11 +30,8 @@ function Recipe() {
   }
 
   useEffect(()=>{
-    // console.log('mount');
+    console.log('mount');
     getRecipes();
-    return () => { // unmount시에 초기화
-      // console.log('unmount');
-    }
   }, []);
 
   return (
