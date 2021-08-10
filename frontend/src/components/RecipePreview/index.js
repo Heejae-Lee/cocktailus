@@ -1,5 +1,4 @@
-import React from 'react';
-import clsx from 'clsx';
+import React, { useState, useEffect } from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,17 +6,69 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Grid } from '@material-ui/core';
 import { NavLink as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 
 import useStyles from './styles';
+import axios from 'axios';
+import classnames from 'classnames';
 
 
 export default function ImgMediaCard(props) {
   const classes = useStyles();
-  const created = props.created
+  const member = JSON.parse(window.localStorage.getItem("memberData"));
+
+  const [like, setLike] = useState(false);
+  const [likeCount, setlikeCount] = useState(0);
+  const [likeImg, setLikeImg] = useState("no_like.png");
+
+  useEffect(() => {
+    setlikeCount(props.likeCount); // like 총 숫자
+    // like, likeCount, likeImg 셋팅
+    if (props.like === true) {
+      setLike(true);
+      setLikeImg("like.png");
+    } else {
+      setLike(false);
+      setLikeImg("no_like.png");
+    }
+    return () => {
+      
+    }
+  }, [props.like, props.likeCount])
+
+
+  const likeRequest = () => {
+    if (member == null) {
+      alert("로그인 후 사용해주세요");
+      return;
+    }
+    axios.post(`/like`, {id: {article_id: props.id, member_name: member.name}},
+    {headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("like success");
+        if (like) {
+          setLike(!like);
+          setlikeCount(likeCount - 1);
+          setLikeImg("no_like.png");
+        } else {
+          setLike(!like);
+          setlikeCount(likeCount + 1);
+          setLikeImg("like.png");
+        }
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  };
+
+  const clickLike = () => {
+    likeRequest();
+    console.log("click");
+  };
+
   return (
     <Grid item xs={4}>
       <Card className={classes.root}>
@@ -30,7 +81,7 @@ export default function ImgMediaCard(props) {
             component="img"
             alt="Cocktail-image"
             height="200"
-            image="https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
+            image={props.imageURL}
             // props.image로 변경
             title="Cocktail-image"
             className='scale'
@@ -53,15 +104,14 @@ export default function ImgMediaCard(props) {
           </Typography>
           <div className={classes.right}>
             <Typography variant="subtitle2" className={classes.right}>
-              {'103 Likes'}
+              {`${likeCount} Likes`}
             </Typography>
-            {/* 좋아요 누르면 Icon 컬러 toggle + 유저가 좋아요 눌렀는지 확인해서 color 설정 */}
-            {/* 좋아요 갯수도 +1, -1*/}
-            <FavoriteIcon
-              className={clsx('scaleLike')}
-              style={{color:'red'}}
-              >
-            </FavoriteIcon>
+              <img
+                  className={classnames(classes.likeImg, "scaleLike")}
+                  src={process.env.PUBLIC_URL + "/images/" + likeImg}
+                  alt="좋아요 이미지"
+                  onClick={clickLike}
+              />
           </div>
         </CardActions>
       </Card>

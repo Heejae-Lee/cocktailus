@@ -78,20 +78,15 @@ function NoticePage() {
   const [filteredRows, setFilteredRows] = useState(null); // 행 데이터
   
   useEffect(() => {
-    const token = JSON.parse(window.localStorage.getItem("memberData")).token
     console.log('notice mount')
-    getNoticeList(token);
+    getNoticeList();
     return () => {
       console.log("notice unmount");
     }
   }, [])
 
-  const getNoticeList = (token) => {
-    axios({
-      url: "http://localhost:8080" + "/notices",
-      method: 'get',
-      headers: { 'Auth-Token': `${token}` },
-      })
+  const getNoticeList = () => {
+    axios.get("/notices")
       .then((res) => {
         console.log("getNoticeList success");
         let datas = res.data
@@ -100,7 +95,7 @@ function NoticePage() {
         }
         setRows(res.data);
         setFilteredRows(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log("getNoticeList fail");

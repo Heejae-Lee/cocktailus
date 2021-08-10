@@ -103,30 +103,24 @@ export const noticeAPI = {
 export const recipeAPI = {
   // 레시피 저장
   saveRecipe: (data,token,history) => {
-    console.log(data)
-    console.log(token)
-    axios({
-      url: baseURL + "/recipe-articles",
-      method: 'post',
+    axios.post("/recipe-articles", data, {
       headers: {'Auth-Token': `${token}`},
-      data: data,
       }
     )
     .then(() => {
-      // console.log("Upload Recipe Success");
-      history.push("/recipe/detail"); // 성공하면 작성 게시글로 이동 => router추가
+      console.log("Upload Recipe Success");
+      history.push(`/recipe`); // 성공하면 작성 게시글로 이동 => router추가
     })
     .catch((err) => {
-      console.log("Upload failed");
+      console.log("Upload Recipe failed");
       console.log(err);
       alert(err); // 모달창으로 경고표시
     })
   },
-  getRecipes: (token) => {
+  getRecipes: () => {
     axios({
       url: baseURL + "/recipe-articles",
       method: 'get',
-      headers: {'Auth-Token': `${token}`},
       }
     )
     .then((res) => {

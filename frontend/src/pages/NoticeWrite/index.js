@@ -2,10 +2,10 @@ import withRoot from "../../components/withRoot";
 // --- Post bootstrap -----
 import React from "react";
 import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
+// import Paper from "@material-ui/core/Paper";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
-import { required } from "../../common/validation";
+// import { required } from "../../common/validation";
 import FormButton from "../../components/FormButton/";
 
 import Header from "../../layout/Header";
@@ -18,7 +18,7 @@ import { useHistory } from "react-router";
 import { noticeAPI } from "../../utils/axios";
 
 
-function WriteNotice() {
+function NoticeWrite() {
   const classes = useStyles();
   const history = useHistory();
 
@@ -99,4 +99,4 @@ function WriteNotice() {
   );
 }
 
-export default withRoot(WriteNotice);
+export default withRoot(NoticeWrite);

@@ -15,19 +15,15 @@ import axios from 'axios'
 function Recipe() {
   const classes = useStyles();
   
-  const token = JSON.parse(window.localStorage.getItem("memberData")).token
   const [recipes, setRecipes] = useState([]);
 
   // 전체 레시피 조회
   const getRecipes = () => {
-    axios({
-      url: "http://localhost:8080" + "/recipe-articles",
-      method: 'get',
-      headers: {'Auth-Token': `${token}`},
-    })
+    axios.get("/recipe-articles")
     .then((res) => {
       // console.log("Get Recipe Success");
       setRecipes(res.data);
+      console.log(res.data);
     })
     .catch(() => {
       console.log("Get Recipe failed");
@@ -66,6 +62,8 @@ function Recipe() {
               name={recipe.member_name}
               created={recipe.created}
               updated={recipe.updated}
+              imageURL={recipe.imageURL}
+              likeCount={recipe.likeCount}
               />
           ))}
           <ImgMediaCard />

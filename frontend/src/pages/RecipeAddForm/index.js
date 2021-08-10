@@ -82,18 +82,17 @@ function RecipeAddForm() {
 
 
   function handleUploadClick(event) { // upload 클릭시 uploaded 상태
-    console.log();
     var file = event.target.files[0];
     const reader = new FileReader();
-    var url = reader.readAsDataURL(file);
 
     reader.onloadend = function() {
-      setSelectedFile([reader.result])
+      var url = reader.result
+      console.log("loading");
+      setSelectedFile(url)
     };
-    console.log(url);
-
+    reader.readAsDataURL(file);
+    console.log("uploaded");
     setMainState("uploaded");
-    setSelectedFile(event.target.files[0]);
     setImageUploaded(1);
   };
 
@@ -108,7 +107,7 @@ function RecipeAddForm() {
     content: content,
     drink: drink1+'|'+drink2+'|'+drink3+'|'+drink4,
     drinkRatio: drinkRatio1+'|'+drinkRatio2+'|'+drinkRatio3+'|'+drinkRatio4,
-    image: selectedFile,
+    imageURL: selectedFile,
     tag: tags,
     member_name: userName,
   };
