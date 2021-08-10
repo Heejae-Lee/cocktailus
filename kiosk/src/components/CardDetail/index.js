@@ -6,6 +6,10 @@ import Typography from "../../components/Typography";
 import Button from "@material-ui/core/Button";
 import { PrettoSlider } from "../PrettoSlider";
 import recipes from "../../asset/recipe/recipe";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
 
 export default function CardDetail(props) {
   const classes = useStyles();
@@ -13,12 +17,31 @@ export default function CardDetail(props) {
     name: "",
     drink: [],
   });
+  const [hose, setHose] = React.useState({
+    first: 0,
+    second: 1,
+    third: 2,
+    fourth: 3,
+  });
+
+  const handleChange = (e) => {
+    // setHose(event.target.value);
+    console.log(e.target.name);
+    let newHose = Object.assign({}, hose);
+    newHose = {
+      ...newHose,
+      [e.target.name] : e.target.value
+    }
+    console.log(newHose)
+    setHose(newHose);
+  };
 
   React.useEffect(() => {
     if (props.variant !== "basic") {
       console.log("서버에서 받아와야함");
     } else {
-      const basic = recipes[Number(props.id)];
+      console.log(props);
+      const basic = recipes[props.id];
       const drinkList = basic.drink.split("|");
       const drinkRatioList = basic.ratio.split("|").splice("");
       const drink = drinkList.map((el, index) => {
@@ -27,7 +50,6 @@ export default function CardDetail(props) {
           ratio: Number(drinkRatioList[index].replace("ml", "")),
         };
       });
-      drink.pop();
 
       setState({
         name: basic.name,
@@ -41,28 +63,24 @@ export default function CardDetail(props) {
   };
 
   const changevalue0 = (e, value) => {
-    //var newPlayer = Object.assign({}, player, {score: 2});
     console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[0].ratio = value;
     setState(newState);
   };
   const changevalue1 = (e, value) => {
-    //var newPlayer = Object.assign({}, player, {score: 2});
     console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[1].ratio = value;
     setState(newState);
   };
   const changevalue2 = (e, value) => {
-    //var newPlayer = Object.assign({}, player, {score: 2});
     console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[2].ratio = value;
     setState(newState);
   };
   const changevalue3 = (e, value) => {
-    //var newPlayer = Object.assign({}, player, {score: 2});
     console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[3].ratio = value;
@@ -101,6 +119,20 @@ export default function CardDetail(props) {
                     variant="h6"
                     style={{ marginLeft: "20px" }}
                   >{`${state.drink[0].ratio}ml`}</Typography>
+
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="first-hose">호스 선택</InputLabel>
+                    <Select
+                      name="first"
+                      value={hose.first}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0}>1번</MenuItem>
+                      <MenuItem value={1}>2번</MenuItem>
+                      <MenuItem value={2}>3번</MenuItem>
+                      <MenuItem value={3}>4번</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 <PrettoSlider
                   className={classes.slider}
@@ -124,6 +156,19 @@ export default function CardDetail(props) {
                     variant="h6"
                     style={{ marginLeft: "20px" }}
                   >{`${state.drink[1].ratio}ml`}</Typography>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="first-hose">호스 선택</InputLabel>
+                    <Select
+                      name="second"
+                      value={hose.second}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0}>1번</MenuItem>
+                      <MenuItem value={1}>2번</MenuItem>
+                      <MenuItem value={2}>3번</MenuItem>
+                      <MenuItem value={3}>4번</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 <PrettoSlider
                   className={classes.slider}
@@ -147,6 +192,19 @@ export default function CardDetail(props) {
                     variant="h6"
                     style={{ marginLeft: "20px" }}
                   >{`${state.drink[2].ratio}ml`}</Typography>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="first-hose">호스 선택</InputLabel>
+                    <Select
+                      name="first"
+                      value={hose.third}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0}>1번</MenuItem>
+                      <MenuItem value={1}>2번</MenuItem>
+                      <MenuItem value={2}>3번</MenuItem>
+                      <MenuItem value={3}>4번</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 <PrettoSlider
                   className={classes.slider}
@@ -170,6 +228,19 @@ export default function CardDetail(props) {
                     variant="h6"
                     style={{ marginLeft: "20px" }}
                   >{`${state.drink[3].ratio}ml`}</Typography>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="first-hose">호스 선택</InputLabel>
+                    <Select
+                      name="first"
+                      value={hose.fourth}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0}>1번</MenuItem>
+                      <MenuItem value={1}>2번</MenuItem>
+                      <MenuItem value={2}>3번</MenuItem>
+                      <MenuItem value={3}>4번</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 <PrettoSlider
                   className={classes.slider}

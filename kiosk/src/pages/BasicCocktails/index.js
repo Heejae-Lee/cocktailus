@@ -57,7 +57,7 @@ export default function BasicCocktails() {
                 variant="h6"
                 underline="none"
                 className={classes.Link}
-                to={`/basic-detail/${index}`}
+                to={`/basic-detail/${el.id}`}
               >
                 <RecipeCard data={el} key={index} />
               </Link>
