@@ -24,9 +24,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 30,
     minWidth: 80,
   },
-  flexBox:{
+  flexBox: {
     display: "flex",
     flexDirection: "column",
+  },
+  imgBox: {
+    width: "30vw",
   },
   drinkName: {
     display: "flex",
@@ -35,15 +38,15 @@ const useStyles = makeStyles((theme) => ({
   detailBox: {
     flex: 1,
     display: "flex",
+    justifyContent: "center",
     marginLeft: theme.spacing(5),
     marginTop: theme.spacing(3),
   },
   detail: {
-    marginLeft: theme.spacing(5),
     flex: 1
   },
   slider: {
-    width: "39vw",
+    width: "40vw",
     cursor: "none"
   },
   button: {
