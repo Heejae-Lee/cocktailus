@@ -9,7 +9,7 @@ import Footer from "../../layout/Footer";
 import Typography from "../../components/Typography";
 import useStyles from "./styles";
 
-import { purple } from '@material-ui/core/colors';
+import { purple, red, blue } from '@material-ui/core/colors';
 import { useHistory } from "react-router";
 import { Button } from "@material-ui/core";
 
@@ -21,6 +21,26 @@ const ColorButton = withStyles((theme) => ({
     backgroundColor: purple[500],
     '&:hover': {
       backgroundColor: purple[700],
+    },
+  },
+}))(Button);
+
+const PutButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: blue[600],
+    '&:hover': {
+      backgroundColor: blue[800],
+    },
+  },
+}))(Button);
+
+const DeleteButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: red[600],
+    '&:hover': {
+      backgroundColor: red[900],
     },
   },
 }))(Button);
@@ -77,8 +97,8 @@ function NoticeDetail(match) {
         </Typography>
 
       <div className={classes.noticeTitle}>
-          {data.title}
-        </div>
+        {data.title}
+      </div>
       <div className={classes.noticeContent}>
         {data.content}
       </div>
@@ -87,6 +107,21 @@ function NoticeDetail(match) {
         onClick={() => history.push("/notice")}>
         뒤로가기
       </ColorButton>
+
+
+      {/* 관리자 권한이면 보이도록 처리할것 */}
+      <PutButton 
+        className={classes.button}
+        onClick={() => history.push(`/notice/modify/${noticeId}`)}>
+        수정
+      </PutButton>
+      <DeleteButton 
+        className={classes.button}
+        onClick={() => history.push("/notice")}>
+        삭제
+      </DeleteButton>
+
+
       </Container>
       <Footer />
     </React.Fragment>
