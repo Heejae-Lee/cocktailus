@@ -15,6 +15,7 @@ import MyRecipe from './pages/MyRecipe';
 import NoticePage from './pages/Notice';
 import PageNotFound from './pages/PageNotFound';
 import NoticeWrite from './pages/NoticeWrite';
+import NoticeModify from './pages/NoticeModify';
 import NoticeDetail from './pages/NoticeDetail';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route exact path="/Terms" component={Terms} />
         <Route exact path="/notice" component={NoticePage} />
         <Route exact path="/notice/write" component={NoticeWrite} />
+        <Route exact path="/notice/modify/:noticeId" component={NoticeModify} />
         <Route exact path="/notice/detail/:noticeId" component={NoticeDetail} />
         <Route exact path="/error" component={PageNotFound} />
         <Redirect to="/error"/>

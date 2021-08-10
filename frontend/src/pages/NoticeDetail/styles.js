@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
   button: {
     float: "right",
     marginTop: "10px",
+    marginLeft: "10px",
+    marginRight: "0px",
     backgroundColor: '#9C27B4',
     color: 'white',
   },
