@@ -36,11 +36,24 @@ public class RecipeArticle {
     private String drinkRatio;
     private String tag;
 
+    @Transient
+    @Column(insertable = false,updatable = false)
+    private boolean liked;
+
     @NotEmpty
     private String member_name;
 
     @Column(columnDefinition = "int default 0")
     private Integer likeCount;
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public RecipeArticle setLiked(boolean liked) {
+        this.liked = liked;
+        return this;
+    }
 
     public Long getId() {
         return id;

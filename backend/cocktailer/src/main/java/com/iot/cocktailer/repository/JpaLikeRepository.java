@@ -21,7 +21,7 @@ public class JpaLikeRepository implements LikeRepository{
     }
 
     @Override
-    public Optional<Like> findLikeById(LikeId likeId) {
+    public Optional<Like> findById(LikeId likeId) {
         return Optional.ofNullable(em.find(Like.class,likeId));
     }
 

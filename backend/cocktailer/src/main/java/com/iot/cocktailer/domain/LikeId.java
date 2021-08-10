@@ -11,6 +11,14 @@ public class LikeId implements Serializable {
 
     private String member_name;
 
+    public LikeId() {
+    }
+
+    public LikeId(Long article_id, String member_name) {
+        this.article_id = article_id;
+        this.member_name = member_name;
+    }
+
     public Long getArticle_id() {
         return article_id;
     }

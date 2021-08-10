@@ -23,7 +23,7 @@ public class NoticeService {
                 -> new IllegalStateException("No matching id")
             );
         postedNotice.setContent(notice.getContent());
-        postedNotice.setContent(notice.getTitle());
+        postedNotice.setTitle(notice.getTitle());
         jpaNoticeRepository.save(postedNotice);
 
         return postedNotice;
