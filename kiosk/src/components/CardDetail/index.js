@@ -108,11 +108,18 @@ export default function CardDetail(props) {
               }
               alt={"칵테일 대표이미지"}
             />
+            <Button
+              onClick={makeDrink}
+              variant="contained"
+              className={classes.button}
+            >
+              바로 제조하기
+            </Button>
           </div>
           <div className={classes.detail}>
             {/* 각 재료별 양 조절 기능 */}
             {state.drink.length > 0 && (
-              <div className={classes.drink}>
+              <div>
                 <div className={classes.drinkName}>
                   <Typography variant="h5">{state.drink[0].drink}</Typography>
                   <Typography
@@ -257,15 +264,6 @@ export default function CardDetail(props) {
               </div>
             )}
           </div>
-        </div>
-        <div className={classes.buttonBox}>
-          <Button
-            onClick={makeDrink}
-            variant="contained"
-            className={classes.button}
-          >
-            바로 제조하기
-          </Button>
         </div>
       </div>
     </div>

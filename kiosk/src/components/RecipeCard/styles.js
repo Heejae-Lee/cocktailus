@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
-    width: "26vw",
+    width: "25vw",
     borderRadius: "12px",
     cursor: "none",
   },
