@@ -31,7 +31,6 @@ public class RecipeArticleService {
         RecipeArticle recipeArticle = optionalRecipeArticle.orElseThrow(()
                 -> new IllegalStateException("No matching id")
         );
-
         List<Comment> comments = jpaCommentRepository.findByRecipeArticleId(id);
 
         result.put("recipe-article",recipeArticle);
@@ -47,6 +46,15 @@ public class RecipeArticleService {
         String imageUrl = s3UploadService.upload(recipeArticle,"static");
         recipeArticle.setImageURL(imageUrl);
         return jpaRecipeArticleRepository.save(recipeArticle);
+    }
+
+    public Map<String,List<RecipeArticle>> getMyRecipeArticles(String member_name){
+        Map<String,List<RecipeArticle>> result = new HashMap<>();
+
+        result.put("uploaded-recipe-articles",jpaRecipeArticleRepository.findUploadedByNameOrderByUpdatedDesc(member_name));
+        result.put("liked-recipe-articles",jpaRecipeArticleRepository.findLikedByNameOrderByUpdatedDesc(member_name));
+
+        return result;
     }
 
 }

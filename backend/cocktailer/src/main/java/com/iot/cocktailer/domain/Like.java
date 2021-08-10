@@ -1,11 +1,6 @@
 package com.iot.cocktailer.domain;
 
-import org.hibernate.annotations.DynamicInsert;
-
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="likes")
@@ -17,10 +12,6 @@ public class Like {
     private Boolean liked;
 
     public Like() {
-    }
-
-    public Like(LikeId id) {
-        this.id = id;
     }
 
     public Like(LikeId id, Boolean liked) {
