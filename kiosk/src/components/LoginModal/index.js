@@ -7,10 +7,13 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+// 기능 관련
+import { userAPI } from "../../utils/axios";
 
 export default function LoginModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [sent, setSent] = React.useState(false);
   const [member, setMember] = React.useState({
       email: "",
       password: "",
@@ -39,45 +42,48 @@ export default function LoginModal(props) {
   }
 
   // onSubmit : Form 태그가 제출될 때 실행되는 함수
-  const onSubmit = async (values) => {
-    alert(member.email);
-    alert(member.password);
-    console.log(member);
+  const onSubmit = async () => {
     // form이 제출되면 로그인을 더 이상 수정할 수 없도록 잠금
-    /*
-        const formData = {
-          email: values.email,
-          password: values.password,
-        };
+    setSent(true);
+    const formData = {
+      email: member.email,
+      password: member.password,
+    };
     
-        // 로그인 요청
-        const res = await userAPI.login(formData);
-        //console.log(res);
+    // 로그인 요청
+    const res = await userAPI.login(formData);
+    //console.log(res);
     
-        if (res.status === 200) {
-          const payload = {
-            token: res.data["access-token"],
-            email: values.email,
-            name: res.data.name,
-          };
-          console.log(payload);
-          // store에 token 및 유저 데이터 저장
-          Dispatch(getToken(payload));
-          Dispatch(getMemberInfo(payload));
-    
-          // modal 창 띄우기
-          // alert는 임시
-          alert("로그인 성공!");
-    
-          // home으로 redirection
-          history.push("/");
-        } else {
-          // modal 창 띄우기
-          // alert는 임시
-          alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
-        }
-        */
+    if (res.status === 200) {
+      const payload = {
+        token: res.data["access-token"],
+        email: member.email,
+        name: res.data.name,
+      };
+      
+      // 유저 데이터 로컬 스토리지에 저장
+      window.localStorage.setItem("memberData", JSON.stringify(payload));
+      // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
+      // const memberData = JSON.parse(window.localStorage.getItem("memberData"))
+
+      // 스낵바 띄우기
+      // alert는 임시
+      alert("로그인 성공!");
+      
+      // 모달창 제거
+      setOpen(false);
+
+    } else {
+      // 스낵바 띄우기
+      // alert는 임시
+      alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
+      
+      // 모달창 제거
+      setOpen(false);
+    }
+  
     // form 잠금 해제
+    setSent(false);
   };
 
   return (
@@ -111,6 +117,7 @@ export default function LoginModal(props) {
                 placeholder="아이디"
                 autoFocus
                 maxlength="40"
+                disabled={sent}
               />
               <input
                 class={classes.input}
@@ -118,6 +125,7 @@ export default function LoginModal(props) {
                 onChange={changePassword}
                 placeholder="비밀번호"
                 maxlength="20"
+                disabled={sent}
               />
               <Button onClick={onSubmit} variant="contained" className={classes.button} type="submit">
                 로그인

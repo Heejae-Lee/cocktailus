@@ -7,11 +7,18 @@ import CardDetail from '../../components/CardDetail'
 
 export default function CocktailDetail({match}) {
     const classes = useStyles();
-    console.log(match);
+    const [state, setState] = React.useState("basic");
+
+    React.useEffect(()=>{
+        if(match.path.indexOf("basic") < 0){
+            setState("bookmark");
+        }
+    },[match]);
+
     return (
         <div className={classes.root}>
             <Header prev={true} />
-            <CardDetail variant={"basic"} id={match.params.id}/>
+            <CardDetail variant={state} id={match.params.id}/>
         </div>
     )
 }

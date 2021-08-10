@@ -24,18 +24,7 @@ export default function CardDetail(props) {
     fourth: 3,
   });
 
-  const handleChange = (e) => {
-    // setHose(event.target.value);
-    console.log(e.target.name);
-    let newHose = Object.assign({}, hose);
-    newHose = {
-      ...newHose,
-      [e.target.name] : e.target.value
-    }
-    console.log(newHose)
-    setHose(newHose);
-  };
-
+  // props를 통하여 칵테일 데이터를 로컬에서 가져올지 서버에서 가져올지 결정함
   React.useEffect(() => {
     if (props.variant !== "basic") {
       console.log("서버에서 받아와야함");
@@ -58,30 +47,72 @@ export default function CardDetail(props) {
     }
   }, [props]);
 
-  const makeDrink = () => {
-    console.log(state);
+  // 호스 선택박스의 값이 바뀔떄마다 호출됨
+  const handleChange = (e) => {
+    // setHose(event.target.value);
+    console.log(e.target.name);
+    let newHose = Object.assign({}, hose);
+    newHose = {
+      ...newHose,
+      [e.target.name] : e.target.value
+    }
+    console.log(newHose)
+    setHose(newHose);
   };
 
+  // 음료 제조버튼을 누르면 호출되는 함수
+  const makeDrink = () => {
+    const drinkCount = state.drink.length;
+    console.log(`drink Count는 ${drinkCount}`);
+    let flag = [false, false, false, false];
+    let validate = true;
+
+    // 각 호스의 중복 여부 확인
+    if ( drinkCount > 0 ){
+      if (flag[hose.first])    validate = false;
+      else    flag[hose.first] = true;
+    } 
+    if ( drinkCount > 1 ){
+      if (flag[hose.second])    validate = false;
+      else    flag[hose.second] = true;
+    } 
+    if ( drinkCount > 2 ){
+      if (flag[hose.third])    validate = false;
+      else    flag[hose.third] = true;
+    } 
+    if ( drinkCount > 3 ){
+      if (flag[hose.first])    validate = false;
+      else    flag[hose.third] = true;
+    }
+
+    // 중복이 없으면 칵테일 제작
+    if (validate){
+      console.log('make');
+    } else {
+      alert('선택된 호스의 중복을 확인해주세요');
+    }
+  };
+
+  // 슬라이더를 바꿀때마다 호출되는 함수
   const changevalue0 = (e, value) => {
-    console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[0].ratio = value;
     setState(newState);
   };
+
   const changevalue1 = (e, value) => {
-    console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[1].ratio = value;
     setState(newState);
   };
+
   const changevalue2 = (e, value) => {
-    console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[2].ratio = value;
     setState(newState);
   };
+
   const changevalue3 = (e, value) => {
-    console.log(value);
     let newState = Object.assign({}, state);
     newState.drink[3].ratio = value;
     setState(newState);
@@ -100,7 +131,7 @@ export default function CardDetail(props) {
           {state.name}
         </Typography>
         <div className={classes.detailBox}>
-          <div>
+          <div className={classes.imgBox}>
             <img
               className={classes.CocktailImg}
               src={
