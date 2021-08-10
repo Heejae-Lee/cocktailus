@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0 2px 4px 3px rgba(0, 0, 0, 0.5)",
   },
   formControl: {
-    marginLeft: theme.spacing(3),
-    minWidth: 130,
+    marginLeft: 30,
+    minWidth: 80,
   },
   flexBox:{
     display: "flex",
@@ -38,26 +38,18 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(5),
     marginTop: theme.spacing(3),
   },
-  buttonBox: {
-    display: "flex",
-    justifyContent: "center",
-    margin: theme.spacing(3),
-  },
   detail: {
-    marginLeft: theme.spacing(8),
+    marginLeft: theme.spacing(5),
     flex: 1
-  },
-  drink: {
-    marginBottom: theme.spacing(1),
   },
   slider: {
     width: "39vw",
     cursor: "none"
   },
   button: {
-    width: "35vw",
+    width: "27vw",
     height: "7vh",
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(3),
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: purple[500],
     cursor: "none",
