@@ -23,6 +23,7 @@ function Recipe() {
     .then((res) => {
       // console.log("Get Recipe Success");
       setRecipes(res.data);
+      console.log(res.data);
     })
     .catch(() => {
       console.log("Get Recipe failed");
@@ -62,6 +63,7 @@ function Recipe() {
               created={recipe.created}
               updated={recipe.updated}
               imageURL={recipe.imageURL}
+              likeCount={recipe.likeCount}
               />
           ))}
           <ImgMediaCard />

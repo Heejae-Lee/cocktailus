@@ -45,6 +45,7 @@ function RecipeDetail(match) {
       axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
         .then((res) => {
           console.log("getRecipeDetail success");
+          console.log(res.data);
           let recipeData = res.data["recipe-article"]
           console.log(recipeData)
   

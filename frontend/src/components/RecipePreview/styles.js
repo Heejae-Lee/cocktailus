@@ -20,10 +20,10 @@ const useStyles = makeStyles({
     maxHeight: "100%",
   },
   likeImg: {
-    width: 18,
-    height: 18,
-    marginLeft: 20,
-    marginRight: 10,
+    width: 20,
+    height: 20,
+    marginLeft: 15,
+    marginRight: 8,
     cursor: "pointer",
   },
 });

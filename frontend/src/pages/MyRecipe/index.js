@@ -109,19 +109,9 @@ function MyRecipe() {
               created={recipe.created}
               updated={recipe.updated}
               imageURL={recipe.imageURL}
+              likeCount={recipe.likeCount}
               />
           ))}
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
         </Grid>
       </Container>
       <Footer />
