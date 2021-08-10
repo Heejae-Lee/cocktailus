@@ -28,7 +28,7 @@ public class LikeService {
                     new IllegalStateException("No matching id")
                 );
 
-        Optional<Like> optionalLike = jpaLikeRepository.findLikeById(likeId);
+        Optional<Like> optionalLike = jpaLikeRepository.findById(likeId);
         Like like = optionalLike.orElseGet(
                 ()->jpaLikeRepository.save(new Like(likeId,false))
             );
@@ -47,5 +47,13 @@ public class LikeService {
         jpaLikeRepository.save(like);
 
         return recipeArticle;
+    }
+
+    public Like getLikeByLikeId(LikeId likeId){
+        Optional<Like> optionalLike = jpaLikeRepository.findById(likeId);
+
+        return optionalLike.orElseGet(
+                    ()-> jpaLikeRepository.save(new Like(likeId,false))
+                );
     }
 }

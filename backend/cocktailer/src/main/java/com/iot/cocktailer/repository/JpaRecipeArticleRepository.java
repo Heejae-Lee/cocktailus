@@ -56,6 +56,7 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
             result.add(em.createQuery("select ra from RecipeArticle ra where ra.id = :id",RecipeArticle.class)
                         .setParameter("id",like.getId().getArticle_id())
                         .getSingleResult()
+                        .setLiked(true)
             );
         }
         result.sort(Comparator.comparing(RecipeArticle::getUpdated).reversed());

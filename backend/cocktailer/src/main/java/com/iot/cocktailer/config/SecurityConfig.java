@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/recipe-articles/**").hasRole("Member")
                 .antMatchers(HttpMethod.GET,"/notices").permitAll()
                 .antMatchers("/notices/**").hasRole("Member")
+                .antMatchers("/myrecipe/**").hasRole("Member")
                 .antMatchers("/like/**").hasRole("Member")
                 .anyRequest().permitAll()
             .and()
