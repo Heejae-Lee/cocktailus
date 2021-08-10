@@ -37,7 +37,6 @@ public class RecipeArticle {
     private String tag;
 
     @Transient
-    @Column(insertable = false,updatable = false)
     private boolean liked;
 
     @NotEmpty
