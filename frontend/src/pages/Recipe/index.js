@@ -31,11 +31,8 @@ function Recipe() {
   }
 
   useEffect(()=>{
-    // console.log('mount');
+    console.log('mount');
     getRecipes();
-    return () => { // unmount시에 초기화
-      // console.log('unmount');
-    }
   }, []);
 
   return (

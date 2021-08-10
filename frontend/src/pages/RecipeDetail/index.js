@@ -104,7 +104,9 @@ function RecipeDetail(match) {
         </React.Fragment>
         <RecipeDetailIntro data={state} />
         {/* 코멘트 입력 컴포넌트, 로그인 정보가 저장되어있을 경우에만 보임 */}
-        {member && <CommentTextField memberName={member.name} />}
+        {member && 
+        <CommentTextField 
+        articleId={state.id}/>}
         <Comment articleId={state.id} />
         <div style={{ width: "100%", height: "50px" }} />
         <Divider variant="inset" />

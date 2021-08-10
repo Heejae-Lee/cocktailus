@@ -1,20 +1,34 @@
 // 스타일 관련
 import useStyles from "./styles";
 // 컴포넌트 관련
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 
+import axios from 'axios'
+
 // 작성된 댓글을 서버로부터 가져와서 보여주는 컴포넌트
 export default function Comment(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState([]);
+  const [state, setState] = useState([]);
 
-  React.useEffect(()=>{
+  useEffect(()=>{
     // RecipeDetail Page로부터 id 전달받고있음(props.articleId)
     console.log(`RecipeDetail로부터 Comment로 전달받은 ID는 ${props.articleId} 입니다`);
     // id를 통해 백엔드 서버로부터 코멘트 데이터(data) 가져와야함 현재 임시 데이터
+    // const [data, setData] = useState([]);
+    // const getComments = () => {
+    //   axios.get(`/comments`, {id : props.articleId})
+    //     .then(res => {
+    //       console.log(res.data);
+    //       setState(res.data);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // };
+    // getComments();
     const data = [
       {
         member_name: "너구리",

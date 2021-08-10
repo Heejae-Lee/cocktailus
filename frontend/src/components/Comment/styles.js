@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     width: '150px'
   },
   commentBody: {
-    flex: 1
+    flex: 1,
+    whiteSpace: "pre-line"
   },
   commentDate: {
     width: '80px'
