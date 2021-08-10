@@ -24,6 +24,7 @@ export default function CommentTextField(props) {
       })
       .then(res => {
         console.log(res);
+        props.setNewComment(!props.newComment);
         document.getElementById("mTxtArea").value=''; // 댓글 저장하고 입력창 비우기
       })
       .catch(err => {
@@ -48,6 +49,13 @@ export default function CommentTextField(props) {
           placeholder="댓글을 입력하세요"
           minRows={3}
           maxRows={3}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              if (!e.shiftKey) {
+                clickSubmit();
+              }
+            }
+          }}
         />
 
         <Button

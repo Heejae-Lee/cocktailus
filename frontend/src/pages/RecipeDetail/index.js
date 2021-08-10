@@ -23,6 +23,8 @@ function RecipeDetail(match) {
   const classes = useStyles();
   const member = JSON.parse(window.localStorage.getItem("memberData"));
   const recipeId = match.match.params.recipeId;
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState(false); // 새로운 댓글 작성 시 업데이트 하는 용도
 
   const [state, setState] = useState({
     id: null,
@@ -44,11 +46,10 @@ function RecipeDetail(match) {
     const getRecipeDetail = (recipeId) => {
       axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
         .then((res) => {
-          console.log("getRecipeDetail success");
-          console.log(res.data);
+          // console.log("getRecipeDetail success");
           let recipeData = res.data["recipe-article"]
-          console.log(recipeData)
-  
+          const recipeComment = res.data["comments"]
+
           const tag = recipeData.tag.split("|").reduce((acc, cur) => {
             acc = acc + `#${cur} `;
             return acc;
@@ -60,6 +61,7 @@ function RecipeDetail(match) {
             return Number(li) / 15;
             // return Number(li.replace("ml", "")) / 15;
           });
+          setComments(recipeComment)
           setState({
             id: recipeData.id,
             title: recipeData.title,
@@ -81,7 +83,7 @@ function RecipeDetail(match) {
         })
     }
     getRecipeDetail(recipeId);
-  }, [recipeId, member.token]);
+  }, [recipeId, member.token, newComment]);
   
   return (
     <Box>
@@ -106,8 +108,14 @@ function RecipeDetail(match) {
         {/* 코멘트 입력 컴포넌트, 로그인 정보가 저장되어있을 경우에만 보임 */}
         {member && 
         <CommentTextField 
-        articleId={state.id}/>}
-        <Comment articleId={state.id} />
+        articleId={state.id}
+        newComment={newComment}
+        setNewComment={setNewComment}
+        />}
+        <Comment
+        articleId={state.id}
+        comments={comments}
+        />
         <div style={{ width: "100%", height: "50px" }} />
         <Divider variant="inset" />
         <div style={{ width: "100%", height: "50px" }} />
