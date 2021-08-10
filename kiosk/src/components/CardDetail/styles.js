@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     boxShadow: "0 2px 4px 3px rgba(0, 0, 0, 0.5)",
   },
+  formControl: {
+    marginLeft: theme.spacing(3),
+    minWidth: 130,
+  },
   flexBox:{
     display: "flex",
     flexDirection: "column",
@@ -41,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   detail: {
     marginLeft: theme.spacing(8),
+    flex: 1
   },
   drink: {
     marginBottom: theme.spacing(1),
