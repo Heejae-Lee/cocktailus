@@ -4,7 +4,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
     width: "26vw",
-    borderRadius: "12px"
+    borderRadius: "12px",
+    cursor: "none",
+  },
+  media: {
+    cursor: "none",
   },
   between: {
     display: 'flex',

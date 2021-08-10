@@ -2,7 +2,6 @@
 import useStyles from "./styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-
 // 컴포넌트 관련
 import React from "react";
 import Typography from "@material-ui/core/Typography";

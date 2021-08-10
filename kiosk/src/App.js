@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home'
 import BasicCocktails from './pages/BasicCocktails'
 import MyCocktails from './pages/MyCocktails'
+import CocktailDetail from './pages/CocktailDetail'
 // 기능 관련
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/basic-cocktails" component={BasicCocktails} />
         <Route exact path="/my-cocktails" component={MyCocktails} />
+        <Route exact path="/basic-detail/:id" component={CocktailDetail} />
       </Switch>
     </BrowserRouter>
   );

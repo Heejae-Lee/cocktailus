@@ -10,10 +10,17 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     backgroundColor: '#28282a',
   },
+  Link: {
+    cursor: "none",
+  },
   listWrapper:{
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
+    cursor: "none",
+  },
+  btnLayout: {
+    cursor: "none",
   },
   cards: {
     flex:1,
@@ -22,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   nextIcon: {
     width: '4vw',
@@ -32,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     marginLeft: '2vw',
     marginRight: '2vw',
+    cursor: "none",
   }
 }));
 

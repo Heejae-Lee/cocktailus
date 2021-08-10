@@ -8,8 +8,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { NavLink as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
 
 export default function RecipeCard(props) {
   const classes = useStyles();
@@ -17,15 +15,13 @@ export default function RecipeCard(props) {
   return (
       <Card className={classes.root}>
         <CardActionArea>
-          <Link component={RouterLink} to="/recipe/make">
             <CardMedia
-              className="classes.media"
+              className={classes.media}
               component="img"
               image="https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
               title="Cocktail-image"
               alt="Cocktail-image"
             />
-          </Link>
         </CardActionArea>
 
         <CardContent>

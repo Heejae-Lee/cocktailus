@@ -29,7 +29,7 @@ const recipes = [
     },
     {
         name: "코스모폴리탄", 
-        drink: "보드카|트리플 섹|라임 주스|크랜베리 주스",
+        drink: "보드카|트리플 섹|라임 주스|크랜베리 주스|",
         ratio: "30ml|15ml|15ml|15ml|",
         memberName: "cocktail.us",
         created: "2021.07.25",
