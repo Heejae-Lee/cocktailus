@@ -96,5 +96,35 @@ public class RecipeArticleService {
         return result;
     }
 
+    public RecipeArticle updateRecipeArticle(Long id,RecipeArticle recipeArticle){
+        Optional<RecipeArticle> optionalRecipeArticle = jpaRecipeArticleRepository.findById(id);
+        RecipeArticle postedRecipeArticle = optionalRecipeArticle.orElseThrow(
+                ()-> new IllegalStateException("No matching id")
+            );
 
+        if(!(postedRecipeArticle.getImageURL().equals(recipeArticle.getImageURL()))){
+            String imageUrl = s3UploadService.upload(recipeArticle,"static");
+            postedRecipeArticle.setImageURL(imageUrl);
+        }
+        postedRecipeArticle.setContent(recipeArticle.getContent())
+                        .setDrink(recipeArticle.getDrink())
+                        .setDrinkRatio(recipeArticle.getDrinkRatio())
+                        .setTitle(recipeArticle.getTitle())
+                        .setTag(recipeArticle.getTag());
+
+        // member liked
+        Like like = likeService.getLikeByLikeId(new LikeId(postedRecipeArticle.getId(),postedRecipeArticle.getMember_name()));
+        postedRecipeArticle.setLiked(like.getLiked());
+
+        jpaRecipeArticleRepository.save(postedRecipeArticle);
+        return postedRecipeArticle;
+    }
+
+    public void deleteRecipeArticle(Long id){
+        Optional<RecipeArticle> optionalRecipeArticle = jpaRecipeArticleRepository.findById(id);
+        RecipeArticle recipeArticle = optionalRecipeArticle.orElseThrow(
+                ()-> new IllegalStateException("No matching id")
+            );
+        jpaRecipeArticleRepository.remove(recipeArticle);
+    }
 }
