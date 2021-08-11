@@ -38,4 +38,9 @@ public class JpaNoticeRepository implements NoticeRepository{
                 .getResultList()
                 .stream().findAny();
     }
+
+    @Override
+    public void delete(Notice notice) {
+        em.remove(notice);
+    }
 }

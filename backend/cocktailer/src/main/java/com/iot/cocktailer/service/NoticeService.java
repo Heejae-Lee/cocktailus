@@ -40,9 +40,17 @@ public class NoticeService {
 
     public Notice getNotice(Long id){
         Optional<Notice> optionalNotice = jpaNoticeRepository.findById(id);
-        Notice notice = optionalNotice.orElseThrow(()
-                -> new IllegalStateException("No matching id")
+        Notice notice = optionalNotice.orElseThrow(
+                () -> new IllegalStateException("No matching id")
             );
         return notice;
+    }
+
+    public void deleteNotice(Long id){
+        Optional<Notice> optionalNotice = jpaNoticeRepository.findById(id);
+        Notice notice = optionalNotice.orElseThrow(
+                ()-> new IllegalStateException("No matching id")
+        );
+        jpaNoticeRepository.delete(notice);
     }
 }
