@@ -1,17 +1,21 @@
-import withRoot from '../../components/withRoot';
-import { NavLink as RouterLink } from 'react-router-dom';
-// --- Post bootstrap -----
+// react, router
 import React, { Fragment, useState, useEffect } from 'react';
+import { NavLink as RouterLink } from 'react-router-dom';
+
+// custom-design
+import withRoot from '../../components/withRoot';
 import ImgMediaCard from '../../components/RecipePreview'
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
-import { Container, Grid } from '@material-ui/core';
 import Typography from "../../components/Typography";
 import useStyles from './styles';
+
+// material-ui/core
+import { Container, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import clsx from "clsx";
 import axios from 'axios'
+import clsx from "clsx";
 
 function MyRecipe() {
   const classes = useStyles();
@@ -35,7 +39,6 @@ function MyRecipe() {
       })
       .then((res) => {
         console.log("Get MyUploadRecipe Success");
-        console.log(res.data);
         if (state === 1) {
           setRecipes(res.data["uploaded-recipe-articles"]);
         } else {

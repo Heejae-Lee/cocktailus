@@ -95,14 +95,13 @@ export const noticeAPI = {
     })
   },
   modifyNotice: (data, token, history, noticeId) => {
-    console.log(data);
     axios.put(`/notices/${noticeId}`, data, {
         headers: {'Auth-Token': `${token}`},
       }
     )
     .then(() => {
       console.log("modify notice success");
-      history.push("/notice"); // 성공하면 작성 게시글로 이동 => router추가
+      history.push(`/notice/detail/${noticeId}`, noticeId); // 성공하면 작성 게시글로 이동
     })
     .catch((err) => {
       console.log("modify notice failed");
@@ -126,23 +125,17 @@ export const recipeAPI = {
     .catch((err) => {
       console.log("Upload Recipe failed");
       console.log(err);
-      alert(err); // 모달창으로 경고표시
+      // 모달창으로 경고표시
     })
   },
   getRecipes: () => {
-    axios({
-      url: baseURL + "/recipe-articles",
-      method: 'get',
-      }
-    )
+    axios.get("/recipe-articles")
     .then((res) => {
       console.log("Get Recipe Success");
-      console.log(res)
       return res
     })
     .catch((err) => {
       console.log("Get Recipe failed");
-      console.log(err)
       return err
       // alert(err); // 모달창으로 경고표시
     })
