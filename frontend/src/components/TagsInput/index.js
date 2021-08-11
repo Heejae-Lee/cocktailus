@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import Downshift from "downshift";
 import useStyles from "./styles";
 
-
 export default function TagsInput({ ...props }) {
   const classes = useStyles();
   const { selectedTags, placeholder, tags, ...other } = props;
@@ -35,6 +34,10 @@ export default function TagsInput({ ...props }) {
       if (!event.target.value.replace(/\s/g, "").length) return;
 
       newSelectedItem.push(event.target.value.trim());
+      if (newSelectedItem.length > 5) {
+        alert('태그는 5개 이내로 입력해주세요');
+        return;
+      }
       setSelectedItem(newSelectedItem);
       setInputValue("");
     }
@@ -62,8 +65,8 @@ export default function TagsInput({ ...props }) {
   };
 
   function handleInputChange(event) {
-    if (event.target.value.length > 10) {
-      alert("태그는 10자 이내로 입력해주세요");
+    if (event.target.value.length > 15) {
+      alert("태그는 15자 이내로 입력해주세요");
     } else {
       setInputValue(event.target.value);
     }
@@ -84,12 +87,11 @@ export default function TagsInput({ ...props }) {
           return (
             <div>
               <TextField
-                className={classes.test}
                 InputProps={{
+                  className: classes.input,
                   startAdornment: selectedItem.map(item => (
                     <Chip
                       variant="outlined"
-                      color="secondary"
                       key={item}
                       tabIndex={-1}
                       label={item}

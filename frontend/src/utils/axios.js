@@ -141,6 +141,7 @@ export const recipeAPI = {
     })
   },
   modifyRecipe: (data,token,history,recipeId) => {
+    console.log(data);
     axios.put(`/recipe-articles/${recipeId}`, data, {
       headers: {'Auth-Token': `${token}`},
       }

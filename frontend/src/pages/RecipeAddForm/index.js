@@ -33,7 +33,6 @@ import TagsInput from '../../components/TagsInput';
 import { useHistory } from "react-router";
 
 
-
 const ColorButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
@@ -79,7 +78,6 @@ function RecipeAddForm() {
     setTages(items.map(item => item).join("|"));
     console.log(tags);
   }
-
 
   function handleUploadClick(event) { // upload 클릭시 uploaded 상태
     var file = event.target.files[0];
@@ -215,8 +213,8 @@ function RecipeAddForm() {
                     shrink: true,
                   }}
                 />
-                <TagsInput 
-                  style={{ margin: 8}}
+                <TagsInput
+                  style={{ margin: 8 }}
                   fullWidth
                   id="tags"
                   name="tags"

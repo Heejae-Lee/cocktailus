@@ -87,23 +87,25 @@ function RecipeModifyForm(match) {
           console.log(modifyData);
           const drinks = modifyData.drink.split('|');
           const drinkRatios = modifyData.drinkRatio.split('|');
-          console.log(drinks);
-          console.log(drinkRatios);
-                    
           document.getElementById("modify-title").value=modifyData.title;
+          setTitle(modifyData.title);
           document.getElementById("modify-content").value=modifyData.content;
+          setContent(modifyData.content);
           for (let i=0; i<4; i++) {
             document.getElementById(`modify-drink${i+1}`).value=drinks[i];
           };
+          setDrink1(drinks[0]);
+          setDrink2(drinks[1]);
+          setDrink3(drinks[2]);
+          setDrink4(drinks[3]);
           setMainState("uploaded");
           setSelectedFile(modifyData.imageURL);
           setDrinkRatio1(drinkRatios[0]);
           setDrinkRatio2(drinkRatios[1]);
           setDrinkRatio3(drinkRatios[2]);
           setDrinkRatio4(drinkRatios[3]);
-          // document.getElementById("modify-tags").value=modifyData.tags;
-          setTages(modifyData.tags);
-
+          const modifyTag = modifyData.tag.split('|');
+          setTages(modifyTag);
         })
         .catch((err) => {
           console.log("getNotice fail");
@@ -114,6 +116,7 @@ function RecipeModifyForm(match) {
   }, [recipeId])
 
   function handleSelecetedTags(items) {
+    console.log(111, items);
     setTages(items.map(item => item).join("|"));
     console.log(tags);
   }
@@ -252,14 +255,13 @@ function RecipeModifyForm(match) {
                     shrink: true,
                   }}
                 />
-                <TagsInput 
+                <TagsInput
                   style={{ margin: 8}}
                   fullWidth
                   id="modify-tags"
                   name="tags"
                   placeholder="태그 입력 후 엔터키를 눌러주세요"
                   label="Tags"
-                  // tags={tags}
                   selectedTags={handleSelecetedTags}
                 />
                 <div>
