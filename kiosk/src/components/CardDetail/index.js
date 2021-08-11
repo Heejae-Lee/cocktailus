@@ -18,6 +18,7 @@ export default function CardDetail(props) {
   const [state, setState] = React.useState({
     title: "",
     drink: [],
+    image: "https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
   });
   const [hose, setHose] = React.useState({
     first: 0,
@@ -57,6 +58,7 @@ export default function CardDetail(props) {
       setState({
         title: basic.title,
         drink: drink,
+        image: process.env.PUBLIC_URL + "/images/" + basic.image
       });
     }
   }, [props]);
@@ -163,7 +165,7 @@ export default function CardDetail(props) {
             <img
               className={classes.CocktailImg}
               src={
-                "https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
+                state.image
               }
               alt={"칵테일 대표이미지"}
             />

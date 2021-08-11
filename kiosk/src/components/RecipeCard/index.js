@@ -18,7 +18,8 @@ export default function RecipeCard(props) {
             <CardMedia
               className={classes.media}
               component="img"
-              image="https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
+              height={"280"}
+              image={process.env.PUBLIC_URL + "/images/" + props.data.image}
               title="Cocktail-image"
               alt="Cocktail-image"
             />

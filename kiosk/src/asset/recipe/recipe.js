@@ -5,6 +5,7 @@ const recipes = [
         drink: "피치 리큐어|스위트&사워믹스|크렌베리 주스",
         ratio: "30ml|60ml|60ml",
         memberName: "cocktail.us",
+        image: "00peachCrush.jpg",
         created: "2021.08.01",
     },
     {
@@ -13,6 +14,7 @@ const recipes = [
         drink: "미도리|스위트&사워믹스|스프라이트",
         ratio: "30ml|30ml|60ml",
         memberName: "cocktail.us",
+        image: "01midoriSour.jpg",
         created: "2021.07.29",
     },
     {
@@ -21,6 +23,7 @@ const recipes = [
         drink: "화이트 럼|오버프루프 럼|크렘 드 카시스",
         ratio: "30ml|30ml|15ml",
         memberName: "cocktail.us",
+        image: "02faust.jpg",
         created: "2021.07.28",
     },
     {
@@ -29,6 +32,7 @@ const recipes = [
         drink: "보드카|깔루아",
         ratio: "30ml|15ml",
         memberName: "cocktail.us",
+        image: "03blackRussian.jpg",
         created: "2021.07.27",
     },
     {
@@ -37,6 +41,7 @@ const recipes = [
         drink: "보드카|트리플 섹|라임 주스|크랜베리 주스",
         ratio: "30ml|15ml|15ml|15ml",
         memberName: "cocktail.us",
+        image: "04cosmoPolitan.jpg",
         created: "2021.07.25",
     },
     {
@@ -45,14 +50,16 @@ const recipes = [
         drink: "보드카|오렌지주스",
         ratio: "30ml|60ml",
         memberName: "cocktail.us",
+        image: "05screwDriver.jpg",
         created: "2021.07.24",
     },
     {
         id: 6,
-        title: "모스코 큘", 
+        title: "모스코 뮬", 
         drink: "보드카|라임 주스|진저 에일",
         ratio: "45ml|15ml|60ml",
         memberName: "cocktail.us",
+        image: "06moscowMule.png",
         created: "2021.07.23",
     },
     {
@@ -61,6 +68,7 @@ const recipes = [
         drink: "진|토닉워터",
         ratio: "30ml|90ml",
         memberName: "cocktail.us",
+        image: "07ginTonic.jpg",
         created: "2021.07.23",
     },
     {
@@ -69,6 +77,7 @@ const recipes = [
         drink: "보드카|토닉 워터",
         ratio: "60ml|120ml",
         memberName: "cocktail.us",
+        image: "08VodkaTonic.jpg",
         created: "2021.07.23",
     },
     {
@@ -77,6 +86,7 @@ const recipes = [
         drink: "위스키|레몬주스|토닉 워터",
         ratio: "45ml|30ml|60ml",
         memberName: "cocktail.us",
+        image: "09HighBall.jpg",
         created: "2021.07.23",
     },
     {
@@ -85,6 +95,7 @@ const recipes = [
         drink: "럼|라임주스|탄산수",
         ratio: "45ml|15ml|60ml",
         memberName: "cocktail.us",
+        image: "10mojito.jpg",
         created: "2021.07.22",
     },
     {
@@ -93,6 +104,7 @@ const recipes = [
         drink: "테킬라|트리플 섹|라임 주스",
         ratio: "30ml|15ml|15ml",
         memberName: "cocktail.us",
+        image: "11margarita.jpg",
         created: "2021.07.22",
     },
     {
@@ -101,6 +113,7 @@ const recipes = [
         drink: "드라이 진|라임 주스",
         ratio: "45ml|15ml",
         memberName: "cocktail.us",
+        image: "12gimlet.jpg",
         created: "2021.07.22",
     },
     {
@@ -109,6 +122,7 @@ const recipes = [
         drink: "드라이 진|드라이 베르무트",
         ratio: "60ml|15ml",
         memberName: "cocktail.us",
+        image: "13martini.jpg",
         created: "2021.07.21",
     },
     {
@@ -117,6 +131,7 @@ const recipes = [
         drink: "위스키|디사론노",
         ratio: "30ml|30ml",
         memberName: "cocktail.us",
+        image: "14godFather.jpg",
         created: "2021.07.21",
     },
 ];
