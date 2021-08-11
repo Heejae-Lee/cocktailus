@@ -16,7 +16,7 @@ import { hardwareAPI } from '../../utils/axios';
 export default function CardDetail(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    name: "",
+    title: "",
     drink: [],
   });
   const [hose, setHose] = React.useState({
@@ -29,7 +29,20 @@ export default function CardDetail(props) {
   // props를 통하여 칵테일 데이터를 로컬에서 가져올지 서버에서 가져올지 결정함
   React.useEffect(() => {
     if (props.variant !== "basic") {
-      console.log("서버에서 받아와야함");
+      const recipeData = props.data;
+      const drinkList = recipeData.drink.split("|");
+      const drinkRatioList = recipeData.drinkRatio.split("|").splice("");
+      const drink = drinkList.map((el, index) => {
+        return {
+          drink: el,
+          ratio: Number(drinkRatioList[index].replace("ml", "")),
+        };
+      });
+
+      setState({
+        title: recipeData.title,
+        drink: drink,
+      });
     } else {
       const basic = recipes[props.id];
       const drinkList = basic.drink.split("|");
@@ -42,7 +55,7 @@ export default function CardDetail(props) {
       });
 
       setState({
-        name: basic.name,
+        title: basic.title,
         drink: drink,
       });
     }
@@ -143,7 +156,7 @@ export default function CardDetail(props) {
           marked="center"
           align="center"
         >
-          {state.name}
+          {state.title}
         </Typography>
         <div className={classes.detailBox}>
           <div className={classes.imgBox}>

@@ -1,7 +1,7 @@
 const recipes = [
     { 
         id: 0,
-        name: "피치 크러쉬",
+        title: "피치 크러쉬",
         drink: "피치 리큐어|스위트&사워믹스|크렌베리 주스",
         ratio: "30ml|60ml|60ml",
         memberName: "cocktail.us",
@@ -9,7 +9,7 @@ const recipes = [
     },
     {
         id: 1,
-        name: "미도리 사워", 
+        title: "미도리 사워", 
         drink: "미도리|스위트&사워믹스|스프라이트",
         ratio: "30ml|30ml|60ml",
         memberName: "cocktail.us",
@@ -17,7 +17,7 @@ const recipes = [
     },
     {
         id: 2,
-        name: "파우스트", 
+        title: "파우스트", 
         drink: "화이트 럼|오버프루프 럼|크렘 드 카시스",
         ratio: "30ml|30ml|15ml",
         memberName: "cocktail.us",
@@ -25,7 +25,7 @@ const recipes = [
     },
     {
         id: 3,
-        name: "블랙 러시안", 
+        title: "블랙 러시안", 
         drink: "보드카|깔루아",
         ratio: "30ml|15ml",
         memberName: "cocktail.us",
@@ -33,7 +33,7 @@ const recipes = [
     },
     {
         id: 4,
-        name: "코스모폴리탄", 
+        title: "코스모폴리탄", 
         drink: "보드카|트리플 섹|라임 주스|크랜베리 주스",
         ratio: "30ml|15ml|15ml|15ml",
         memberName: "cocktail.us",
@@ -41,7 +41,7 @@ const recipes = [
     },
     {
         id: 5,
-        name: "스크루 드라이버", 
+        title: "스크루 드라이버", 
         drink: "보드카|오렌지주스",
         ratio: "30ml|60ml",
         memberName: "cocktail.us",
@@ -49,7 +49,7 @@ const recipes = [
     },
     {
         id: 6,
-        name: "모스코 큘", 
+        title: "모스코 큘", 
         drink: "보드카|라임 주스|진저 에일",
         ratio: "45ml|15ml|60ml",
         memberName: "cocktail.us",
@@ -57,7 +57,7 @@ const recipes = [
     },
     {
         id: 7,
-        name: "진 토닉", 
+        title: "진 토닉", 
         drink: "진|토닉워터",
         ratio: "30ml|90ml",
         memberName: "cocktail.us",
@@ -65,7 +65,7 @@ const recipes = [
     },
     {
         id: 8,
-        name: "보드카 토닉", 
+        title: "보드카 토닉", 
         drink: "보드카|토닉 워터",
         ratio: "60ml|120ml",
         memberName: "cocktail.us",
@@ -73,7 +73,7 @@ const recipes = [
     },
     {
         id: 9,
-        name: "하이볼", 
+        title: "하이볼", 
         drink: "위스키|레몬주스|토닉 워터",
         ratio: "45ml|30ml|60ml",
         memberName: "cocktail.us",
@@ -81,7 +81,7 @@ const recipes = [
     },
     {
         id: 10,
-        name: "모히또", 
+        title: "모히또", 
         drink: "럼|라임주스|탄산수",
         ratio: "45ml|15ml|60ml",
         memberName: "cocktail.us",
@@ -89,7 +89,7 @@ const recipes = [
     },
     {
         id: 11,
-        name: "마가리타", 
+        title: "마가리타", 
         drink: "테킬라|트리플 섹|라임 주스",
         ratio: "30ml|15ml|15ml",
         memberName: "cocktail.us",
@@ -97,7 +97,7 @@ const recipes = [
     },
     {
         id: 12,
-        name: "김렛", 
+        title: "김렛", 
         drink: "드라이 진|라임 주스",
         ratio: "45ml|15ml",
         memberName: "cocktail.us",
@@ -105,7 +105,7 @@ const recipes = [
     },
     {
         id: 13,
-        name: "마티니", 
+        title: "마티니", 
         drink: "드라이 진|드라이 베르무트",
         ratio: "60ml|15ml",
         memberName: "cocktail.us",
@@ -113,7 +113,7 @@ const recipes = [
     },
     {
         id: 14,
-        name: "갓파더", 
+        title: "갓파더", 
         drink: "위스키|디사론노",
         ratio: "30ml|30ml",
         memberName: "cocktail.us",

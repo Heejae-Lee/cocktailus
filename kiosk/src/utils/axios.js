@@ -26,14 +26,14 @@ export const userAPI = {
 export const recipeAPI = {
   // header에 authorization이 필요하다
   // 내가 좋아요한 레시피 목록을 가져옴
-  getRecipes: () => {
-    return axios.get("/recipe-articles", {
+  getRecipes: (member) => {
+    return axios.get(`/myrecipe/${member.name}`, {
         headers: { 
-            "Auth-Token": localStorage.getItem("token"), 
+            "Auth-Token": localStorage.getItem(member.token),
         }, 
     }).then((res) => {
         console.log("axios::getRecipes::Success");
-        return res.data;
+        return res;
     }).catch(() => {
         console.log("axios::getRecipes::Failed");
     });
