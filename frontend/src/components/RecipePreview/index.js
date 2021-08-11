@@ -26,7 +26,7 @@ export default function ImgMediaCard(props) {
   useEffect(() => {
     setlikeCount(props.likeCount); // like 총 숫자
     // like, likeCount, likeImg 셋팅
-    if (props.like === true) {
+    if (props.liked === true) {
       setLike(true);
       setLikeImg("like.png");
     } else {
@@ -36,7 +36,7 @@ export default function ImgMediaCard(props) {
     return () => {
       
     }
-  }, [props.like, props.likeCount])
+  }, [props.liked, props.likeCount])
 
 
   const likeRequest = () => {
@@ -72,7 +72,7 @@ export default function ImgMediaCard(props) {
   return (
     <Grid item xs={4}>
       <Card className={classes.root}>
-        <CardActionArea left="50%">
+        <CardActionArea className={classes.center}>
           <Link 
             component={RouterLink}
             to={`/recipe/detail/${props.id}`}
@@ -80,11 +80,11 @@ export default function ImgMediaCard(props) {
           <CardMedia
             component="img"
             alt="Cocktail-image"
-            height="200"
+            height="230"
             image={props.imageURL}
             // props.image로 변경
             title="Cocktail-image"
-            className='scale'
+            className={classnames('scale', classes.img)}
           />
           {/* 이미지 누르면 Recipe Detail 페이지로 라우터Link 설정하기 */}
           </Link>

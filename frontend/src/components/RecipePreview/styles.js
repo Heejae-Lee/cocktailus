@@ -13,11 +13,16 @@ const useStyles = makeStyles({
     display: 'flex',
     marginBottom: 3,
   },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   img: {
-    margin: "auto",
-    display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    // margin: "auto",
+    // display: "block",
+    width: "auto",
+    height: "100%",
+    maxHeight: "230px",
   },
   likeImg: {
     width: 20,

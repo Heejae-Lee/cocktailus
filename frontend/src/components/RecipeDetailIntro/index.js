@@ -1,29 +1,33 @@
 // 스타일 관련
 import useStyles from "./styles";
 // 컴포넌트 관련
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "../../components/Typography";
 
+import axios from 'axios'
+
 // 레시피의 디테일한 정보를 표시하는 컴포넌트
 export default function RecipeDetailIntro(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const member = JSON.parse(window.localStorage.getItem("memberData"));
+
+  const [state, setState] = useState({
     drink: [],
     drink_ratio: [],
     memberName: "",
     content: "",
     created: "",
-    like: true,
-    likeImg: "no_like.png",
+    liked: true,
+    likeImg: props.likeImg,
     likeCount: 0,
     imageURL : "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.data.id !== null){
       setState({
         drink: props.data.drink,
@@ -31,13 +35,29 @@ export default function RecipeDetailIntro(props) {
         memberName: props.data.memberName,
         content: props.data.content,
         created: props.data.created,
-        like: false,
-        likeImg: "no_like.png",
+        liked: props.data.liked,
+        likeImg: props.data.likeImg,
         likeCount: props.data.likeCount,
         imageURL : props.data.imageURL,
       });
     }
   }, [props]);
+
+  const likeRequest = () => {
+    if (member == null) {
+      alert("로그인 후 사용해주세요");
+      return;
+    }
+    axios.post(`/like`, {id: {article_id: props.data.id, member_name: member.name}},
+    {headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("like success");
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  };
 
   const ShowRecipeDrinks = () => {
     const recipeData = [];
@@ -80,18 +100,19 @@ export default function RecipeDetailIntro(props) {
   };
 
   const clickLike = () => {
-    setState({ ...state, like: !state.like });
-    if (state.like) {
+    // axios요청
+    likeRequest();
+    if (state.liked) {
       setState({
         ...state,
-        like: false,
+        liked: false,
         likeImg: "no_like.png",
         likeCount: state.likeCount - 1,
       });
     } else {
       setState({
         ...state,
-        like: true,
+        liked: true,
         likeImg: "like.png",
         likeCount: state.likeCount + 1,
       });
@@ -154,7 +175,7 @@ export default function RecipeDetailIntro(props) {
         >
           레시피 소개
         </Typography>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" gutterBottom className={classes.content}>
           {state.content}
         </Typography>
         </div>
