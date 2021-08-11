@@ -11,7 +11,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 // 기능 관련
-import { LedOn, LedOff } from '../../utils/api'
+import { hardwareAPI } from '../../utils/axios';
 
 export default function CardDetail(props) {
   const classes = useStyles();
@@ -84,20 +84,13 @@ export default function CardDetail(props) {
       else    flag[hose.third] = true;
     } 
     if ( drinkCount > 3 ){
-      if (flag[hose.first])    validate = false;
-      else    flag[hose.third] = true;
+      if (flag[hose.fourth])    validate = false;
+      else    flag[hose.fourth] = true;
     }
 
     // 중복이 없으면 칵테일 제작
     if (validate){
-      if (led){
-        setLed(false);
-        LedOff();
-      } else {
-        setLed(true);
-        LedOn();
-      }
-      console.log('make');
+      hardwareAPI.make();
     } else {
       alert('선택된 호스의 중복을 확인해주세요');
     }
