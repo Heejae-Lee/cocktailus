@@ -26,9 +26,10 @@ public class JpaCommentRepository implements CommentRepository{
     }
 
     @Override
-    public Optional<Comment> findById(Long id) {
-        return em.createQuery("select c from Comment c where c.id = :id",Comment.class)
-                .setParameter("id",id)
+    public Optional<Comment> findById(Long articleId,Long commentId) {
+        return em.createQuery("select c from Comment c where c.id = :commentId and c.article_id = :articleId",Comment.class)
+                .setParameter("articleId",articleId)
+                .setParameter("commentId",commentId)
                 .getResultList()
                 .stream().findAny();
     }
@@ -38,5 +39,10 @@ public class JpaCommentRepository implements CommentRepository{
         return em.createQuery("select c from Comment c where c.article_id = :id",Comment.class)
                 .setParameter("id",id)
                 .getResultList();
+    }
+
+    @Override
+    public void remove(Comment comment) {
+        em.remove(comment);
     }
 }
