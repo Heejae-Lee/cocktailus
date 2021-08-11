@@ -45,7 +45,7 @@ export const hardwareAPI = {
   // Rpi 페리페럴 제어 요청
   make: (credentials) => {
     return axios({
-      url: "localhost:8080/api/hose/",
+      url: "http://192.168.0.10:8080/api/hose/",
       method: "get",
       data: credentials,
     }).then((res) => {
