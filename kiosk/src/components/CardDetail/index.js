@@ -61,7 +61,7 @@ export default function CardDetail(props) {
         image: process.env.PUBLIC_URL + "/images/" + basic.image
       });
     }
-  }, [props]);
+  }, []);
 
   // 호스 선택박스의 값이 바뀔떄마다 호출됨
   const handleChange = (e) => {
@@ -181,11 +181,11 @@ export default function CardDetail(props) {
             {/* 각 재료별 양 조절 기능 */}
             {state.drink.length > 0 && (
               <div>
-                <div className={classes.drinkName}>
+                <div className={classes.drinkInfo}>
                   <Typography variant="h5">{state.drink[0].drink}</Typography>
                   <Typography
                     variant="h6"
-                    style={{ marginLeft: "20px" }}
+                    className={classes.drinkMargin}
                   >{`${state.drink[0].ratio}ml`}</Typography>
 
                   <FormControl className={classes.formControl}>
@@ -218,11 +218,11 @@ export default function CardDetail(props) {
             )}
             {state.drink.length > 1 && (
               <div className={classes.drink}>
-                <div className={classes.drinkName}>
+                <div className={classes.drinkInfo}>
                   <Typography variant="h5">{state.drink[1].drink}</Typography>
                   <Typography
                     variant="h6"
-                    style={{ marginLeft: "20px" }}
+                    className={classes.drinkMargin}
                   >{`${state.drink[1].ratio}ml`}</Typography>
                   <FormControl className={classes.formControl}>
                     <InputLabel id="first-hose">호스 선택</InputLabel>
@@ -254,16 +254,16 @@ export default function CardDetail(props) {
             )}
             {state.drink.length > 2 && (
               <div className={classes.drink}>
-                <div className={classes.drinkName}>
+                <div className={classes.drinkInfo}>
                   <Typography variant="h5">{state.drink[2].drink}</Typography>
                   <Typography
                     variant="h6"
-                    style={{ marginLeft: "20px" }}
+                    className={classes.drinkMargin}
                   >{`${state.drink[2].ratio}ml`}</Typography>
                   <FormControl className={classes.formControl}>
                     <InputLabel id="first-hose">호스 선택</InputLabel>
                     <Select
-                      name="first"
+                      name="third"
                       value={hose.third}
                       onChange={handleChange}
                     >
@@ -290,16 +290,16 @@ export default function CardDetail(props) {
             )}
             {state.drink.length > 3 && (
               <div className={classes.drink}>
-                <div className={classes.drinkName}>
+                <div className={classes.drinkInfo}>
                   <Typography variant="h5">{state.drink[3].drink}</Typography>
                   <Typography
+                    className={classes.drinkMargin}
                     variant="h6"
-                    style={{ marginLeft: "20px" }}
                   >{`${state.drink[3].ratio}ml`}</Typography>
                   <FormControl className={classes.formControl}>
                     <InputLabel id="first-hose">호스 선택</InputLabel>
                     <Select
-                      name="first"
+                      name="fourth"
                       value={hose.fourth}
                       onChange={handleChange}
                     >

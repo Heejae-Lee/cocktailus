@@ -20,9 +20,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     boxShadow: "0 2px 4px 3px rgba(0, 0, 0, 0.5)",
   },
-  formControl: {
+  drinkMargin: {
     marginLeft: 30,
-    minWidth: 80,
+    marginRight: 30,
+  },
+  formControl: {
+    width: 80,
   },
   flexBox: {
     display: "flex",
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   imgBox: {
     width: "30vw",
   },
-  drinkName: {
+  drinkInfo: {
     display: "flex",
     alignItems: "flex-end",
   },
@@ -43,10 +46,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   detail: {
-    flex: 1
+    width: '40vw'
   },
   slider: {
-    width: "40vw",
+    width: "100%",
     cursor: "none"
   },
   button: {
