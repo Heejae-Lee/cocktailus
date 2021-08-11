@@ -9,4 +9,5 @@ public interface NoticeRepository {
     List<Notice> findAll();
     Notice save(Notice notice);
     Optional<Notice> findById(Long id);
+    void delete(Notice notice);
 }

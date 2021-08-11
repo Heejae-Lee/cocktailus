@@ -40,4 +40,16 @@ public class NoticeController {
     public ResponseEntity updateNoticeById(@PathVariable("notice_id") Long id,@RequestBody Notice notice){
         return new ResponseEntity<>(noticeService.update(id,notice),HttpStatus.OK);
     }
+
+    @DeleteMapping("/{notice_id}")
+    public ResponseEntity deleteNoticeById(@PathVariable("notice_id") Long id){
+        noticeService.deleteNotice(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public String illegalStateExceptionHandler(Exception e){
+        System.out.println(e.getMessage());
+        return e.getMessage();
+    }
 }
