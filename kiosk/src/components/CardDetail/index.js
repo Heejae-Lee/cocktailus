@@ -10,6 +10,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+// 기능 관련
+import { LedOn, LedOff } from '../../utils/api'
 
 export default function CardDetail(props) {
   const classes = useStyles();
@@ -23,6 +25,7 @@ export default function CardDetail(props) {
     third: 2,
     fourth: 3,
   });
+  const [led, setLed] = React.useState(false);
 
   // props를 통하여 칵테일 데이터를 로컬에서 가져올지 서버에서 가져올지 결정함
   React.useEffect(() => {
@@ -87,6 +90,13 @@ export default function CardDetail(props) {
 
     // 중복이 없으면 칵테일 제작
     if (validate){
+      if (led){
+        setLed(false);
+        LedOff();
+      } else {
+        setLed(true);
+        LedOn();
+      }
       console.log('make');
     } else {
       alert('선택된 호스의 중복을 확인해주세요');
