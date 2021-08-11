@@ -11,6 +11,7 @@ import Terms from './pages/Terms/'
 import Recipe from './pages/Recipe/'
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeAddForm from './pages/RecipeAddForm';
+import RecipeModifyForm from './pages/RecipeModifyForm';
 import MyRecipe from './pages/MyRecipe';
 import NoticePage from './pages/Notice';
 import PageNotFound from './pages/PageNotFound';
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/recipe" component={Recipe} />
         <Route exact path="/recipe/write" component={RecipeAddForm} />
         <Route exact path="/recipe/detail/:recipeId" component={RecipeDetail} />
+        <Route exact path="/recipe/modify/:recipeId" component={RecipeModifyForm} />
         <Route exact path="/myRecipe" component={MyRecipe} />
         <Route exact path="/SignIn" component={SignIn} />
         <Route exact path="/SignUp" component={SignUp} />

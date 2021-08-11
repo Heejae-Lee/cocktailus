@@ -2,11 +2,12 @@
 import withRoot from "../../components/withRoot";
 import useStyles from "./styles";
 
-// 컴포넌트 관련
 import React, { useState, useEffect } from "react";
+
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import { Divider } from "@material-ui/core";
+
 import AppHeader from "../../layout/Header";
 import AppFooter from "../../layout/Footer";
 import Typography from "../../components/Typography";
@@ -14,7 +15,6 @@ import RecipeDetailIntro from "../../components/RecipeDetailIntro/";
 import Comment from "../../components/Comment";
 import CommentTextField from "../../components/CommentTextField/";
 
-// axios
 import axios from "axios";
 
 
@@ -22,6 +22,7 @@ function RecipeDetail(match) {
   const classes = useStyles();
   const member = JSON.parse(window.localStorage.getItem("memberData"));
   const recipeId = match.match.params.recipeId;
+  
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState(false); // 새로운 댓글 작성 시 업데이트 하는 용도
 
@@ -104,6 +105,7 @@ function RecipeDetail(match) {
             </Typography>
           </Container>
         </React.Fragment>
+
         <RecipeDetailIntro data={state} />
         {/* 코멘트 입력 컴포넌트, 로그인 정보가 저장되어있을 경우에만 보임 */}
         {member && 

@@ -62,7 +62,20 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     whiteSpace: "pre-line",
+  },
+  button: {
+    float: "flex",
+    marginLeft: "10px",
+    marginRight: "0px",
+    backgroundColor: '#9C27B4',
+    color: 'white',
+  },
+  right: {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: 'center',
   }
+
 }));
 
 export default useStyles;

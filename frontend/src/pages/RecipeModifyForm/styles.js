@@ -4,22 +4,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  inputRoot: {
-    display: 'block',
-    flexWrap: 'wrap',
-    flex: 1,
-    marginTop: 0,
-    minWidth: 70,
-    '&$outlined,&$filled': {
-      boxSizing: 'border-box'
-    },
-    '&$outlined': {
-      paddingTop: 14
-    },
-    '&$filled': {
-      paddingTop: 28
-    }
-  },
   mainContainer: {
     display:'flex',
     flexDirection: 'column',
