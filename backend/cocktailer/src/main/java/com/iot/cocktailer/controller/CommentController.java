@@ -19,9 +19,5 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping
-    public ResponseEntity postComment(@RequestBody Comment comment){
-        return new ResponseEntity<>(commentService.postComment(comment), HttpStatus.CREATED);
-    }
 
 }

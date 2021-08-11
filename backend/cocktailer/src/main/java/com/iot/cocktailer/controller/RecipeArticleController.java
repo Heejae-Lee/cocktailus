@@ -4,6 +4,7 @@ import com.iot.cocktailer.domain.Comment;
 import com.iot.cocktailer.domain.RecipeArticle;
 import com.iot.cocktailer.repository.JpaCommentRepository;
 import com.iot.cocktailer.repository.JpaRecipeArticleRepository;
+import com.iot.cocktailer.service.CommentService;
 import com.iot.cocktailer.service.RecipeArticleService;
 import com.iot.cocktailer.service.S3UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,12 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class RecipeArticleController {
     private final RecipeArticleService recipeArticleService;
+    private final CommentService commentService;
 
     @Autowired
-    public RecipeArticleController(RecipeArticleService recipeArticleService){
+    public RecipeArticleController(RecipeArticleService recipeArticleService,CommentService commentService){
         this.recipeArticleService = recipeArticleService;
+        this.commentService = commentService;
     }
 
     @GetMapping
@@ -48,9 +51,26 @@ public class RecipeArticleController {
         return new ResponseEntity<>(recipeArticleService.updateRecipeArticle(id,recipeArticle),HttpStatus.OK);
     }
 
+
     @DeleteMapping("/{recipe-articles_id}")
     public ResponseEntity deleteRecipeArticle(@PathVariable("recipe-articles_id")Long id){
         recipeArticleService.deleteRecipeArticle(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{recipe-articles_id}/comments")
+    public ResponseEntity postComment(@PathVariable("recipe-articles_id")Long articleId,@RequestBody Comment comment){
+        return new ResponseEntity<>(commentService.postComment(articleId,comment), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{recipe-articles_id}/comments/{comment_id}")
+    public ResponseEntity updateComment(@PathVariable("recipe-articles_id")Long articleId,@PathVariable("comment_id")Long commentId,@RequestBody Comment comment){
+        return new ResponseEntity<>(commentService.updateComment(articleId,commentId,comment), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{recipe-articles_id}/comments/{comment_id}")
+    public ResponseEntity deleteComment(@PathVariable("recipe-articles_id")Long articleId,@PathVariable("comment_id")Long commentId){
+        commentService.deleteComment(articleId,commentId);
         return ResponseEntity.noContent().build();
     }
 }
