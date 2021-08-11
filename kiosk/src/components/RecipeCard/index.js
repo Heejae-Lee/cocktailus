@@ -26,7 +26,7 @@ export default function RecipeCard(props) {
 
         <CardContent>
           <Typography variant="h6" component="h2">
-            {props.data.name}
+            {props.data.title}
           </Typography>
         </CardContent>
 

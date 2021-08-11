@@ -10,6 +10,7 @@ import Header from "../../layout/Header";
 import RecipeCard from "../../components/RecipeCard";
 // 기능 관련
 import { NavLink as RouterLink } from "react-router-dom";
+import { recipeAPI } from "../../utils/axios";
 
 export default function MyCocktails() {
   const classes = useStyles();
@@ -18,31 +19,50 @@ export default function MyCocktails() {
     lastIndex: -1,
     list: [],
   });
+  const [ recipes, setRecipes ] = React.useState([]);
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
     // axios에서 레시피 가져오기
-    console.log();
+    const memberData = JSON.parse(window.localStorage.getItem("memberData"));
+    if (memberData !== null) {
+      const res = await recipeAPI.getRecipes(memberData);
+      console.log(res);
+
+      if (res.status === 200) {
+        // 받아온 레시피를 recipes state에 저장
+        const myRecipes = res.data["uploaded-recipe-articles"].concat(
+          res.data["liked-recipe-articles"]
+        );
+        
+        setRecipes(myRecipes);
+
+        // 받아온 레시피 토대로 state 갱신
+        const newLastIndex = myRecipes.length / 6 - 1;
+        const newList = myRecipes.slice(0, 6);
+        let newState = Object.assign({}, state, {lastIndex: newLastIndex, list: newList});
+        
+        setState(newState);
+      } else {
+        console.log("MyCocktails::error::Load user recipy failed");
+      }
+    }
   }, []);
 
   const clickPrev = () => {
     if (state.index > 0) {
       const newIndex = (state.index - 1) * 6;
-      setState({
-        index: newIndex,
-        lastIndex: state.lastIndex,
-        list: [],
-      });
+      const newList = recipes.slice(newIndex, newIndex + 6);
+      let newState = Object.assign({}, state, {index: newIndex, list: newList});
+      setState(newState);
     }
   };
 
   const clickNext = () => {
     if (state.index < state.lastIndex) {
       const newIndex = (state.index + 1) * 6;
-      setState({
-        index: newIndex,
-        lastIndex: state.lastIndex,
-        list: [],
-      });
+      const newList = recipes.slice(newIndex, newIndex + 6);
+      let newState = Object.assign({}, state, {index: newIndex, list: newList});
+      setState(newState);
     }
   };
 
@@ -57,6 +77,7 @@ export default function MyCocktails() {
         )}
         <div className={classes.cards}>
           {state.list.map((el, index) => {
+            const itemId = state.index * 6 + index;
             return (
               <Link
                 key={index}
@@ -65,7 +86,7 @@ export default function MyCocktails() {
                 variant="h6"
                 underline="none"
                 className={classes.Link}
-                to={`/bookmark-detail/${el.id}`}
+                to={`/bookmark-detail/${itemId}`}
               >
                 <RecipeCard data={el} />
               </Link>
