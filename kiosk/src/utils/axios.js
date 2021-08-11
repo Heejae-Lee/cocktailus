@@ -39,3 +39,22 @@ export const recipeAPI = {
     });
   },
 };
+
+// 하드웨어 제어를 위한 api
+export const hardwareAPI = {
+  // Rpi 페리페럴 제어 요청
+  make: (credentials) => {
+    return axios({
+      url: "localhost:8080/api/hose/",
+      method: "get",
+      data: credentials,
+    }).then((res) => {
+        console.log("axios::makeRequest::Success");
+        return res;
+    }).catch((err) => {
+        console.log("axios::makeRequest::Failed");
+        //console.log(err);
+        return err;
+    });
+  },
+};
