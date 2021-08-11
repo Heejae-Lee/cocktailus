@@ -72,6 +72,18 @@ function NoticeDetail(match) {
       })
   }
 
+  const deleteNotice = () => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    axios.delete(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
+      .then((res) => {
+        console.log("deleteNotice success");
+        history.push("/notice");
+      })
+      .catch((err) => {
+        console.log("deleteNotice fail");
+        console.log(err);
+      })
+  }
 
   useEffect(() => {
     const token = JSON.parse(window.localStorage.getItem("memberData")).token
@@ -117,7 +129,7 @@ function NoticeDetail(match) {
       </PutButton>
       <DeleteButton 
         className={classes.button}
-        onClick={() => history.push("/notice")}>
+        onClick={deleteNotice}>
         삭제
       </DeleteButton>
 
