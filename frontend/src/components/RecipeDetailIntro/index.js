@@ -7,12 +7,47 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "../../components/Typography";
-
+import { Button } from "@material-ui/core";
+import { purple, red, blue } from '@material-ui/core/colors';
 import axios from 'axios'
+import { withStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router";
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
+
+const PutButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: blue[600],
+    '&:hover': {
+      backgroundColor: blue[800],
+    },
+  },
+}))(Button);
+
+const DeleteButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: red[600],
+    '&:hover': {
+      backgroundColor: red[900],
+    },
+  },
+}))(Button);
 
 // 레시피의 디테일한 정보를 표시하는 컴포넌트
 export default function RecipeDetailIntro(props) {
   const classes = useStyles();
+  const history = useHistory();
+
   const member = JSON.parse(window.localStorage.getItem("memberData"));
 
   const [state, setState] = useState({
@@ -119,6 +154,19 @@ export default function RecipeDetailIntro(props) {
     }
   };
 
+  const deleteRecipe = (e) => {
+    e.preventDefault();
+    axios.delete(`/recipe-articles/${props.data.id}`, {headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("delete success");
+        history.push("/recipe");
+      })
+      .catch((err) => {
+        console.log("delete fail");
+        console.log(err);
+      })
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -178,6 +226,28 @@ export default function RecipeDetailIntro(props) {
         <Typography variant="body1" gutterBottom className={classes.content}>
           {state.content}
         </Typography>
+        </div>
+        <div className={classes.right}>
+          {/* 글 작성자면 보이도록 */}
+          {(member.name === state.memberName) &&
+          <div>
+          <PutButton 
+            className={classes.button}
+            onClick={() => history.push(`/recipe/modify/${props.data.id}`)}>
+            수정
+          </PutButton>
+          <DeleteButton 
+            className={classes.button}
+            onClick={deleteRecipe}>
+            삭제
+          </DeleteButton>
+          </div>
+          }
+          <ColorButton 
+            className={classes.button}
+            onClick={() => history.push("/recipe")}>
+            뒤로가기
+          </ColorButton>
         </div>
       </Paper>
     </div>
