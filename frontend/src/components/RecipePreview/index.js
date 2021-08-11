@@ -26,7 +26,7 @@ export default function ImgMediaCard(props) {
   useEffect(() => {
     setlikeCount(props.likeCount); // like 총 숫자
     // like, likeCount, likeImg 셋팅
-    if (props.like === true) {
+    if (props.liked === true) {
       setLike(true);
       setLikeImg("like.png");
     } else {
@@ -36,7 +36,7 @@ export default function ImgMediaCard(props) {
     return () => {
       
     }
-  }, [props.like, props.likeCount])
+  }, [props.liked, props.likeCount])
 
 
   const likeRequest = () => {

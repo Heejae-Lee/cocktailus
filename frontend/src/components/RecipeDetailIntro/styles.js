@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateX(-50%)',
     width: '90%',
     margin: 20,
+  },
+  content: {
+    whiteSpace: "pre-line",
   }
 }));
 

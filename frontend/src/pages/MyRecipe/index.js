@@ -20,8 +20,9 @@ import clsx from "clsx";
 function MyRecipe() {
   const classes = useStyles();
   
-  const [recipes, setRecipes] = useState([]);
   const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 0: MyLike
+  const [recipes, setRecipes] = useState([]);
+
   // 전체 레시피 조회
   const changeMyUploadState = () => {
     setState(1);
@@ -82,12 +83,12 @@ function MyRecipe() {
         </Grid>
       </Container>
       <Typography
-          variant="h4"
-          align="center"
-          style={{ marginBottom: "24px", color: "rgba(0, 0, 0)" }}
-        >
-          {state === 1 ? "<Uploads>" : "<Likes>"}
-        </Typography>
+        variant="h4"
+        align="center"
+        style={{ marginBottom: "24px", color: "#8b00ff" }}
+      >
+        {state === 1 ? "<Uploads>" : "<Likes>"}
+      </Typography>
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
@@ -103,6 +104,7 @@ function MyRecipe() {
               updated={recipe.updated}
               imageURL={recipe.imageURL}
               likeCount={recipe.likeCount}
+              liked={recipe.liked}
               />
           ))}
         </Grid>

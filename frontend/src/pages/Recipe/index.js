@@ -1,13 +1,15 @@
 import withRoot from '../../components/withRoot';
-import { NavLink as RouterLink } from 'react-router-dom';
 // --- Post bootstrap -----
 import React, { useState, useEffect } from 'react';
-import ImgMediaCard from '../../components/RecipePreview'
+import { NavLink as RouterLink } from 'react-router-dom';
+
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
-import { Container, Grid } from '@material-ui/core';
 import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
+import ImgMediaCard from '../../components/RecipePreview'
+
+import { Container, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 import axios from 'axios'
@@ -30,7 +32,6 @@ function Recipe() {
   }
 
   useEffect(()=>{
-    console.log('mount');
     getRecipes();
   }, []);
 
@@ -60,19 +61,9 @@ function Recipe() {
               updated={recipe.updated}
               imageURL={recipe.imageURL}
               likeCount={recipe.likeCount}
+              liked={recipe.liked}
               />
           ))}
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
-          <ImgMediaCard />
         </Grid>
       </Container>
       <Footer />

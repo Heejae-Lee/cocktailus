@@ -16,7 +16,6 @@ import CommentTextField from "../../components/CommentTextField/";
 
 // axios
 import axios from "axios";
-// import BASE_URL from "../../utils/axios"
 
 
 function RecipeDetail(match) {
@@ -35,8 +34,8 @@ function RecipeDetail(match) {
     memberName: "",
     content: "",
     created: "",
-    like: true,
-    likeImg: "no_like.png",
+    liked: true,
+    likeImg: "",
     likeCount: 0,
     imageURL: "",
   });
@@ -49,7 +48,7 @@ function RecipeDetail(match) {
           // console.log("getRecipeDetail success");
           let recipeData = res.data["recipe-article"]
           const recipeComment = res.data["comments"]
-
+          console.log(recipeData);
           const tag = recipeData.tag.split("|").reduce((acc, cur) => {
             acc = acc + `#${cur} `;
             return acc;
@@ -61,6 +60,7 @@ function RecipeDetail(match) {
             return Number(li) / 15;
             // return Number(li.replace("ml", "")) / 15;
           });
+          const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
           setComments(recipeComment)
           setState({
             id: recipeData.id,
@@ -71,8 +71,8 @@ function RecipeDetail(match) {
             memberName: recipeData["member_name"],
             content: recipeData.content,
             created: recipeData.created.substr(0, 10),
-            like: false,
-            likeImg: "no_like.png",
+            liked: recipeData.liked,
+            likeImg: likedImg,
             likeCount: recipeData.likeCount,
             imageURL: recipeData.imageURL,
           });
