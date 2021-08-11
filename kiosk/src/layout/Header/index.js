@@ -4,6 +4,8 @@ import { useStyles } from "./styles";
 import React from "react";
 import Link from "@material-ui/core/Link";
 import { ColorButton } from "./styles";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import LoginModal from "../../components/LoginModal";
 // 기능 관련
@@ -13,9 +15,14 @@ import { NavLink as RouterLink } from "react-router-dom";
 export default function Header(props) {
   const classes = useStyles();
   const history = useHistory();
+  const memberData = JSON.parse(window.localStorage.getItem("memberData"));
 
   const clickPrev = () => {
     history.push("/");
+  };
+
+  const logOut = () => {
+    JSON.parse(window.localStorage.removeItem("memberData"));
   };
 
   return (
@@ -49,9 +56,19 @@ export default function Header(props) {
         alt={"로고이미지"}
       />
       {/* 로그인/로그아웃 */}
-      <div className={classes.flexMember}>
-        <LoginModal />
-      </div>
+      {memberData === null && (
+        <div className={classes.flexMember}>
+          <LoginModal />
+        </div>
+      )}
+      {memberData && (
+        <div className={classes.flexMember}>
+          <Typography variant="button">{memberData.name}</Typography>
+          <Button className={classes.font} onClick={logOut}>
+            LOGOUT
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

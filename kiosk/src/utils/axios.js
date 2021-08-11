@@ -10,40 +10,32 @@ export const userAPI = {
       url: baseURL + "/members/login",
       method: "post",
       data: credentials,
-    })
-      .then((res) => {
-        console.log("login success!");
+    }).then((res) => {
+        console.log("axios::login::Success");
         //console.log(res);
         return res;
-      })
-      .catch((err) => {
-        console.log("login fail");
+    }).catch((err) => {
+        console.log("axios::login::Failed");
         //console.log(err);
         return err;
-      });
+    });
   },
 };
 
-/*
-// recipe 관련 API 정의
+// 레시피 관련 API 정의
 export const recipeAPI = {
-    // header에 authorization이 필요하다
-    // 게시글 작성
-    post: (formData) => {
-      return request.post("/recipe", formData, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    },
-    // 게시글 가져오기
-    get: (search) => {
-      return request.get("/recipe", {
-        params: {
-          search: search,
-        },
-      });
-    },
-  };
-  */
+  // header에 authorization이 필요하다
+  // 내가 좋아요한 레시피 목록을 가져옴
+  getRecipes: () => {
+    return axios.get("/recipe-articles", {
+        headers: { 
+            "Auth-Token": localStorage.getItem("token"), 
+        }, 
+    }).then((res) => {
+        console.log("axios::getRecipes::Success");
+        return res.data;
+    }).catch(() => {
+        console.log("axios::getRecipes::Failed");
+    });
+  },
+};

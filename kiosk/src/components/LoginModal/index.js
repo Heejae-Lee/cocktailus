@@ -60,7 +60,7 @@ export default function LoginModal(props) {
         email: member.email,
         name: res.data.name,
       };
-      
+
       // 유저 데이터 로컬 스토리지에 저장
       window.localStorage.setItem("memberData", JSON.stringify(payload));
       // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
@@ -106,7 +106,7 @@ export default function LoginModal(props) {
         <Fade in={open}>
           <div className={classes.paper}>
             {/* 로그인을 위한 폼 */}
-            <form class={classes.loginForm} noValidate autoComplete={"off"}>
+            <form className={classes.loginForm} noValidate autoComplete={"off"}>
               <Typography variant="h4" gutterBottom>
                 로그인
               </Typography>
@@ -116,7 +116,7 @@ export default function LoginModal(props) {
                 onChange={changeEmail}
                 placeholder="아이디"
                 autoFocus
-                maxlength="40"
+                maxLength="40"
                 disabled={sent}
               />
               <input
@@ -124,7 +124,7 @@ export default function LoginModal(props) {
                 type={"password"}
                 onChange={changePassword}
                 placeholder="비밀번호"
-                maxlength="20"
+                maxLength="20"
                 disabled={sent}
               />
               <Button onClick={onSubmit} variant="contained" className={classes.button} type="submit">
