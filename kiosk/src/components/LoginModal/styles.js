@@ -44,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
           backgroundColor: purple[700],
         },
+    },
+    keyboard: {
+      position: "fixed",
+      width: '100%',
+      left: 0,
+      bottom: 0,
+      zIndex: 999
     }
 }));
 

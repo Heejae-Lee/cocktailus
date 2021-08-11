@@ -25,14 +25,12 @@ export default function CardDetail(props) {
     third: 2,
     fourth: 3,
   });
-  const [led, setLed] = React.useState(false);
 
   // props를 통하여 칵테일 데이터를 로컬에서 가져올지 서버에서 가져올지 결정함
   React.useEffect(() => {
     if (props.variant !== "basic") {
       console.log("서버에서 받아와야함");
     } else {
-      console.log(props);
       const basic = recipes[props.id];
       const drinkList = basic.drink.split("|");
       const drinkRatioList = basic.ratio.split("|").splice("");
@@ -53,44 +51,58 @@ export default function CardDetail(props) {
   // 호스 선택박스의 값이 바뀔떄마다 호출됨
   const handleChange = (e) => {
     // setHose(event.target.value);
-    console.log(e.target.name);
     let newHose = Object.assign({}, hose);
     newHose = {
       ...newHose,
       [e.target.name] : e.target.value
     }
-    console.log(newHose)
+    
     setHose(newHose);
   };
 
   // 음료 제조버튼을 누르면 호출되는 함수
   const makeDrink = () => {
     const drinkCount = state.drink.length;
-    console.log(`drink Count는 ${drinkCount}`);
     let flag = [false, false, false, false];
     let validate = true;
+    let drink = Object.assign({}, state.drink);
 
     // 각 호스의 중복 여부 확인
     if ( drinkCount > 0 ){
       if (flag[hose.first])    validate = false;
-      else    flag[hose.first] = true;
+      else {
+        drink[0].order = hose.first;
+        flag[hose.first] = true;
+      }
     } 
     if ( drinkCount > 1 ){
       if (flag[hose.second])    validate = false;
-      else    flag[hose.second] = true;
+      else {
+        drink[1].order = hose.second;    
+        flag[hose.second] = true;
+      }
     } 
     if ( drinkCount > 2 ){
       if (flag[hose.third])    validate = false;
-      else    flag[hose.third] = true;
+      else {
+        drink[2].order = hose.third;    
+        flag[hose.third] = true;
+      }
     } 
     if ( drinkCount > 3 ){
       if (flag[hose.fourth])    validate = false;
-      else    flag[hose.fourth] = true;
+      else {
+        drink[3].order = hose.fourth;        
+        flag[hose.fourth] = true;
+      }
     }
 
     // 중복이 없으면 칵테일 제작
     if (validate){
-      hardwareAPI.make();
+      const payload = {
+        drink: drink
+      };
+      hardwareAPI.make(payload);
     } else {
       alert('선택된 호스의 중복을 확인해주세요');
     }
