@@ -63,4 +63,9 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
         return result;
     }
 
+    @Override
+    public void remove(RecipeArticle recipeArticle) {
+        em.remove(recipeArticle);
+    }
+
 }

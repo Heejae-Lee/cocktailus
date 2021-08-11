@@ -51,6 +51,6 @@ public class NoticeService {
         Notice notice = optionalNotice.orElseThrow(
                 ()-> new IllegalStateException("No matching id")
         );
-        jpaNoticeRepository.delete(notice);
+        jpaNoticeRepository.remove(notice);
     }
 }
