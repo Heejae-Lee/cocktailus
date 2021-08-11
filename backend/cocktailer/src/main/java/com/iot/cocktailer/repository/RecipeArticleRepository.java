@@ -11,4 +11,5 @@ public interface RecipeArticleRepository {
     Optional<RecipeArticle> findById(Long id);
     List<RecipeArticle> findUploadedByNameOrderByUpdatedDesc(String member_name);
     List<RecipeArticle> findLikedByNameOrderByUpdatedDesc(String member_name);
+    void remove(RecipeArticle recipeArticle);
 }

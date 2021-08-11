@@ -42,4 +42,15 @@ public class RecipeArticleController {
     public ResponseEntity getRecipeArticle(@PathVariable("recipe-articles_id")Long id){
         return new ResponseEntity<>(recipeArticleService.getRecipeArticle(id),HttpStatus.OK);
     }
+
+    @PutMapping("/{recipe-articles_id}")
+    public ResponseEntity updateRecipeArticle(@PathVariable("recipe-articles_id")Long id,@RequestBody RecipeArticle recipeArticle){
+        return new ResponseEntity<>(recipeArticleService.updateRecipeArticle(id,recipeArticle),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{recipe-articles_id}")
+    public ResponseEntity deleteRecipeArticle(@PathVariable("recipe-articles_id")Long id){
+        recipeArticleService.deleteRecipeArticle(id);
+        return ResponseEntity.noContent().build();
+    }
 }
