@@ -1,63 +1,56 @@
-import withRoot from '../../components/withRoot';
+// react, router
+import React, { Fragment, useState, useEffect } from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
-// --- Post bootstrap -----
-import React, { Fragment, useState, useEffect, useCallback } from 'react';
+
+// custom-design
+import withRoot from '../../components/withRoot';
 import ImgMediaCard from '../../components/RecipePreview'
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
-import { Container, Grid } from '@material-ui/core';
 import Typography from "../../components/Typography";
 import useStyles from './styles';
+
+// material-ui/core
+import { Container, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import clsx from "clsx";
 import axios from 'axios'
+import clsx from "clsx";
 
 function MyRecipe() {
   const classes = useStyles();
   
-  const member = JSON.parse(window.localStorage.getItem("memberData"))
   const [recipes, setRecipes] = useState([]);
-  const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 2: MyLike
-
+  const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 0: MyLike
   // 전체 레시피 조회
-  const getMyUploadRecipes = useCallback(
-    () => {
-      setState(1);
-      axios.get("/recipe-articles", {
+  const changeMyUploadState = () => {
+    setState(1);
+  };
+
+  const changeMyLikeState = () => {
+    setState(0);
+  };
+
+  useEffect(()=>{
+    const member = JSON.parse(window.localStorage.getItem("memberData"))
+    const getMyUploadRecipes = () => {
+      axios.get(`/myrecipe/${member.name}`, {
         headers: {'Auth-Token': `${member.token}`},
       })
       .then((res) => {
         console.log("Get MyUploadRecipe Success");
-        setRecipes(res.data);
+        if (state === 1) {
+          setRecipes(res.data["uploaded-recipe-articles"]);
+        } else {
+          setRecipes(res.data["liked-recipe-articles"]);
+        }
       })
       .catch(() => {
         console.log("Get MyUploadRecipe failed");
       })
-      },
-      [member.token],
-  )
-      
-  const getMyLikeRecipes = useCallback(
-    () => {
-      setState(2);
-      axios.get("/recipe-articles",{headers: {'Auth-Token': `${member.token}`}})
-      .then((res) => {
-        console.log("Get MyLikeRecipe Success");
-        setRecipes(res.data);
-      })
-      .catch(() => {
-        console.log("Get MyLikeRecipe failed");
-      })
-    },
-    [member.token],
-  )
-
-  useEffect(()=>{
-    // console.log('mount');
-    getMyUploadRecipes();
-
-  }, [getMyUploadRecipes]);
+    };
+    getMyUploadRecipes()
+  }, [state]);
 
   return (
     <Fragment>
@@ -67,14 +60,14 @@ function MyRecipe() {
           <Button
             variant="outlined" color="primary" 
             className={clsx(classes.chips, state === 1 && classes.selectedColor)}
-            onClick={getMyUploadRecipes}
+            onClick={changeMyUploadState}
             >
             My Uploads
           </Button>
           <Button
             variant="outlined" color="primary" 
-            className={clsx(classes.chips, state === 2 && classes.selectedColor)}
-            onClick={getMyLikeRecipes}
+            className={clsx(classes.chips, state === 0 && classes.selectedColor)}
+            onClick={changeMyLikeState}
             >
             Likes
           </Button>
