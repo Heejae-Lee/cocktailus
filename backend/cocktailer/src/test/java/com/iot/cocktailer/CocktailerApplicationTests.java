@@ -14,50 +14,11 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
+//@SpringBootTest
 class CocktailerApplicationTests {
-	private final MemberService memberService;
-	private final JpaMemberRepository jpaMemberRepository;
-	private final JwtTokenService jwtTokenService;
-
-	@Autowired
-	public CocktailerApplicationTests(MemberService memberService,JpaMemberRepository jpaMemberRepository,JwtTokenService jwtTokenService){
-		this.memberService = memberService;
-		this.jpaMemberRepository = jpaMemberRepository;
-		this.jwtTokenService = jwtTokenService;
-	}
 
 	@Test
 	void contextLoads() {
-	}
-
-	@Test
-	@Transactional
-	void 회원가입테스트(){
-		// given
-		Member member = new Member();
-		member.setName("test123456");
-		member.setPassword("asdf1234");
-
-		// when
-		String result = memberService.createMember(member);
-
-		// then
-		Assertions.assertThat(result.equals(jwtTokenService.createToken(member)));
-
-	}
-
-	@Test
-	@Transactional
-	void 로그인테스트(){
-		// given
-		Member member = new Member();
-		member.setName("test123456");
-		member.setPassword("asdf1234");
-
-		// when
-		// then
-
 	}
 
 }
