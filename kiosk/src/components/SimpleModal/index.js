@@ -61,10 +61,10 @@ export default function SimpleModal(props) {
           {/* 모달 내용 */}
           {/* 부모 컴포넌트로부터 전달받은 text, subtext에 따라 내용 출력 */}
           <div className={classes.bodyBox}>
-            <Typography variant="h6" gutterBottom align="center">
+            <Typography variant="h5" gutterBottom align="center">
               {props.text}
             </Typography>
-            <Typography variant="subtitle2" align="center">
+            <Typography variant="h6" align="center">
               {props.subText}
             </Typography>
           </div>
@@ -76,6 +76,7 @@ export default function SimpleModal(props) {
               className={classes.button}
               onClick={props.buttonYes}
               variant="contained"
+              size="large"
             >
               {props.buttonText}
               {!props.buttonText && "네!"}
@@ -86,6 +87,7 @@ export default function SimpleModal(props) {
                 className={classes.button}
                 onClick={props.buttonNo}
                 variant="contained"
+                size="large"
               >
                 아니요!
               </Button>

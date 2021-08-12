@@ -65,8 +65,8 @@ export default function CleanCompleteLoading() {
         <div>
           <Lottie
             options={defaultOptions}
-            height={600}
-            width={600}
+            height={450}
+            width={450}
             isPaused={isWaited}
           />
           <Typography className={classes.font} variant="h2" align="center">
