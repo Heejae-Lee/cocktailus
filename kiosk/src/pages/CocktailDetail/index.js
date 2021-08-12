@@ -7,18 +7,25 @@ import CardDetail from '../../components/CardDetail'
 
 export default function CocktailDetail({match}) {
     const classes = useStyles();
-    const [state, setState] = React.useState("basic");
+    const [state, setState] = React.useState({
+        type: "basic",
+        prev: "/basic-cocktails"
+    });
 
     React.useEffect(()=>{
         if(match.path.indexOf("basic") < 0){
-            setState("bookmark");
+            const newState = {
+                type: "bookmark",
+                prev: "/my-cocktails"
+            };
+            setState(newState);
         }
     },[match]);
 
     return (
         <div className={classes.root}>
-            <Header prev={true} />
-            <CardDetail variant={state} id={match.params.id}/>
+            <Header prev={true}  to={state.prev}/>
+            <CardDetail variant={state.type} id={match.params.id}/>
         </div>
     )
 }

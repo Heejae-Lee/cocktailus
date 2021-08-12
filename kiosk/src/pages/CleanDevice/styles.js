@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     backgroundColor: '#28282a',
   },
-  main: {
-    marginTop: "15vh",
+  font: {
+    color: 'white'
   }
 }));
 

@@ -163,9 +163,11 @@ export default function LoginModal(props) {
         </Fade>
       </Modal>
       <Modal open={keyboardOpen.open} onClose={handleKeyboardClose}>
+        <Fade in={keyboardOpen.open}>
         <div className={classes.keyboard}>
           <Keyboard onChange={onChangeKeyboard} maxLength={40} />
         </div>
+        </Fade>
       </Modal>
     </div>
   );

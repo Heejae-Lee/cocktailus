@@ -11,7 +11,9 @@ export default function Home() {
     return (
         <div className={classes.root}>
             <Header />
-            <MainMenus />
+            <div  className={classes.main}>
+            <MainMenus/>
+            </div>
         </div>
     )
 }

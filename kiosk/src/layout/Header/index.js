@@ -35,7 +35,7 @@ export default function Header(props) {
             variant="h6"
             underline="none"
             className={classes.rightLink}
-            to={"/"}
+            to={props.to}
           >
             <ColorButton
               onClick={clickPrev}
@@ -56,17 +56,20 @@ export default function Header(props) {
         alt={"로고이미지"}
       />
       {/* 로그인/로그아웃 */}
+
       {memberData === null && (
         <div className={classes.flexMember}>
-          <LoginModal />
+          {!props.simple && <LoginModal />}
         </div>
       )}
-      {memberData && (
+      {!props.simple && memberData && (
         <div className={classes.flexMember}>
           <Typography variant="button">{memberData.name}</Typography>
-          <Button className={classes.font} onClick={logOut}>
-            LOGOUT
-          </Button>
+          {!props.simple && (
+            <Button className={classes.font} onClick={logOut}>
+              LOGOUT
+            </Button>
+          )}
         </div>
       )}
     </div>

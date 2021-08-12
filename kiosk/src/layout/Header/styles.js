@@ -6,6 +6,7 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     cursor: "none",
     width: "100%",
     height: "15%",

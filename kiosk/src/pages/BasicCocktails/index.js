@@ -43,7 +43,7 @@ export default function BasicCocktails() {
 
   return (
     <div className={classes.root}>
-      <Header prev={true} />
+      <Header prev={true} to="/"/>
       <div className={classes.listWrapper}>
         <Button className={classes.btnLayout} onClick={clickPrev}>
           <ArrowBackIosIcon className={classes.nextIcon} />
