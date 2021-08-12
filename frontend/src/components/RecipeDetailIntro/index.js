@@ -1,17 +1,21 @@
 // 스타일 관련
 import useStyles from "./styles";
-// 컴포넌트 관련
+import { withStyles } from '@material-ui/core/styles';
+
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import axios from 'axios'
+
+// 컴포넌트 관련
+import { Button } from "@material-ui/core";
+import { purple, red, blue } from '@material-ui/core/colors';
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "../../components/Typography";
-import { Button } from "@material-ui/core";
-import { purple, red, blue } from '@material-ui/core/colors';
-import axios from 'axios'
-import { withStyles } from '@material-ui/core/styles';
-import { useHistory } from "react-router";
+
+import AlertDialog from "../../components/Modal";
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -49,7 +53,8 @@ export default function RecipeDetailIntro(props) {
   const history = useHistory();
 
   const member = JSON.parse(window.localStorage.getItem("memberData"));
-
+  
+  const [open, setOpen] = useState(false);
   const [state, setState] = useState({
     drink: [],
     drink_ratio: [],
@@ -77,6 +82,14 @@ export default function RecipeDetailIntro(props) {
       });
     }
   }, [props]);
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
 
   const likeRequest = () => {
     if (member == null) {
@@ -154,8 +167,7 @@ export default function RecipeDetailIntro(props) {
     }
   };
 
-  const deleteRecipe = (e) => {
-    e.preventDefault();
+  const deleteRecipe = () => {
     axios.delete(`/recipe-articles/${props.data.id}`, {headers: { 'Auth-Token': `${member.token}`}})
       .then(() => {
         console.log("delete success");
@@ -169,6 +181,13 @@ export default function RecipeDetailIntro(props) {
 
   return (
     <div className={classes.root}>
+      <AlertDialog 
+        open={open}
+        delete={deleteRecipe}
+        closeModal={closeModal}
+        title="공지사항 삭제"
+        content="정말 삭제하시겠습니까?"
+      />
       <Paper className={classes.paper}>
         <Grid container>
           <Grid item xs={4}>
@@ -231,16 +250,17 @@ export default function RecipeDetailIntro(props) {
           {/* 글 작성자면 보이도록 */}
           {(member.name === state.memberName) &&
           <div>
+          <DeleteButton 
+            className={classes.button}
+            onClick={openModal}
+            >
+            삭제
+          </DeleteButton>
           <PutButton 
             className={classes.button}
             onClick={() => history.push(`/recipe/modify/${props.data.id}`)}>
             수정
           </PutButton>
-          <DeleteButton 
-            className={classes.button}
-            onClick={deleteRecipe}>
-            삭제
-          </DeleteButton>
           </div>
           }
           <ColorButton 

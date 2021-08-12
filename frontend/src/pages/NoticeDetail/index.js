@@ -106,6 +106,13 @@ function NoticeDetail(match) {
   return (
     <React.Fragment>
       <Header />
+      <AlertDialog 
+        open={open}
+        delete={deleteNotice}
+        closeModal={closeModal}
+        title="공지사항 삭제"
+        content="정말 삭제하시겠습니까?"
+      />
       <Container className={classes.root}>
         
         {/* 페이지 타이틀 */}
@@ -126,13 +133,6 @@ function NoticeDetail(match) {
       <div className={classes.noticeContent}>
         {data.content}
       </div>
-      <AlertDialog 
-        open={open}
-        delete={deleteNotice}
-        closeModal={closeModal}
-        title="공지사항 삭제"
-        content="정말 삭제하시겠습니까?"
-      />
 
       <ColorButton 
         className={classes.button}
@@ -148,7 +148,6 @@ function NoticeDetail(match) {
       <DeleteButton 
         className={classes.button}
         onClick={openModal}
-        // onClick={deleteNotice}
         >
         삭제
       </DeleteButton>
