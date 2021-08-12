@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     left: '50%',
     margin: theme.spacing(3),
-  }
+  },
 }));
 
 export default useStyles;

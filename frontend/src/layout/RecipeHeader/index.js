@@ -12,7 +12,6 @@ import Header from "./RecipeHeaderComponents/Header";
 import CustomInput from "../../components/CustomInput";
 import Button from "./RecipeHeaderComponents/Button";
 import navbarsStyle from "./styles";
-import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles(navbarsStyle);
 
@@ -24,18 +23,24 @@ export default function RecipeHeader(props) {
       leftLinks={
         <List className={classes.list}>
           <ListItem className={classes.listItem}>
-            <Chip
-            color="white"
-            label="최신순"
-            clickable variant="outlined"
-            />
+            <Button
+            round
+            variant="outlined" color="primary" 
+            size="sm"
+            onClick={props.orderByLatest}
+            >
+              최신순
+            </Button>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <Chip
-              color="white"
-              label="인기순"
-              clickable variant="outlined"
-            />
+            <Button
+              round
+              variant="outlined" color="primary"
+              size="sm"
+              onClick={props.orderByPopulation}
+              >
+              인기순
+            </Button>
           </ListItem>
         </List>
       }
@@ -43,11 +48,20 @@ export default function RecipeHeader(props) {
         <div>
           <CustomInput
             white
+            id="search"
             inputRootCustomClasses={classes.inputRootCustomClasses}
             formControlProps={{
               className: classes.formControl,
             }}
             inputProps={{
+              onChange: props.updateSearchedValue,
+              // if enter input, then start props.searchRecipes
+              onKeyPress: (e) => {
+                if (e.key === "Enter") {
+                  props.searchRecipes();
+                  // document.getElementById("search").value="";
+                }
+              },
               placeholder: "Search",
               inputProps: {
                 "aria-label": "Search",
@@ -55,7 +69,10 @@ export default function RecipeHeader(props) {
               },
             }}
           />
-          <Button justIcon round color="white">
+          <Button
+            onClick={props.searchRecipes}
+            justIcon round color="white"
+            >
             <Search className={classes.searchIcon} />
           </Button>
         </div>
