@@ -20,6 +20,7 @@ export default function SimpleModal(props) {
 
   const defaultOptions = [
     {
+      loop: false,
       autoplay: true,
       animationData: checkAnimationData,
       rendererSettings: {
@@ -27,6 +28,7 @@ export default function SimpleModal(props) {
       },
     },
     {
+      loop: false,
       autoplay: true,
       animationData: questionAnimationData,
       rendererSettings: {
@@ -34,6 +36,7 @@ export default function SimpleModal(props) {
       },
     },
     {
+      loop: false,
       autoplay: true,
       animationData: alertAnimationData,
       rendererSettings: {
@@ -41,6 +44,7 @@ export default function SimpleModal(props) {
       },
     },
     {
+      loop: false,
       autoplay: true,
       animationData: cancelAnimationData,
       rendererSettings: {
@@ -67,32 +71,16 @@ export default function SimpleModal(props) {
           {/* checked, question, warning, cancled */}
           <div className={classes.iconBox}>
             {props.type === "checked" && (
-            <Lottie
-              options={defaultOptions[0]}
-              height={80}
-              width={80}
-            />
+              <Lottie options={defaultOptions[0]} height={80} width={80} />
             )}
             {props.type === "question" && (
-            <Lottie
-              options={defaultOptions[1]}
-              height={80}
-              width={80}
-            />
+              <Lottie options={defaultOptions[1]} height={80} width={80} />
             )}
             {props.type === "warning" && (
-            <Lottie
-              options={defaultOptions[2]}
-              height={80}
-              width={80}
-            />
+              <Lottie options={defaultOptions[2]} height={80} width={80} />
             )}
             {props.type === "cancled" && (
-            <Lottie
-              options={defaultOptions[3]}
-              height={80}
-              width={80}
-            />
+              <Lottie options={defaultOptions[3]} height={80} width={80} />
             )}
           </div>
           {/* 모달 내용 */}
