@@ -156,10 +156,19 @@ export default function CardDetail(props) {
 
   const buttonMake = () => {
     let drink = Object.assign({}, state.drink);
-    drink[0].order = hose.first;
-    drink[1].order = hose.second;
-    drink[2].order = hose.third;
-    drink[3].order = hose.fourth;
+    const drinkCount = state.drink.length;
+    if (drinkCount > 0) {
+      drink[0].order = hose.first;
+    }
+    if (drinkCount > 1) {
+      drink[1].order = hose.second;
+    }
+    if (drinkCount > 2) {
+      drink[2].order = hose.third;
+    }
+    if (drinkCount > 3) {
+      drink[3].order = hose.fourth;
+    }
     const payload = {
       drink: drink,
     };

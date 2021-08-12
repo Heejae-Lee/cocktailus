@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(6),
     boxShadow: "0 8px 8px 8px rgba(0, 0, 0, 0.5)",
   },
-  title:{
-    marginTop: theme.spacing(4)
+  title: {
+    marginTop: theme.spacing(4),
   },
   CocktailImg: {
     width: "27vw",
@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   detail: {
-    width: '40vw'
+    width: "40vw",
   },
   slider: {
     width: "100%",
-    cursor: "none"
+    cursor: "none",
   },
   button: {
     width: "27vw",

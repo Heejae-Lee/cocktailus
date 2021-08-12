@@ -40,11 +40,7 @@ export default function LottieModal(props) {
           {/* 모달 타입 이미지 */}
           {/* 부모 컴포넌트로부터 전달받은 type에 따라 다른 이미지 아이콘 출력 */}
           <div className={classes.lottieBox}>
-            <Lottie
-              options={defaultOptions}
-              height={180}
-              width={180}
-            />
+            <Lottie options={defaultOptions} height={180} width={180} />
           </div>
           {/* 모달 내용 */}
           {/* 부모 컴포넌트로부터 전달받은 text, subtext에 따라 내용 출력 */}
