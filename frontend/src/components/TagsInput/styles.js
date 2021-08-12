@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'wrap',
     appearance: 'none', // Remove border in Safari, doesn't seem to break anything in other browsers
     WebkitTapHighlightColor: 'rgba(0,0,0,0)', // Remove mobile color flashing (deprecated style).
     float: 'left',
