@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     width: '27vw',
     height: '48vh',
     backgroundColor: "#69696a",
+    cursor: "none",
     '&:hover': {
       backgroundColor: "#454563",
     },

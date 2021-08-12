@@ -68,7 +68,7 @@ export default function MyCocktails() {
 
   return (
     <div className={classes.root}>
-      <Header prev={true} />
+      <Header prev={true}  to="/"/>
       <div className={classes.listWrapper}>
         {state.lastIndex > 0 && (
           <Button className={classes.btnLayout} onClick={clickPrev}>

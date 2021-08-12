@@ -6,12 +6,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     cursor: "none",
-    width: "100vw",
-    height: "100vh",
     backgroundColor: '#28282a',
   },
-  main: {
-    marginTop: "15vh",
+  font: {
+    color: 'white'
   }
 }));
 

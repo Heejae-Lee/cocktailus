@@ -25,11 +25,12 @@ export default function MainMenus() {
     {
       menuName: "청소",
       menuImg: "/images/water.png",
-      route: "/basic-cocktails",
+      route: "/clean",
     },
   ];
 
   return (
+    <div>
     <Grid className={classes.root} item xs={12}>
       <Grid container justifyContent="center" spacing={2}>
         {menus.map((value, index) => (
@@ -57,5 +58,6 @@ export default function MainMenus() {
         ))}
       </Grid>
     </Grid>
+    </div>
   );
 }

@@ -16,7 +16,7 @@ export const userAPI = {
         return res;
     }).catch((err) => {
         console.log("axios::login::Failed");
-        //console.log(err);
+        console.log(err);
         return err;
     });
   },
@@ -34,8 +34,9 @@ export const recipeAPI = {
     }).then((res) => {
         console.log("axios::getRecipes::Success");
         return res;
-    }).catch(() => {
+    }).catch((err) => {
         console.log("axios::getRecipes::Failed");
+        console.log(err);
     });
   },
 };
@@ -53,7 +54,47 @@ export const hardwareAPI = {
         return res;
     }).catch((err) => {
         console.log("axios::makeRequest::Failed");
-        //console.log(err);
+        console.log(err);
+        return err;
+    });
+  },
+  cleanRequest: () => {
+    return axios({
+      url: "http://localhost:8080/api/hose/clean",
+      method: "get",
+    }).then((res) => {
+        console.log("axios::cleanRequest::Success");
+        return res;
+    }).catch((err) => {
+        console.log("axios::cleanRequest::Failed");
+        console.log(err);
+        return err;
+    });
+  },
+  stopRequest: () => {
+    return axios({
+      url: "http://localhost:8080/api/hose/stop",
+      method: "get",
+    }).then((res) => {
+        console.log("axios::stopRequest::Success");
+        return res;
+    }).catch((err) => {
+        console.log("axios::stopRequest::Failed");
+        console.log(err);
+        return err;
+    });
+  },
+  deviceAvailable: (credentials) => {
+    return axios({
+      url: "http://localhost:8080/api/hose/available",
+      method: "get",
+      data: credentials.drink,
+    }).then((res) => {
+        console.log("axios::deviceAvailable::Success");
+        return res;
+    }).catch((err) => {
+        console.log("axios::deviceAvailable::Failed");
+        console.log(err);
         return err;
     });
   },
