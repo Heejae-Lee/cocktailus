@@ -3,14 +3,51 @@ import useStyles from "./styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import "react-simple-keyboard/build/css/index.css";
+import alertAnimationData from "../../lotties/alert.json";
+import cancelAnimationData from "../../lotties/cancel-animation.json";
+import checkAnimationData from "../../lotties/check.json";
+import questionAnimationData from "../../lotties/question-mark.json";
 // 컴포넌트 관련
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+// 기능 관련
+import Lottie from "react-lottie";
 
 export default function SimpleModal(props) {
   const classes = useStyles();
+
+  const defaultOptions = [
+    {
+      autoplay: true,
+      animationData: checkAnimationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    },
+    {
+      autoplay: true,
+      animationData: questionAnimationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    },
+    {
+      autoplay: true,
+      animationData: alertAnimationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    },
+    {
+      autoplay: true,
+      animationData: cancelAnimationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    },
+  ];
 
   return (
     <Modal
@@ -30,32 +67,32 @@ export default function SimpleModal(props) {
           {/* checked, question, warning, cancled */}
           <div className={classes.iconBox}>
             {props.type === "checked" && (
-              <img
-                className={classes.icon}
-                src={process.env.PUBLIC_URL + "/images/checked.png"}
-                alt={"모달 타입"}
-              />
+            <Lottie
+              options={defaultOptions[0]}
+              height={80}
+              width={80}
+            />
             )}
             {props.type === "question" && (
-              <img
-                className={classes.icon}
-                src={process.env.PUBLIC_URL + "/images/question.png"}
-                alt={"모달 타입"}
-              />
+            <Lottie
+              options={defaultOptions[1]}
+              height={80}
+              width={80}
+            />
             )}
             {props.type === "warning" && (
-              <img
-                className={classes.icon}
-                src={process.env.PUBLIC_URL + "/images/warning.png"}
-                alt={"모달 타입"}
-              />
+            <Lottie
+              options={defaultOptions[2]}
+              height={80}
+              width={80}
+            />
             )}
             {props.type === "cancled" && (
-              <img
-                className={classes.icon}
-                src={process.env.PUBLIC_URL + "/images/question.png"}
-                alt={"모달 타입"}
-              />
+            <Lottie
+              options={defaultOptions[3]}
+              height={80}
+              width={80}
+            />
             )}
           </div>
           {/* 모달 내용 */}

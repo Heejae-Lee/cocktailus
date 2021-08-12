@@ -4,27 +4,37 @@ import useStyles from "./styles";
 import React from "react";
 import Typography from "../../components/Typography";
 import Button from "@material-ui/core/Button";
-import { PrettoSlider } from "../PrettoSlider";
-import recipes from "../../asset/recipe/recipe";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+import { PrettoSlider } from "../PrettoSlider";
+import LottieModal from "../LottieModal";
+import SimpleModal from "../SimpleModal";
+import recipes from "../../asset/recipe/recipe";
 // 기능 관련
-import { hardwareAPI } from '../../utils/axios';
+import { hardwareAPI } from "../../utils/axios";
+import { useHistory } from "react-router-dom";
 
 export default function CardDetail(props) {
   const classes = useStyles();
+  const history = useHistory();
   const [state, setState] = React.useState({
     title: "",
     drink: [],
-    image: "https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200"
+    image:
+      "https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200",
   });
   const [hose, setHose] = React.useState({
     first: 0,
     second: 1,
     third: 2,
     fourth: 3,
+  });
+  const [modalState, setModalState] = React.useState({
+    isConfirmed: false,
+    making: false,
+    isComplete: false,
   });
 
   // props를 통하여 칵테일 데이터를 로컬에서 가져올지 서버에서 가져올지 결정함
@@ -58,20 +68,20 @@ export default function CardDetail(props) {
       setState({
         title: basic.title,
         drink: drink,
-        image: process.env.PUBLIC_URL + "/images/" + basic.image
+        image: process.env.PUBLIC_URL + "/images/" + basic.image,
       });
     }
   }, []);
 
-  // 호스 선택박스의 값이 바뀔떄마다 호출됨
+  // 호스 선택박스의 값이 바뀔떄마다 호출되는 함수
   const handleChange = (e) => {
     // setHose(event.target.value);
     let newHose = Object.assign({}, hose);
     newHose = {
       ...newHose,
-      [e.target.name] : e.target.value
-    }
-    
+      [e.target.name]: e.target.value,
+    };
+
     setHose(newHose);
   };
 
@@ -80,50 +90,44 @@ export default function CardDetail(props) {
     const drinkCount = state.drink.length;
     let flag = [false, false, false, false];
     let validate = true;
-    let drink = Object.assign({}, state.drink);
 
     // 각 호스의 중복 여부 확인
-    if ( drinkCount > 0 ){
-      if (flag[hose.first])    validate = false;
+    if (drinkCount > 0) {
+      if (flag[hose.first]) validate = false;
       else {
-        drink[0].order = hose.first;
         flag[hose.first] = true;
       }
-    } 
-    if ( drinkCount > 1 ){
-      if (flag[hose.second])    validate = false;
+    }
+    if (drinkCount > 1) {
+      if (flag[hose.second]) validate = false;
       else {
-        drink[1].order = hose.second;    
         flag[hose.second] = true;
       }
-    } 
-    if ( drinkCount > 2 ){
-      if (flag[hose.third])    validate = false;
+    }
+    if (drinkCount > 2) {
+      if (flag[hose.third]) validate = false;
       else {
-        drink[2].order = hose.third;    
         flag[hose.third] = true;
       }
-    } 
-    if ( drinkCount > 3 ){
-      if (flag[hose.fourth])    validate = false;
+    }
+    if (drinkCount > 3) {
+      if (flag[hose.fourth]) validate = false;
       else {
-        drink[3].order = hose.fourth;        
         flag[hose.fourth] = true;
       }
     }
 
     // 중복이 없으면 칵테일 제작
-    if (validate){
-      const payload = {
-        drink: drink
-      };
-      hardwareAPI.make(payload);
+    if (validate) {
+      let newModalState = Object.assign({}, modalState, { isConfirmed: true });
+      setModalState(newModalState);
     } else {
-      alert('선택된 호스의 중복을 확인해주세요');
+      alert("선택된 호스의 중복을 확인해주세요");
     }
   };
 
-  // 슬라이더를 바꿀때마다 호출되는 함수
+  /* 슬라이더를 위한 함수들 */
+  // 슬라이더를 바꿀때마다 state에 저장된 값을 교체
   const changevalue0 = (e, value) => {
     let newState = Object.assign({}, state);
     newState.drink[0].ratio = value;
@@ -148,6 +152,53 @@ export default function CardDetail(props) {
     setState(newState);
   };
 
+  /* 모달을 위한 함수들 */
+
+  const buttonMake = () => {
+    let drink = Object.assign({}, state.drink);
+    drink[0].order = hose.first;
+    drink[1].order = hose.second;
+    drink[2].order = hose.third;
+    drink[3].order = hose.fourth;
+    const payload = {
+      drink: drink,
+    };
+    //hardwareAPI.make(payload);
+
+    // 제조중 모달 출력
+    let newModalState = Object.assign({}, modalState, {
+      isConfirmed: false,
+      making: true,
+    });
+    setModalState(newModalState);
+
+    // 제조 완료 알림이 들어갈 예정
+    // 일정 시간마다 하드웨어에 완료 여부를 묻는 api 전송
+    setTimeout(() => {
+      // 제조 완료 모달을 출력한다.
+      let newModalState = {
+        isConfirmed: false,
+        making: false,
+        isComplete: true,
+      };
+      setModalState(newModalState);
+    }, 5000);
+  };
+
+  const buttonComplete = () => {
+    history.push("/");
+  };
+
+  const handleConfirmedClose = () => {
+    let newModalState = Object.assign({}, modalState, { isConfirmed: false });
+    setModalState(newModalState);
+  };
+
+  const handleCompleteClose = () => {
+    let newModalState = Object.assign({}, modalState, { isComplete: false });
+    setModalState(newModalState);
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.flexBox}>
@@ -164,9 +215,7 @@ export default function CardDetail(props) {
           <div className={classes.imgBox}>
             <img
               className={classes.CocktailImg}
-              src={
-                state.image
-              }
+              src={state.image}
               alt={"칵테일 대표이미지"}
             />
             <Button
@@ -327,6 +376,35 @@ export default function CardDetail(props) {
           </div>
         </div>
       </div>
+      {/* 제조 전 확인을 위한 모달 */}
+      <SimpleModal
+        open={modalState.isConfirmed}
+        text={"칵테일을 만들까요?"}
+        subText={"(비율 및 호스 설정 확인하셨나요?)"}
+        type="question"
+        buttonType="yesNo"
+        buttonYes={buttonMake}
+        buttonNo={handleConfirmedClose}
+      />
+      {/* 제조 중을 알리는 모달 */}
+      {/* 다른 조작을 할 수 없도록 함 */}
+      <LottieModal
+        open={modalState.making}
+        title={state.title}
+        text={"칵테일을 만드는 중이에요"}
+        subText={"맛있게 만들어 드릴게요!"}
+      />
+      {/* 제조 완료를 알리는 모달 */}
+      <SimpleModal
+        open={modalState.isComplete}
+        text={"맛있는 칵테일이 완성되었어요!"}
+        subText={"홈으로 돌아갈까요?"}
+        type="checked"
+        buttonType="yesNo"
+        buttonYes={buttonComplete}
+        buttonNo={handleCompleteClose}
+        buttonText="홈으로!"
+      />
     </div>
   );
 }
