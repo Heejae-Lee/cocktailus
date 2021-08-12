@@ -9,8 +9,8 @@ const useStyles = makeStyles((theme) => ({
       cursor: "none",
     },
     paper: {
-      width: "28%",
-      height: "30%",
+      width: "45%",
+      height: "45%",
       backgroundColor: '#FFF1F8',
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: theme.spacing(2),
     },
     button: {
         width: "25%",
