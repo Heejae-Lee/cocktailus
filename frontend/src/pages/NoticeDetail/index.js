@@ -14,7 +14,7 @@ import { useHistory } from "react-router";
 import { Button } from "@material-ui/core";
 
 import axios from "axios";
-import AlertDialog from "../../components/Modal"
+import AlertDialog from "../../components/ModalAlert"
 
 const ColorButton = withStyles((theme) => ({
   root: {

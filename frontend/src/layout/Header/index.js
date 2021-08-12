@@ -17,14 +17,11 @@ import { useMediaQuery } from "react-responsive";
 import PropTypes from "prop-types";
 import { refreshMemberInfo } from "../../app/reducer";
 
-// import AlertDialog from "../../components/Modal";
-
 function AppHeader(props) {
   const { classes } = props;
   const [state, setState] = useState({
     leftMenu: false,
   });
-  // const [isLogOutSuccess, setIsLogOutSuccess] = useState(false);
   const Dispatch = useDispatch();
   const history = useHistory();
   const memberData = JSON.parse(window.localStorage.getItem("memberData"))

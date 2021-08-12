@@ -15,7 +15,7 @@ import Paper from "@material-ui/core/Paper";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "../../components/Typography";
 
-import AlertDialog from "../../components/Modal";
+import AlertDialog from "../ModalAlert";
 
 const ColorButton = withStyles((theme) => ({
   root: {

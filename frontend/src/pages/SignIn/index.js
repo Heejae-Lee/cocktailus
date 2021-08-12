@@ -13,8 +13,10 @@ import { email, required } from "../../common/validation";
 import RFTextField from "../../components/RFTextField";
 import FormButton from "../../components/FormButton/";
 import FormFeedback from "../../components/FormFeedback";
-// import AlertDialog from "../../components/Modal"
+import CustomizedDialogs from "../../components/Modal"
+
 // 기능 관련
+import { NavLink as RouterLink } from 'react-router-dom';
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { getToken, getMemberInfo } from "../../app/reducer";
@@ -25,7 +27,7 @@ function SignIn() {
   const Dispatch = useDispatch();
   const history = useHistory();
   const [sent, setSent] = useState(false);
-  // const [isLogInSuccess, setIsLogInSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
   
   // 이메일 형식 유효성 검사
   const validate = (values) => {
@@ -72,15 +74,17 @@ function SignIn() {
       window.localStorage.setItem("memberData", JSON.stringify(payload));
       // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
       // const memberData = JSON.parse(window.localStorage.getItem("memberData"))
+
       // modal 창 띄우기
-      alert("로그인 성공!");
-      // setIsLogInSuccess(true);
+      setOpen(false);
+      // alert("로그인 성공!");
       // home으로 redirection
       history.push("/");
     } else {
       // 로그인 실패
       // modal 창 띄우기
-      alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
+      setOpen(true);
+      // alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
     }
     
     // form 잠금 해제
@@ -93,6 +97,13 @@ function SignIn() {
       <AppHeader />
       <AppForm>
         <React.Fragment>
+          {/* 로그인 실패 모달 */}
+          <CustomizedDialogs
+            open={open}
+            title="로그인 실패"
+            content="아이디 혹은 비밀번호를 확인해주세요!"
+            setOpen={setOpen}
+          />
           {/* 로그인 배너 */}
           <Typography variant="h3" gutterBottom marked="center" align="center">
             로그인
@@ -150,7 +161,7 @@ function SignIn() {
                 color="secondary"
                 fullWidth
               >
-                {submitting || sent ? "In progress…" : "Sign In"}
+                {submitting || sent ? "In progress…" : "로그인"}
               </FormButton>
             </form>
           )}
@@ -158,16 +169,11 @@ function SignIn() {
 
         {/* 회원가입 창으로 이동을 위한 링크 */}
         <Typography align="right">
-          <Link href="/signUp/" align="center" underline="always">
+          <Link component={RouterLink} to="/signUp" align="center" underline="always">
             아이디가 없으신가요?
           </Link>
         </Typography>
       </AppForm>
-      {/* 로그인 완료 모달 */}
-      {/* <AlertDialog
-        open={isLogInSuccess}
-        text="로그인이 완료되었습니다."
-      /> */}
       <AppFooter />
     </React.Fragment>
   );
