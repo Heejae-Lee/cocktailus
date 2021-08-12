@@ -14,6 +14,7 @@ import { useHistory } from "react-router";
 import { Button } from "@material-ui/core";
 
 import axios from "axios";
+import AlertDialog from "../../components/Modal"
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -50,10 +51,14 @@ function NoticeDetail(match) {
   const history = useHistory();
   const noticeId = match.match.params.noticeId;
 
+  const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     title: null,
     content: null,
   });
+  useEffect(() => {
+    console.log(open);
+  }, [open]);
 
   const getNoticeDetail = (id) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
@@ -75,7 +80,7 @@ function NoticeDetail(match) {
   const deleteNotice = () => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     axios.delete(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
-      .then((res) => {
+      .then(() => {
         console.log("deleteNotice success");
         history.push("/notice");
       })
@@ -85,6 +90,13 @@ function NoticeDetail(match) {
       })
   }
 
+  const openModal = () => {
+    setOpen(true);
+  }
+  const closeModal = () => {
+    setOpen(false);
+  }
+    
   useEffect(() => {
     const token = JSON.parse(window.localStorage.getItem("memberData")).token
     getNoticeDetail(noticeId, token);
@@ -114,13 +126,19 @@ function NoticeDetail(match) {
       <div className={classes.noticeContent}>
         {data.content}
       </div>
+      <AlertDialog 
+        open={open}
+        delete={deleteNotice}
+        closeModal={closeModal}
+        title="공지사항 삭제"
+        content="정말 삭제하시겠습니까?"
+      />
+
       <ColorButton 
         className={classes.button}
         onClick={() => history.push("/notice")}>
         뒤로가기
       </ColorButton>
-
-
       {/* 관리자 권한이면 보이도록 처리할것 */}
       <PutButton 
         className={classes.button}
@@ -129,11 +147,11 @@ function NoticeDetail(match) {
       </PutButton>
       <DeleteButton 
         className={classes.button}
-        onClick={deleteNotice}>
+        onClick={openModal}
+        // onClick={deleteNotice}
+        >
         삭제
       </DeleteButton>
-
-
       </Container>
       <Footer />
     </React.Fragment>

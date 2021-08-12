@@ -2,7 +2,7 @@
 import withRoot from "../../components/withRoot";
 import useStyles from "./styles";
 // 컴포넌트 관련
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form, FormSpy } from "react-final-form";
 import Link from "@material-ui/core/Link";
 import Typography from "../../components/Typography";
@@ -13,6 +13,7 @@ import { email, required } from "../../common/validation";
 import RFTextField from "../../components/RFTextField";
 import FormButton from "../../components/FormButton/";
 import FormFeedback from "../../components/FormFeedback";
+// import AlertDialog from "../../components/Modal"
 // 기능 관련
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
@@ -21,10 +22,11 @@ import { userAPI } from "../../utils/axios";
 
 function SignIn() {
   const classes = useStyles();
-  const [sent, setSent] = React.useState(false);
   const Dispatch = useDispatch();
   const history = useHistory();
-
+  const [sent, setSent] = useState(false);
+  // const [isLogInSuccess, setIsLogInSuccess] = useState(false);
+  
   // 이메일 형식 유효성 검사
   const validate = (values) => {
     const errors = required(["email", "password"], values);
@@ -70,17 +72,14 @@ function SignIn() {
       window.localStorage.setItem("memberData", JSON.stringify(payload));
       // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
       // const memberData = JSON.parse(window.localStorage.getItem("memberData"))
-      
       // modal 창 띄우기
-      // alert는 임시
       alert("로그인 성공!");
-
+      // setIsLogInSuccess(true);
       // home으로 redirection
       history.push("/");
     } else {
       // 로그인 실패
       // modal 창 띄우기
-      // alert는 임시
       alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
     }
     
@@ -164,6 +163,11 @@ function SignIn() {
           </Link>
         </Typography>
       </AppForm>
+      {/* 로그인 완료 모달 */}
+      {/* <AlertDialog
+        open={isLogInSuccess}
+        text="로그인이 완료되었습니다."
+      /> */}
       <AppFooter />
     </React.Fragment>
   );

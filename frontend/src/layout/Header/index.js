@@ -3,8 +3,8 @@ import { withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import styles from "./styles";
 // 컴포넌트 관련
-import React from "react";
-import { NavLink as RouterLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink as RouterLink, useHistory } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import Drawer from "@material-ui/core/Drawer";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -17,12 +17,17 @@ import { useMediaQuery } from "react-responsive";
 import PropTypes from "prop-types";
 import { refreshMemberInfo } from "../../app/reducer";
 
+// import AlertDialog from "../../components/Modal";
+
 function AppHeader(props) {
   const { classes } = props;
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     leftMenu: false,
   });
+  // const [isLogOutSuccess, setIsLogOutSuccess] = useState(false);
   const Dispatch = useDispatch();
+  const history = useHistory();
+  const memberData = JSON.parse(window.localStorage.getItem("memberData"))
 
   const isPc = useMediaQuery({
     query: "(min-width:768px)",
@@ -46,8 +51,7 @@ function AppHeader(props) {
     // 데이터 초기화
     Dispatch(refreshMemberInfo());
     localStorage.removeItem('memberData');
-    // modal 창을 띄울 예정
-    alert("로그아웃\n(이후 모달창으로 교체 예정)");
+    history.push("/");
   };
 
   const alreadyLoggedIn = () => {
@@ -134,6 +138,7 @@ function AppHeader(props) {
               >
                 {"Recipe"}
               </Link>
+              {memberData !== null &&
               <Link
                 component={RouterLink}
                 variant="h6"
@@ -143,7 +148,7 @@ function AppHeader(props) {
                 to="/myRecipe"
               >
                 {"MyRecipe"}
-              </Link>
+              </Link>}
             </div>
           )}
           {/* 햄버거 메뉴 버튼 (mobile 버전) */}
