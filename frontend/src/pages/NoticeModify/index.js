@@ -33,6 +33,7 @@ function NoticeModify(match) {
     const getNoticeDetail = () => {
       axios.get(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
         .then((res) => {
+          // 관리자 권한이 아니면 접근 제한 설정하기
           console.log("getNotice success");
           let datas = res.data
           for (let i = 0; i < datas.length; i++) {

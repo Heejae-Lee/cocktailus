@@ -1,16 +1,10 @@
 import axios from "axios";
 
-const baseURL = "http://i5a103.p.ssafy.io:8080";
-
 // 유저 관련 API 정의
 export const userAPI = {
   // 회원가입
   register: function (credentials) {
-    return axios({
-      url: baseURL + "/members",
-      method: "post",
-      data: credentials,
-    })
+    return axios.post("/members", credentials)
       .then((res) => {
         console.log("register success");
         //console.log(res);
@@ -24,11 +18,7 @@ export const userAPI = {
   },
   // 로그인
   login: (credentials) => {
-    return axios({
-      url: baseURL + "/members/login",
-      method: "post",
-      data: credentials,
-    })
+    return axios.post("/members/login", credentials)
       .then((res) => {
         console.log("login success!");
         //console.log(res);

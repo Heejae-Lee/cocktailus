@@ -82,41 +82,49 @@ function RecipeModifyForm(match) {
     const getRecipeDetail = () => {
       axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
         .then((res) => {
+          if (res.data["recipe-article"].member_name !== member.name) {
+            history.push("/error");
+            return
+          }
+          
           console.log("getNotice success");
           const modifyData = res.data["recipe-article"];
-          console.log(modifyData);
           const drinks = modifyData.drink.split('|');
           const drinkRatios = modifyData.drinkRatio.split('|');
-          document.getElementById("modify-title").value=modifyData.title;
+
           setTitle(modifyData.title);
-          document.getElementById("modify-content").value=modifyData.content;
           setContent(modifyData.content);
+          document.getElementById("modify-title").value=modifyData.title;
+          document.getElementById("modify-content").value=modifyData.content;
+
           for (let i=0; i<4; i++) {
             document.getElementById(`modify-drink${i+1}`).value=drinks[i];
           };
+
           setDrink1(drinks[0]);
           setDrink2(drinks[1]);
           setDrink3(drinks[2]);
           setDrink4(drinks[3]);
-          setMainState("uploaded");
-          setSelectedFile(modifyData.imageURL);
           setDrinkRatio1(drinkRatios[0]);
           setDrinkRatio2(drinkRatios[1]);
           setDrinkRatio3(drinkRatios[2]);
           setDrinkRatio4(drinkRatios[3]);
+          setSelectedFile(modifyData.imageURL);
+          setMainState("uploaded");
           const modifyTag = modifyData.tag.split('|');
           setTages(modifyTag);
         })
         .catch((err) => {
           console.log("getNotice fail");
           console.log(err);
+          history.push('/recipe');
         })
       };
     getRecipeDetail();
-  }, [recipeId])
+  }, [recipeId, history])
 
   function handleSelecetedTags(items) {
-    console.log(111, items);
+    // console.log(111, items);
     setTages(items.map(item => item).join("|"));
     console.log(tags);
   }
