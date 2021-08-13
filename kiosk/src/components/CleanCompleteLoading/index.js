@@ -8,6 +8,7 @@ import SimpleModal from "../SimpleModal";
 // 기능 관련
 import Lottie from "react-lottie";
 import { useHistory } from "react-router-dom";
+import { hardwareAPI } from "../../utils/axios";
 
 export default function CleanCompleteLoading() {
   const classes = useStyles();
@@ -29,11 +30,21 @@ export default function CleanCompleteLoading() {
   const buttonYes = () => {
     setIsWaited(true);
 
-    // 청소 완료 알림이 들어갈 예정
-    setTimeout(() => {      
-      // 청소 완료 모달을 출력한다.
-      setIsComplete(true);
-    }, 5000);
+    // 청소 진행
+    const result = hardwareAPI.cleanRequest();
+
+    // 500ms마다 api를 통해 디바이스 처리 종료 여부를 확인
+    // 디바이스가 가용 상태이면 interval을 없애고 완료 모달 출력
+    if (result.status === "cleanok") {
+      const interval = setInterval(() => {
+        const result = hardwareAPI.deviceAvailable();
+
+        if (result.status === "finish") {
+          clearInterval(interval);
+          setIsComplete(true);
+        }
+      }, 500);
+    }
   };
 
   // 청소를 실행하지 않을 경우 홈으로 돌아감
@@ -45,7 +56,6 @@ export default function CleanCompleteLoading() {
   const buttonComplete = () => {
     history.push("/");
   };
-
 
   return (
     <div className={classes.root}>

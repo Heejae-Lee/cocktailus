@@ -30,7 +30,7 @@ export default function LoginModal(props) {
     type: "",
     text: "",
     subText: ""
-  })
+  });
 
   // 로그인 버튼을 누르면 모달창이 활성화 됨
   const handleOpen = (e) => {
@@ -106,7 +106,7 @@ export default function LoginModal(props) {
         open: true,
         type: "checked",
         text: "로그인 성공!",
-        subText: "Enjoy your Cocktail!"
+        subText: "맛있는 칵테일을 만들어 볼까요?"
       };
 
       setLoginState(newLoginState);

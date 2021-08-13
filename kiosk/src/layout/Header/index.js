@@ -16,6 +16,13 @@ export default function Header(props) {
   const classes = useStyles();
   const history = useHistory();
   const memberData = JSON.parse(window.localStorage.getItem("memberData"));
+  const [ state, setState ] = React.useState(false);
+
+  React.useState(()=>{
+    if (memberData){
+      setState(true);
+    }
+  },[]);
 
   const clickPrev = () => {
     history.push("/");
@@ -23,6 +30,7 @@ export default function Header(props) {
 
   const logOut = () => {
     JSON.parse(window.localStorage.removeItem("memberData"));
+    setState(false);
   };
 
   return (
@@ -64,12 +72,9 @@ export default function Header(props) {
       )}
       {!props.simple && memberData && (
         <div className={classes.flexMember}>
-          <Typography variant="button">{memberData.name}</Typography>
-          {!props.simple && (
-            <Button className={classes.font} onClick={logOut}>
-              LOGOUT
-            </Button>
-          )}
+          <Button className={classes.font} onClick={logOut} >
+              LogOut
+          </Button>
         </div>
       )}
     </div>
