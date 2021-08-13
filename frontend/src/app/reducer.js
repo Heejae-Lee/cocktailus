@@ -10,7 +10,7 @@ export const memberSlice = createSlice({
   reducers: {
     getToken: (state, action) => {
       state.token = action.payload.token;
-      console.log(action);
+      // console.log(action);
     },
     getMemberInfo: (state, action) => {
       state.userEmail = action.payload.email;

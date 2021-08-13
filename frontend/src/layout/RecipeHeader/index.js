@@ -25,7 +25,7 @@ export default function RecipeHeader(props) {
           <ListItem className={classes.listItem}>
             <Button
             round
-            variant="outlined" color="primary" 
+            variant="outlined" color="facebook" 
             size="sm"
             onClick={props.orderByLatest}
             >
@@ -35,7 +35,7 @@ export default function RecipeHeader(props) {
           <ListItem className={classes.listItem}>
             <Button
               round
-              variant="outlined" color="primary"
+              variant="outlined" color="github"
               size="sm"
               onClick={props.orderByPopulation}
               >
