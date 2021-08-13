@@ -94,11 +94,10 @@ export const hardwareAPI = {
         return err;
       });
   },
-  deviceAvailable: (credentials) => {
+  deviceAvailable: () => {
     return axios({
       url: "http://localhost:8080/api/hose/available",
       method: "get",
-      data: credentials.drink,
     })
       .then((res) => {
         console.log("axios::deviceAvailable::Success");
