@@ -110,13 +110,13 @@ function RecipeDetail(match) {
         {/* 코멘트 입력 컴포넌트, 로그인 정보가 저장되어있을 경우에만 보임 */}
         {member && 
         <CommentTextField 
-        articleId={state.id}
-        newComment={newComment}
-        setNewComment={setNewComment}
+          articleId={state.id}
+          newComment={newComment}
+          setNewComment={setNewComment}
         />}
         <Comment
-        articleId={state.id}
-        comments={comments}
+          articleId={state.id}
+          comments={comments}
         />
         <div style={{ width: "100%", height: "50px" }} />
         <Divider variant="inset" />
