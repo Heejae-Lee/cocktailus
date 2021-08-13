@@ -34,10 +34,10 @@ export default function CleanCompleteLoading() {
     hardwareAPI.cleanRequest().then((res) => {
       // 500ms마다 api를 통해 디바이스 처리 종료 여부를 확인
       // 디바이스가 가용 상태이면 interval을 없애고 완료 모달 출력
-      if (res.data.status === "cleanok") {
+      if (res.data.status === "clean-done") {
         let interval = setInterval(() => {
           hardwareAPI.deviceAvailable().then((res) => {
-            if (res.data.status === "finish") {
+            if (res.data.status === "available-done") {
               clearInterval(interval);
               setIsComplete(true);
             }
