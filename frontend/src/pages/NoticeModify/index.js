@@ -1,11 +1,9 @@
 import withRoot from "../../components/withRoot";
-// --- Post bootstrap -----
+
 import React, { useState, useEffect } from "react";
 import Container from "@material-ui/core/Container";
-// import Paper from "@material-ui/core/Paper";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
-// import { required } from "../../common/validation";
 import FormButton from "../../components/FormButton";
 
 import Header from "../../layout/Header";
@@ -13,11 +11,8 @@ import Footer from "../../layout/Footer";
 import Typography from "../../components/Typography";
 import useStyles from "./styles";
 
-// import { useSelector } from 'react-redux'
 import { useHistory } from "react-router";
-import { noticeAPI } from "../../utils/axios";
-
-import axios from 'axios'
+import { noticeAPI } from "../../utils/noticeAPI";
 
 function NoticeModify(match) {
   const classes = useStyles();
@@ -29,32 +24,11 @@ function NoticeModify(match) {
   const [data, setData] = useState([]);
   
   useEffect(() => {
-    const member = JSON.parse(window.localStorage.getItem("memberData"));
-    const getNoticeDetail = () => {
-      axios.get(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
-        .then((res) => {
-          // 관리자 권한이 아니면 접근 제한 설정하기
-          console.log("getNotice success");
-          let datas = res.data
-          for (let i = 0; i < datas.length; i++) {
-            datas[i].created = datas[i].created.substr(0, 10);
-          }
-          document.getElementById("modifyTitle").value=datas.title;
-          document.getElementById("modifyContent").value=datas.content;
-          setData(datas);
-        })
-        .catch((err) => {
-          console.log("getNotice fail");
-        })
-      };
-    getNoticeDetail();
-
+    noticeAPI.getNoticeModifyDetail(noticeId, setData);
   }, [noticeId])
 
   const dataChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(e.target.value);
-    console.log(data);
   };
 
   const onSubmitNotice = (e) => {

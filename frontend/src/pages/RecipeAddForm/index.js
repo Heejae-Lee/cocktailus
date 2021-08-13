@@ -26,7 +26,7 @@ import Typography from '../../components/Typography';
 import InputImageForm from '../../components/InputImageForm'
 
 // axios
-import { recipeAPI } from "../../utils/axios";
+import { recipeAPI } from "../../utils/recipeAPI";
 // Tag
 import TagsInput from '../../components/TagsInput';
 

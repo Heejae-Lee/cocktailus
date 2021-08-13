@@ -1,7 +1,7 @@
 import withRoot from "../../components/withRoot";
 import { withStyles } from '@material-ui/core/styles';
 // --- Post bootstrap -----
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@material-ui/core/Container";
 
 import Header from "../../layout/Header";
@@ -13,7 +13,7 @@ import { purple, red, blue } from '@material-ui/core/colors';
 import { useHistory } from "react-router";
 import { Button } from "@material-ui/core";
 
-import axios from "axios";
+import { noticeAPI } from "../../utils/noticeAPI"
 import AlertDialog from "../../components/ModalAlert"
 
 const ColorButton = withStyles((theme) => ({
@@ -57,55 +57,18 @@ function NoticeDetail(match) {
     content: null,
   });
 
-  useEffect(() => {
-    console.log(open);
-  }, [open]);
-
-  const getNoticeDetail = useCallback(() => {
-    const member = JSON.parse(window.localStorage.getItem("memberData"));
-    axios.get(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
-      .then((res) => {
-        console.log("getNotice success");
-        let datas = res.data
-        if (datas === "No matching id") {
-          history.push('/error');
-          return
-        }
-
-        for (let i = 0; i < datas.length; i++) {
-          datas[i].created = datas[i].created.substr(0, 10);
-        }
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log("getNotice fail");
-        console.log(err);
-      })
-  },[noticeId, history])
-
-  const deleteNotice = () => {
-    const member = JSON.parse(window.localStorage.getItem("memberData"));
-    axios.delete(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
-      .then(() => {
-        console.log("deleteNotice success");
-        history.push("/notice");
-      })
-      .catch((err) => {
-        console.log("deleteNotice fail");
-        console.log(err);
-      })
-  }
-
   const openModal = () => {
     setOpen(true);
   }
   const closeModal = () => {
     setOpen(false);
   }
-    
+  const deleteNotice = () => {
+    noticeAPI.deleteNotice(noticeId, history)
+  } 
   useEffect(() => {
-    getNoticeDetail();
-  }, [getNoticeDetail])
+    noticeAPI.getNoticeDetail(noticeId, setData, history);
+  }, [noticeId, history])
 
 
   return (

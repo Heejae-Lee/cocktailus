@@ -27,7 +27,7 @@ import InputImageForm from '../../components/InputImageForm'
 
 // axios
 import axios from 'axios'
-import { recipeAPI } from "../../utils/axios";
+import { recipeAPI } from "../../utils/recipeAPI";
 // Tag
 import TagsInput from '../../components/TagsInput';
 
@@ -79,7 +79,7 @@ function RecipeModifyForm(match) {
 
   useEffect(() => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
-    const getRecipeDetail = () => {
+    const getModifyRecipeDetail = () => {
       axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
         .then((res) => {
           if (res.data["recipe-article"].member_name !== member.name) {
@@ -120,7 +120,7 @@ function RecipeModifyForm(match) {
           history.push('/recipe');
         })
       };
-    getRecipeDetail();
+    getModifyRecipeDetail();
   }, [recipeId, history])
 
   function handleSelecetedTags(items) {
