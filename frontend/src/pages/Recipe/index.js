@@ -12,7 +12,7 @@ import ImgMediaCard from '../../components/RecipePreview'
 import { Container, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import axios from 'axios'
+import { recipeAPI } from '../../utils/recipeAPI';
 
 function Recipe() {
   const classes = useStyles();
@@ -20,20 +20,8 @@ function Recipe() {
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
 
-  // 전체 레시피 조회
-  const getRecipes = () => {
-    axios.get("/recipe-articles")
-    .then((res) => {
-      console.log("Get Recipe Success");
-      setRecipes(res.data);
-    })
-    .catch(() => {
-      console.log("Get Recipe failed");
-    })
-  }
-
   useEffect(()=>{
-    getRecipes();
+    recipeAPI.getRecipes(setRecipes);
   }, []);
 
   const orderByLatest = () => {

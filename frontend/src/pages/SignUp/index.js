@@ -21,7 +21,7 @@ import {
   checkPasswordConfirm,
 } from "../../common/validation";
 import { useHistory } from "react-router";
-import { userAPI } from "../../utils/axios";
+import { userAPI } from "../../utils/userAPI";
 import { NavLink as RouterLink } from 'react-router-dom';
 // 모달
 import CustomizedDialogs from "../../components/Modal"

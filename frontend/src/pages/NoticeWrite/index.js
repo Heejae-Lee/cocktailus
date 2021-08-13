@@ -1,11 +1,9 @@
 import withRoot from "../../components/withRoot";
-// --- Post bootstrap -----
+
 import React from "react";
 import Container from "@material-ui/core/Container";
-// import Paper from "@material-ui/core/Paper";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
-// import { required } from "../../common/validation";
 import FormButton from "../../components/FormButton/";
 
 import Header from "../../layout/Header";
@@ -13,9 +11,8 @@ import Footer from "../../layout/Footer";
 import Typography from "../../components/Typography";
 import useStyles from "./styles";
 
-// import { useSelector } from 'react-redux'
 import { useHistory } from "react-router";
-import { noticeAPI } from "../../utils/axios";
+import { noticeAPI } from "../../utils/noticeAPI"
 
 
 function NoticeWrite() {
@@ -33,8 +30,6 @@ function NoticeWrite() {
 
   const dataChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(e.target.value);
-    console.log(data);
   };
 
   const onSubmitNotice = (e) => {

@@ -20,7 +20,7 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { getToken, getMemberInfo } from "../../app/reducer";
-import { userAPI } from "../../utils/axios";
+import { userAPI } from "../../utils/userAPI";
 
 function SignIn() {
   const classes = useStyles();
