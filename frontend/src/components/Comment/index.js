@@ -5,13 +5,27 @@ import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
+import axios from "axios";
 
 // 작성된 댓글을 서버로부터 가져와서 보여주는 컴포넌트
 export default function Comment(props) {
   const classes = useStyles();
   const [state, setState] = useState([]);
 
+  const member = JSON.parse(window.localStorage.getItem("memberData"));
+
+  const deleteComment = (commentID) => {
+    axios.delete(`/recipe-articles/${props.articleId}/comments/${commentID}`, {headers: {'Auth-Token': `${member.token}`}})
+      .then(() => {
+        setState(state.filter(c => c.id !== commentID));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  
   useEffect(()=>{
     let detailComment = props.comments
     for (let i = 0; i < detailComment.length; i++) {
@@ -32,7 +46,7 @@ export default function Comment(props) {
               variant="h6"
               component="h2"
             >
-              {el.member_name}{props.articleID}
+              {el.member_name}
             </Typography>
 
             <Typography
@@ -42,7 +56,6 @@ export default function Comment(props) {
             >
               {el.content}
             </Typography>
-
             <Typography
               className={classes.commentDate}
               variant="body2"
@@ -50,6 +63,11 @@ export default function Comment(props) {
             >
               {el.created}
             </Typography>
+            {(member !== null) && (member.name === el.member_name) &&
+            <HighlightOffIcon 
+              className={classes.deleteIcon}
+              onClick={() => deleteComment(el.id)}
+            />}
           </div>
           <Divider
             className={classes.commentDivider}

@@ -28,7 +28,12 @@ const useStyles = makeStyles((theme) => ({
   },
   commentDivider: {
     margin: '15px auto'
-  }
+  },
+  deleteIcon: {
+    color: '#ccc',
+    fontSize: '24px',
+    cursor: 'pointer',
+  },
 }));
 
 export default useStyles;
