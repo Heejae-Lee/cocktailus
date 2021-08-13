@@ -172,7 +172,6 @@ export default function CardDetail(props) {
     const payload = {
       drink: drink,
     };
-    //hardwareAPI.make(payload);
 
     // 제조중 모달 출력
     let newModalState = Object.assign({}, modalState, {
@@ -185,10 +184,10 @@ export default function CardDetail(props) {
     hardwareAPI.make(payload).then((res) => {
       // 500ms마다 api를 통해 디바이스 처리 종료 여부를 확인
       // 디바이스가 가용 상태이면 interval을 없애고 완료 모달 출력
-      if (res.data.status === "ok") {
+      if (res.data.status === "make-done") {
         let interval = setInterval(() => {
           hardwareAPI.deviceAvailable().then((res) => {
-            if (res.data.status === "finish") {
+            if (res.data.status === "available-done") {
               clearInterval(interval);
               // 제조 완료 모달을 출력한다.
               let newModalState = {
