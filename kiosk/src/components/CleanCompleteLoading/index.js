@@ -31,18 +31,18 @@ export default function CleanCompleteLoading() {
     setIsWaited(true);
 
     // 청소 진행
-    hardwareAPI.cleanRequest().then((data) => {
+    hardwareAPI.cleanRequest().then((res) => {
       // 500ms마다 api를 통해 디바이스 처리 종료 여부를 확인
       // 디바이스가 가용 상태이면 interval을 없애고 완료 모달 출력
-      if (data.status === "cleanok") {
-        const interval = setInterval(() => {
-          hardwareAPI.deviceAvailable().then((data) => {
-            if (data.status === "finish") {
+      if (res.data.status === "cleanok") {
+        let interval = setInterval(() => {
+          hardwareAPI.deviceAvailable().then((res) => {
+            if (res.data.status === "finish") {
               clearInterval(interval);
               setIsComplete(true);
             }
           });
-        }, 500);
+        }, 1000);
       }
     });
   };
