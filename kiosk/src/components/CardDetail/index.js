@@ -182,28 +182,26 @@ export default function CardDetail(props) {
     setModalState(newModalState);
 
     // 디바이스로 제조 신호 전송
-    const result = hardwareAPI.make(payload);
-
-    // 일정 시간마다 하드웨어에 완료 여부를 묻는 api 전송
-
-    // 500ms마다 api를 통해 디바이스 처리 종료 여부를 확인
-    // 디바이스가 가용 상태이면 interval을 없애고 완료 모달 출력
-    if (result.status === "ok") {
-      const interval = setInterval(() => {
-        const result = hardwareAPI.deviceAvailable();
-
-        if (result.status === "finish") {
-          clearInterval(interval);
-          // 제조 완료 모달을 출력한다.
-          let newModalState = {
-            isConfirmed: false,
-            making: false,
-            isComplete: true,
-          };
-          setModalState(newModalState);
-        }
-      }, 500);
-    }
+    const result = hardwareAPI.make(payload).then((data) => {
+      // 500ms마다 api를 통해 디바이스 처리 종료 여부를 확인
+      // 디바이스가 가용 상태이면 interval을 없애고 완료 모달 출력
+      if (data.status === "ok") {
+        const interval = setInterval(() => {
+          hardwareAPI.deviceAvailable().then((data) => {
+            if (result.status === "finish") {
+              clearInterval(interval);
+              // 제조 완료 모달을 출력한다.
+              let newModalState = {
+                isConfirmed: false,
+                making: false,
+                isComplete: true,
+              };
+              setModalState(newModalState);
+            }
+          });
+        }, 500);
+      }
+    });
   };
 
   const buttonComplete = () => {
