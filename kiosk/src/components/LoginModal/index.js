@@ -8,6 +8,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+import SimpleModal from "../SimpleModal";
 import Keyboard from "react-simple-keyboard";
 // 기능 관련
 import { userAPI } from "../../utils/axios";
@@ -24,6 +25,12 @@ export default function LoginModal(props) {
     email: "",
     password: "",
   });
+  const [ loginState, setLoginState ] = React.useState({
+    open: false,
+    type: "",
+    text: "",
+    subText: ""
+  })
 
   // 로그인 버튼을 누르면 모달창이 활성화 됨
   const handleOpen = (e) => {
@@ -34,6 +41,12 @@ export default function LoginModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // 로그인 성공, 실패시 나타나는 알림창
+  const buttonOK = () => {
+    const newLoginState = Object.assign({},loginState, {open: false});
+    setLoginState(newLoginState);
+  }
 
   // 입력창을 클릭하면 키보드 모달창이 활성화 됨
   const handleKeyboardOpen = (e) => {
@@ -75,7 +88,7 @@ export default function LoginModal(props) {
     // 로그인 요청
     const res = await userAPI.login(formData);
     //console.log(res);
-
+    
     if (res.status === 200) {
       const payload = {
         token: res.data["access-token"],
@@ -88,16 +101,38 @@ export default function LoginModal(props) {
       // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
       // const memberData = JSON.parse(window.localStorage.getItem("memberData"))
 
-      // 스낵바 띄우기
-      // alert는 임시
-      alert("로그인 성공!");
+      // 로그인 성공 모달 출력
+      const newLoginState = {
+        open: true,
+        type: "checked",
+        text: "로그인 성공!",
+        subText: "Enjoy your Cocktail!"
+      };
+
+      setLoginState(newLoginState);
 
       // 모달창 제거
       setOpen(false);
+    } else if (!res.status) {
+      // 네트워크 오류로 인한 로그인 실패 모달 출력
+      const newLoginState = {
+        open: true,
+        type: "canceled",
+        text: "로그인에 실패했습니다.",
+        subText: "네트워크 혹은 관리자에게 문의해주세요"
+      };
+
+      setLoginState(newLoginState);
     } else {
-      // 스낵바 띄우기
-      // alert는 임시
-      alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
+      // 아이디 혹은 비밀번호 입력 오류로 인한 로그인 실패 모달 출력
+      const newLoginState = {
+        open: true,
+        type: "warning",
+        text: "로그인에 실패했습니다.",
+        subText: "아이디 혹은 비밀번호를 확인해주세요"
+      };
+
+      setLoginState(newLoginState);
     }
 
     // form 잠금 해제
@@ -154,7 +189,6 @@ export default function LoginModal(props) {
                 onClick={onSubmit}
                 variant="contained"
                 className={classes.button}
-                type="submit"
               >
                 로그인
               </Button>
@@ -162,6 +196,15 @@ export default function LoginModal(props) {
           </div>
         </Fade>
       </Modal>
+      
+      <SimpleModal
+          open={loginState.open}
+          type={loginState.type}
+          text={loginState.text}
+          subText={loginState.subText}
+          buttonYes={buttonOK}
+        />
+      {/* 키보드 모달 */}
       <Modal open={keyboardOpen.open} onClose={handleKeyboardClose}>
         <Fade in={keyboardOpen.open}>
         <div className={classes.keyboard}>
