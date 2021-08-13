@@ -50,12 +50,13 @@ const ColorButton = withStyles((theme) => ({
 }))(Button);
 
 const columns = [
-  { id: 'id', label: '글 번호', minWidth: 30 },
+  { id: 'id', label: '글 번호', minWidth: 10, maxWidth: 10, },
   { id: 'title', label: '제목', minWidth: 30 },
   {
     id: 'member_name',
     label: '작성자',
-    minWidth: 30,
+    minWidth: 20,
+    maxWidth: 20,
     align: 'center',
   },
   {
@@ -154,16 +155,13 @@ function NoticePage() {
           </Typography>
         </AppForm>
         {/* 관리자 권한이 있으면 */}
-        <Link>
-          <ColorButton
-            component={RouterLink}
-            variant=""
-            to="/notice/write"
-            className={classes.right}
-          >
-            글 작성
-          </ColorButton>
-        </Link>
+        <ColorButton
+          component={RouterLink}
+          to="/notice/write"
+          className={classes.right}
+        >
+          글 작성
+        </ColorButton>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead aria-label="customized table">

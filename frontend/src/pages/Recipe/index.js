@@ -18,6 +18,7 @@ function Recipe() {
   const classes = useStyles();
   
   const [recipes, setRecipes] = useState([]);
+  const [searchedValue, setSearchedValue] = useState('');
 
   // 전체 레시피 조회
   const getRecipes = () => {
@@ -35,15 +36,46 @@ function Recipe() {
     getRecipes();
   }, []);
 
+  const orderByLatest = () => {
+    // 최신순 받아오기
+    console.log("최신순");
+  };
+
+  const orderByPopulation = () => {
+    // 좋아요 순으로 받아오기
+    console.log("인기순");
+  };
+
+  const searchRecipes = () => {
+    // searchValue 보내서 검색
+    console.log(`검색어는${searchedValue}입니다.`);
+    setSearchedValue("");
+  };
+
+
+  const updateSearchedValue = (e) => {
+    setSearchedValue(e.target.value);
+    // console.log(e.target.value);
+    // console.log(searchedValue);
+  };
+  
   return (
     <React.Fragment>
       <Header />
-      <RecipeHeader />
-      <Grid className={classes.center}>
+      <RecipeHeader
+        updateSearchedValue={updateSearchedValue}
+        searchRecipes={searchRecipes}
+        orderByLatest={orderByLatest}
+        orderByPopulation={orderByPopulation}
+      />
+      <Grid container className={classes.center}>
         <Button
           component={RouterLink}
-          variant="outlined" color="primary" to="/recipe/write">
-          레시피 등록
+          variant="outlined" 
+          color="primary"
+          to="/recipe/write"
+          >
+          레시피 작성
         </Button>
       </Grid>
       <Container className={classes.paper}>

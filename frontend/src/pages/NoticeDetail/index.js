@@ -1,7 +1,7 @@
 import withRoot from "../../components/withRoot";
 import { withStyles } from '@material-ui/core/styles';
 // --- Post bootstrap -----
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Container from "@material-ui/core/Container";
 
 import Header from "../../layout/Header";
@@ -56,16 +56,22 @@ function NoticeDetail(match) {
     title: null,
     content: null,
   });
+
   useEffect(() => {
     console.log(open);
   }, [open]);
 
-  const getNoticeDetail = (id) => {
+  const getNoticeDetail = useCallback(() => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
-    axios.get(`/notices/${id}`, {headers: {'Auth-Token': `${member.token}`}})
+    axios.get(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
       .then((res) => {
         console.log("getNotice success");
         let datas = res.data
+        if (datas === "No matching id") {
+          history.push('/error');
+          return
+        }
+
         for (let i = 0; i < datas.length; i++) {
           datas[i].created = datas[i].created.substr(0, 10);
         }
@@ -75,7 +81,7 @@ function NoticeDetail(match) {
         console.log("getNotice fail");
         console.log(err);
       })
-  }
+  },[noticeId, history])
 
   const deleteNotice = () => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
@@ -98,9 +104,8 @@ function NoticeDetail(match) {
   }
     
   useEffect(() => {
-    const token = JSON.parse(window.localStorage.getItem("memberData")).token
-    getNoticeDetail(noticeId, token);
-  }, [noticeId])
+    getNoticeDetail();
+  }, [getNoticeDetail])
 
 
   return (

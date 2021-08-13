@@ -78,7 +78,7 @@ function MyRecipe() {
             to="/recipe/write"
             className={classes.recipeAddButton}
             >
-            레시피 등록
+            레시피 작성
           </Button>
         </Grid>
       </Container>

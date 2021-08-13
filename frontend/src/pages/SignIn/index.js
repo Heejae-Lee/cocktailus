@@ -65,12 +65,12 @@ function SignIn() {
         email: values.email,
         name: res.data.name,
       };
-      console.log(payload);
+      // console.log(payload);
       // store에 token 및 유저 데이터 저장
       Dispatch(getToken(payload));
       Dispatch(getMemberInfo(payload));
       // 유저 데이터 로컬 스토리지에 저장
-      console.log(payload);
+      // console.log(payload);
       window.localStorage.setItem("memberData", JSON.stringify(payload));
       // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
       // const memberData = JSON.parse(window.localStorage.getItem("memberData"))

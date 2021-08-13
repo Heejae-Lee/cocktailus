@@ -19,7 +19,7 @@ export default function CommentTextField(props) {
 
   const clickSubmit = () => {
     console.log(comment);
-    axios.post("/comments", {article_id:props.articleId, content: comment, member_name: member.name },{
+    axios.post(`/recipe-articles/${props.articleId}/comments`, {article_id:props.articleId, content: comment, member_name: member.name },{
       headers: {'Auth-Token': `${member.token}`},
       })
       .then(res => {

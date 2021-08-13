@@ -28,8 +28,6 @@ function NoticeModify(match) {
 
   const [data, setData] = useState([]);
   
-  
-
   useEffect(() => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     const getNoticeDetail = () => {
@@ -42,12 +40,10 @@ function NoticeModify(match) {
           }
           document.getElementById("modifyTitle").value=datas.title;
           document.getElementById("modifyContent").value=datas.content;
-          console.log(datas);
           setData(datas);
         })
         .catch((err) => {
           console.log("getNotice fail");
-          console.log(err);
         })
       };
     getNoticeDetail();

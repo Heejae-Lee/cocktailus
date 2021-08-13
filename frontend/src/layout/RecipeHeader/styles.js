@@ -43,13 +43,12 @@ const headerLinksStyle = (theme) => ({
     // position: "relative",
     display: "block",
     width: "auto",
-    margin: "0",
+    marginRight: "8px",
     padding: "0",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
       "&:after": {
         width: "calc(100% - 30px)",
-        content: '""',
         display: "block",
         height: "1px",
         marginLeft: "15px",

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8080";
+const baseURL = "http://i5a103.p.ssafy.io:8080";
 
 // 유저 관련 API 정의
 export const userAPI = {
