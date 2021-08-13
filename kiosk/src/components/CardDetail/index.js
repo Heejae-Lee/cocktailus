@@ -182,7 +182,7 @@ export default function CardDetail(props) {
     setModalState(newModalState);
 
     // 디바이스로 제조 신호 전송
-    const result = hardwareAPI.make();
+    const result = hardwareAPI.make(payload);
 
     // 일정 시간마다 하드웨어에 완료 여부를 묻는 api 전송
 
