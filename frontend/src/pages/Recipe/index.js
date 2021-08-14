@@ -8,11 +8,22 @@ import Footer from '../../layout/Footer'
 import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
 import ImgMediaCard from '../../components/RecipePreview'
+import Typography from "../../components/Typography";
 
-import { Container, Grid } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Container, Grid, Button, withStyles } from '@material-ui/core';
+import { purple } from '@material-ui/core/colors';
 
 import { recipeAPI } from '../../utils/recipeAPI';
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
 
 function Recipe() {
   const classes = useStyles();
@@ -62,16 +73,25 @@ function Recipe() {
         orderByOption2={orderByPopulation}
         state={state}
       />
-      <Grid container className={classes.center}>
-        <Button
-          component={RouterLink}
-          variant="outlined" 
-          color="primary"
-          to="/recipe/write"
+      <Container className={classes.paper}>
+        <Grid container spacing={12} className={classes.center}>
+          <Typography
+            variant="h4"
+            marked="center"
+            className={classes.title}
           >
-          레시피 작성
-        </Button>
-      </Grid>
+            {state === 1 ? "최신순" : "인기순"}
+          </Typography>
+        </Grid>
+          <ColorButton
+            component={RouterLink}
+            variant="contained"
+            to="/recipe/write"
+            className={classes.recipeAddButton}
+            >
+            레시피 작성
+          </ColorButton>
+      </Container>
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}

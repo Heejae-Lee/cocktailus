@@ -6,19 +6,19 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
-    // left:'50%',
-    margin: 'auto',
     textAlign: 'center',
   },
   center: {
     display: 'flex',
     justifyContent: 'center',
-    left: '50%',
-    margin: theme.spacing(3),
+  },
+  recipeAddButton: {
+    float: 'right',
+  },
+  title: {
+    marginTop: theme.spacing(5),
   },
 }));
 

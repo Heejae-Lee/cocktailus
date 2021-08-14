@@ -11,6 +11,7 @@ import Button from "../../components/Button";
 import ImgMediaCard from "../../components/RecipePreview";
 // 기능 관련
 import PropTypes from "prop-types";
+import { NavLink as RouterLink } from 'react-router-dom';
 
 function CocktailusNewItems(props) {
   const { classes } = props;
@@ -33,12 +34,12 @@ function CocktailusNewItems(props) {
           최근 등록된 칵테일
         </Typography>
         <Button 
+          component={RouterLink}
           color="secondary"
           size="large"
           className={classes.btn}
           variant="contained"
-          component="a"
-          href="/recipe"
+          to="/recipe"
         >
             더 보러가기
           </Button>

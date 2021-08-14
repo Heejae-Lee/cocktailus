@@ -11,6 +11,7 @@ import Button from "../../components/Button";
 import ImgMediaCard from "../../components/RecipePreview";
 // 기능 관련
 import PropTypes from "prop-types";
+import { NavLink as RouterLink } from 'react-router-dom';
 
 function CocktailusHotItems(props) {
   const { classes } = props;
@@ -27,13 +28,13 @@ function CocktailusHotItems(props) {
         >
           트렌디한 칵테일
         </Typography>
-        <Button 
+        <Button
+          component={RouterLink}
           color="secondary"
           size="large"
           className={classes.btn}
           variant="contained"
-          component="a"
-          href="/recipe"
+          to="/recipe"
         >
             더 보러가기
           </Button>
