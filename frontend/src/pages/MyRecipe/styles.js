@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     margin: '1px',
   },
   recipeAddButton: {
-    left: '75%',
+    display: 'flex',
+    justifyContent: 'flex-end', 
   },
   selectedColor: {
     color: '#00bcd4',

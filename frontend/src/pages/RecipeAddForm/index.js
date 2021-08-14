@@ -21,7 +21,7 @@ import useStyles from './styles';
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
 import AppForm from '../../components/AppForm';
-import RecipeHeader from '../../layout/RecipeHeader';
+// import RecipeHeader from '../../layout/RecipeHeader';
 import Typography from '../../components/Typography';
 import InputImageForm from '../../components/InputImageForm'
 
@@ -181,7 +181,7 @@ function RecipeAddForm() {
   return (
     <React.Fragment>
       <Header />
-      <RecipeHeader />
+      {/* <RecipeHeader /> */}
         <AppForm>
           <Typography variant="h3" gutterBottom marked="center" align="center">
             레시피 작성

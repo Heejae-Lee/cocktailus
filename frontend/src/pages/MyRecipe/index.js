@@ -9,19 +9,20 @@ import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
 import Typography from "../../components/Typography";
 import useStyles from './styles';
+import RecipeHeader from '../../layout/RecipeHeader';
 
 // material-ui/core
 import { Container, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 import axios from 'axios'
-import clsx from "clsx";
 
 function MyRecipe() {
   const classes = useStyles();
   
   const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 0: MyLike
   const [recipes, setRecipes] = useState([]);
+  const [searchedValue, setSearchedValue] = useState('');
 
   // 전체 레시피 조회
   const changeMyUploadState = () => {
@@ -53,25 +54,31 @@ function MyRecipe() {
     getMyUploadRecipes()
   }, [state]);
 
+  const searchRecipes = () => {
+    // searchValue 보내서 검색
+    console.log(`검색어는${searchedValue}입니다.`);
+    setSearchedValue("");
+  };
+
+
+  const updateSearchedValue = (e) => {
+    setSearchedValue(e.target.value);
+  };
+
   return (
     <Fragment>
       <Header />
+      <RecipeHeader
+        button1="UPLOADS"
+        button2="LIKES"
+        updateSearchedValue={updateSearchedValue}
+        searchRecipes={searchRecipes}
+        orderByOption1={changeMyUploadState}
+        orderByOption2={changeMyLikeState}
+        state={state}
+      />
       <Container className={classes.paper}>
         <Grid container spacing={12}>
-          <Button
-            variant="outlined" color="primary" 
-            className={clsx(classes.chips, state === 1 && classes.selectedColor)}
-            onClick={changeMyUploadState}
-            >
-            My Uploads
-          </Button>
-          <Button
-            variant="outlined" color="primary" 
-            className={clsx(classes.chips, state === 0 && classes.selectedColor)}
-            onClick={changeMyLikeState}
-            >
-            Likes
-          </Button>
           <Button
             component={RouterLink}
             variant="outlined" color="primary" 

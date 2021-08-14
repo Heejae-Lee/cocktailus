@@ -19,6 +19,7 @@ function Recipe() {
   
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
+  const [state, setState] = useState(1);
 
   useEffect(()=>{
     recipeAPI.getRecipes(setRecipes);
@@ -27,11 +28,13 @@ function Recipe() {
   const orderByLatest = () => {
     // 최신순 받아오기
     console.log("최신순");
+    setState(1);
   };
 
   const orderByPopulation = () => {
     // 좋아요 순으로 받아오기
     console.log("인기순");
+    setState(0);
   };
 
   const searchRecipes = () => {
@@ -51,10 +54,13 @@ function Recipe() {
     <React.Fragment>
       <Header />
       <RecipeHeader
+        button1="최신순"
+        button2="인기순"
         updateSearchedValue={updateSearchedValue}
         searchRecipes={searchRecipes}
-        orderByLatest={orderByLatest}
-        orderByPopulation={orderByPopulation}
+        orderByOption1={orderByLatest}
+        orderByOption2={orderByPopulation}
+        state={state}
       />
       <Grid container className={classes.center}>
         <Button
