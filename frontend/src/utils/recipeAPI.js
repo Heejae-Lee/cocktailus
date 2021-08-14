@@ -43,4 +43,53 @@ export const recipeAPI = {
       console.log(err);
     })
   },
+  likeRequest: (id, like, likeCount, setLike, setlikeCount, setLikeImg) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member == null) {
+      alert("로그인 후 사용해주세요");
+      return;
+    }
+    axios.post(`/like`, {id: {article_id: id, member_name: member.name}},{headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("like success");
+        if (like) {
+          setLike(!like);
+          setlikeCount(likeCount - 1);
+          setLikeImg("no_like.png");
+        } else {
+          setLike(!like);
+          setlikeCount(likeCount + 1);
+          setLikeImg("like.png");
+        }
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  },
+  likeRequestInMyPage: (id, like, likeCount, setLike, setlikeCount, setLikeImg, setIsChange) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member == null) {
+      alert("로그인 후 사용해주세요");
+      return;
+    }
+    axios.post(`/like`, {id: {article_id: id, member_name: member.name}},{headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("like success");
+        if (like) {
+          setLike(!like);
+          setlikeCount(likeCount - 1);
+          setLikeImg("no_like.png");
+        } else {
+          setLike(!like);
+          setlikeCount(likeCount + 1);
+          setLikeImg("like.png");
+        }
+        setIsChange();
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  }
 };

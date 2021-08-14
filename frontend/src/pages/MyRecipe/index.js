@@ -33,6 +33,7 @@ function MyRecipe() {
   const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 0: MyLike
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
+  const [isChange, setIsChange] = useState(false);
 
   // 전체 레시피 조회
   const changeMyUploadState = () => {
@@ -62,7 +63,7 @@ function MyRecipe() {
       })
     };
     getMyUploadRecipes()
-  }, [state]);
+  }, [state, isChange]);
 
   const searchRecipes = () => {
     // searchValue 보내서 검색
@@ -122,6 +123,8 @@ function MyRecipe() {
               imageURL={recipe.imageURL}
               likeCount={recipe.likeCount}
               liked={recipe.liked}
+              setIsChange={setIsChange}
+              isChange={isChange}
               />
           ))}
         </Grid>
