@@ -34,7 +34,7 @@ function CocktailusHotItems(props) {
           size="large"
           className={classes.btn}
           variant="contained"
-          to="/recipe/popular"
+          to="/recipe/list/popular"
         >
             더 보러가기
           </Button>

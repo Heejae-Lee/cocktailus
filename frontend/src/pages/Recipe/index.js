@@ -48,14 +48,14 @@ function Recipe(match) {
   const orderByLatest = () => {
     // 최신순 받아오기
     console.log("최신순");
-    history.push(`/recipe/new`);
+    history.push(`/recipe/list/new`);
   };
 
   const orderByPopulation = () => {
     // 좋아요 순으로 받아오기
     console.log("인기순");
     setState(0);
-    history.push(`/recipe/popular`);
+    history.push(`/recipe/list/popular`);
   };
 
   const searchRecipes = () => {
