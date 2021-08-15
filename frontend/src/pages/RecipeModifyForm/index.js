@@ -241,7 +241,7 @@ function RecipeModifyForm(match) {
               selectedFile={selectedFile}
               mainState={mainState}
             />
-            <form className={classes.form}>
+            <form className={classes.recipeForm}>
               <div className={classes.inputText}>
                 <TextField
                   id="modify-title"
@@ -423,7 +423,7 @@ function RecipeModifyForm(match) {
               cols="150" 
               placeholder="나만의 칵테일에 대해 소개해주세요!"
               onChange={contentChange}
-            ></textarea>
+            />
             <ColorButton 
               className={classes.writeButton}
               onClick={onSubmitRecipe}

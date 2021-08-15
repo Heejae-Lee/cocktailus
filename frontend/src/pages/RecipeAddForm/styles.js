@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   mainContainer: {
     display:'flex',
     flexDirection: 'column',
-    // border: '1px solid #e5e5e5',
+    // border: '2px solid #e5e5e5',
     marginBottom: '100px',
   },
   flexRow: {
