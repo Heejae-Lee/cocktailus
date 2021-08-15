@@ -15,7 +15,6 @@ import {
 import { purple } from '@material-ui/core/colors';
 
 // custom
-import './index.css';
 import classnames from 'classnames';
 import useStyles from './styles';
 import Header from '../../layout/Header'
@@ -194,12 +193,12 @@ function RecipeAddForm() {
               selectedFile={selectedFile}
               mainState={mainState}
             />
-            <form className={classes.form}>
+            <form className={classes.recipeForm}>
               <div className={classes.inputText}>
                 <TextField
                   id="standard-full-width"
                   label="Title"
-                  style={{ margin: 7}}
+                  style={{ margin: 8}}
                   placeholder="칵테일 이름을 입력해주세요"
                   fullWidth
                   autoFocus
@@ -209,27 +208,25 @@ function RecipeAddForm() {
                   }}
                 />
                 <TagsInput
-                  style={{ margin: 7 }}
-                  // fullWidth
+                  style={{ margin: 8 }}
                   id="tags"
                   name="tags"
-                  placeholder="태그 입력"
-                  label="Tags"
+                  label="태그 입력"
                   selectedTags={handleSelecetedTags}
                 />
-              <div>
+              <div className={classes.drinkForm}>
                 <TextField
-                  id="standard-full-width1"
-                  label="DRINK1"
-                  style={{ margin: 7 }}
-                  placeholder="DRINK1"
+                  id="drink1"
+                  label="1번 음료 입력"
+                  style={{ margin: 8 }}
                   onChange={drinkChange1}
+                  fullWidth
                   />
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-controlled-open-select-label1">DRINK1</InputLabel>
+                    <InputLabel id="select-drink1">DRINK1</InputLabel>
                       <Select
-                        labelId="demo-controlled-open-select-label1"
-                        id="demo-controlled-open-select1"
+                        labelId="select-drink1"
+                        id="open-drink1"
                         open={open1}
                         onClose={handleClose1}
                         onOpen={handleOpen1}
@@ -250,19 +247,19 @@ function RecipeAddForm() {
                     </Select>
                   </FormControl>
               </div>
-              <div>
+              <div className={classes.drinkForm}>
                 <TextField
-                  id="standard-full-width2"
-                  label="DRINK2"
-                  style={{ margin: 7 }}
-                  placeholder="DRINK2"
+                  id="drink2"
+                  label="2번 음료 입력"
+                  style={{ margin: 8 }}
                   onChange={drinkChange2}
+                  fullWidth
                   />
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-controlled-open-select-label2">DRINK2</InputLabel>
+                    <InputLabel id="select-drink2">DRINK2</InputLabel>
                       <Select
-                        labelId="demo-controlled-open-select-label2"
-                        id="demo-controlled-open-select2"
+                        labelId="select-drink2"
+                        id="open-drink2"
                         open={open2}
                         onClose={handleClose2}
                         onOpen={handleOpen2}
@@ -283,19 +280,20 @@ function RecipeAddForm() {
                     </Select>
                   </FormControl>
               </div>
-              <div>
+              <div  className={classes.drinkForm}>
                 <TextField
-                  id="standard-full-width3"
-                  label="DRINK3"
-                  style={{ margin: 7 }}
+                  id="drink3"
+                  label="3번 음료 입력"
+                  style={{ margin: 8 }}
                   placeholder="DRINK3"
                   onChange={drinkChange3}
+                  fullWidth
                   />
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-controlled-open-select-label3">DRINK3</InputLabel>
+                    <InputLabel id="select-drink3">DRINK3</InputLabel>
                       <Select
-                        labelId="demo-controlled-open-select-label3"
-                        id="demo-controlled-open-select3"
+                        labelId="select-drink3"
+                        id="open-drink3"
                         open={open3}
                         onClose={handleClose3}
                         onOpen={handleOpen3}
@@ -316,19 +314,20 @@ function RecipeAddForm() {
                     </Select>
                   </FormControl>
               </div>
-              <div>
+              <div  className={classes.drinkForm}>
                 <TextField
-                  id="standard-full-width4"
-                  label="DRINK4"
-                  style={{ margin: 7 }}
+                  id="drink4"
+                  label="4번 음료 입력"
+                  style={{ margin: 8 }}
                   placeholder="DRINK4"
                   onChange={drinkChange4}
+                  fullWidth
                   />
                   <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-controlled-open-select-label4">DRINK4</InputLabel>
+                    <InputLabel id="select-drink4">DRINK4</InputLabel>
                       <Select
-                        labelId="demo-controlled-open-select-label4"
-                        id="demo-controlled-open-select4"
+                        labelId="select-drink4"
+                        id="open-drink4"
                         open={open4}
                         onClose={handleClose4}
                         onOpen={handleOpen4}

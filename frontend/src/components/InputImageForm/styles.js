@@ -8,9 +8,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'theme.palette.background.paper',
     maxWidth: "520px",
     width: "100%",
-    height: "380px",
+    height: "420px",
     display: "flex",
-    marginBottom: '20px',
+    justifyContent: "center",
+    margin: 'auto',
   },
   icon: {
     margin: theme.spacing(2)
@@ -23,12 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
   boxSize: {
     width: "520px",
-    height: "380px",
+    height: "420px",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
   },
   center: {
-    height: "380px",
+    height: "420px",
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -44,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     color: blue[900],
   },
+  uploadImage: {
+    width: "100%",
+    minHeight: "410px",
+    maxHeight: "420px",
+  }
 }));
 
 

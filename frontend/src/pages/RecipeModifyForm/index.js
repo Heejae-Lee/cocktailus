@@ -15,7 +15,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 // custom
-import './index.css';
 import classnames from 'classnames';
 import useStyles from './styles';
 import Header from '../../layout/Header'
@@ -74,8 +73,7 @@ function RecipeModifyForm(match) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // 유저 정보
-  const token = JSON.parse(window.localStorage.getItem("memberData")).token
-  const userName = JSON.parse(window.localStorage.getItem("memberData")).name
+  const member = JSON.parse(window.localStorage.getItem("memberData"))
 
   useEffect(() => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
@@ -153,12 +151,12 @@ function RecipeModifyForm(match) {
     drinkRatio: drinkRatio1+'|'+drinkRatio2+'|'+drinkRatio3+'|'+drinkRatio4,
     imageURL: selectedFile,
     tag: tags,
-    member_name: userName,
+    member_name: member.name,
   };
 
   const onSubmitRecipe = (e) => {
     e.preventDefault();
-    recipeAPI.modifyRecipe(data, token, history, recipeId);
+    recipeAPI.modifyRecipe(data, member.token, history, recipeId);
   }
 
   // title 변경
@@ -261,8 +259,7 @@ function RecipeModifyForm(match) {
                   style={{ margin: 8}}
                   id="modify-tags"
                   name="tags"
-                  placeholder="태그 입력"
-                  label="Tags"
+                  label="태그 입력"
                   selectedTags={handleSelecetedTags}
                   setModifyTags={setModifyTags}
                   modifyTags={modifyTags}
@@ -270,13 +267,14 @@ function RecipeModifyForm(match) {
                     shrink: true,
                   }}
                 />
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink1"
-                    label="DRINK1"
+                    label="1번 음료 입력"
                     style={{ margin: 8 }}
                     placeholder="DRINK1"
                     onChange={drinkChange1}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -306,13 +304,14 @@ function RecipeModifyForm(match) {
                         </Select>
                     </FormControl>
                 </div>
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink2"
-                    label="DRINK2"
+                    label="2번 음료 입력"
                     style={{ margin: 8 }}
                     placeholder="DRINK2"
                     onChange={drinkChange2}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -342,13 +341,13 @@ function RecipeModifyForm(match) {
                       </Select>
                     </FormControl>
                 </div>
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink3"
-                    label="DRINK3"
+                    label="3번 음료 입력"
                     style={{ margin: 8 }}
-                    placeholder="DRINK3"
                     onChange={drinkChange3}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -378,13 +377,14 @@ function RecipeModifyForm(match) {
                       </Select>
                     </FormControl>
                 </div>
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink4"
-                    label="DRINK4"
+                    label="4번 음료 입력"
                     style={{ margin: 8 }}
                     placeholder="DRINK4"
                     onChange={drinkChange4}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}

@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  drinkForm: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));
 
 export default useStyles;
