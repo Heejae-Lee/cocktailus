@@ -7,7 +7,7 @@ import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
 import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
-import ImgMediaCard from '../../components/RecipePreview'
+import RecipePreview from '../../components/RecipePreview'
 import Typography from "../../components/Typography";
 
 import { Container, Grid, Button, withStyles } from '@material-ui/core';
@@ -84,7 +84,7 @@ function Recipe(match) {
         state={state}
       />
       <Container className={classes.paper}>
-        <Grid container spacing={12} className={classes.center}>
+        <Grid container className={classes.center}>
           <Typography
             variant="h4"
             marked="center"
@@ -106,7 +106,7 @@ function Recipe(match) {
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
           {recipes.map(recipe => (
-            <ImgMediaCard
+            <RecipePreview
               key={recipe.id}
               id = {recipe.id}
               image={recipe.image}

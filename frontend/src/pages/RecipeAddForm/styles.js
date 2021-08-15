@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +50,9 @@ const useStyles = makeStyles((theme) => ({
   inputText: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: '85%',
+    marginBottom: theme.spacing(1),
+    marginTop: 0,
+    width: '80%',
   },
   button: {
     display: 'block',

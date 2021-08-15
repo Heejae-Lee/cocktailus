@@ -22,7 +22,6 @@ import NoticeDetail from './pages/NoticeDetail';
 import PrivateRoute from "./router/PrivateRoute"
 import PublicRoute from "./router/PublicRoute"
 
-
 function App() {
   return (
     <BrowserRouter>

@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { NavLink as RouterLink, useHistory } from 'react-router-dom';
 // custom-design
 import withRoot from '../../components/withRoot';
-import ImgMediaCard from '../../components/RecipePreview'
+import RecipePreview from '../../components/RecipePreview'
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
 import Typography from "../../components/Typography";
@@ -97,7 +97,7 @@ function MyRecipe(match) {
         state={state}
       />
       <Container className={classes.paper}>
-        <Grid container spacing={12} className={classes.center}>
+        <Grid container className={classes.center}>
           <Typography
             variant="h4"
             marked="center"
@@ -119,7 +119,7 @@ function MyRecipe(match) {
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
           {recipes.map(recipe => (
-            <ImgMediaCard
+            <RecipePreview
               key={recipe.id}
               id = {recipe.id}
               image={recipe.image}

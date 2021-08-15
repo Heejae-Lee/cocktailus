@@ -3,25 +3,24 @@ import { withStyles } from '@material-ui/core/styles';
 
 import React, { useState } from 'react';
 
-import Button from '@material-ui/core/Button';
-import { Container } from '@material-ui/core';
+import { 
+  Button, 
+  Container,
+  TextField,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select
+} from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
-import TextField from '@material-ui/core/TextField';
-
-// select
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 // custom
 import './index.css';
-import clsx from 'clsx';
+import classnames from 'classnames';
 import useStyles from './styles';
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
 import AppForm from '../../components/AppForm';
-// import RecipeHeader from '../../layout/RecipeHeader';
 import Typography from '../../components/Typography';
 import InputImageForm from '../../components/InputImageForm'
 
@@ -71,8 +70,7 @@ function RecipeAddForm() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // 유저 정보
-  const token = JSON.parse(window.localStorage.getItem("memberData")).token
-  const userName = JSON.parse(window.localStorage.getItem("memberData")).name
+  const member = JSON.parse(window.localStorage.getItem("memberData"))
 
   function handleSelecetedTags(items) {
     setTages(items.map(item => item).join("|"));
@@ -85,11 +83,9 @@ function RecipeAddForm() {
 
     reader.onloadend = function() {
       var url = reader.result
-      console.log("loading");
       setSelectedFile(url)
     };
     reader.readAsDataURL(file);
-    console.log("uploaded");
     setMainState("uploaded");
     setImageUploaded(1);
   };
@@ -107,13 +103,13 @@ function RecipeAddForm() {
     drinkRatio: drinkRatio1+'|'+drinkRatio2+'|'+drinkRatio3+'|'+drinkRatio4,
     imageURL: selectedFile,
     tag: tags,
-    member_name: userName,
+    member_name: member.name,
   };
 
   // 레시피 저장 서버에 요청 보내기
   const onSubmitRecipe = (e) => {
     e.preventDefault();
-    recipeAPI.saveRecipe(data, token, history);
+    recipeAPI.saveRecipe(data, member.token, history);
   }
 
   // title 변경
@@ -181,7 +177,6 @@ function RecipeAddForm() {
   return (
     <React.Fragment>
       <Header />
-      {/* <RecipeHeader /> */}
         <AppForm>
           <Typography variant="h3" gutterBottom marked="center" align="center">
             레시피 작성
@@ -191,7 +186,7 @@ function RecipeAddForm() {
           </Typography>
         </AppForm>
         <Container className={classes.mainContainer}>
-          <Container className={clsx(classes.flexRow, classes.topContainer)}>
+          <Container className={classnames(classes.flexRow, classes.topContainer)}>
             <InputImageForm 
               imageUploaded={imageUploaded}
               imageResetHandler={imageResetHandler}
@@ -204,7 +199,7 @@ function RecipeAddForm() {
                 <TextField
                   id="standard-full-width"
                   label="Title"
-                  style={{ margin: 8}}
+                  style={{ margin: 7}}
                   placeholder="칵테일 이름을 입력해주세요"
                   fullWidth
                   autoFocus
@@ -214,175 +209,163 @@ function RecipeAddForm() {
                   }}
                 />
                 <TagsInput
-                  style={{ margin: 8 }}
-                  fullWidth
+                  style={{ margin: 7 }}
+                  // fullWidth
                   id="tags"
                   name="tags"
-                  placeholder="태그 입력 후 엔터키를 눌러주세요"
+                  placeholder="태그 입력"
                   label="Tags"
                   selectedTags={handleSelecetedTags}
                 />
-                <div>
-                  <TextField
-                    id="standard-full-width1"
-                    label="DRINK1"
-                    style={{ margin: 8 }}
-                    placeholder="DRINK1"
-                    onChange={drinkChange1}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    />
-                    <FormControl className={classes.formControl}>
-                      <InputLabel id="demo-controlled-open-select-label1">DRINK1</InputLabel>
-                        <Select
-                          labelId="demo-controlled-open-select-label1"
-                          id="demo-controlled-open-select1"
-                          open={open1}
-                          onClose={handleClose1}
-                          onOpen={handleOpen1}
-                          value={drinkRatio1}
-                          onChange={drinkRatioChange1}
-                        >
-                        <MenuItem value={0}>0ml</MenuItem>
-                        <MenuItem value={15}>15ml</MenuItem>
-                        <MenuItem value={30}>30ml</MenuItem>
-                        <MenuItem value={45}>45ml</MenuItem>
-                        <MenuItem value={60}>60ml</MenuItem>
-                        <MenuItem value={75}>75ml</MenuItem>
-                        <MenuItem value={90}>90ml</MenuItem>
-                        <MenuItem value={105}>105ml</MenuItem>
-                        <MenuItem value={120}>120ml</MenuItem>
-                        <MenuItem value={135}>135ml</MenuItem>
-                        <MenuItem value={150}>150ml</MenuItem>
-                      </Select>
-                    </FormControl>
-                </div>
-                <div>
-                  <TextField
-                    id="standard-full-width2"
-                    label="DRINK2"
-                    style={{ margin: 8 }}
-                    placeholder="DRINK2"
-                    onChange={drinkChange2}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    />
-                    <FormControl className={classes.formControl}>
-                      <InputLabel id="demo-controlled-open-select-label2">DRINK2</InputLabel>
-                        <Select
-                          labelId="demo-controlled-open-select-label2"
-                          id="demo-controlled-open-select2"
-                          open={open2}
-                          onClose={handleClose2}
-                          onOpen={handleOpen2}
-                          value={drinkRatio2}
-                          onChange={drinkRatioChange2}
-                        >
-                        <MenuItem value={0}>0ml</MenuItem>
-                        <MenuItem value={15}>15ml</MenuItem>
-                        <MenuItem value={30}>30ml</MenuItem>
-                        <MenuItem value={45}>45ml</MenuItem>
-                        <MenuItem value={60}>60ml</MenuItem>
-                        <MenuItem value={75}>75ml</MenuItem>
-                        <MenuItem value={90}>90ml</MenuItem>
-                        <MenuItem value={105}>105ml</MenuItem>
-                        <MenuItem value={120}>120ml</MenuItem>
-                        <MenuItem value={135}>135ml</MenuItem>
-                        <MenuItem value={150}>150ml</MenuItem>
-                      </Select>
-                    </FormControl>
-                </div>
-                <div>
-                  <TextField
-                    id="standard-full-width3"
-                    label="DRINK3"
-                    style={{ margin: 8 }}
-                    placeholder="DRINK3"
-                    onChange={drinkChange3}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    />
-                    <FormControl className={classes.formControl}>
-                      <InputLabel id="demo-controlled-open-select-label3">DRINK3</InputLabel>
-                        <Select
-                          labelId="demo-controlled-open-select-label3"
-                          id="demo-controlled-open-select3"
-                          open={open3}
-                          onClose={handleClose3}
-                          onOpen={handleOpen3}
-                          value={drinkRatio3}
-                          onChange={drinkRatioChange3}
-                        >
-                        <MenuItem value={0}>0ml</MenuItem>
-                        <MenuItem value={15}>15ml</MenuItem>
-                        <MenuItem value={30}>30ml</MenuItem>
-                        <MenuItem value={45}>45ml</MenuItem>
-                        <MenuItem value={60}>60ml</MenuItem>
-                        <MenuItem value={75}>75ml</MenuItem>
-                        <MenuItem value={90}>90ml</MenuItem>
-                        <MenuItem value={105}>105ml</MenuItem>
-                        <MenuItem value={120}>120ml</MenuItem>
-                        <MenuItem value={135}>135ml</MenuItem>
-                        <MenuItem value={150}>150ml</MenuItem>
-                      </Select>
-                    </FormControl>
-                </div>
-                <div>
-                  <TextField
-                    id="standard-full-width4"
-                    label="DRINK4"
-                    style={{ margin: 8 }}
-                    placeholder="DRINK4"
-                    onChange={drinkChange4}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    />
-                    <FormControl className={classes.formControl}>
-                      <InputLabel id="demo-controlled-open-select-label4">DRINK4</InputLabel>
-                        <Select
-                          labelId="demo-controlled-open-select-label4"
-                          id="demo-controlled-open-select4"
-                          open={open4}
-                          onClose={handleClose4}
-                          onOpen={handleOpen4}
-                          value={drinkRatio4}
-                          onChange={drinkRatioChange4}
-                        >
-                        <MenuItem value={0}>0ml</MenuItem>
-                        <MenuItem value={15}>15ml</MenuItem>
-                        <MenuItem value={30}>30ml</MenuItem>
-                        <MenuItem value={45}>45ml</MenuItem>
-                        <MenuItem value={60}>60ml</MenuItem>
-                        <MenuItem value={75}>75ml</MenuItem>
-                        <MenuItem value={90}>90ml</MenuItem>
-                        <MenuItem value={105}>105ml</MenuItem>
-                        <MenuItem value={120}>120ml</MenuItem>
-                        <MenuItem value={135}>135ml</MenuItem>
-                        <MenuItem value={150}>150ml</MenuItem>
-                      </Select>
-                    </FormControl>
-                </div>
+              <div>
+                <TextField
+                  id="standard-full-width1"
+                  label="DRINK1"
+                  style={{ margin: 7 }}
+                  placeholder="DRINK1"
+                  onChange={drinkChange1}
+                  />
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-controlled-open-select-label1">DRINK1</InputLabel>
+                      <Select
+                        labelId="demo-controlled-open-select-label1"
+                        id="demo-controlled-open-select1"
+                        open={open1}
+                        onClose={handleClose1}
+                        onOpen={handleOpen1}
+                        value={drinkRatio1}
+                        onChange={drinkRatioChange1}
+                      >
+                      <MenuItem value={0}>0ml</MenuItem>
+                      <MenuItem value={15}>15ml</MenuItem>
+                      <MenuItem value={30}>30ml</MenuItem>
+                      <MenuItem value={45}>45ml</MenuItem>
+                      <MenuItem value={60}>60ml</MenuItem>
+                      <MenuItem value={75}>75ml</MenuItem>
+                      <MenuItem value={90}>90ml</MenuItem>
+                      <MenuItem value={105}>105ml</MenuItem>
+                      <MenuItem value={120}>120ml</MenuItem>
+                      <MenuItem value={135}>135ml</MenuItem>
+                      <MenuItem value={150}>150ml</MenuItem>
+                    </Select>
+                  </FormControl>
               </div>
-            </form>
-          </Container>
-            <textarea 
-              rows="20" 
-              cols="150" 
-              placeholder="나만의 칵테일에 대해 소개해주세요!"
-              onChange={contentChange}
-            ></textarea>
-            <ColorButton 
-              className={classes.writeButton}
-              onClick={onSubmitRecipe}
-            >작성완료
-            </ColorButton>
-          </Container>
-      <Footer />
-    </React.Fragment>
+              <div>
+                <TextField
+                  id="standard-full-width2"
+                  label="DRINK2"
+                  style={{ margin: 7 }}
+                  placeholder="DRINK2"
+                  onChange={drinkChange2}
+                  />
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-controlled-open-select-label2">DRINK2</InputLabel>
+                      <Select
+                        labelId="demo-controlled-open-select-label2"
+                        id="demo-controlled-open-select2"
+                        open={open2}
+                        onClose={handleClose2}
+                        onOpen={handleOpen2}
+                        value={drinkRatio2}
+                        onChange={drinkRatioChange2}
+                      >
+                      <MenuItem value={0}>0ml</MenuItem>
+                      <MenuItem value={15}>15ml</MenuItem>
+                      <MenuItem value={30}>30ml</MenuItem>
+                      <MenuItem value={45}>45ml</MenuItem>
+                      <MenuItem value={60}>60ml</MenuItem>
+                      <MenuItem value={75}>75ml</MenuItem>
+                      <MenuItem value={90}>90ml</MenuItem>
+                      <MenuItem value={105}>105ml</MenuItem>
+                      <MenuItem value={120}>120ml</MenuItem>
+                      <MenuItem value={135}>135ml</MenuItem>
+                      <MenuItem value={150}>150ml</MenuItem>
+                    </Select>
+                  </FormControl>
+              </div>
+              <div>
+                <TextField
+                  id="standard-full-width3"
+                  label="DRINK3"
+                  style={{ margin: 7 }}
+                  placeholder="DRINK3"
+                  onChange={drinkChange3}
+                  />
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-controlled-open-select-label3">DRINK3</InputLabel>
+                      <Select
+                        labelId="demo-controlled-open-select-label3"
+                        id="demo-controlled-open-select3"
+                        open={open3}
+                        onClose={handleClose3}
+                        onOpen={handleOpen3}
+                        value={drinkRatio3}
+                        onChange={drinkRatioChange3}
+                      >
+                      <MenuItem value={0}>0ml</MenuItem>
+                      <MenuItem value={15}>15ml</MenuItem>
+                      <MenuItem value={30}>30ml</MenuItem>
+                      <MenuItem value={45}>45ml</MenuItem>
+                      <MenuItem value={60}>60ml</MenuItem>
+                      <MenuItem value={75}>75ml</MenuItem>
+                      <MenuItem value={90}>90ml</MenuItem>
+                      <MenuItem value={105}>105ml</MenuItem>
+                      <MenuItem value={120}>120ml</MenuItem>
+                      <MenuItem value={135}>135ml</MenuItem>
+                      <MenuItem value={150}>150ml</MenuItem>
+                    </Select>
+                  </FormControl>
+              </div>
+              <div>
+                <TextField
+                  id="standard-full-width4"
+                  label="DRINK4"
+                  style={{ margin: 7 }}
+                  placeholder="DRINK4"
+                  onChange={drinkChange4}
+                  />
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="demo-controlled-open-select-label4">DRINK4</InputLabel>
+                      <Select
+                        labelId="demo-controlled-open-select-label4"
+                        id="demo-controlled-open-select4"
+                        open={open4}
+                        onClose={handleClose4}
+                        onOpen={handleOpen4}
+                        value={drinkRatio4}
+                        onChange={drinkRatioChange4}
+                      >
+                      <MenuItem value={0}>0ml</MenuItem>
+                      <MenuItem value={15}>15ml</MenuItem>
+                      <MenuItem value={30}>30ml</MenuItem>
+                      <MenuItem value={45}>45ml</MenuItem>
+                      <MenuItem value={60}>60ml</MenuItem>
+                      <MenuItem value={75}>75ml</MenuItem>
+                      <MenuItem value={90}>90ml</MenuItem>
+                      <MenuItem value={105}>105ml</MenuItem>
+                      <MenuItem value={120}>120ml</MenuItem>
+                      <MenuItem value={135}>135ml</MenuItem>
+                      <MenuItem value={150}>150ml</MenuItem>
+                    </Select>
+                  </FormControl>
+              </div>
+            </div>
+          </form>
+        </Container>
+        <textarea 
+          rows="20" 
+          cols="150" 
+          placeholder="나만의 칵테일에 대해 소개해주세요!"
+          onChange={contentChange}
+        />
+        <ColorButton 
+          className={classes.writeButton}
+          onClick={onSubmitRecipe}
+        >작성완료
+        </ColorButton>
+      </Container>
+    <Footer />
+  </React.Fragment>
   );
 }
 

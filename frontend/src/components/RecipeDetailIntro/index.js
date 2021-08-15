@@ -7,12 +7,8 @@ import { useHistory } from "react-router";
 import axios from 'axios'
 
 // 컴포넌트 관련
-import { Button } from "@material-ui/core";
+import { Button, Divider, Grid, Paper, ButtonBase } from "@material-ui/core";
 import { purple, red, blue } from '@material-ui/core/colors';
-import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "../../components/Typography";
 
 import AlertDialog from "../ModalAlert";
@@ -185,7 +181,7 @@ export default function RecipeDetailIntro(props) {
         open={open}
         delete={deleteRecipe}
         closeModal={closeModal}
-        title="공지사항 삭제"
+        title="레시피 삭제"
         content="정말 삭제하시겠습니까?"
       />
       <Paper className={classes.paper}>

@@ -15,7 +15,7 @@ import useStyles from './styles';
 import classnames from 'classnames';
 import { recipeAPI } from '../../utils/recipeAPI'
 
-export default function ImgMediaCard(props) {
+export default function RecipePreview(props) {
   const classes = useStyles();
 
   const [like, setLike] = useState(false);
