@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     // display: "block",
     width: "auto",
     height: "100%",
-    maxHeight: "230px",
+    maxHeight: "300px",
   },
   likeImg: {
     width: 20,

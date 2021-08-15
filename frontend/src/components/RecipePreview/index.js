@@ -31,9 +31,6 @@ export default function RecipePreview(props) {
       setLike(false);
       setLikeImg("no_like.png");
     }
-    return () => {
-      
-    }
   }, [props.liked, props.likeCount])
 
   const setIsChange = () => {
@@ -63,7 +60,6 @@ export default function RecipePreview(props) {
           <CardMedia
             component="img"
             alt="Cocktail-image"
-            height="230"
             image={props.imageURL}
             title="Cocktail-image"
             className={classnames('scale', classes.img)}

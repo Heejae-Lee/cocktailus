@@ -7,7 +7,8 @@ export const recipeAPI = {
     axios.get("/recipe-articles")
     .then((res) => {
       console.log("Get Recipe Success");
-      setRecipes(res.data);
+      const data = res.data.reverse()
+      setRecipes(data);
     })
     .catch(() => {
       console.log("Get Recipe failed");
