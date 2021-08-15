@@ -15,13 +15,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 // custom
-import './index.css';
-import clsx from 'clsx';
+import classnames from 'classnames';
 import useStyles from './styles';
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
 import AppForm from '../../components/AppForm';
-import RecipeHeader from '../../layout/RecipeHeader';
 import Typography from '../../components/Typography';
 import InputImageForm from '../../components/InputImageForm'
 
@@ -67,6 +65,7 @@ function RecipeModifyForm(match) {
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
+  const [modifyTags, setModifyTags] = useState(null);
 
   // 이미지 파일 관리용
   const [mainState, setMainState] = useState("initial");
@@ -74,8 +73,7 @@ function RecipeModifyForm(match) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // 유저 정보
-  const token = JSON.parse(window.localStorage.getItem("memberData")).token
-  const userName = JSON.parse(window.localStorage.getItem("memberData")).name
+  const member = JSON.parse(window.localStorage.getItem("memberData"))
 
   useEffect(() => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
@@ -86,8 +84,6 @@ function RecipeModifyForm(match) {
             history.push("/error");
             return
           }
-          
-          console.log("getNotice success");
           const modifyData = res.data["recipe-article"];
           const drinks = modifyData.drink.split('|');
           const drinkRatios = modifyData.drinkRatio.split('|');
@@ -111,11 +107,11 @@ function RecipeModifyForm(match) {
           setDrinkRatio4(drinkRatios[3]);
           setSelectedFile(modifyData.imageURL);
           setMainState("uploaded");
+          setTages(modifyData.tag);
           const modifyTag = modifyData.tag.split('|');
-          setTages(modifyTag);
+          setModifyTags(modifyTag);
         })
         .catch((err) => {
-          console.log("getNotice fail");
           console.log(err);
           history.push('/recipe');
         })
@@ -124,7 +120,6 @@ function RecipeModifyForm(match) {
   }, [recipeId, history])
 
   function handleSelecetedTags(items) {
-    // console.log(111, items);
     setTages(items.map(item => item).join("|"));
     console.log(tags);
   }
@@ -136,11 +131,9 @@ function RecipeModifyForm(match) {
 
     reader.onloadend = function() {
       var url = reader.result
-      console.log("loading");
       setSelectedFile(url)
     };
     reader.readAsDataURL(file);
-    console.log("uploaded");
     setMainState("uploaded");
     setImageUploaded(1);
   };
@@ -158,12 +151,12 @@ function RecipeModifyForm(match) {
     drinkRatio: drinkRatio1+'|'+drinkRatio2+'|'+drinkRatio3+'|'+drinkRatio4,
     imageURL: selectedFile,
     tag: tags,
-    member_name: userName,
+    member_name: member.name,
   };
 
   const onSubmitRecipe = (e) => {
     e.preventDefault();
-    recipeAPI.modifyRecipe(data, token, history, recipeId);
+    recipeAPI.modifyRecipe(data, member.token, history, recipeId);
   }
 
   // title 변경
@@ -231,7 +224,6 @@ function RecipeModifyForm(match) {
   return (
     <React.Fragment>
       <Header />
-      <RecipeHeader />
         <AppForm>
           <Typography variant="h3" gutterBottom marked="center" align="center">
             레시피 작성
@@ -241,7 +233,7 @@ function RecipeModifyForm(match) {
           </Typography>
         </AppForm>
         <Container className={classes.mainContainer}>
-          <Container className={clsx(classes.flexRow, classes.topContainer)}>
+          <Container className={classnames(classes.flexRow, classes.topContainer)}>
             <InputImageForm 
               imageUploaded={imageUploaded}
               imageResetHandler={imageResetHandler}
@@ -249,7 +241,7 @@ function RecipeModifyForm(match) {
               selectedFile={selectedFile}
               mainState={mainState}
             />
-            <form className={classes.form}>
+            <form className={classes.recipeForm}>
               <div className={classes.inputText}>
                 <TextField
                   id="modify-title"
@@ -265,20 +257,24 @@ function RecipeModifyForm(match) {
                 />
                 <TagsInput
                   style={{ margin: 8}}
-                  fullWidth
                   id="modify-tags"
                   name="tags"
-                  placeholder="태그 입력 후 엔터키를 눌러주세요"
-                  label="Tags"
+                  label="태그 입력"
                   selectedTags={handleSelecetedTags}
+                  setModifyTags={setModifyTags}
+                  modifyTags={modifyTags}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink1"
-                    label="DRINK1"
+                    label="1번 음료 입력"
                     style={{ margin: 8 }}
                     placeholder="DRINK1"
                     onChange={drinkChange1}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -308,13 +304,14 @@ function RecipeModifyForm(match) {
                         </Select>
                     </FormControl>
                 </div>
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink2"
-                    label="DRINK2"
+                    label="2번 음료 입력"
                     style={{ margin: 8 }}
                     placeholder="DRINK2"
                     onChange={drinkChange2}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -344,13 +341,13 @@ function RecipeModifyForm(match) {
                       </Select>
                     </FormControl>
                 </div>
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink3"
-                    label="DRINK3"
+                    label="3번 음료 입력"
                     style={{ margin: 8 }}
-                    placeholder="DRINK3"
                     onChange={drinkChange3}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -380,13 +377,14 @@ function RecipeModifyForm(match) {
                       </Select>
                     </FormControl>
                 </div>
-                <div>
+                <div className={classes.drinkForm}>
                   <TextField
                     id="modify-drink4"
-                    label="DRINK4"
+                    label="4번 음료 입력"
                     style={{ margin: 8 }}
                     placeholder="DRINK4"
                     onChange={drinkChange4}
+                    fullWidth
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -425,7 +423,8 @@ function RecipeModifyForm(match) {
               cols="150" 
               placeholder="나만의 칵테일에 대해 소개해주세요!"
               onChange={contentChange}
-            ></textarea>
+              className={classes.textarea}
+            />
             <ColorButton 
               className={classes.writeButton}
               onClick={onSubmitRecipe}

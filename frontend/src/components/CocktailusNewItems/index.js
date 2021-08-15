@@ -8,9 +8,10 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "../Typography/";
 import Button from "../../components/Button";
-import ImgMediaCard from "../../components/RecipePreview";
+import RecipePreview from "../../components/RecipePreview";
 // 기능 관련
 import PropTypes from "prop-types";
+import { NavLink as RouterLink } from 'react-router-dom';
 
 function CocktailusNewItems(props) {
   const { classes } = props;
@@ -33,21 +34,21 @@ function CocktailusNewItems(props) {
           최근 등록된 칵테일
         </Typography>
         <Button 
+          component={RouterLink}
           color="secondary"
           size="large"
           className={classes.btn}
           variant="contained"
-          component="a"
-          href="/recipe"
+          to="/recipe/list/new"
         >
             더 보러가기
           </Button>
         </Box>
         {/* 트렌디한 칵테일 리스트 */}
         <Grid className={classes.grid} container spacing={10} direction="row">
-            <ImgMediaCard />
-            <ImgMediaCard />
-            <ImgMediaCard />
+            <RecipePreview />
+            <RecipePreview />
+            <RecipePreview />
         </Grid>
       </Container>
     </section>

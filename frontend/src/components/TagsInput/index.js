@@ -9,16 +9,21 @@ import useStyles from "./styles";
 
 export default function TagsInput({ ...props }) {
   const classes = useStyles();
-  const { selectedTags, placeholder, tags, ...other } = props;
+  const { selectedTags, placeholder, modifyTags, setModifyTags, ...other } = props;
   const [inputValue, setInputValue] = useState("");
   const [selectedItem, setSelectedItem] = useState([]);
   
   useEffect(() => {
-    setSelectedItem(tags);
-  }, [tags]);
-  useEffect(() => {
     selectedTags(selectedItem);
   }, [selectedItem, selectedTags]);
+
+  useEffect(() => {
+    // 수정사항 없을때 에러 방지용
+    if ((modifyTags !== undefined) && (modifyTags !== null)) {
+      setSelectedItem(modifyTags);
+      setModifyTags(null);
+    }
+  }, [modifyTags, setModifyTags])
 
   function handleKeyDown(event) {
     if (event.key === "Enter") {
@@ -65,8 +70,8 @@ export default function TagsInput({ ...props }) {
   };
 
   function handleInputChange(event) {
-    if (event.target.value.length > 15) {
-      alert("태그는 15자 이내로 입력해주세요");
+    if (event.target.value.length > 10) {
+      alert("태그는 10자 이내로 입력해주세요");
     } else {
       setInputValue(event.target.value);
     }
@@ -89,16 +94,16 @@ export default function TagsInput({ ...props }) {
               <TextField
                 InputProps={{
                   className: classes.input,
-                  startAdornment: selectedItem.map(item => (
-                    <Chip
-                      variant="outlined"
-                      key={item}
-                      tabIndex={-1}
-                      label={item}
-                      className={classes.chip}
-                      onDelete={handleDelete(item)}
-                    />
-                  )),
+                  // startAdornment: selectedItem.map(item => (
+                  //   <Chip
+                  //     variant="outlined"
+                  //     key={item}
+                  //     tabIndex={-1}
+                  //     label={item}
+                  //     className={classes.chip}
+                  //     onDelete={handleDelete(item)}
+                  //   />
+                  // )),
                   onBlur,
                   onChange: event => {
                     handleInputChange(event);
@@ -109,6 +114,18 @@ export default function TagsInput({ ...props }) {
                 {...other}
                 {...inputProps}
               />
+              <div>
+                {selectedItem.map(item => (
+                  <Chip
+                    variant="outlined"
+                    key={item}
+                    tabIndex={-1}
+                    label={item}
+                    className={classes.chip}
+                    onDelete={handleDelete(item)}
+                  />
+              ))}
+              </div>
             </div>
           );
         }}

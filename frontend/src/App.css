@@ -36,3 +36,21 @@
   transition: all 0.4s ease-in-out;
 }
 .img {width:325px; height:280px; overflow:hidden }   /* 부모를 벗어나지 않고 내부 이미지만 확대 */
+
+textarea {
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+textarea {
+    display: 'flex';
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    width: 100%;
+    line-height: 2;
+    border-radius: 5px;
+    height: 300px;
+    border: 1px solid #ccc;
+    resize:none;
+}

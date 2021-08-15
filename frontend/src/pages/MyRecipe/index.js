@@ -1,39 +1,59 @@
 // react, router
 import React, { Fragment, useState, useEffect } from 'react';
-import { NavLink as RouterLink } from 'react-router-dom';
-
+import { NavLink as RouterLink, useHistory } from 'react-router-dom';
 // custom-design
 import withRoot from '../../components/withRoot';
-import ImgMediaCard from '../../components/RecipePreview'
+import RecipePreview from '../../components/RecipePreview'
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
 import Typography from "../../components/Typography";
 import useStyles from './styles';
+import RecipeHeader from '../../layout/RecipeHeader';
 
 // material-ui/core
-import { Container, Grid } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Container, Grid, Button, withStyles } from '@material-ui/core';
+import { purple } from '@material-ui/core/colors';
 
 import axios from 'axios'
-import clsx from "clsx";
 
-function MyRecipe() {
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
+
+
+function MyRecipe(match) {
   const classes = useStyles();
   
   const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 0: MyLike
   const [recipes, setRecipes] = useState([]);
-
+  const [searchedValue, setSearchedValue] = useState('');
+  const [isChange, setIsChange] = useState(false);
+  const history = useHistory();
   // 전체 레시피 조회
   const changeMyUploadState = () => {
-    setState(1);
+    history.push('/myRecipe/uploads');
   };
 
   const changeMyLikeState = () => {
-    setState(0);
+    history.push('/myRecipe/likes');
   };
 
   useEffect(()=>{
     const member = JSON.parse(window.localStorage.getItem("memberData"))
+    const filter = match.match.params.filter;
+    if (filter === 'uploads') {
+      setState(1);
+    } else if (filter === 'likes') {
+      setState(0);
+    } else {
+      setState(1);
+    }
     const getMyUploadRecipes = () => {
       axios.get(`/myrecipe/${member.name}`, {
         headers: {'Auth-Token': `${member.token}`},
@@ -51,49 +71,55 @@ function MyRecipe() {
       })
     };
     getMyUploadRecipes()
-  }, [state]);
+  }, [state, isChange, match]);
+
+  const searchRecipes = () => {
+    // searchValue 보내서 검색
+    console.log(`검색어는${searchedValue}입니다.`);
+    setSearchedValue("");
+  };
+
+
+  const updateSearchedValue = (e) => {
+    setSearchedValue(e.target.value);
+  };
 
   return (
     <Fragment>
       <Header />
+      <RecipeHeader
+        button1="UPLOADS"
+        button2="LIKES"
+        updateSearchedValue={updateSearchedValue}
+        searchRecipes={searchRecipes}
+        orderByOption1={changeMyUploadState}
+        orderByOption2={changeMyLikeState}
+        state={state}
+      />
       <Container className={classes.paper}>
-        <Grid container spacing={12}>
-          <Button
-            variant="outlined" color="primary" 
-            className={clsx(classes.chips, state === 1 && classes.selectedColor)}
-            onClick={changeMyUploadState}
-            >
-            My Uploads
-          </Button>
-          <Button
-            variant="outlined" color="primary" 
-            className={clsx(classes.chips, state === 0 && classes.selectedColor)}
-            onClick={changeMyLikeState}
-            >
-            Likes
-          </Button>
-          <Button
+        <Grid container className={classes.center}>
+          <Typography
+            variant="h4"
+            marked="center"
+            className={classes.title}
+          >
+            {state === 1 ? "Uploads" : "Likes"}
+          </Typography>
+        </Grid>
+          <ColorButton
             component={RouterLink}
-            variant="outlined" color="primary" 
+            variant="contained"
             to="/recipe/write"
             className={classes.recipeAddButton}
             >
             레시피 작성
-          </Button>
-        </Grid>
+          </ColorButton>
       </Container>
-      <Typography
-        variant="h4"
-        align="center"
-        style={{ marginBottom: "24px", color: "#8b00ff" }}
-      >
-        {state === 1 ? "<Uploads>" : "<Likes>"}
-      </Typography>
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
           {recipes.map(recipe => (
-            <ImgMediaCard
+            <RecipePreview
               key={recipe.id}
               id = {recipe.id}
               image={recipe.image}
@@ -105,6 +131,8 @@ function MyRecipe() {
               imageURL={recipe.imageURL}
               likeCount={recipe.likeCount}
               liked={recipe.liked}
+              setIsChange={setIsChange}
+              isChange={isChange}
               />
           ))}
         </Grid>

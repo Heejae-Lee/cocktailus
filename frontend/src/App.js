@@ -22,7 +22,6 @@ import NoticeDetail from './pages/NoticeDetail';
 import PrivateRoute from "./router/PrivateRoute"
 import PublicRoute from "./router/PublicRoute"
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +30,7 @@ function App() {
         <PublicRoute exact path="/" component={Home} />
         <PublicRoute exact path="/recipe" component={Recipe} />
         <PublicRoute exact path="/recipe/detail/:recipeId" component={RecipeDetail} />
+        <PublicRoute exact path="/recipe/list/:filter" component={Recipe} />
         <PublicRoute exact path="/ForgotPassword" component={ForgotPassword} />
         <PublicRoute exact path="/Privacy" component={Privacy} />
         <PublicRoute exact path="/Terms" component={Terms} />
@@ -44,6 +44,7 @@ function App() {
         <PrivateRoute exact path="/recipe/write" component={RecipeAddForm} />
         <PrivateRoute exact path="/recipe/modify/:recipeId" component={RecipeModifyForm} />
         <PrivateRoute exact path="/myRecipe" component={MyRecipe} />
+        <PrivateRoute exact path="/myRecipe/:filter" component={MyRecipe} />
         <PrivateRoute exact path="/notice/write" component={NoticeWrite} />
         <PrivateRoute exact path="/notice/modify/:noticeId" component={NoticeModify} />
         {/* 존재하지 않는 url이면 error page */}

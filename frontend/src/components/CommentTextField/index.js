@@ -5,7 +5,8 @@ import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "../Button/";
-import axios from "axios";
+
+import { recipeCommentAPI } from "../../utils/recipeAPI"
 
 export default function CommentTextField(props) {
   const classes = useStyles();
@@ -17,20 +18,13 @@ export default function CommentTextField(props) {
     setComment(e.target.value);
   };
 
-  const clickSubmit = () => {
-    axios.post(`/recipe-articles/${props.articleId}/comments`, {article_id:props.articleId, content: comment, member_name: member.name },{
-      headers: {'Auth-Token': `${member.token}`},
-      })
-      .then(res => {
-        console.log(res);
-        props.setNewComment(!props.newComment);
-        document.getElementById("mTxtArea").value=''; // 댓글 저장하고 입력창 비우기
-      })
-      .catch(err => {
-        console.log(err);
-        alert("로그인 후 이용해주세요");
-      }
-    );
+  const writeComment = () => {
+    console.log(comment)
+    if (comment.trim() !== "") {
+      recipeCommentAPI.writeComment(props.articleId, comment, props.setNewComment, props.newComment);
+    } else {
+      alert("내용을 입력해주세요");
+    }
   };
 
   return (
@@ -51,7 +45,7 @@ export default function CommentTextField(props) {
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               if (!e.shiftKey) {
-                clickSubmit();
+                writeComment();
               }
             }
           }}
@@ -61,7 +55,7 @@ export default function CommentTextField(props) {
           variant="contained"
           size="medium"
           className={classes.commentButton}
-          onClick={clickSubmit}
+          onClick={writeComment}
         >
           댓글 작성
         </Button>

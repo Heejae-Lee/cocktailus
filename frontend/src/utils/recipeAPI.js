@@ -7,7 +7,8 @@ export const recipeAPI = {
     axios.get("/recipe-articles")
     .then((res) => {
       console.log("Get Recipe Success");
-      setRecipes(res.data);
+      const data = res.data.reverse()
+      setRecipes(data);
     })
     .catch(() => {
       console.log("Get Recipe failed");
@@ -43,4 +44,121 @@ export const recipeAPI = {
       console.log(err);
     })
   },
+  likeRequest: (id, like, likeCount, setLike, setlikeCount, setLikeImg) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member == null) {
+      alert("로그인 후 사용해주세요");
+      return;
+    }
+    axios.post(`/like`, {id: {article_id: id, member_name: member.name}},{headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("like success");
+        if (like) {
+          setLike(!like);
+          setlikeCount(likeCount - 1);
+          setLikeImg("no_like.png");
+        } else {
+          setLike(!like);
+          setlikeCount(likeCount + 1);
+          setLikeImg("like.png");
+        }
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  },
+  likeRequestInMyPage: (id, like, likeCount, setLike, setlikeCount, setLikeImg, setIsChange) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member == null) {
+      alert("로그인 후 사용해주세요");
+      return;
+    }
+    axios.post(`/like`, {id: {article_id: id, member_name: member.name}},{headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("like success");
+        if (like) {
+          setLike(!like);
+          setlikeCount(likeCount - 1);
+          setLikeImg("no_like.png");
+        } else {
+          setLike(!like);
+          setlikeCount(likeCount + 1);
+          setLikeImg("like.png");
+        }
+        setIsChange();
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  },
+  getRecipeDetail: (recipeId, setState, setComments) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
+      .then((res) => {
+        let recipeData = res.data["recipe-article"]
+        const recipeComment = res.data["comments"]
+        const tag = recipeData.tag.split("|").reduce((acc, cur) => {
+          acc = acc + `#${cur} `;
+          return acc;
+        }, "");
+        const drink = recipeData.drink.split("|").map((li) => {
+          return li;
+        });
+        const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
+          return Number(li) / 15;
+        });
+        const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
+        setComments(recipeComment)
+        setState({
+          id: recipeData.id,
+          title: recipeData.title,
+          tag: tag,
+          drink: drink,
+          drink_ratio: drink_ratio,
+          memberName: recipeData["member_name"],
+          content: recipeData.content,
+          created: recipeData.created.substr(0, 10),
+          liked: recipeData.liked,
+          likeImg: likedImg,
+          likeCount: recipeData.likeCount,
+          imageURL: recipeData.imageURL,
+        });
+      })
+      .catch((err) => {
+        console.log("getRecipeDetail fail");
+        console.log(err);
+      })
+  }
 };
+
+export const recipeCommentAPI = {
+  deleteComment: (commentID, articleId, setComments, comments, closeModal) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    axios.delete(`/recipe-articles/${articleId}/comments/${commentID}`, {headers: {'Auth-Token': `${member.token}`}})
+      .then(() => {
+        setComments(comments.filter(c => c.id !== commentID));
+        closeModal();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  writeComment: (articleId, comment, setNewComment, newComment) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    axios.post(`/recipe-articles/${articleId}/comments`, {article_id:articleId, content: comment, member_name: member.name },{
+      headers: {'Auth-Token': `${member.token}`},
+      })
+      .then(res => {
+        console.log(res);
+        setNewComment(!newComment);
+        document.getElementById("mTxtArea").value=''; // 댓글 저장하고 입력창 비우기
+      })
+      .catch(err => {
+        console.log(err);
+        alert("로그인 후 이용해주세요");
+      }
+    );
+  },
+}

@@ -46,12 +46,10 @@ export default function InputImageForm(props) {
       <React.Fragment>
         <CardActionArea onClick={props.imageResetHandler}>
           <img
-            width =  "100%"
-            height = "380px"
             alt = "cocktail_image"
-            className={classes.media}
             src={props.selectedFile}
-          />
+            className={classes.uploadImage}
+            />
         </CardActionArea>
       </React.Fragment>
     );
@@ -59,7 +57,7 @@ export default function InputImageForm(props) {
 
   return (
     <div className={classes.root}>
-      <Card>
+      <Card className={classes.center}>
         {/* 이미지 초기상태 / 업로드 상태 변경*/}
         {(props.mainState === "initial" && RenderInitialState()) ||
           (props.mainState === "uploaded" && RenderUploadedState())}

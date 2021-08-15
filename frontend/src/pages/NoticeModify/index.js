@@ -33,6 +33,13 @@ function NoticeModify(match) {
 
   const onSubmitNotice = (e) => {
     e.preventDefault();
+    if (data.title === null || data.title.trim() === "") {
+      alert("제목을 입력해주세요.");
+      return;
+    } else if (data.content === null || data.content.trim() === "") {
+      alert("내용을 입력해주세요.");
+      return;
+    }
     noticeAPI.modifyNotice(data, member.token, history, noticeId);
   }
 

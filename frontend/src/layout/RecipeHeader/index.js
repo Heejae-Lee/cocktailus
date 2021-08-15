@@ -25,21 +25,21 @@ export default function RecipeHeader(props) {
           <ListItem className={classes.listItem}>
             <Button
             round
-            variant="outlined" color="facebook" 
+            variant="outlined" color={props.state===0 ? "github" : "facebook"}
             size="sm"
-            onClick={props.orderByLatest}
+            onClick={props.orderByOption1}
             >
-              최신순
+              {props.button1}
             </Button>
           </ListItem>
           <ListItem className={classes.listItem}>
             <Button
               round
-              variant="outlined" color="github"
+              variant="outlined" color={props.state===1 ? "github" : "facebook"}
               size="sm"
-              onClick={props.orderByPopulation}
+              onClick={props.orderByOption2}
               >
-              인기순
+                {props.button2}
             </Button>
           </ListItem>
         </List>
