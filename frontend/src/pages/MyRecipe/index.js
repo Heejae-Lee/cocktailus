@@ -1,6 +1,6 @@
 // react, router
 import React, { Fragment, useState, useEffect } from 'react';
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink, useHistory } from 'react-router-dom';
 // custom-design
 import withRoot from '../../components/withRoot';
 import ImgMediaCard from '../../components/RecipePreview'
@@ -27,25 +27,33 @@ const ColorButton = withStyles((theme) => ({
 }))(Button);
 
 
-function MyRecipe() {
+function MyRecipe(match) {
   const classes = useStyles();
   
   const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 0: MyLike
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
   const [isChange, setIsChange] = useState(false);
-
+  const history = useHistory();
   // 전체 레시피 조회
   const changeMyUploadState = () => {
-    setState(1);
+    history.push('/myRecipe/uploads');
   };
 
   const changeMyLikeState = () => {
-    setState(0);
+    history.push('/myRecipe/likes');
   };
 
   useEffect(()=>{
     const member = JSON.parse(window.localStorage.getItem("memberData"))
+    const filter = match.match.params.filter;
+    if (filter === 'uploads') {
+      setState(1);
+    } else if (filter === 'likes') {
+      setState(0);
+    } else {
+      setState(1);
+    }
     const getMyUploadRecipes = () => {
       axios.get(`/myrecipe/${member.name}`, {
         headers: {'Auth-Token': `${member.token}`},
@@ -63,7 +71,7 @@ function MyRecipe() {
       })
     };
     getMyUploadRecipes()
-  }, [state, isChange]);
+  }, [state, isChange, match]);
 
   const searchRecipes = () => {
     // searchValue 보내서 검색

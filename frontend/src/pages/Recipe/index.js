@@ -1,7 +1,7 @@
 import withRoot from '../../components/withRoot';
 // --- Post bootstrap -----
 import React, { useState, useEffect } from 'react';
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink, useHistory } from 'react-router-dom';
 
 import Header from '../../layout/Header'
 import Footer from '../../layout/Footer'
@@ -25,27 +25,37 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-function Recipe() {
+function Recipe(match) {
   const classes = useStyles();
   
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
   const [state, setState] = useState(1);
+  const history = useHistory();
 
   useEffect(()=>{
+    const filter = match.match.params.filter;
+    if (filter === "new") {
+      setState(1);
+    } else if (filter === "popular") {
+      setState(0);
+    } else {
+      setState(1);
+    }
     recipeAPI.getRecipes(setRecipes);
-  }, []);
+  }, [match]);
 
   const orderByLatest = () => {
     // 최신순 받아오기
     console.log("최신순");
-    setState(1);
+    history.push(`/recipe/new`);
   };
 
   const orderByPopulation = () => {
     // 좋아요 순으로 받아오기
     console.log("인기순");
     setState(0);
+    history.push(`/recipe/popular`);
   };
 
   const searchRecipes = () => {

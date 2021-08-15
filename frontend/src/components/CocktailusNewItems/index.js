@@ -39,7 +39,7 @@ function CocktailusNewItems(props) {
           size="large"
           className={classes.btn}
           variant="contained"
-          to="/recipe"
+          to="/recipe/new"
         >
             더 보러가기
           </Button>
