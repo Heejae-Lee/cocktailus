@@ -7,38 +7,49 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-import axios from "axios";
+import { recipeCommentAPI } from "../../utils/recipeAPI";
+import AlertDialog from "../../components/ModalAlert"
 
 // 작성된 댓글을 서버로부터 가져와서 보여주는 컴포넌트
 export default function Comment(props) {
   const classes = useStyles();
-  const [state, setState] = useState([]);
+  const [comments, setComments] = useState([]);
 
   const member = JSON.parse(window.localStorage.getItem("memberData"));
+  const [selectedId, setSelectedId] = useState(null);
+  const [open, setOpen] = useState(false);
 
-  const deleteComment = (commentID) => {
-    axios.delete(`/recipe-articles/${props.articleId}/comments/${commentID}`, {headers: {'Auth-Token': `${member.token}`}})
-      .then(() => {
-        setState(state.filter(c => c.id !== commentID));
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  
+  const openModal = () => {
+    setOpen(true);
+  }
+  const closeModal = () => {
+    setOpen(false);
+  }
+  const deleteComment = () => {
+    recipeCommentAPI.deleteComment(selectedId, props.articleId, setComments, comments, closeModal)
+  }
+
   useEffect(()=>{
     let detailComment = props.comments
     for (let i = 0; i < detailComment.length; i++) {
       detailComment[i].created = detailComment[i].created.substring(0, 10);
     }
-    setState(detailComment);
+    setComments(detailComment);
   },[props]);
 
   return (
+    <React.Fragment>
+      <AlertDialog 
+        open={open}
+        delete={deleteComment}
+        closeModal={closeModal}
+        title="댓글 삭제"
+        content="정말 삭제하시겠습니까?"
+      />
     <List className={classes.root}>
       <Divider className={classes.dividerTop} variant="middle" />
       {/* 각 코멘트 리스트마다 정해진 형식대로 표현 */}
-      {state.map((el, index) => (
+      {comments.map((el, index) => (
         <div key={index}>
           <div className={classes.comment}>
             <Typography
@@ -66,7 +77,12 @@ export default function Comment(props) {
             {(member !== null) && (member.name === el.member_name) &&
             <HighlightOffIcon 
               className={classes.deleteIcon}
-              onClick={() => deleteComment(el.id)}
+              onClick={
+                () => {
+                  openModal();
+                  setSelectedId(el.id);
+                }
+              }
             />}
           </div>
           <Divider
@@ -77,5 +93,6 @@ export default function Comment(props) {
         </div>
       ))}
     </List>
+    </React.Fragment>
   );
 }

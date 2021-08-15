@@ -248,7 +248,7 @@ export default function RecipeDetailIntro(props) {
         </div>
         <div className={classes.right}>
           {/* 글 작성자면 보이도록 */}
-          {(member.name === state.memberName) &&
+          {(member !== null) && (member.name === state.memberName) &&
           <div>
           <DeleteButton 
             className={classes.button}

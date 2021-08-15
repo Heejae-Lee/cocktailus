@@ -3,10 +3,7 @@ import withRoot from "../../components/withRoot";
 import useStyles from "./styles";
 
 import React, { useState, useEffect } from "react";
-
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import { Divider } from "@material-ui/core";
+import { Box, Container, Divider } from "@material-ui/core";
 
 import AppHeader from "../../layout/Header";
 import AppFooter from "../../layout/Footer";
@@ -15,8 +12,7 @@ import RecipeDetailIntro from "../../components/RecipeDetailIntro/";
 import Comment from "../../components/Comment";
 import CommentTextField from "../../components/CommentTextField/";
 
-import axios from "axios";
-
+import { recipeAPI } from "../../utils/recipeAPI"
 
 function RecipeDetail(match) {
   const classes = useStyles();
@@ -24,7 +20,7 @@ function RecipeDetail(match) {
   const recipeId = match.match.params.recipeId;
   
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState(false); // 새로운 댓글 작성 시 업데이트 하는 용도
+  const [newComment, setNewComment] = useState(false); // 새로운 댓글 작성 시 업데이트
 
   const [state, setState] = useState({
     id: null,
@@ -41,51 +37,11 @@ function RecipeDetail(match) {
     imageURL: "",
   });
 
-
   useEffect(() => {
-    const getRecipeDetail = (recipeId) => {
-      axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
-        .then((res) => {
-          // console.log("getRecipeDetail success");
-          let recipeData = res.data["recipe-article"]
-          const recipeComment = res.data["comments"]
-          console.log(recipeData);
-          const tag = recipeData.tag.split("|").reduce((acc, cur) => {
-            acc = acc + `#${cur} `;
-            return acc;
-          }, "");
-          const drink = recipeData.drink.split("|").map((li) => {
-            return li;
-          });
-          const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
-            return Number(li) / 15;
-            // return Number(li.replace("ml", "")) / 15;
-          });
-          const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
-          setComments(recipeComment)
-          setState({
-            id: recipeData.id,
-            title: recipeData.title,
-            tag: tag,
-            drink: drink,
-            drink_ratio: drink_ratio,
-            memberName: recipeData["member_name"],
-            content: recipeData.content,
-            created: recipeData.created.substr(0, 10),
-            liked: recipeData.liked,
-            likeImg: likedImg,
-            likeCount: recipeData.likeCount,
-            imageURL: recipeData.imageURL,
-          });
-        })
-        .catch((err) => {
-          console.log("getRecipeDetail fail");
-          console.log(err);
-        })
-    }
-    getRecipeDetail(recipeId);
-  }, [recipeId, member.token, newComment]);
-  
+    recipeAPI.getRecipeDetail(recipeId, setState, setComments);
+  }, [recipeId, newComment]);
+
+
   return (
     <Box>
       <Container>
