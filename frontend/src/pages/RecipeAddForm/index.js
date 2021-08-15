@@ -355,6 +355,7 @@ function RecipeAddForm() {
           rows="20" 
           cols="150" 
           placeholder="나만의 칵테일에 대해 소개해주세요!"
+          className={classes.textarea}
           onChange={contentChange}
         />
         <ColorButton 

@@ -423,6 +423,7 @@ function RecipeModifyForm(match) {
               cols="150" 
               placeholder="나만의 칵테일에 대해 소개해주세요!"
               onChange={contentChange}
+              className={classes.textarea}
             />
             <ColorButton 
               className={classes.writeButton}

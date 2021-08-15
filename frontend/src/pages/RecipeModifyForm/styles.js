@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   writeButton: {
     display: 'flex',
     marginTop: '1%',
+    marginRight: "22px",
+    marginLeft: "22px",
+    width: "97%",
   },
   recipeForm: {
     display: 'flex',
@@ -50,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
   drinkForm: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  textarea: {
+    marginRight: "22px",
+    marginLeft: "22px",
+    width: "97%",
   },
 }));
 
