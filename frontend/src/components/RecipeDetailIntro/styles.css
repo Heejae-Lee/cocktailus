@@ -81,7 +81,7 @@
 .close:focus {
   color: #bbb;
   text-decoration: none;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 /* 100% Image Width on Smaller Screens */

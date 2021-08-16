@@ -50,9 +50,11 @@ const Modal = ({ src, alt, onClose, caption }) => {
   return (
     <div 
       className="modal" 
-      onClick={onClose}
       >
-      <img className="modal-content" src={src} alt={alt} />
+      <img 
+        className="modal-content" src={src} alt={alt} 
+        onClick={onClose}
+        />
       {caption.length > 0 && <div className="caption">{caption}</div>}
     </div>
   )
