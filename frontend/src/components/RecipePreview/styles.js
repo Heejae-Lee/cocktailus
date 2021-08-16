@@ -18,8 +18,6 @@ const useStyles = makeStyles({
     justifyContent: 'center',
   },
   img: {
-    // margin: "auto",
-    // display: "block",
     width: "auto",
     height: "100%",
     maxHeight: "300px",

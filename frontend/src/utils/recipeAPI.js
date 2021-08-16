@@ -93,6 +93,22 @@ export const recipeAPI = {
         console.log(err);
       })
   },
+  likeRequestInDetail: (articleId) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member == null) {
+      alert("로그인 후 사용해주세요");
+      return;
+    }
+    axios.post(`/like`, {id: {article_id: articleId, member_name: member.name}},
+    {headers: { 'Auth-Token': `${member.token}`}})
+      .then(() => {
+        console.log("like success");
+      })
+      .catch((err) => {
+        console.log("like fail");
+        console.log(err);
+      })
+  },
   getRecipeDetail: (recipeId, setState, setComments) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
@@ -130,7 +146,7 @@ export const recipeAPI = {
         console.log("getRecipeDetail fail");
         console.log(err);
       })
-  }
+  },
 };
 
 export const recipeCommentAPI = {
