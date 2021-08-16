@@ -12,16 +12,18 @@ const useStyles = makeStyles((theme) => ({
   },
   noticeTitle: {
     marginTop: '8%',
-    fontSize: "24px",
+    fontSize: "30px",
     fontWeight: "bold",
+    display: 'flex',
+    justifyContent: 'center',
   },
   noticeContent: {
     border: "0.5px solid",
     borderRadius: "8px",
-    padding : "15px",
+    padding : "20px",
     minHeight: "350px",
-    fontSize: "18px",
-    marginTop: "3%",
+    fontSize: "20px",
+    marginTop: "2%",
     whiteSpace: "pre-wrap",
   },
   flexItem: {
@@ -35,6 +37,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#9C27B4',
     color: 'white',
   },
+  created: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: "10px",
+    marginBottom: "10px",
+    marginRight: "5px",
+    fontSize: "13px",
+    fontWeight: "bold",
+  }
 }));
 
 export default useStyles;

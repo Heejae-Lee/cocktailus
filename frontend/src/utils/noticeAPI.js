@@ -7,7 +7,7 @@ export const noticeAPI = {
         console.log("getNoticeList success");
         let datas = res.data
         for (let i = 0; i < datas.length; i++) {
-          datas[i].created = datas[i].created.substr(0, 10);
+          datas[i].created = datas[i].created.slice(0, 10);
         }
         res.data.reverse(); // 최신순으로 변경
         setRows(res.data);
@@ -67,11 +67,9 @@ export const noticeAPI = {
           history.push('/error');
           return
         }
-
-        for (let i = 0; i < datas.length; i++) {
-          datas[i].created = datas[i].created.substr(0, 10);
-        }
-        setData(res.data);
+        datas.created = datas.created.slice(0, 10) + " " + datas.created.slice(11, 16);
+        datas.updated = datas.updated.slice(0, 10) + " " + datas.updated.slice(11, 16);
+        setData(datas);
       })
       .catch((err) => {
         console.log("getNotice fail");

@@ -101,6 +101,9 @@ function NoticeDetail(match) {
       <div className={classes.noticeContent}>
         {data.content}
       </div>
+      <div className={classes.created}>
+        {"작성시간: "}{data.created}
+      </div>
 
       <ColorButton 
         className={classes.button}
