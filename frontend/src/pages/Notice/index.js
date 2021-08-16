@@ -27,7 +27,7 @@ import useStyles from './styles';
 import Typography from '../../components/Typography';
 import AppForm from '../../components/AppForm';
 
-import axios from 'axios';
+import { noticeAPI } from '../../utils/noticeAPI'
 
 // 테이블 타이틀 셀
 const StyledTableCell = withStyles((theme) => ({
@@ -73,39 +73,16 @@ const columns = [
 function NoticePage() {
   const classes = useStyles();
 
-  // const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10); // 한번에 보여줄 행 수
   const [searched, setSearched] = useState(""); // 검색어
-  const [rows, setRows] = useState([]); // 행 데이터
-  const [filteredRows, setFilteredRows] = useState(null); // 행 데이터
+  const [filteredRows, setFilteredRows] = useState(null); // 원본 데이터 저장용
+  const [rows, setRows] = useState([]); // 보여줄 데이터
   
   useEffect(() => {
-    console.log('notice mount')
-    getNoticeList();
-    return () => {
-      console.log("notice unmount");
-    }
+    noticeAPI.getNoticeList(setRows, setFilteredRows);
   }, [])
-
-  const getNoticeList = () => {
-    axios.get("/notices")
-      .then((res) => {
-        console.log("getNoticeList success");
-        let datas = res.data
-        for (let i = 0; i < datas.length; i++) {
-          datas[i].created = datas[i].created.substr(0, 10);
-        }
-        res.data.reverse(); // 최신순으로 변경
-        setRows(res.data);
-        setFilteredRows(res.data);
-        // console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("getNoticeList fail");
-        console.log(err);
-      })
-  }
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -115,33 +92,31 @@ function NoticePage() {
     setPage(0);
   };
 
+  const changeSearchedValue = (value) => {
+    setSearched(value);
+    if (value === "") { // 검색어 전부 지우면 전체 데이터
+      requestSearch(value);
+    }
+  };
+
   const requestSearch = (searchedVal) => {
     const filteredData = filteredRows.filter((row) => {
       return row.title.includes(searchedVal);
     });
-    if (filteredData.length === 0) {
-      setRows(filteredRows);
-    } else {
-      setRows(filteredData);
-    }
+    setRows(filteredData); 
   };
-  // const handleKeyPress = (event) => {
-  //   if (event.key === 'Enter') {
-  //     runSearch();
-  //   }
-  // };
-
-  // const runSearch = (event) => {
-  //   setRows(filteredRows);
-  // };
 
   const cancelSearch = () => {
     setSearched("");
     setRows(filteredRows);
-    requestSearch(searched);
   };
 
-
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      requestSearch(searched);
+      setPage(0);
+    }
+  };
 
   return (
     <Fragment>
@@ -209,25 +184,25 @@ function NoticePage() {
           <br></br>
           <SearchBar
             className={classes.searchBar}
-            placeholder="제목을 입력하세요"
+            placeholder="제목 입력 후 엔터키를 눌러주세요"
             value={searched}
-            onChange={(searchVal) => requestSearch(searchVal)}
+            onChange={changeSearchedValue}
             onCancelSearch={() => cancelSearch()}
-          // onKeyPress={handleKeyPress}
+            onKeyPress={handleKeyPress}
           />
         </TableContainer>
 
         <TablePagination
-          style={{ paddingRight: '40px' }}
+          style={{ paddingRight: '30px' }}
           rowsPerPageOptions={[5, 10, 20]} // 5, 10, 20
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
-          page={page}
+          page={(page > 0 && rows.length < rowsPerPage) ? 0 : page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Rows"
         />
-
       </Paper>
       <AppFooter />
     </Fragment>
