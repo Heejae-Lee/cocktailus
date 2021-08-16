@@ -38,6 +38,7 @@ const headerStyle = {
   fixed: {
     position: "fixed",
     zIndex: "1100",
+    top: "auto"
   },
   container: {
     ...container,
