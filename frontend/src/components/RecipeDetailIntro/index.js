@@ -14,7 +14,7 @@ import { purple, red, blue } from '@material-ui/core/colors';
 import Typography from "../../components/Typography";
 
 import AlertDialog from "../ModalAlert";
-import "./imageModal.css"
+import "./styles.css"
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -46,13 +46,14 @@ const DeleteButton = withStyles((theme) => ({
   },
 }))(Button);
 
-const Modal = ({ src, alt, onClose }) => {
+const Modal = ({ src, alt, onClose, caption }) => {
   return (
     <div 
       className="modal" 
       onClick={onClose}
       >
       <img className="modal-content" src={src} alt={alt} />
+      {caption.length > 0 && <div className="caption">{caption}</div>}
     </div>
   )
 }
@@ -197,6 +198,7 @@ export default function RecipeDetailIntro(props) {
                   <Modal
                     src={state.imageURL}
                     alt="cocktail-image"
+                    caption="이미지를 클릭하면 닫힙니다."
                     onClose={() => setImageOpen(false)}
                   />
                 )}
