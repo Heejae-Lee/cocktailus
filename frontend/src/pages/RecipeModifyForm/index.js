@@ -66,11 +66,17 @@ function RecipeModifyForm(match) {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
   const [modifyTags, setModifyTags] = useState(null);
-
+  
   // 이미지 파일 관리용
   const [mainState, setMainState] = useState("initial");
   const [imageUploaded, setImageUploaded] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  let ratioValues = []
+  for (let i = 0; i <= 10; i++) {
+    ratioValues.push([i*15, i*15 + "ml"])
+  }
+
 
   // 유저 정보
   const member = JSON.parse(window.localStorage.getItem("memberData"))
@@ -290,17 +296,13 @@ function RecipeModifyForm(match) {
                           value={drinkRatio1}
                           onChange={drinkRatioChange1}
                         >
-                          <MenuItem value={0}>0ml</MenuItem>
-                          <MenuItem value={15}>15ml</MenuItem>
-                          <MenuItem value={30}>30ml</MenuItem>
-                          <MenuItem value={45}>45ml</MenuItem>
-                          <MenuItem value={60}>60ml</MenuItem>
-                          <MenuItem value={75}>75ml</MenuItem>
-                          <MenuItem value={90}>90ml</MenuItem>
-                          <MenuItem value={105}>105ml</MenuItem>
-                          <MenuItem value={120}>120ml</MenuItem>
-                          <MenuItem value={135}>135ml</MenuItem>
-                          <MenuItem value={150}>150ml</MenuItem>
+                          {
+                            ratioValues.map(( value ) => (
+                              <MenuItem key={value[0] + 'a'} value={value[0]}>
+                                {value[1]}
+                              </MenuItem>
+                            ))
+                          }
                         </Select>
                     </FormControl>
                 </div>
@@ -327,17 +329,14 @@ function RecipeModifyForm(match) {
                           value={drinkRatio2}
                           onChange={drinkRatioChange2}
                         >
-                        <MenuItem value={0}>0ml</MenuItem>
-                        <MenuItem value={15}>15ml</MenuItem>
-                        <MenuItem value={30}>30ml</MenuItem>
-                        <MenuItem value={45}>45ml</MenuItem>
-                        <MenuItem value={60}>60ml</MenuItem>
-                        <MenuItem value={75}>75ml</MenuItem>
-                        <MenuItem value={90}>90ml</MenuItem>
-                        <MenuItem value={105}>105ml</MenuItem>
-                        <MenuItem value={120}>120ml</MenuItem>
-                        <MenuItem value={135}>135ml</MenuItem>
-                        <MenuItem value={150}>150ml</MenuItem>
+                          {
+                            ratioValues.map(( value ) => (
+                              <MenuItem key={value[0] + 'b'} value={value[0]}>
+                                {value[1]}
+                              </MenuItem>
+                            ))
+                          }
+
                       </Select>
                     </FormControl>
                 </div>
@@ -363,17 +362,13 @@ function RecipeModifyForm(match) {
                           value={drinkRatio3}
                           onChange={drinkRatioChange3}
                         >
-                        <MenuItem value={0}>0ml</MenuItem>
-                        <MenuItem value={15}>15ml</MenuItem>
-                        <MenuItem value={30}>30ml</MenuItem>
-                        <MenuItem value={45}>45ml</MenuItem>
-                        <MenuItem value={60}>60ml</MenuItem>
-                        <MenuItem value={75}>75ml</MenuItem>
-                        <MenuItem value={90}>90ml</MenuItem>
-                        <MenuItem value={105}>105ml</MenuItem>
-                        <MenuItem value={120}>120ml</MenuItem>
-                        <MenuItem value={135}>135ml</MenuItem>
-                        <MenuItem value={150}>150ml</MenuItem>
+                          {
+                            ratioValues.map(( value ) => (
+                              <MenuItem key={value[0] + 'c'} value={value[0]}>
+                                {value[1]}
+                              </MenuItem>
+                            ))
+                          }
                       </Select>
                     </FormControl>
                 </div>
@@ -400,17 +395,13 @@ function RecipeModifyForm(match) {
                           value={drinkRatio4}
                           onChange={drinkRatioChange4}
                         >
-                        <MenuItem value={0}>0ml</MenuItem>
-                        <MenuItem value={15}>15ml</MenuItem>
-                        <MenuItem value={30}>30ml</MenuItem>
-                        <MenuItem value={45}>45ml</MenuItem>
-                        <MenuItem value={60}>60ml</MenuItem>
-                        <MenuItem value={75}>75ml</MenuItem>
-                        <MenuItem value={90}>90ml</MenuItem>
-                        <MenuItem value={105}>105ml</MenuItem>
-                        <MenuItem value={120}>120ml</MenuItem>
-                        <MenuItem value={135}>135ml</MenuItem>
-                        <MenuItem value={150}>150ml</MenuItem>
+                          {
+                            ratioValues.map(( value ) => (
+                              <MenuItem key={value[0] + 'd'} value={value[0]}>
+                                {value[1]}
+                              </MenuItem>
+                            ))
+                          }
                       </Select>
                     </FormControl>
                 </div>
