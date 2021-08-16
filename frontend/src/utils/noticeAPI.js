@@ -1,6 +1,22 @@
 import axios from "axios";
 
 export const noticeAPI = {
+  getNoticeList: (setRows, setFilteredRows) => {
+    axios.get("/notices")
+      .then((res) => {
+        console.log("getNoticeList success");
+        let datas = res.data
+        for (let i = 0; i < datas.length; i++) {
+          datas[i].created = datas[i].created.substr(0, 10);
+        }
+        res.data.reverse(); // 최신순으로 변경
+        setRows(res.data);
+        setFilteredRows(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  },
   saveNotice: (data, token, history) => {
     axios.post("/notices",data, {
       headers: {'Auth-Token': `${token}`},
