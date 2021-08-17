@@ -131,6 +131,7 @@ function SignIn() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
+                maxLength="40"
                 label="이메일"
                 margin="normal"
                 name="email"
@@ -143,6 +144,7 @@ function SignIn() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 required
+                maxLength="20"
                 name="password"
                 autoComplete="current-password"
                 label="비밀번호"
