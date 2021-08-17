@@ -2,22 +2,14 @@ package com.iot.cocktailer.controller;
 
 import com.iot.cocktailer.domain.Comment;
 import com.iot.cocktailer.domain.RecipeArticle;
-import com.iot.cocktailer.repository.JpaCommentRepository;
-import com.iot.cocktailer.repository.JpaRecipeArticleRepository;
 import com.iot.cocktailer.service.CommentService;
 import com.iot.cocktailer.service.RecipeArticleService;
-import com.iot.cocktailer.service.S3UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/recipe-articles")
@@ -35,7 +27,7 @@ public class RecipeArticleController {
     @GetMapping
     public ResponseEntity getRecipeArticles(HttpServletRequest httpServletRequest){
         String jwt = httpServletRequest.getHeader("Auth-Token");
-        return new ResponseEntity<>(recipeArticleService.getRecipeArticles(jwt), HttpStatus.OK);
+        return new ResponseEntity<>(recipeArticleService.getRecipeArticlesWithLiked(jwt), HttpStatus.OK);
     }
 
     @PostMapping
@@ -43,9 +35,18 @@ public class RecipeArticleController {
         return new ResponseEntity<>(recipeArticleService.postRecipeArticle(recipeArticle),HttpStatus.CREATED);
     }
 
+    @GetMapping(
+            params = "title"
+    )
+    public ResponseEntity searchRecipeArticles(@RequestParam("title")String title, HttpServletRequest httpServletRequest){
+        String jwt = httpServletRequest.getHeader("Auth-Token");
+        return new ResponseEntity<>(recipeArticleService.searchRecipeArticles(title,jwt),HttpStatus.OK);
+    }
+
     @GetMapping("/{recipe-articles_id}")
-    public ResponseEntity getRecipeArticles(@PathVariable("recipe-articles_id")Long id){
-        return new ResponseEntity<>(recipeArticleService.getRecipeArticle(id),HttpStatus.OK);
+    public ResponseEntity getRecipeArticles(@PathVariable("recipe-articles_id")Long id,HttpServletRequest httpServletRequest){
+        String jwt = httpServletRequest.getHeader("Auto-Token");
+        return new ResponseEntity<>(recipeArticleService.getRecipeArticle(id,jwt),HttpStatus.OK);
     }
 
     @PutMapping("/{recipe-articles_id}")
