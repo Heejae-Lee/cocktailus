@@ -1,20 +1,19 @@
 // 스타일 관련
-import useStyles from "./styles";
 import { withStyles } from '@material-ui/core/styles';
-
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
-import { recipeAPI } from '../../utils/recipeAPI'
-import classnames from 'classnames';
-import axios from 'axios'
-
-// 컴포넌트 관련
-import { Button, Divider, Grid, Paper, ButtonBase } from "@material-ui/core";
 import { purple, red, blue } from '@material-ui/core/colors';
+import useStyles from "./styles";
+import "./styles.css"
+// 컴포넌트 관련
+import React, { useState, useEffect } from "react";
+import classnames from 'classnames';
+import { Button, Divider, Grid, Paper, ButtonBase } from "@material-ui/core";
 import Typography from "../../components/Typography";
 
+
+import { recipeAPI } from '../../utils/recipeAPI'
+import axios from 'axios'
 import AlertDialog from "../ModalAlert";
-import "./styles.css"
+import { useHistory } from "react-router";
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -84,9 +83,13 @@ export default function RecipeDetailIntro(props) {
 
   useEffect(() => {
     if (props.data.id !== null){
+
+      const drink = props.data.drink.filter((el) => el !== "");
+      const drink_ratio = props.data.drink_ratio.filter((el) => el !== 0);
+
       setState({
-        drink: props.data.drink,
-        drink_ratio: props.data.drink_ratio,
+        drink: drink,
+        drink_ratio: drink_ratio,
         memberName: props.data.memberName,
         content: props.data.content,
         created: props.data.created,
@@ -115,30 +118,15 @@ export default function RecipeDetailIntro(props) {
       });
     }
 
-    const IterRatio = (props) => {
-      const iterImg = [];
-      for (let i = 0; i < props.num; i++) {
-        iterImg.push(
-          <img
-            key={i}
-            src={process.env.PUBLIC_URL + "/images/tequila.png"}
-            style={{ width: 40, height: 40 }}
-            alt="비율"
-          />
-        );
-      }
-      return iterImg;
-    };
-
     return (
-      <div style={{ height: 230 }}>
+      <div style={{ height: 190, marginLeft: 20 }}>
         {recipeData.map((data, index) => (
           <Grid item container direction="row" spacing={2} key={index}>
             <Grid xs={3} item>
               <Typography variant="subtitle1">{data.drink}</Typography>
             </Grid>
             <Grid xs={9} item>
-              <IterRatio num={data.drink_ratio} />
+              <Typography variant="button">{data.drink_ratio + 'ml'}</Typography>
             </Grid>
           </Grid>
         ))}

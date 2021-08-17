@@ -42,6 +42,7 @@ export default function CommentTextField(props) {
           placeholder="댓글을 입력하세요"
           minRows={3}
           maxRows={3}
+          maxLength={500}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               if (!e.shiftKey) {
