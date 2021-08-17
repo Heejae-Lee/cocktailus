@@ -8,18 +8,26 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import Button from "@material-ui/core/Button";
 import Header from "../../layout/Header";
 import RecipeCard from "../../components/RecipeCard";
+import SimpleModal from "../../components/SimpleModal";
 // 기능 관련
-import { NavLink as RouterLink } from "react-router-dom";
+import { useHistory, NavLink as RouterLink } from "react-router-dom";
 import { recipeAPI } from "../../utils/axios";
 
 export default function MyCocktails() {
   const classes = useStyles();
+  const history = useHistory();
   const [state, setState] = React.useState({
     index: 0,
     lastIndex: -1,
     list: [],
   });
-  const [ recipes, setRecipes ] = React.useState([]);
+  const [modalState, setModalState] = React.useState({
+    open: false,
+    type: "",
+    text: "",
+    subText: "",
+  });
+  const [recipes, setRecipes] = React.useState([]);
 
   React.useEffect(async () => {
     // axios에서 레시피 가져오기
@@ -27,8 +35,14 @@ export default function MyCocktails() {
     if (memberData !== null) {
       const res = await recipeAPI.getRecipes(memberData);
       console.log(res);
-      if (!res){
-        console.log("error");
+      if (!res) {
+        const newModalState = {
+          open: true,
+          type: "canceled",
+          text: "시스템에 문제가 있는것 같아요.",
+          subText: "관리자에게 문의해주세요",
+        };
+        setModalState(newModalState);
       } else if (res.status === 200) {
         // 받아온 레시피를 recipes state에 저장
         // 현재 data 는 내가 업로드한 레시피 + 좋아요 한 레시피
@@ -38,7 +52,7 @@ export default function MyCocktails() {
         );
 
         // 중복 제거
-        const myRecipes = data.reduce((acc,cur) => {
+        const myRecipes = data.reduce((acc, cur) => {
           if (acc.findIndex(({ id }) => id === cur.id) === -1) {
             acc.push(cur);
           }
@@ -50,20 +64,39 @@ export default function MyCocktails() {
         // 받아온 레시피 토대로 state 갱신
         const newLastIndex = myRecipes.length - 6;
         const newList = myRecipes.slice(0, 6);
-        let newState = Object.assign({}, state, {lastIndex: newLastIndex, list: newList});
-        
+        let newState = Object.assign({}, state, {
+          lastIndex: newLastIndex,
+          list: newList,
+        });
+
         setState(newState);
       } else {
         //console.log("MyCocktails::error::Load user recipy failed");
       }
+    } else {
+      const newModalState = {
+        open: true,
+        type: "canceled",
+        text: "로그인이 되어있지 않습니다.",
+        subText: "로그인을 부탁드려요(찡끗)",
+      };
+      setModalState(newModalState);
     }
   }, []);
+
+  // 문제 발생시 모달 버튼, 클릭하면 홈으로 이동
+  const buttonOK = () => {
+    history.push("/")
+  };
 
   const clickPrev = () => {
     if (state.index > 5) {
       const newIndex = state.index - 6;
       const newList = recipes.slice(newIndex, newIndex + 6);
-      let newState = Object.assign({}, state, {index: newIndex, list: newList});
+      let newState = Object.assign({}, state, {
+        index: newIndex,
+        list: newList,
+      });
       setState(newState);
     }
   };
@@ -72,20 +105,23 @@ export default function MyCocktails() {
     if (state.index < state.lastIndex) {
       const newIndex = state.index + 6;
       const newList = recipes.slice(newIndex, newIndex + 6);
-      let newState = Object.assign({}, state, {index: newIndex, list: newList});
+      let newState = Object.assign({}, state, {
+        index: newIndex,
+        list: newList,
+      });
       setState(newState);
     }
   };
 
   return (
     <div className={classes.root}>
-      <Header prev={true}  to="/"/>
+      <Header prev={true} to="/" />
       <div className={classes.listWrapper}>
-          <Button className={classes.btnLayout} onClick={clickPrev}>
-        {state.lastIndex > 0 && (
+        <Button className={classes.btnLayout} onClick={clickPrev}>
+          {state.lastIndex > 0 && (
             <ArrowBackIosIcon className={classes.nextIcon} />
-            )}
-          </Button>
+          )}
+        </Button>
         <div className={classes.cards}>
           {state.list.map((el, index) => {
             const itemId = state.index * 6 + index;
@@ -99,17 +135,25 @@ export default function MyCocktails() {
                 className={classes.Link}
                 to={`/bookmark-detail/${el.id}`}
               >
-                <RecipeCard data={el} img={el.imageURL}/>
+                <RecipeCard data={el} img={el.imageURL} />
               </Link>
             );
           })}
         </div>
-          <Button className={classes.btnLayout} onClick={clickNext}>
-        {state.lastIndex > 0 && (
+        <Button className={classes.btnLayout} onClick={clickNext}>
+          {state.lastIndex > 0 && (
             <ArrowForwardIosIcon className={classes.nextIcon} />
-            )}
-          </Button>
+          )}
+        </Button>
       </div>
+
+      <SimpleModal
+        open={modalState.open}
+        type={modalState.type}
+        text={modalState.text}
+        subText={modalState.subText}
+        buttonYes={buttonOK}
+      />
     </div>
   );
 }
