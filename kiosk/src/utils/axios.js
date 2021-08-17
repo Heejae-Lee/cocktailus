@@ -60,12 +60,10 @@ export const recipeAPI = {
           .split("|")
           .filter((el) => el !== "");
         const drink = drinkList.map((el, index) => {
-          if (el !== "") {
-            return {
-              drink: el,
-              ratio: Number(drinkRatioList[index].replace("ml", "")),
-            };
-          }
+          return {
+            drink: el,
+            ratio: Number(drinkRatioList[index].replace("ml", "")),
+          };
         });
         console.log(recipeData);
         return {

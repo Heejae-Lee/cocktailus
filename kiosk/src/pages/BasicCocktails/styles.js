@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Link: {
     cursor: "none",
-    margin: "1vw"
+    marginLeft: "1vw"
   },
   listWrapper:{
     width: "100vw",

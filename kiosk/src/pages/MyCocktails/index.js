@@ -29,11 +29,11 @@ export default function MyCocktails() {
   });
   const [recipes, setRecipes] = React.useState([]);
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     // axios에서 레시피 가져오기
     const memberData = JSON.parse(window.localStorage.getItem("memberData"));
     if (memberData !== null) {
-      const res = await recipeAPI.getRecipes(memberData);
+      const res = recipeAPI.getRecipes(memberData);
       console.log(res);
       if (!res) {
         const newModalState = {
@@ -124,7 +124,6 @@ export default function MyCocktails() {
         </Button>
         <div className={classes.cards}>
           {state.list.map((el, index) => {
-            const itemId = state.index * 6 + index;
             return (
               <Link
                 key={index}

@@ -42,8 +42,6 @@ export default function CardDetail(props) {
   // props를 통하여 칵테일 데이터를 로컬에서 가져올지 서버에서 가져올지 결정함
   React.useEffect(() => {
     const flag = props.url.indexOf("bookmark") > -1 ? true : false;
-    console.log(props.url.indexOf("bookmark"));
-    console.log(flag)
 
     if ( flag ) {
       recipeAPI.getRecipeDetail(props.id).then((res)=>{
