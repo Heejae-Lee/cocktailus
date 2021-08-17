@@ -12,13 +12,13 @@ import RecipeDetailIntro from "../../components/RecipeDetailIntro/";
 import Comment from "../../components/Comment";
 import CommentTextField from "../../components/CommentTextField/";
 
-import { recipeAPI } from "../../utils/recipeAPI"
+import { recipeAPI } from "../../utils/recipeAPI";
 
 function RecipeDetail(match) {
   const classes = useStyles();
   const member = JSON.parse(window.localStorage.getItem("memberData"));
   const recipeId = match.match.params.recipeId;
-  
+
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState(false); // 새로운 댓글 작성 시 업데이트
 
@@ -40,7 +40,6 @@ function RecipeDetail(match) {
   useEffect(() => {
     recipeAPI.getRecipeDetail(recipeId, setState, setComments);
   }, [recipeId, newComment]);
-
 
   return (
     <Box>
@@ -64,16 +63,19 @@ function RecipeDetail(match) {
 
         <RecipeDetailIntro data={state} />
         {/* 코멘트 입력 컴포넌트, 로그인 정보가 저장되어있을 경우에만 보임 */}
-        {member && 
-        <CommentTextField 
-          articleId={state.id}
-          newComment={newComment}
-          setNewComment={setNewComment}
-        />}
-        <Comment
-          articleId={state.id}
-          comments={comments}
-        />
+        {member && (
+          <CommentTextField
+            articleId={state.id}
+            newComment={newComment}
+            setNewComment={setNewComment}
+          />
+        )}
+        {!member && (
+          <Typography variant="body2" align="center">
+            댓글을 작성하시려면 로그인해주세요
+          </Typography>
+        )}
+        <Comment articleId={state.id} comments={comments} />
         <div style={{ width: "100%", height: "50px" }} />
       </Container>
       <AppFooter />
