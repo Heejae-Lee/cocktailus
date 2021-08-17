@@ -41,9 +41,11 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
 
     @Override
     public List<RecipeArticle> findUploadedByNameOrderByUpdatedDesc(String member_name) {
-        return em.createQuery("select ra from RecipeArticle ra where ra.member_name = :member_name",RecipeArticle.class)
+        List<RecipeArticle> result = em.createQuery("select ra from RecipeArticle ra where ra.member_name = :member_name",RecipeArticle.class)
                 .setParameter("member_name",member_name)
                 .getResultList();
+        result.sort(Comparator.comparing(RecipeArticle::getUpdated).reversed());
+        return result;
     }
 
     @Override

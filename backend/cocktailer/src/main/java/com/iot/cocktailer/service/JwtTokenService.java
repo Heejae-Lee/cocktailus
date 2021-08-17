@@ -40,6 +40,7 @@ public class JwtTokenService {
     public String createToken(Member member){
         Claims claims = Jwts.claims().setSubject(member.getEmail());
         claims.put("role",member.getRole());
+        claims.put("name",member.getName());
 
         Date now = new Date();
         String jwtToken = Jwts.builder()
@@ -54,6 +55,12 @@ public class JwtTokenService {
     public String getPK(String jwtToken){
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody().getSubject();
     }
+
+    public String getMemberName(String jwtToken){
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody().get("name",String.class);
+    }
+
+
 
     public Authentication getAuthentication(String jwtToken){
         UserDetails userDetails = memberService.loadUserByUsername(this.getPK(jwtToken));
