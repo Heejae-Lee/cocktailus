@@ -4,15 +4,15 @@ import React, { Fragment, useState, useEffect } from 'react';
 import {
   Button,
   withStyles,
-  Paper, 
   Table, 
   TableBody, 
   TableCell, 
-  TableContainer, 
+  TableContainer,
   TableHead, 
   TablePagination,
   TableRow,
-  Link
+  Link, 
+  Box
 } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 
@@ -127,8 +127,7 @@ function NoticePage() {
   return (
     <Fragment>
       <AppHeader />
-
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <AppForm>
           <Typography variant="h3" gutterBottom marked="center" align="center">
             공지사항
@@ -138,19 +137,21 @@ function NoticePage() {
           </Typography>
         </AppForm>
         {/* 관리자 권한이 있으면 */}
-        {
-        (member !== null) && (member.role !== "ROLE_Member") && 
-          <ColorButton
-            component={RouterLink}
-            to="/notice/write"
-            className={classes.right}
-            variant="contained"
-          >
-            글 작성
-          </ColorButton>
-        }
         <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
+          <Box className={classes.box}>
+            {
+            (member !== null) && (member.role !== "ROLE_Member") && 
+              <ColorButton
+                component={RouterLink}
+                to="/notice/write"
+                className={classes.right}
+                variant="contained"
+              >
+                글 작성
+              </ColorButton>
+            }
+          </Box>
+          <Table stickyHeader aria-label="sticky table" style={{boxShadow: "5px 3px 3px rgba(0,0,0,0.2)"}}>
             <TableHead aria-label="customized table">
               <TableRow>
                 {columns.map((column) => (
@@ -200,10 +201,9 @@ function NoticePage() {
             onCancelSearch={() => cancelSearch()}
             onKeyPress={handleKeyPress}
           />
-        </TableContainer>
 
         <TablePagination
-          style={{ paddingRight: '30px' }}
+          style={{ right: 0, paddingTop: '10px'}}
           rowsPerPageOptions={[5, 10, 20]} // 5, 10, 20
           component="div"
           count={rows.length}
@@ -213,7 +213,8 @@ function NoticePage() {
           onRowsPerPageChange={handleChangeRowsPerPage}
           labelRowsPerPage="Rows"
         />
-      </Paper>
+        </TableContainer>
+      </div>
       <AppFooter />
     </Fragment>
   );

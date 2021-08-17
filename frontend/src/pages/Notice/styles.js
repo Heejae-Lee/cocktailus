@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: 'static',
     marginTop: '5%',
-    marginBottom: '5%',
+    marginBottom: '8%',
     marginLeft: '13%',
     marginRight: '13%',
     top: '50%',
@@ -18,17 +18,25 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2%',
   },
   container: {
-    padding: '15px 30px',
+    padding: '30px 30px',
+    display: 'block',
+    width: '85%',
+    margin: 'auto',
   },
   right: {
-    float: 'right',
+    display: 'flex',
+    justifyContent: 'flex-end',
     backgroundColor: '#9C27B4',
     color: 'white',
-    marginRight: '40px',
   },
   searchBar: {
     marginLeft: '13%',
     marginRight: '13%',
+  },
+  box: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: '2%',
   }
 }));
 

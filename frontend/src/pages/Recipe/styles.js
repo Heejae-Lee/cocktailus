@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(12),
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
   }
 }));
 

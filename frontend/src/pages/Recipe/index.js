@@ -62,13 +62,13 @@ function Recipe(match) {
   }, [match, search]);
 
   const orderByLatest = () => {
-    // 최신순 받아오기
+    // 최신순
     console.log("최신순");
     history.push(`/recipe/list/new`);
   };
 
   const orderByPopulation = () => {
-    // 좋아요 순으로 받아오기
+    // 좋아요 순
     console.log("인기순");
     setState(0);
     history.push(`/recipe/list/popular`);
@@ -82,11 +82,8 @@ function Recipe(match) {
     }
   };
 
-
   const updateSearchedValue = (e) => {
     setSearchedValue(e.target.value);
-    // console.log(e.target.value);
-    // console.log(searchedValue);
   };
   
   return (
