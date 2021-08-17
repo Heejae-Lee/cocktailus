@@ -45,20 +45,24 @@ const DialogActions = withStyles((theme) => ({
 export default function CustomizedDialogs(props) {
   const handleClose = () => {
     props.setOpen(false);
-    if (props.goto !== undefined) {
+    if (props.logOut !== undefined) {
+      props.logOut();
+    } else if (props.goto !== undefined) {
       props.history.push(props.goto)
     }
   };
 
   return (
-    <div>
+    <div onKeyPress={(e) => { if(e.key === "Enter"){
+      handleClose();
+    }}}>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={props.open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {props.title}
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            {props.content}
+            <span style={{whiteSpace: "pre-wrap"}}>{props.content}</span>
           </Typography>
         </DialogContent>
         <DialogActions>

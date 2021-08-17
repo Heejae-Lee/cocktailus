@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 import { Typography, Grid, Link } from '@material-ui/core';
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink, useHistory } from 'react-router-dom';
 
 import useStyles from './styles';
 import classnames from 'classnames';
@@ -17,6 +17,7 @@ import { recipeAPI } from '../../utils/recipeAPI'
 
 export default function RecipePreview(props) {
   const classes = useStyles();
+  const history = useHistory();
 
   const [like, setLike] = useState(false);
   const [likeCount, setlikeCount] = useState(0);
@@ -40,11 +41,11 @@ export default function RecipePreview(props) {
     if (props.isChange === undefined){
       recipeAPI.likeRequest(
         props.id, like, likeCount, 
-        setLike, setlikeCount, setLikeImg);
+        setLike, setlikeCount, setLikeImg, history);
     } else {
       recipeAPI.likeRequestInMyPage(
         props.id, like, likeCount, 
-        setLike, setlikeCount, setLikeImg, setIsChange);
+        setLike, setlikeCount, setLikeImg, setIsChange, history);
     }
     console.log("click");
   };

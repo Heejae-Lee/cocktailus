@@ -60,7 +60,6 @@ function SignIn() {
     // 로그인 성공
     
     if (res.status === 200) {
-      console.log(res);
       const base64Payload = res.data["access-token"].split('.')[1];
       const p = Buffer.from(base64Payload, 'base64'); 
       const result = JSON.parse(p.toString());

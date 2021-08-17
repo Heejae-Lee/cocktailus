@@ -4,15 +4,15 @@ import React, { Fragment, useState, useEffect } from 'react';
 import {
   Button,
   withStyles,
-  Paper, 
   Table, 
   TableBody, 
   TableCell, 
-  TableContainer, 
+  TableContainer,
   TableHead, 
   TablePagination,
   TableRow,
-  Link
+  Link, 
+  Box
 } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 
@@ -57,8 +57,7 @@ const columns = [
   {
     id: 'member_name',
     label: '작성자',
-    minWidth: 10,
-    maxWidth: 10,
+    minWidth: "auto",
     alignTitle: 'center',
     align: 'center',
   },
@@ -66,8 +65,7 @@ const columns = [
   {
     id: 'created',
     label: '작성일자',
-    minWidth: 5,
-    maxWidth: 5,
+    minWidth: "auto",
     align: 'center',
     alignTitle: 'center',
   },
@@ -127,8 +125,7 @@ function NoticePage() {
   return (
     <Fragment>
       <AppHeader />
-
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <AppForm>
           <Typography variant="h3" gutterBottom marked="center" align="center">
             공지사항
@@ -138,26 +135,28 @@ function NoticePage() {
           </Typography>
         </AppForm>
         {/* 관리자 권한이 있으면 */}
-        {
-        (member !== "null") && (member.role !== "ROLE_Member") && 
-          <ColorButton
-            component={RouterLink}
-            to="/notice/write"
-            className={classes.right}
-            variant="contained"
-          >
-            글 작성
-          </ColorButton>
-        }
         <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
+          <Box className={classes.box}>
+            {
+            (member !== null) && (member.role !== "ROLE_Member") && 
+              <ColorButton
+                component={RouterLink}
+                to="/notice/write"
+                className={classes.right}
+                variant="contained"
+              >
+                글 작성
+              </ColorButton>
+            }
+          </Box>
+          <Table stickyHeader aria-label="sticky table" style={{boxShadow: "5px 3px 3px rgba(0,0,0,0.2)"}}>
             <TableHead aria-label="customized table">
               <TableRow>
                 {columns.map((column) => (
                   <StyledTableCell
                     key={column.id}
                     align={column.alignTitle}
-                    style={{ minWidth: column.minWidth, maxWidth: column.maxWidth, borderRight: '1.5px solid #e0e0e0'}}
+                    style={{ minWidth: column.minWidth, maxWidth: column.maxWidth, borderRight: '1px dotted #e0e0e0 '}}
                   >
                     {column.label}
                   </StyledTableCell>
@@ -172,7 +171,7 @@ function NoticePage() {
                       const value = row[column.id];
                       return (
                         <StyledTableCell key={column.id} align={column.align} 
-                        style={{borderRight: '1.5px solid #e0e0e0' }}>
+                        style={{borderRight: '1px dotted #e0e0e0' }}>
                           {/* 타이틀 누르면 디테일 페이지로 이동 */}
                           {column.id === 'title' ?
                           (<Link
@@ -200,10 +199,9 @@ function NoticePage() {
             onCancelSearch={() => cancelSearch()}
             onKeyPress={handleKeyPress}
           />
-        </TableContainer>
 
         <TablePagination
-          style={{ paddingRight: '30px' }}
+          style={{ right: 0, paddingTop: '10px'}}
           rowsPerPageOptions={[5, 10, 20]} // 5, 10, 20
           component="div"
           count={rows.length}
@@ -213,7 +211,8 @@ function NoticePage() {
           onRowsPerPageChange={handleChangeRowsPerPage}
           labelRowsPerPage="Rows"
         />
-      </Paper>
+        </TableContainer>
+      </div>
       <AppFooter />
     </Fragment>
   );

@@ -11,7 +11,7 @@ import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
 
 // material-ui/core
-import { Container, Grid, Button, withStyles } from '@material-ui/core';
+import { Container, Box, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 
 import axios from 'axios'
@@ -47,9 +47,7 @@ function MyRecipe(match) {
   useEffect(()=>{
     const member = JSON.parse(window.localStorage.getItem("memberData"))
     const filter = match.match.params.filter;
-    if (filter === 'uploads') {
-      setState(1);
-    } else if (filter === 'likes') {
+    if (filter === 'likes') {
       setState(0);
     } else {
       setState(1);
@@ -74,9 +72,7 @@ function MyRecipe(match) {
   }, [state, isChange, match]);
 
   const searchRecipes = () => {
-    // searchValue 보내서 검색
-    console.log(`검색어는${searchedValue}입니다.`);
-    setSearchedValue("");
+    history.push(`/recipe?title=${searchedValue}`);
   };
 
 
@@ -84,6 +80,13 @@ function MyRecipe(match) {
     setSearchedValue(e.target.value);
   };
 
+  const isExist = () => {
+    if (recipes.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (
     <Fragment>
       <Header />
@@ -96,16 +99,14 @@ function MyRecipe(match) {
         orderByOption2={changeMyLikeState}
         state={state}
       />
-      <Container className={classes.paper}>
-        <Grid container className={classes.center}>
+      <Container className={isExist() ? classes.paper: classes.noRecipe}>
+        <Box className={classes.title}>
           <Typography
             variant="h4"
-            marked="center"
-            className={classes.title}
+            marked="left"
           >
             {state === 1 ? "Uploads" : "Likes"}
           </Typography>
-        </Grid>
           <ColorButton
             component={RouterLink}
             variant="contained"
@@ -114,6 +115,7 @@ function MyRecipe(match) {
             >
             레시피 작성
           </ColorButton>
+        </Box>
       </Container>
       <Container className={classes.paper}>
         <Grid container spacing={10}>
