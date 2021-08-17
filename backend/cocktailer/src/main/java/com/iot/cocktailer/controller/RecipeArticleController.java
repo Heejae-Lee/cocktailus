@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,9 @@ public class RecipeArticleController {
     }
 
     @GetMapping
-    public ResponseEntity getRecipeArticles(){
-        return new ResponseEntity<>(recipeArticleService.getRecipeArticles(), HttpStatus.OK);
+    public ResponseEntity getRecipeArticles(HttpServletRequest httpServletRequest){
+        String jwt = httpServletRequest.getHeader("Auth-Token");
+        return new ResponseEntity<>(recipeArticleService.getRecipeArticles(jwt), HttpStatus.OK);
     }
 
     @PostMapping
@@ -42,7 +44,7 @@ public class RecipeArticleController {
     }
 
     @GetMapping("/{recipe-articles_id}")
-    public ResponseEntity getRecipeArticle(@PathVariable("recipe-articles_id")Long id){
+    public ResponseEntity getRecipeArticles(@PathVariable("recipe-articles_id")Long id){
         return new ResponseEntity<>(recipeArticleService.getRecipeArticle(id),HttpStatus.OK);
     }
 

@@ -68,4 +68,8 @@ public class MemberService implements UserDetailsService {
         grantedAuthorities.add(new SimpleGrantedAuthority("Member"));
         return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
+
+    public String getMembernameByJwt(String jwt){
+        return jwtTokenService.getPK(jwt);
+    }
 }
