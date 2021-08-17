@@ -43,6 +43,14 @@ public class RecipeArticleController {
         return new ResponseEntity<>(recipeArticleService.searchRecipeArticles(title,jwt),HttpStatus.OK);
     }
 
+    @GetMapping(
+            params = "sort"
+    )
+    public ResponseEntity getSortRecipeArticles(@RequestParam("sort")String sorts, HttpServletRequest httpServletRequest){
+        String jwt = httpServletRequest.getHeader("Auth-Token");
+        return new ResponseEntity<>(recipeArticleService.searchSortRecipeArticles(sorts,jwt),HttpStatus.OK);
+    }
+
     @GetMapping("/{recipe-articles_id}")
     public ResponseEntity getRecipeArticles(@PathVariable("recipe-articles_id")Long id,HttpServletRequest httpServletRequest){
         String jwt = httpServletRequest.getHeader("Auto-Token");
