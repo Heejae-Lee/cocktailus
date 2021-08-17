@@ -74,9 +74,7 @@ function MyRecipe(match) {
   }, [state, isChange, match]);
 
   const searchRecipes = () => {
-    // searchValue 보내서 검색
-    console.log(`검색어는${searchedValue}입니다.`);
-    setSearchedValue("");
+    history.push(`/recipe?title=${searchedValue}`);
   };
 
 

@@ -14,6 +14,7 @@ import { Container, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 
 import { recipeAPI } from '../../utils/recipeAPI';
+// url 쿼리 값 읽기
 import qs from 'qs';
 
 const ColorButton = withStyles((theme) => ({
@@ -36,11 +37,8 @@ function Recipe(match) {
   const [text, setText] = useState('최신순');
  
   const search = useCallback((q) => {
-
     recipeAPI.searchRecipes(q, setRecipes);
-
   }, [setRecipes]);
-
 
   useEffect(()=>{
     const filter = match.match.params.filter;
@@ -76,12 +74,11 @@ function Recipe(match) {
   };
 
   const searchRecipes = () => {
-    // searchValue 보내서 검색
-    history.push(`/recipe?title=${searchedValue}`);
     if (searchedValue === '') {
       history.push(`/recipe/list/new`);
+    } else {
+      history.push(`/recipe?title=${searchedValue}`);
     }
-    recipeAPI.searchRecipes(searchedValue, setRecipes, recipes);
   };
 
 
