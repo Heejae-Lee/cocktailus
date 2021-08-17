@@ -1,6 +1,6 @@
 import withRoot from '../../components/withRoot';
 // --- Post bootstrap -----
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink as RouterLink, useHistory } from 'react-router-dom';
 
 import Header from '../../layout/Header'
@@ -14,6 +14,7 @@ import { Container, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 
 import { recipeAPI } from '../../utils/recipeAPI';
+import qs from 'qs';
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -32,18 +33,34 @@ function Recipe(match) {
   const [searchedValue, setSearchedValue] = useState('');
   const [state, setState] = useState(1);
   const history = useHistory();
+  const [text, setText] = useState('최신순');
+ 
+  const search = useCallback((q) => {
+
+    recipeAPI.searchRecipes(q, setRecipes);
+
+  }, [setRecipes]);
+
 
   useEffect(()=>{
     const filter = match.match.params.filter;
-    if (filter === "new") {
-      setState(1);
-    } else if (filter === "popular") {
-      setState(0);
+    const query = qs.parse(match.location.search, {
+      ignoreQueryPrefix: true
+    });
+    if (query.title !== undefined) {
+      search(query.title);
+      setText(query.title + " 검색");
     } else {
-      setState(1);
+      if (filter === "new") {
+        setState(1);
+        setText("최신순");
+      } else if (filter === "popular") {
+        setState(0);
+        setText("인기순");
+      }
+      recipeAPI.getRecipes(setRecipes);
     }
-    recipeAPI.getRecipes(setRecipes);
-  }, [match]);
+  }, [match, search]);
 
   const orderByLatest = () => {
     // 최신순 받아오기
@@ -60,8 +77,11 @@ function Recipe(match) {
 
   const searchRecipes = () => {
     // searchValue 보내서 검색
-    console.log(`검색어는${searchedValue}입니다.`);
-    setSearchedValue("");
+    history.push(`/recipe?title=${searchedValue}`);
+    if (searchedValue === '') {
+      history.push(`/recipe/list/new`);
+    }
+    recipeAPI.searchRecipes(searchedValue, setRecipes, recipes);
   };
 
 
@@ -90,7 +110,8 @@ function Recipe(match) {
             marked="center"
             className={classes.title}
           >
-            {state === 1 ? "최신순" : "인기순"}
+            {text}
+            {/* {state === 1 ? "최신순" : "인기순"} */}
           </Typography>
         </Grid>
           <ColorButton

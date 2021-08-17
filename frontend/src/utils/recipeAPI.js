@@ -27,6 +27,30 @@ export const recipeAPI = {
       })
     }
   },
+  searchRecipes: (keyword, setRecipes) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member !== null) {
+      axios.get(`/recipe-articles?title=${keyword}`, {
+        headers: {'Auth-Token': `${member.token}`},
+      })
+      .then((res) => {
+        console.log("Get Recipe Success");
+        setRecipes(res.data);
+      })
+      .catch(() => {
+        console.log("Get Recipe failed");
+      })
+    } else {
+      axios.get(`/recipe-articles?title=${keyword}`)
+      .then((res) => {
+        console.log("Get Recipe Success");
+        setRecipes(res.data);
+      })
+      .catch(() => {
+        console.log("Get Recipe failed");
+      })
+    }
+  },
   saveRecipe: (data,token,history) => {
     axios.post("/recipe-articles", data, {
       headers: {'Auth-Token': `${token}`},

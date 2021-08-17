@@ -56,7 +56,6 @@ export default function RecipeHeader(props) {
             }}
             inputProps={{
               onChange: props.updateSearchedValue,
-              // if enter input, then start props.searchRecipes
               onKeyPress: (e) => {
                 if (e.key === "Enter") {
                   props.searchRecipes();

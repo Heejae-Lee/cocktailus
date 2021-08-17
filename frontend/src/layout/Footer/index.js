@@ -9,7 +9,7 @@ function Copyright() {
     <Fragment>
       {'© '}
       {new Date().getFullYear()}
-      {', made by Cocktail.Us'}
+      {', made by Cocktailer'}
     </Fragment>
   );
 }
