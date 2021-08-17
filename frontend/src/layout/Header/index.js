@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import styles from "./styles";
 // 컴포넌트 관련
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink as RouterLink, useHistory } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import Drawer from "@material-ui/core/Drawer";
@@ -17,14 +17,30 @@ import { useMediaQuery } from "react-responsive";
 import PropTypes from "prop-types";
 import { refreshMemberInfo } from "../../app/reducer";
 
+import CustomizedDialogs from "../../components/Modal";
+
 function AppHeader(props) {
   const { classes } = props;
   const [state, setState] = useState({
     leftMenu: false,
   });
+  const [open, setOpen] = useState(false);
+
   const Dispatch = useDispatch();
   const history = useHistory();
   const memberData = JSON.parse(window.localStorage.getItem("memberData"))
+
+  useEffect(() => {
+    const memberData = JSON.parse(window.localStorage.getItem("memberData"))
+    if ((memberData !== null) && (Date(memberData.exp) < Date.now())) {
+      setOpen(true);
+      localStorage.removeItem('memberData');
+      Dispatch(refreshMemberInfo());
+      // alert("로그인 기간이 만료되었습니다.");
+      history.push("/SignIn");
+    }
+    console.log("useeffeect");
+  }, [Dispatch, history]);
 
   const isPc = useMediaQuery({
     query: "(min-width:768px)",
@@ -109,6 +125,12 @@ function AppHeader(props) {
 
   return (
     <div>
+      <CustomizedDialogs
+        open={open}
+        title="로그인 기간 만료"
+        content="로그인 유효기간이 만료되었습니다. 다시 로그인해주세요."
+        setOpen={setOpen}
+      />
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           {/* 최상단 좌측 메뉴 */}
