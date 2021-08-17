@@ -36,6 +36,7 @@ public class LikeService {
         Integer likeCount = recipeArticle.getLikeCount();
         System.out.println(likeCount);
         like.setLiked(!like.getLiked());
+        recipeArticle.setLiked(like.getLiked());
 
         if(like.getLiked()){
             recipeArticle.setLikeCount(likeCount+1);

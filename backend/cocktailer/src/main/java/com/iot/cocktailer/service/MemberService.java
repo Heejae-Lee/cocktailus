@@ -47,6 +47,7 @@ public class MemberService implements UserDetailsService {
 
         String jwtToken = jwtTokenService.createToken(member);
 
+
         Map<String,String> resultMap = new HashMap<>();
         resultMap.put("access-token",jwtToken);
         resultMap.put("name",member.getName());
@@ -73,6 +74,6 @@ public class MemberService implements UserDetailsService {
     }
 
     public String getMembernameByJwt(String jwt){
-        return jwtTokenService.getPK(jwt);
+        return jwtTokenService.getMemberName(jwt);
     }
 }
