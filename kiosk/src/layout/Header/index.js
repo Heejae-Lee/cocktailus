@@ -4,8 +4,6 @@ import { useStyles } from "./styles";
 import React from "react";
 import Link from "@material-ui/core/Link";
 import { ColorButton } from "./styles";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import LoginModal from "../../components/LoginModal";
 // 기능 관련
@@ -15,22 +13,9 @@ import { NavLink as RouterLink } from "react-router-dom";
 export default function Header(props) {
   const classes = useStyles();
   const history = useHistory();
-  const memberData = JSON.parse(window.localStorage.getItem("memberData"));
-  const [ state, setState ] = React.useState(false);
-
-  React.useState(()=>{
-    if (memberData){
-      setState(true);
-    }
-  },[]);
 
   const clickPrev = () => {
     history.push("/");
-  };
-
-  const logOut = () => {
-    JSON.parse(window.localStorage.removeItem("memberData"));
-    setState(false);
   };
 
   return (
@@ -65,18 +50,10 @@ export default function Header(props) {
       />
       {/* 로그인/로그아웃 */}
 
-      {memberData === null && (
-        <div className={classes.flexMember}>
-          {!props.simple && <LoginModal />}
-        </div>
-      )}
-      {!props.simple && memberData && (
-        <div className={classes.flexMember}>
-          <Button className={classes.font} onClick={logOut} >
-              LogOut
-          </Button>
-        </div>
-      )}
+      <div className={classes.flexMember}>
+        {!props.simple && <LoginModal />}
+      </div>
+      
     </div>
   );
 }

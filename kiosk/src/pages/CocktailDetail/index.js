@@ -25,7 +25,7 @@ export default function CocktailDetail({match}) {
     return (
         <div className={classes.root}>
             <Header prev={true}  to={state.prev}/>
-            <CardDetail variant={state.type} id={match.params.id}/>
+            <CardDetail url={match.url} id={match.params.id}/>
         </div>
     )
 }

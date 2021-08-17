@@ -19,7 +19,7 @@ export default function RecipeCard(props) {
               className={classes.media}
               component="img"
               height={"200"}
-              image={process.env.PUBLIC_URL + "/images/" + props.data.image}
+              image={ props.img }
               title="Cocktail-image"
               alt="Cocktail-image"
             />
@@ -32,9 +32,9 @@ export default function RecipeCard(props) {
         </CardContent>
 
         <CardActions className={classes.between}>
-          <Typography className={classes.left}>{props.data.created}</Typography>
+          <Typography className={classes.left}>{props.data.created.slice(0,10).replaceAll("-",".")}</Typography>
           <Typography variant="subtitle2" className={classes.right}>
-            {props.data.memberName}
+            {props.data.member_name}
           </Typography>
         </CardActions>
       </Card>

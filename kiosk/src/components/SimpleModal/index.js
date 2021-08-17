@@ -68,7 +68,7 @@ export default function SimpleModal(props) {
         <div className={classes.paper}>
           {/* 모달 타입 이미지 */}
           {/* 부모 컴포넌트로부터 전달받은 type에 따라 다른 이미지 아이콘 출력 */}
-          {/* checked, question, warning, cancled */}
+          {/* checked, question, warning, canceled */}
           <div className={classes.iconBox}>
             {props.type === "checked" && (
               <Lottie options={defaultOptions[0]} height={80} width={80} />
@@ -79,7 +79,7 @@ export default function SimpleModal(props) {
             {props.type === "warning" && (
               <Lottie options={defaultOptions[2]} height={80} width={80} />
             )}
-            {props.type === "cancled" && (
+            {props.type === "canceled" && (
               <Lottie options={defaultOptions[3]} height={80} width={80} />
             )}
           </div>
