@@ -45,8 +45,11 @@ function App() {
         <PrivateRoute exact path="/recipe/modify/:recipeId" component={RecipeModifyForm} />
         <PrivateRoute exact path="/myRecipe" component={MyRecipe} />
         <PrivateRoute exact path="/myRecipe/:filter" component={MyRecipe} />
+
+        {/* admin */}
         <PrivateRoute exact path="/notice/write" component={NoticeWrite} />
         <PrivateRoute exact path="/notice/modify/:noticeId" component={NoticeModify} />
+
         {/* 존재하지 않는 url이면 error page */}
         <Redirect to="/error"/>
       </Switch>

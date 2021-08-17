@@ -50,6 +50,7 @@ function NoticeDetail(match) {
   const classes = useStyles();
   const history = useHistory();
   const noticeId = match.match.params.noticeId;
+  const member = JSON.parse(window.localStorage.getItem("memberData"));
 
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({
@@ -111,17 +112,21 @@ function NoticeDetail(match) {
         뒤로가기
       </ColorButton>
       {/* 관리자 권한이면 보이도록 처리할것 */}
-      <PutButton 
-        className={classes.button}
-        onClick={() => history.push(`/notice/modify/${noticeId}`)}>
-        수정
-      </PutButton>
-      <DeleteButton 
-        className={classes.button}
-        onClick={openModal}
-        >
-        삭제
-      </DeleteButton>
+      {(member !== "null") && (member.role !== "ROLE_Member") && (
+        <span>
+        <PutButton 
+          className={classes.button}
+          onClick={() => history.push(`/notice/modify/${noticeId}`)}>
+          수정
+        </PutButton>
+        <DeleteButton 
+          className={classes.button}
+          onClick={openModal}
+          >
+          삭제
+        </DeleteButton>
+        </span>
+      )} 
       </Container>
       <Footer />
     </React.Fragment>
