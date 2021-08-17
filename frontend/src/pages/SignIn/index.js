@@ -60,6 +60,7 @@ function SignIn() {
     // 로그인 성공
     
     if (res.status === 200) {
+      console.log(res);
       const payload = {
         token: res.data["access-token"],
         email: values.email,

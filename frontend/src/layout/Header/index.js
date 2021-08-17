@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 import { refreshMemberInfo } from "../../app/reducer";
 
 import CustomizedDialogs from "../../components/Modal";
+import moment from 'moment';
 
 function AppHeader(props) {
   const { classes } = props;
@@ -29,17 +30,16 @@ function AppHeader(props) {
   const Dispatch = useDispatch();
   const history = useHistory();
   const memberData = JSON.parse(window.localStorage.getItem("memberData"))
-
+  
   useEffect(() => {
     const memberData = JSON.parse(window.localStorage.getItem("memberData"))
-    if ((memberData !== null) && (Date(memberData.exp) < Date.now())) {
+
+    if ((memberData !== null) && (moment(moment(memberData.exp)).isAfter(moment()))) {
       setOpen(true);
       localStorage.removeItem('memberData');
       Dispatch(refreshMemberInfo());
-      // alert("로그인 기간이 만료되었습니다.");
       history.push("/SignIn");
     }
-    console.log("useeffeect");
   }, [Dispatch, history]);
 
   const isPc = useMediaQuery({

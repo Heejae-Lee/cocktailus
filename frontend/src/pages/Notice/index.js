@@ -152,7 +152,7 @@ function NoticePage() {
                   <StyledTableCell
                     key={column.id}
                     align={column.alignTitle}
-                    style={{ minWidth: column.minWidth, maxWidth: column.maxWidth, borderRight: '1px solid #e0e0e0'}}
+                    style={{ minWidth: column.minWidth, maxWidth: column.maxWidth, borderRight: '1.5px solid #e0e0e0'}}
                   >
                     {column.label}
                   </StyledTableCell>
@@ -167,7 +167,7 @@ function NoticePage() {
                       const value = row[column.id];
                       return (
                         <StyledTableCell key={column.id} align={column.align} 
-                        style={{borderRight: '1px solid #e0e0e0' }}>
+                        style={{borderRight: '1.5px solid #e0e0e0' }}>
                           {/* 타이틀 누르면 디테일 페이지로 이동 */}
                           {column.id === 'title' ?
                           (<Link
