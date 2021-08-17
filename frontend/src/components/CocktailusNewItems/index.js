@@ -2,7 +2,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 // 컴포넌트 관련
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
@@ -13,8 +13,15 @@ import RecipePreview from "../../components/RecipePreview";
 import PropTypes from "prop-types";
 import { NavLink as RouterLink } from 'react-router-dom';
 
+import { recipeAPI } from '../../utils/recipeAPI';
+
 function CocktailusNewItems(props) {
   const { classes } = props;
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    recipeAPI.getRecipes(setRecipes);
+  }, [])
 
   return (
     <section className={classes.root}>
@@ -46,9 +53,21 @@ function CocktailusNewItems(props) {
         </Box>
         {/* 트렌디한 칵테일 리스트 */}
         <Grid className={classes.grid} container spacing={10} direction="row">
-            <RecipePreview />
-            <RecipePreview />
-            <RecipePreview />
+          {recipes.slice(0,3).map(recipe => (
+              <RecipePreview
+                key={recipe.id}
+                id = {recipe.id}
+                image={recipe.image}
+                title={recipe.title}
+                content={recipe.content}
+                name={recipe.member_name}
+                created={recipe.created}
+                updated={recipe.updated}
+                imageURL={recipe.imageURL}
+                likeCount={recipe.likeCount}
+                liked={recipe.liked}
+                />
+            ))}
         </Grid>
       </Container>
     </section>

@@ -5,20 +5,37 @@
 
 /* 호버 효과 */
 .scale {
-  transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -moz-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  -o-transform: scale(0.95);
+  transform: scale(0.97);
+  -webkit-transform: scale(0.97);
+  -moz-transform: scale(0.97);
+  -ms-transform: scale(0.97);
+  -o-transform: scale(0.97);
   transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
 }
 .scale:hover {
+  transform: scale(1.005);
+  -webkit-transform: scale(1.005);
+  -moz-transform: scale(1.005);
+  -ms-transform: scale(1.005);
+  -o-transform: scale(1.005);
+}
+
+.detailScale {
   transform: scale(1);
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
   -ms-transform: scale(1);
   -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
 }
+.detailScale:hover {
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+}
+
 .scaleLike {
   transform: scale(1);
   -webkit-transform: scale(1);

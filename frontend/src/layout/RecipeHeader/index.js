@@ -19,6 +19,7 @@ export default function RecipeHeader(props) {
   const classes = useStyles();
   return (
     <Header
+      fixed
       color="rose"
       leftLinks={
         <List className={classes.list}>

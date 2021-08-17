@@ -2,10 +2,18 @@ import React, { useEffect, useState } from "react";
 
 import Chip from "@material-ui/core/Chip";
 import TextField from "@material-ui/core/TextField";
+import { withStyles } from '@material-ui/core/styles';
+import { purple } from '@material-ui/core/colors';
 
 import PropTypes from "prop-types";
 import Downshift from "downshift";
 import useStyles from "./styles";
+
+const StyleChip = withStyles((theme) => ({
+  root: {
+    backgroundColor: purple[300],
+  },
+}))(Chip);
 
 export default function TagsInput({ ...props }) {
   const classes = useStyles();
@@ -94,16 +102,6 @@ export default function TagsInput({ ...props }) {
               <TextField
                 InputProps={{
                   className: classes.input,
-                  // startAdornment: selectedItem.map(item => (
-                  //   <Chip
-                  //     variant="outlined"
-                  //     key={item}
-                  //     tabIndex={-1}
-                  //     label={item}
-                  //     className={classes.chip}
-                  //     onDelete={handleDelete(item)}
-                  //   />
-                  // )),
                   onBlur,
                   onChange: event => {
                     handleInputChange(event);
@@ -116,13 +114,13 @@ export default function TagsInput({ ...props }) {
               />
               <div>
                 {selectedItem.map(item => (
-                  <Chip
-                    variant="outlined"
+                  <StyleChip
                     key={item}
                     tabIndex={-1}
                     label={item}
                     className={classes.chip}
                     onDelete={handleDelete(item)}
+                    color="secondary"
                   />
               ))}
               </div>

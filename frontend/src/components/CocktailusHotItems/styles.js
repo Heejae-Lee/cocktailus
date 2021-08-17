@@ -12,18 +12,20 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   title: {
-    marginLeft: theme.spacing(5),
-    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(7),
+    // marginLeft: theme.spacing(5),
   },
   btn: {
-    position: 'absolute',
+    marginTop: theme.spacing(1),
+    // position: 'absolute',
     height: '44px',
     borderRadius: '8px',
-    top: 40,
+    // top: 40,
     right: 0
   },
   grid: {
-    marginTop: theme.spacing(1)
+    // marginTop: "auto",
   }
 });
 

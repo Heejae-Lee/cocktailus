@@ -17,18 +17,29 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
   },
+  title:{
+    fontSize: '1.2rem',
+  },
+  name: {
+    fontSize: '14px',
+    color: '#808080',
+  },
+  date: {
+    marginLeft: 5,
+    marginBottom: 2,
+    fontWeight: "bold",
+    fontSize: "14.5px",
+  },
   img: {
-    // margin: "auto",
-    // display: "block",
     width: "auto",
     height: "100%",
-    maxHeight: "300px",
+    maxHeight: "270px",
   },
   likeImg: {
     width: 20,
     height: 20,
-    marginLeft: 15,
-    marginRight: 8,
+    marginLeft: 12,
+    marginRight: 5,
     cursor: "pointer",
   },
 });

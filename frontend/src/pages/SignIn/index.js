@@ -60,11 +60,14 @@ function SignIn() {
     // 로그인 성공
     
     if (res.status === 200) {
+      console.log(res);
       const payload = {
         token: res.data["access-token"],
         email: values.email,
         name: res.data.name,
+        exp: res.headers.date
       };
+      console.log(payload);
       // console.log(payload);
       // store에 token 및 유저 데이터 저장
       Dispatch(getToken(payload));
@@ -77,14 +80,11 @@ function SignIn() {
 
       // modal 창 띄우기
       setOpen(false);
-      // alert("로그인 성공!");
       // home으로 redirection
       history.push("/");
     } else {
       // 로그인 실패
-      // modal 창 띄우기
       setOpen(true);
-      // alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
     }
     
     // form 잠금 해제

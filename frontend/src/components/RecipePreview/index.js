@@ -57,27 +57,26 @@ export default function RecipePreview(props) {
             component={RouterLink}
             to={`/recipe/detail/${props.id}`}
             >
-          <CardMedia
-            component="img"
-            alt="Cocktail-image"
-            image={props.imageURL}
-            title="Cocktail-image"
-            className={classnames('scale', classes.img)}
-          />
-          {/* 이미지 누르면 Recipe Detail 페이지로 라우터Link 설정하기 */}
+            <CardMedia
+              component="img"
+              alt="Cocktail-image"
+              image={props.imageURL}
+              title="Cocktail-image"
+              className={classnames('scale', classes.img)}
+            />
           </Link>
           </CardActionArea>
           <CardContent>
-            <Typography gutterBottom variant="h6" component="h2">
+            <Typography gutterBottom variant="h6" component="h2" className={classes.title}>
               {props.title}
             </Typography>
-            <Typography>
+            <Typography className={classes.name}>
               {props.name}
             </Typography>
           </CardContent>
 
         <CardActions className={classes.between}>
-          <Typography>
+          <Typography className={classes.date}>
               {String(props.created).substr(0, 10)}
           </Typography>
           <div className={classes.right}>

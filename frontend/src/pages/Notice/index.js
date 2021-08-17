@@ -52,20 +52,24 @@ const ColorButton = withStyles((theme) => ({
 }))(Button);
 
 const columns = [
-  { id: 'id', label: '글 번호', minWidth: 10, maxWidth: 10, },
-  { id: 'title', label: '제목', minWidth: 30 },
+  // { id: 'id', label: '분류', minWidth: 5, maxWidth: 5, alignTitle: 'left' },
+  { id: 'title', label: '제목', minWidth: 600, maxWidth: 600, alignTitle: 'center' },
   {
     id: 'member_name',
     label: '작성자',
-    minWidth: 20,
-    maxWidth: 20,
+    minWidth: 10,
+    maxWidth: 10,
+    alignTitle: 'center',
     align: 'center',
   },
+
   {
     id: 'created',
     label: '작성일자',
-    minWidth: 30,
+    minWidth: 5,
+    maxWidth: 5,
     align: 'center',
+    alignTitle: 'center',
   },
 ];
 
@@ -147,8 +151,8 @@ function NoticePage() {
                 {columns.map((column) => (
                   <StyledTableCell
                     key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    align={column.alignTitle}
+                    style={{ minWidth: column.minWidth, maxWidth: column.maxWidth, borderRight: '1.5px solid #e0e0e0'}}
                   >
                     {column.label}
                   </StyledTableCell>
@@ -162,7 +166,8 @@ function NoticePage() {
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <StyledTableCell key={column.id} align={column.align}>
+                        <StyledTableCell key={column.id} align={column.align} 
+                        style={{borderRight: '1.5px solid #e0e0e0' }}>
                           {/* 타이틀 누르면 디테일 페이지로 이동 */}
                           {column.id === 'title' ?
                           (<Link

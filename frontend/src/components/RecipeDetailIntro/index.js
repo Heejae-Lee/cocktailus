@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { recipeAPI } from '../../utils/recipeAPI'
+import classnames from 'classnames';
 import axios from 'axios'
 
 // 컴포넌트 관련
@@ -12,6 +14,7 @@ import { purple, red, blue } from '@material-ui/core/colors';
 import Typography from "../../components/Typography";
 
 import AlertDialog from "../ModalAlert";
+import "./styles.css"
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -43,14 +46,30 @@ const DeleteButton = withStyles((theme) => ({
   },
 }))(Button);
 
+const Modal = ({ src, alt, onClose, caption }) => {
+  return (
+    <div 
+      className="modal" 
+      >
+      <img 
+        className="modal-content" src={src} alt={alt} 
+        onClick={onClose}
+        />
+      {caption.length > 0 && <div className="caption">{caption}</div>}
+    </div>
+  )
+}
+
+
 // 레시피의 디테일한 정보를 표시하는 컴포넌트
 export default function RecipeDetailIntro(props) {
   const classes = useStyles();
   const history = useHistory();
 
   const member = JSON.parse(window.localStorage.getItem("memberData"));
-  
-  const [open, setOpen] = useState(false);
+
+  const [open, setOpen] = useState(false); // 삭제 모달
+  const [imageOpen, setImageOpen] = useState(false) // 이미지 모달
   const [state, setState] = useState({
     drink: [],
     drink_ratio: [],
@@ -85,22 +104,6 @@ export default function RecipeDetailIntro(props) {
 
   const closeModal = () => {
     setOpen(false);
-  };
-
-  const likeRequest = () => {
-    if (member == null) {
-      alert("로그인 후 사용해주세요");
-      return;
-    }
-    axios.post(`/like`, {id: {article_id: props.data.id, member_name: member.name}},
-    {headers: { 'Auth-Token': `${member.token}`}})
-      .then(() => {
-        console.log("like success");
-      })
-      .catch((err) => {
-        console.log("like fail");
-        console.log(err);
-      })
   };
 
   const ShowRecipeDrinks = () => {
@@ -144,8 +147,7 @@ export default function RecipeDetailIntro(props) {
   };
 
   const clickLike = () => {
-    // axios요청
-    likeRequest();
+    recipeAPI.likeRequestInDetail(props.data.id);
     if (state.liked) {
       setState({
         ...state,
@@ -188,12 +190,21 @@ export default function RecipeDetailIntro(props) {
         <Grid container>
           <Grid item xs={4}>
             <ButtonBase className={classes.image}>
-              {/* 레시피 대표 이미지 */}
               <img
-                className={classes.img}
+                className={classnames(classes.img, "detailScale")}
                 alt="cocktailImg"
                 src={state.imageURL}
+                onClick={() => setImageOpen(true)}
               />
+              {imageOpen && (
+                  <Modal
+                    src={state.imageURL}
+                    alt="cocktail-image"
+                    caption="이미지를 클릭하면 닫힙니다."
+                    onClose={() => setImageOpen(false)}
+                  />
+                )}
+              {/* 레시피 대표 이미지 */}
             </ButtonBase>
           </Grid>
           <Grid className={classes.detailBody} item sm container>
@@ -212,7 +223,7 @@ export default function RecipeDetailIntro(props) {
                 </div>
                 <div style={{display: 'flex', alignItems:'center'}}>
                 <img
-                  className={classes.likeImg}
+                  className={classnames(classes.likeImg, "scaleLike")}
                   src={process.env.PUBLIC_URL + "/images/" + state.likeImg}
                   alt="좋아요 이미지"
                   onClick={clickLike}
