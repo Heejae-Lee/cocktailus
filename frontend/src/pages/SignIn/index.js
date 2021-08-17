@@ -64,15 +64,15 @@ function SignIn() {
       const base64Payload = res.data["access-token"].split('.')[1];
       const p = Buffer.from(base64Payload, 'base64'); 
       const result = JSON.parse(p.toString());
-
+      
       const payload = {
         token: res.data["access-token"],
         email: values.email,
         name: res.data.name,
-        exp: result.exp*1000
+        exp: result.exp*1000,
+        role: result.role
       };
       console.log(payload);
-      // console.log(payload);
       // store에 token 및 유저 데이터 저장
       Dispatch(getToken(payload));
       Dispatch(getMemberInfo(payload));

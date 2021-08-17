@@ -76,6 +76,8 @@ const columns = [
 
 function NoticePage() {
   const classes = useStyles();
+  
+  const member = JSON.parse(window.localStorage.getItem("memberData"));
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10); // 한번에 보여줄 행 수
@@ -136,14 +138,17 @@ function NoticePage() {
           </Typography>
         </AppForm>
         {/* 관리자 권한이 있으면 */}
-        <ColorButton
-          component={RouterLink}
-          to="/notice/write"
-          className={classes.right}
-          variant="contained"
-        >
-          글 작성
-        </ColorButton>
+        {
+        (member !== "null") && (member.role !== "ROLE_Member") && 
+          <ColorButton
+            component={RouterLink}
+            to="/notice/write"
+            className={classes.right}
+            variant="contained"
+          >
+            글 작성
+          </ColorButton>
+        }
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead aria-label="customized table">
