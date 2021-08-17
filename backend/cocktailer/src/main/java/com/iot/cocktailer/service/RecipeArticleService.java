@@ -53,12 +53,14 @@ public class RecipeArticleService {
 
     public List<RecipeArticle> getRecipeArticles(String jwt){
         List<RecipeArticle> recipeArticles = jpaRecipeArticleRepository.findAll();
-        String member_name = memberService.getMembernameByJwt(jwt);
+        if(jwt != null) {
+            String member_name = memberService.getMembernameByJwt(jwt);
 
-        // member liked
-        for(RecipeArticle recipeArticle : recipeArticles){
-            Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(),member_name));
-            recipeArticle.setLiked(like.getId().getMember_name().equals(member_name) ? like.getLiked() : false);
+            // member liked
+            for (RecipeArticle recipeArticle : recipeArticles) {
+                Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(), member_name));
+                recipeArticle.setLiked(like.getId().getMember_name().equals(member_name) ? like.getLiked() : false);
+            }
         }
 
         return recipeArticles;
