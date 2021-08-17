@@ -112,7 +112,7 @@ function NoticeDetail(match) {
         뒤로가기
       </ColorButton>
       {/* 관리자 권한이면 보이도록 처리할것 */}
-      {(member !== "null") && (member.role !== "ROLE_Member") && (
+      {(member !== null) && (member.role !== "ROLE_Member") && (
         <span>
         <PutButton 
           className={classes.button}

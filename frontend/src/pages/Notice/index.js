@@ -139,7 +139,7 @@ function NoticePage() {
         </AppForm>
         {/* 관리자 권한이 있으면 */}
         {
-        (member !== "null") && (member.role !== "ROLE_Member") && 
+        (member !== null) && (member.role !== "ROLE_Member") && 
           <ColorButton
             component={RouterLink}
             to="/notice/write"
