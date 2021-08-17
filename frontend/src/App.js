@@ -7,7 +7,7 @@ import ForgotPassword from './pages/ForgotPassword/'
 import Privacy from './pages/Privacy/'
 import SignIn from './pages/SignIn/'
 import SignUp from './pages/SignUp/'
-import Terms from './pages/Terms/'
+import AboutUs from './pages/AboutUs/'
 import Recipe from './pages/Recipe/'
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeAddForm from './pages/RecipeAddForm';
@@ -34,7 +34,7 @@ function App() {
         <PublicRoute exact path="/recipe/list/:filter" component={Recipe} />
         <PublicRoute exact path="/ForgotPassword" component={ForgotPassword} />
         <PublicRoute exact path="/Privacy" component={Privacy} />
-        <PublicRoute exact path="/Terms" component={Terms} />
+        <PublicRoute exact path="/AboutUs" component={AboutUs} />
         <PublicRoute exact path="/notice" component={NoticePage} />
         <PublicRoute exact path="/notice/detail/:noticeId" component={NoticeDetail} />
         <PublicRoute exact path="/error" component={PageNotFound} />

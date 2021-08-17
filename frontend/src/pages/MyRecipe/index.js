@@ -80,6 +80,13 @@ function MyRecipe(match) {
     setSearchedValue(e.target.value);
   };
 
+  const isExist = () => {
+    if (recipes.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (
     <Fragment>
       <Header />
@@ -92,7 +99,7 @@ function MyRecipe(match) {
         orderByOption2={changeMyLikeState}
         state={state}
       />
-      <Container className={classes.paper}>
+      <Container className={isExist() ? classes.paper: classes.noRecipe}>
         <Box className={classes.title}>
           <Typography
             variant="h4"

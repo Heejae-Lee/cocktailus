@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(7),
     textAlign: 'center',
   },
+  noRecipe: {
+    marginBottom: "57vh",
+  },
   center: {
     display: 'flex',
     justifyContent: 'center',
