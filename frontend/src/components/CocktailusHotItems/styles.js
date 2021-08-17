@@ -12,9 +12,16 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   title: {
+    paddingLeft: theme.spacing(8),
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(7),
     // marginLeft: theme.spacing(5),
+  },
+  columnTitle:{
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    paddingLeft: theme.spacing(8)
   },
   btn: {
     marginTop: theme.spacing(1),
@@ -24,8 +31,23 @@ const styles = (theme) => ({
     // top: 40,
     right: 0
   },
+  columnBtn:{
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingRight: theme.spacing(8)
+  },
   grid: {
-    // marginTop: "auto",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  recipe: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    marginBottom: theme.spacing(5)
   }
 });
 

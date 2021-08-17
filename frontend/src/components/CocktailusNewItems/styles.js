@@ -19,6 +19,7 @@ const styles = (theme) => ({
       padding: theme.spacing(0, 5),
     },
     title: {
+      paddingLeft: theme.spacing(8),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(7),
       // marginLeft: theme.spacing(5),
@@ -36,8 +37,29 @@ const styles = (theme) => ({
       borderRadius: '8px',
       right: 0
     },
+    columnTitle:{
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      paddingLeft: theme.spacing(8)
+    },
+    columnBtn:{
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      paddingRight: theme.spacing(8)
+    },
     grid: {
-      // marginTop: theme.spacing(1)
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    recipe: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      marginBottom: theme.spacing(5)
     }
 });
 
