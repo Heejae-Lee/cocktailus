@@ -9,17 +9,24 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(7),
     textAlign: 'center',
+    
   },
-  center: {
+  left: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   recipeAddButton: {
-    float: 'right',
+    height: '40px',
+    borderRadius: '7px',
+    right: 0
   },
   title: {
-    marginTop: theme.spacing(5),
-  },
+    marginTop: theme.spacing(15),
+    marginBottom: theme.spacing(12),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 }));
 
 export default useStyles;

@@ -15,11 +15,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   recipeAddButton: {
-    float: 'right',
+    height: '40px',
+    borderRadius: '7px',
+    right: 0
   },
   title: {
-    marginTop: theme.spacing(5),
-  },
+    marginTop: theme.spacing(15),
+    marginBottom: theme.spacing(12),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 }));
 
 export default useStyles;

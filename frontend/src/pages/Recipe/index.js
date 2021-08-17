@@ -9,6 +9,7 @@ import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
 import RecipePreview from '../../components/RecipePreview'
 import Typography from "../../components/Typography";
+import Box from '@material-ui/core/Box';
 
 import { Container, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
@@ -47,7 +48,7 @@ function Recipe(match) {
     });
     if (query.title !== undefined) {
       search(query.title);
-      setText(query.title + " 검색");
+      setText(query.title);
     } else {
       if (filter === "new") {
         setState(1);
@@ -101,16 +102,13 @@ function Recipe(match) {
         state={state}
       />
       <Container className={classes.paper}>
-        <Grid container className={classes.center}>
+        <Box className={classes.title}>
           <Typography
             variant="h4"
-            marked="center"
-            className={classes.title}
-          >
+            marked="left"
+            >
             {text}
-            {/* {state === 1 ? "최신순" : "인기순"} */}
           </Typography>
-        </Grid>
           <ColorButton
             component={RouterLink}
             variant="contained"
@@ -119,6 +117,7 @@ function Recipe(match) {
             >
             레시피 작성
           </ColorButton>
+        </Box>
       </Container>
       <Container className={classes.paper}>
         <Grid container spacing={10}>

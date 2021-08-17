@@ -11,7 +11,7 @@ import useStyles from './styles';
 import RecipeHeader from '../../layout/RecipeHeader';
 
 // material-ui/core
-import { Container, Grid, Button, withStyles } from '@material-ui/core';
+import { Container, Box, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 
 import axios from 'axios'
@@ -93,15 +93,13 @@ function MyRecipe(match) {
         state={state}
       />
       <Container className={classes.paper}>
-        <Grid container className={classes.center}>
+        <Box className={classes.title}>
           <Typography
             variant="h4"
-            marked="center"
-            className={classes.title}
+            marked="left"
           >
             {state === 1 ? "Uploads" : "Likes"}
           </Typography>
-        </Grid>
           <ColorButton
             component={RouterLink}
             variant="contained"
@@ -110,6 +108,7 @@ function MyRecipe(match) {
             >
             레시피 작성
           </ColorButton>
+        </Box>
       </Container>
       <Container className={classes.paper}>
         <Grid container spacing={10}>
