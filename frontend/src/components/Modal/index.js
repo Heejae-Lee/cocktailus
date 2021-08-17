@@ -53,7 +53,9 @@ export default function CustomizedDialogs(props) {
   };
 
   return (
-    <div>
+    <div onKeyPress={(e) => { if(e.key === "Enter"){
+      handleClose();
+    }}}>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={props.open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {props.title}

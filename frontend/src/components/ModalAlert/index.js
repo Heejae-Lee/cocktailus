@@ -17,7 +17,9 @@ export default function AlertDialog(props) {
   };
 
   return (
-    <div>
+    <div onKeyPress={(e) => { if(e.key === "Enter"){
+      handleClose();
+    }}}>
       <Dialog
         open={props.open}
         keepMounted
