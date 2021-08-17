@@ -22,9 +22,9 @@ import {
 } from "../../common/validation";
 import { useHistory } from "react-router";
 import { userAPI } from "../../utils/userAPI";
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink } from "react-router-dom";
 // 모달
-import CustomizedDialogs from "../../components/Modal"
+import CustomizedDialogs from "../../components/Modal";
 
 function SignUp() {
   const classes = useStyles();
@@ -40,7 +40,6 @@ function SignUp() {
       ["email", "userName", "password", "passwordConfirm"],
       values
     );
-
 
     if (!errors.email) {
       const emailError = email(values.email, values);
@@ -149,6 +148,7 @@ function SignUp() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
+                maxLength="40"
                 label="이메일"
                 margin="normal"
                 name="email"
@@ -158,6 +158,7 @@ function SignUp() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
+                maxLength="15"
                 label="닉네임"
                 name="userName"
                 required
@@ -167,6 +168,7 @@ function SignUp() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 required
+                maxLength="20"
                 name="password"
                 label="비밀번호"
                 type="password"
@@ -177,6 +179,7 @@ function SignUp() {
                 disabled={submitting || sent}
                 component={RFTextField}
                 required
+                maxLength="20"
                 name="passwordConfirm"
                 label="비밀번호 확인"
                 type="password"
