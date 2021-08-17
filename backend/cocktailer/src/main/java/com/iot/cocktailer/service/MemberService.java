@@ -14,9 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MemberService implements UserDetailsService {
@@ -35,10 +33,10 @@ public class MemberService implements UserDetailsService {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         validateDuplicateMember(member);
         jpaMemberRepository.save(member);
-        return jwtTokenService.createToken(member.getEmail(),"Member");
+        return jwtTokenService.createToken(member);
     }
 
-    public String loginMember(LoginForm loginForm){
+    public Map<String,String> loginMember(LoginForm loginForm){
         Optional<Member> optionalMember = jpaMemberRepository.findByEmail(loginForm.getEmail());
         Member member = optionalMember.orElseThrow(()->
                 new UsernameNotFoundException(loginForm.getEmail())
@@ -46,8 +44,14 @@ public class MemberService implements UserDetailsService {
         if(!passwordEncoder.matches(loginForm.getPassword(),member.getPassword())){
             throw new IllegalStateException("Wrong password");
         }
-        String jwtToken = jwtTokenService.createToken(member.getEmail(),member.getRole());
-        return jwtToken;
+
+        String jwtToken = jwtTokenService.createToken(member);
+
+
+        Map<String,String> resultMap = new HashMap<>();
+        resultMap.put("access-token",jwtToken);
+        resultMap.put("name",member.getName());
+        return resultMap;
     }
 
     private void validateDuplicateMember(Member member){
@@ -65,11 +69,11 @@ public class MemberService implements UserDetailsService {
         );
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("Member"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_Member"));
         return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
 
     public String getMembernameByJwt(String jwt){
-        return jwtTokenService.getPK(jwt);
+        return jwtTokenService.getMemberName(jwt);
     }
 }

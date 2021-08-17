@@ -58,10 +58,10 @@ public class RecipeArticleService {
         // member liked
         for(RecipeArticle recipeArticle : recipeArticles){
             Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(),member_name));
-            recipeArticle.setLiked(like.getLiked());
+            recipeArticle.setLiked(like.getId().getMember_name().equals(member_name) ? like.getLiked() : false);
         }
 
-        return jpaRecipeArticleRepository.findAll();
+        return recipeArticles;
     }
 
     public RecipeArticle postRecipeArticle(RecipeArticle recipeArticle){
@@ -79,11 +79,10 @@ public class RecipeArticleService {
     public Map<String,List<RecipeArticle>> getMyRecipeArticles(String member_name){
         Map<String,List<RecipeArticle>> result = new HashMap<>();
 
-        // member liked
+        // member uploaded liked
         List<RecipeArticle> uploadedRecipeArticles = jpaRecipeArticleRepository.findUploadedByNameOrderByUpdatedDesc(member_name);
         for(RecipeArticle recipeArticle : uploadedRecipeArticles){
-            Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(),recipeArticle.getMember_name()));
-            recipeArticle.setLiked(like.getLiked());
+            recipeArticle.setLiked(true);
         }
 
         // member liked
