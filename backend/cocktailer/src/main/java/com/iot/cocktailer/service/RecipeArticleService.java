@@ -9,10 +9,7 @@ import com.iot.cocktailer.repository.JpaRecipeArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RecipeArticleService {
@@ -37,7 +34,7 @@ public class RecipeArticleService {
         Optional<RecipeArticle> optionalRecipeArticle = jpaRecipeArticleRepository.findById(id);
         RecipeArticle recipeArticle = optionalRecipeArticle.orElseThrow(()
                 -> new IllegalStateException("No matching id")
-        );
+            );
 
         // member liked
         if(jwt != null) {
@@ -124,6 +121,21 @@ public class RecipeArticleService {
 
     public List<RecipeArticle> searchRecipeArticles(String title,String jwt){
         List<RecipeArticle> recipeArticles = jpaRecipeArticleRepository.findByTitleDesc(title);
+
+        // member liked
+        return getRecipeArticlesWithLiked(jwt, recipeArticles);
+    }
+
+    public List<RecipeArticle> searchSortRecipeArticles(String sorts,String jwt){
+        List<RecipeArticle> recipeArticles = jpaRecipeArticleRepository.findAll();
+        switch (sorts){
+            case "like":
+                recipeArticles.sort(Comparator.comparing(RecipeArticle::getLikeCount).reversed());
+                break;
+            case "update":
+                recipeArticles.sort(Comparator.comparing(RecipeArticle::getUpdated));
+                break;
+        }
 
         // member liked
         return getRecipeArticlesWithLiked(jwt, recipeArticles);

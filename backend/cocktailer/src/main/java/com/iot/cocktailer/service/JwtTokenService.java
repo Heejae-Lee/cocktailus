@@ -60,8 +60,6 @@ public class JwtTokenService {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody().get("name",String.class);
     }
 
-
-
     public Authentication getAuthentication(String jwtToken){
         UserDetails userDetails = memberService.loadUserByUsername(this.getPK(jwtToken));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());

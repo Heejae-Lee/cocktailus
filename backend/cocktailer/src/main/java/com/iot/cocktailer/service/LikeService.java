@@ -24,9 +24,9 @@ public class LikeService {
 
     public RecipeArticle switchLike(LikeId likeId){
         Optional<RecipeArticle> optionalRecipeArticle = jpaRecipeArticleRepository.findById(likeId.getArticle_id());
-        RecipeArticle recipeArticle = optionalRecipeArticle.orElseThrow(()->
-                    new IllegalStateException("No matching id")
-                );
+        RecipeArticle recipeArticle = optionalRecipeArticle.orElseThrow(
+                ()-> new IllegalStateException("No matching id")
+            );
 
         Optional<Like> optionalLike = jpaLikeRepository.findById(likeId);
         Like like = optionalLike.orElseGet(

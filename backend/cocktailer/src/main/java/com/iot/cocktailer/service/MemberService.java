@@ -38,8 +38,8 @@ public class MemberService implements UserDetailsService {
 
     public Map<String,String> loginMember(LoginForm loginForm){
         Optional<Member> optionalMember = jpaMemberRepository.findByEmail(loginForm.getEmail());
-        Member member = optionalMember.orElseThrow(()->
-                new UsernameNotFoundException(loginForm.getEmail())
+        Member member = optionalMember.orElseThrow(
+                ()-> new UsernameNotFoundException(loginForm.getEmail())
             );
         if(!passwordEncoder.matches(loginForm.getPassword(),member.getPassword())){
             throw new IllegalStateException("Wrong password");
@@ -67,6 +67,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberWrapper.orElseThrow(()->
                 new UsernameNotFoundException(member_email)
         );
+        System.out.println();
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_Member"));
