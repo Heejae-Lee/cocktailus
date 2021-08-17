@@ -61,11 +61,15 @@ function SignIn() {
     
     if (res.status === 200) {
       console.log(res);
+      const base64Payload = res.data["access-token"].split('.')[1];
+      const p = Buffer.from(base64Payload, 'base64'); 
+      const result = JSON.parse(p.toString());
+
       const payload = {
         token: res.data["access-token"],
         email: values.email,
         name: res.data.name,
-        exp: res.headers.date
+        exp: result.exp*1000
       };
       console.log(payload);
       // console.log(payload);

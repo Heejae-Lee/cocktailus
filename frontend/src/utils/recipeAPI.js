@@ -4,15 +4,28 @@ import axios from "axios";
 export const recipeAPI = {
   // 전체 레시피 조회
   getRecipes: (setRecipes) => {
-    axios.get("/recipe-articles")
-    .then((res) => {
-      console.log("Get Recipe Success");
-      const data = res.data.reverse()
-      setRecipes(data);
-    })
-    .catch(() => {
-      console.log("Get Recipe failed");
-    })
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member !== null) { // 로그인 사용자면 토큰 추가해서 요청
+      axios.get("/recipe-articles", {
+        headers: {'Auth-Token': `${member.token}`},
+      })
+      .then((res) => {
+        console.log("Get Recipe Success");
+        setRecipes(res.data);
+      })
+      .catch(() => {
+        console.log("Get Recipe failed");
+      })
+    } else {
+      axios.get("/recipe-articles")
+      .then((res) => {
+        console.log("Get Recipe Success");
+        setRecipes(res.data);
+      })
+      .catch(() => {
+        console.log("Get Recipe failed");
+      })
+    }
   },
   saveRecipe: (data,token,history) => {
     axios.post("/recipe-articles", data, {
@@ -111,6 +124,7 @@ export const recipeAPI = {
   },
   getRecipeDetail: (recipeId, setState, setComments) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member !== null) {
     axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
       .then((res) => {
         let recipeData = res.data["recipe-article"]
@@ -146,7 +160,8 @@ export const recipeAPI = {
         console.log("getRecipeDetail fail");
         console.log(err);
       })
-  },
+  }
+}
 };
 
 export const recipeCommentAPI = {

@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import styles from "./styles";
 // 컴포넌트 관련
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { NavLink as RouterLink, useHistory } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import Drawer from "@material-ui/core/Drawer";
@@ -18,7 +18,6 @@ import PropTypes from "prop-types";
 import { refreshMemberInfo } from "../../app/reducer";
 
 import CustomizedDialogs from "../../components/Modal";
-import moment from 'moment';
 
 function AppHeader(props) {
   const { classes } = props;
@@ -31,16 +30,22 @@ function AppHeader(props) {
   const history = useHistory();
   const memberData = JSON.parse(window.localStorage.getItem("memberData"))
   
+  const goToSignIn = useCallback(() => {
+    history.push("/SignIn");
+  },[history]);
+
   useEffect(() => {
     const memberData = JSON.parse(window.localStorage.getItem("memberData"))
+    const timestamp = new Date().getTime()
 
-    if ((memberData !== null) && (moment(moment(memberData.exp)).isAfter(moment()))) {
-      setOpen(true);
-      localStorage.removeItem('memberData');
-      Dispatch(refreshMemberInfo());
-      history.push("/SignIn");
-    }
-  }, [Dispatch, history]);
+    if ((memberData !== null) && memberData.exp < timestamp) {
+        setOpen(true);
+        localStorage.removeItem('memberData');
+        Dispatch(refreshMemberInfo());
+        goToSignIn();
+      }
+  }, [Dispatch, goToSignIn]);
+
 
   const isPc = useMediaQuery({
     query: "(min-width:768px)",

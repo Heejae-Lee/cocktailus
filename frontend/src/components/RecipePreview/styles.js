@@ -32,8 +32,7 @@ const useStyles = makeStyles({
   },
   img: {
     width: "auto",
-    height: "100%",
-    maxHeight: "270px",
+    height: "270px",
   },
   likeImg: {
     width: 20,
