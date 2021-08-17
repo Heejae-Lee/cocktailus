@@ -131,7 +131,7 @@ export const hardwareAPI = {
       });
   },
   deviceAvailable: () => {
-    axios({
+    return axios({
       url: "http://localhost:8080/api/hose/available",
       method: "get",
     })
