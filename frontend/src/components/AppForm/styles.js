@@ -5,9 +5,9 @@ const styles = (theme) => ({
       backgroundRepeat: 'no-repeat',
     },
     paper: {
-      padding: theme.spacing(4, 3),
+      padding: theme.spacing(1, 3),
       [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(8, 6),
+        padding: theme.spacing(6, 6),
       },
     },
 });
