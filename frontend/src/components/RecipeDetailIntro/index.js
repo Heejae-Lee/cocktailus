@@ -121,7 +121,7 @@ export default function RecipeDetailIntro(props) {
             key={index}
           >
             <div style={{ marginRight: "20px" }}>
-              <Typography variant="subtitle1" >{data.drink}</Typography>
+              <Typography variant="subtitle1">{data.drink}</Typography>
             </div>
             <div>
               <Typography
@@ -213,10 +213,13 @@ export default function RecipeDetailIntro(props) {
               {/* 레시피 제작자 및 제작일, 좋아요 개수 표시 */}
               <div className={classes.info}>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <Typography variant="subtitle2"  style={{ textDecoration: "overline" }}>
+                  <Typography
+                    variant="subtitle2"
+                    style={{ textDecoration: "overline" }}
+                  >
                     {state.memberName}
                   </Typography>
-                  <Typography variant="subtitle2" >{state.created}</Typography>
+                  <Typography variant="subtitle2">{state.created}</Typography>
                 </div>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img

@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     flex: 1,
   },
+  buttonBox:{
+    display: "flex",
+    flexDirection: "column",
+  },
   commentButton: {
     marginTop: theme.spacing(6),
     borderRadius: 10,
