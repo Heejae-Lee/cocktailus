@@ -45,7 +45,9 @@ const DialogActions = withStyles((theme) => ({
 export default function CustomizedDialogs(props) {
   const handleClose = () => {
     props.setOpen(false);
-    if (props.goto !== undefined) {
+    if (props.logOut !== undefined) {
+      props.logOut();
+    } else if (props.goto !== undefined) {
       props.history.push(props.goto)
     }
   };
@@ -58,7 +60,7 @@ export default function CustomizedDialogs(props) {
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            {props.content}
+            <span style={{whiteSpace: "pre-wrap"}}>{props.content}</span>
           </Typography>
         </DialogContent>
         <DialogActions>

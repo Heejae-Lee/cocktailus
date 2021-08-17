@@ -1,5 +1,4 @@
 import axios from "axios";
-
 // recipe 관련 API 정의
 export const recipeAPI = {
   // 전체 레시피 조회
@@ -81,10 +80,11 @@ export const recipeAPI = {
       console.log(err);
     })
   },
-  likeRequest: (id, like, likeCount, setLike, setlikeCount, setLikeImg) => {
+  likeRequest: (id, like, likeCount, setLike, setlikeCount, setLikeImg, history) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     if (member == null) {
       alert("로그인 후 사용해주세요");
+      history.push("/SignIn");
       return;
     }
     axios.post(`/like`, {id: {article_id: id, member_name: member.name}},{headers: { 'Auth-Token': `${member.token}`}})
@@ -105,10 +105,11 @@ export const recipeAPI = {
         console.log(err);
       })
   },
-  likeRequestInMyPage: (id, like, likeCount, setLike, setlikeCount, setLikeImg, setIsChange) => {
+  likeRequestInMyPage: (id, like, likeCount, setLike, setlikeCount, setLikeImg, setIsChange, history) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     if (member == null) {
       alert("로그인 후 사용해주세요");
+      history.push("/SignIn");
       return;
     }
     axios.post(`/like`, {id: {article_id: id, member_name: member.name}},{headers: { 'Auth-Token': `${member.token}`}})
@@ -130,10 +131,11 @@ export const recipeAPI = {
         console.log(err);
       })
   },
-  likeRequestInDetail: (articleId) => {
+  likeRequestInDetail: (articleId, history) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     if (member == null) {
       alert("로그인 후 사용해주세요");
+      history.push("/SignIn");
       return;
     }
     axios.post(`/like`, {id: {article_id: articleId, member_name: member.name}},

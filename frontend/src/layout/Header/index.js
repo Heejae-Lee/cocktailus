@@ -35,14 +35,11 @@ function AppHeader(props) {
   },[history]);
 
   useEffect(() => {
-    const memberData = JSON.parse(window.localStorage.getItem("memberData"))
-    const timestamp = new Date().getTime()
+    const memberData = JSON.parse(window.localStorage.getItem("memberData"));
+    const timestamp = new Date().getTime();
 
     if ((memberData !== null) && memberData.exp < timestamp) {
         setOpen(true);
-        localStorage.removeItem('memberData');
-        Dispatch(refreshMemberInfo());
-        goToSignIn();
       }
   }, [Dispatch, goToSignIn]);
 
@@ -69,7 +66,7 @@ function AppHeader(props) {
     // 데이터 초기화
     Dispatch(refreshMemberInfo());
     localStorage.removeItem('memberData');
-    history.push("/");
+    history.push("/SignIn");
   };
 
   const alreadyLoggedIn = () => {
@@ -135,6 +132,7 @@ function AppHeader(props) {
         title="로그인 기간 만료"
         content="로그인 유효기간이 만료되었습니다. 다시 로그인해주세요."
         setOpen={setOpen}
+        logOut={logOut}
       />
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>

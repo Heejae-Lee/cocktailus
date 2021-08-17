@@ -47,9 +47,7 @@ function MyRecipe(match) {
   useEffect(()=>{
     const member = JSON.parse(window.localStorage.getItem("memberData"))
     const filter = match.match.params.filter;
-    if (filter === 'uploads') {
-      setState(1);
-    } else if (filter === 'likes') {
+    if (filter === 'likes') {
       setState(0);
     } else {
       setState(1);

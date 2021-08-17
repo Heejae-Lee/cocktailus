@@ -147,7 +147,7 @@ export default function RecipeDetailIntro(props) {
   };
 
   const clickLike = () => {
-    recipeAPI.likeRequestInDetail(props.data.id);
+    recipeAPI.likeRequestInDetail(props.data.id, history);
     if (state.liked) {
       setState({
         ...state,
