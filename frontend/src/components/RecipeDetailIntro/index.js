@@ -1,17 +1,15 @@
 // 스타일 관련
-import { withStyles } from '@material-ui/core/styles';
-import { purple, red, blue } from '@material-ui/core/colors';
+import { withStyles } from "@material-ui/core/styles";
+import { purple, red, blue } from "@material-ui/core/colors";
 import useStyles from "./styles";
-import "./styles.css"
+import "./styles.css";
 // 컴포넌트 관련
 import React, { useState, useEffect } from "react";
-import classnames from 'classnames';
-import { Button, Divider, Grid, Paper, ButtonBase } from "@material-ui/core";
+import classnames from "classnames";
+import { Button, Divider, Paper, ButtonBase } from "@material-ui/core";
 import Typography from "../../components/Typography";
-
-
-import { recipeAPI } from '../../utils/recipeAPI'
-import axios from 'axios'
+import { recipeAPI } from "../../utils/recipeAPI";
+import axios from "axios";
 import AlertDialog from "../ModalAlert";
 import { useHistory } from "react-router";
 
@@ -19,7 +17,7 @@ const ColorButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: purple[500],
-    '&:hover': {
+    "&:hover": {
       backgroundColor: purple[700],
     },
   },
@@ -29,7 +27,7 @@ const PutButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: blue[600],
-    '&:hover': {
+    "&:hover": {
       backgroundColor: blue[800],
     },
   },
@@ -39,7 +37,7 @@ const DeleteButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: red[600],
-    '&:hover': {
+    "&:hover": {
       backgroundColor: red[900],
     },
   },
@@ -47,18 +45,12 @@ const DeleteButton = withStyles((theme) => ({
 
 const Modal = ({ src, alt, onClose, caption }) => {
   return (
-    <div 
-      className="modal" 
-      >
-      <img 
-        className="modal-content" src={src} alt={alt} 
-        onClick={onClose}
-        />
+    <div className="modal">
+      <img className="modal-content" src={src} alt={alt} onClick={onClose} />
       {caption.length > 0 && <div className="caption">{caption}</div>}
     </div>
-  )
-}
-
+  );
+};
 
 // 레시피의 디테일한 정보를 표시하는 컴포넌트
 export default function RecipeDetailIntro(props) {
@@ -68,7 +60,7 @@ export default function RecipeDetailIntro(props) {
   const member = JSON.parse(window.localStorage.getItem("memberData"));
 
   const [open, setOpen] = useState(false); // 삭제 모달
-  const [imageOpen, setImageOpen] = useState(false) // 이미지 모달
+  const [imageOpen, setImageOpen] = useState(false); // 이미지 모달
   const [state, setState] = useState({
     drink: [],
     drink_ratio: [],
@@ -78,12 +70,11 @@ export default function RecipeDetailIntro(props) {
     liked: true,
     likeImg: props.likeImg,
     likeCount: 0,
-    imageURL : "",
+    imageURL: "",
   });
 
   useEffect(() => {
-    if (props.data.id !== null){
-
+    if (props.data.id !== null) {
       const drink = props.data.drink.filter((el) => el !== "");
       const drink_ratio = props.data.drink_ratio.filter((el) => el !== 0);
 
@@ -96,7 +87,7 @@ export default function RecipeDetailIntro(props) {
         liked: props.data.liked,
         likeImg: props.data.likeImg,
         likeCount: props.data.likeCount,
-        imageURL : props.data.imageURL,
+        imageURL: props.data.imageURL,
       });
     }
   }, [props]);
@@ -117,18 +108,28 @@ export default function RecipeDetailIntro(props) {
         drink_ratio: state.drink_ratio[i],
       });
     }
-
+    console.log(recipeData);
     return (
-      <div style={{ height: 190, marginLeft: 20 }}>
+      <div className={classes.ratioWrapper}>
         {recipeData.map((data, index) => (
-          <Grid item container direction="row" spacing={2} key={index}>
-            <Grid xs={3} item>
+          <div
+            style={{
+              display: "flex",
+              marginBottom: "6px",
+              alignItems: "center",
+            }}
+            key={index}
+          >
+            <div style={{ marginRight: "20px" }}>
               <Typography variant="subtitle1">{data.drink}</Typography>
-            </Grid>
-            <Grid xs={9} item>
-              <Typography variant="button">{data.drink_ratio + 'ml'}</Typography>
-            </Grid>
-          </Grid>
+            </div>
+            <div>
+              <Typography
+                variant="body2"
+                style={{ fontWeight: "bold" }}
+              >{`${data.drink_ratio} ml`}</Typography>
+            </div>
+          </div>
         ))}
       </div>
     );
@@ -154,7 +155,10 @@ export default function RecipeDetailIntro(props) {
   };
 
   const deleteRecipe = () => {
-    axios.delete(`/recipe-articles/${props.data.id}`, {headers: { 'Auth-Token': `${member.token}`}})
+    axios
+      .delete(`/recipe-articles/${props.data.id}`, {
+        headers: { "Auth-Token": `${member.token}` },
+      })
       .then(() => {
         console.log("delete success");
         history.push("/recipe");
@@ -162,12 +166,12 @@ export default function RecipeDetailIntro(props) {
       .catch((err) => {
         console.log("delete fail");
         console.log(err);
-      })
+      });
   };
 
   return (
     <div className={classes.root}>
-      <AlertDialog 
+      <AlertDialog
         open={open}
         delete={deleteRecipe}
         closeModal={closeModal}
@@ -175,29 +179,32 @@ export default function RecipeDetailIntro(props) {
         content="정말 삭제하시겠습니까?"
       />
       <Paper className={classes.paper}>
-        <Grid container>
-          <Grid item xs={4}>
-            <ButtonBase className={classes.image}>
-              <img
-                className={classnames(classes.img, "detailScale")}
-                alt="cocktailImg"
+        <div className={classes.recipeInfoWrapper}>
+          <ButtonBase className={classes.image}>
+            <img
+              className={classnames(classes.img, "detailScale")}
+              alt="cocktailImg"
+              src={state.imageURL}
+              onClick={() => setImageOpen(true)}
+            />
+            {imageOpen && (
+              <Modal
                 src={state.imageURL}
-                onClick={() => setImageOpen(true)}
+                alt="cocktail-image"
+                caption="이미지를 클릭하면 닫힙니다."
+                onClose={() => setImageOpen(false)}
               />
-              {imageOpen && (
-                  <Modal
-                    src={state.imageURL}
-                    alt="cocktail-image"
-                    caption="이미지를 클릭하면 닫힙니다."
-                    onClose={() => setImageOpen(false)}
-                  />
-                )}
-              {/* 레시피 대표 이미지 */}
-            </ButtonBase>
-          </Grid>
-          <Grid className={classes.detailBody} item sm container>
-            <Grid item container direction="column" xs={12} >
-              <Typography className={classes.subTitle} gutterBottom variant="h6" marked="left">
+            )}
+            {/* 레시피 대표 이미지 */}
+          </ButtonBase>
+          <div className={classes.detailBody}>
+            <div className={classes.detail}>
+              <Typography
+                className={classes.subTitle}
+                gutterBottom
+                variant="h6"
+                marked="left"
+              >
                 제조법
               </Typography>
               {/* 제조법에 대한 정보(술의 정보 및 비율) */}
@@ -205,62 +212,62 @@ export default function RecipeDetailIntro(props) {
 
               {/* 레시피 제작자 및 제작일, 좋아요 개수 표시 */}
               <div className={classes.info}>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                <Typography variant="subtitle2">{state.memberName}</Typography>
-                <Typography variant="subtitle2">{state.created}</Typography>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <Typography variant="subtitle2">
+                    {state.memberName}
+                  </Typography>
+                  <Typography variant="subtitle2">{state.created}</Typography>
                 </div>
-                <div style={{display: 'flex', alignItems:'center'}}>
-                <img
-                  className={classnames(classes.likeImg, "scaleLike")}
-                  src={process.env.PUBLIC_URL + "/images/" + state.likeImg}
-                  alt="좋아요 이미지"
-                  onClick={clickLike}
-                />
-                <Typography className={classes.bottomInfo} variant="h6">
-                  {state.likeCount}
-                </Typography>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    className={classnames(classes.likeImg, "scaleLike")}
+                    src={process.env.PUBLIC_URL + "/images/" + state.likeImg}
+                    alt="좋아요 이미지"
+                    onClick={clickLike}
+                  />
+                  <Typography className={classes.bottomInfo} variant="h6">
+                    {state.likeCount}
+                  </Typography>
                 </div>
               </div>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Divider className={classes.divider}/>
+            </div>
+          </div>
+        </div>
+        <Divider className={classes.divider} />
 
         <div className={classes.discription}>
-        
-        {/* 레시피의 디테일한 소개를 작성하는 칸 */}
-        <Typography
-          className={classes.subTitle}
-          gutterBottom
-          variant="h6"
-          marked="left"
-        >
-          레시피 소개
-        </Typography>
-        <Typography variant="body1" gutterBottom className={classes.content}>
-          {state.content}
-        </Typography>
+          {/* 레시피의 디테일한 소개를 작성하는 칸 */}
+          <Typography
+            className={classes.subTitle}
+            gutterBottom
+            variant="h6"
+            marked="left"
+          >
+            레시피 소개
+          </Typography>
+          <Typography variant="body1" gutterBottom className={classes.content}>
+            {state.content}
+          </Typography>
         </div>
         <div className={classes.right}>
           {/* 글 작성자면 보이도록 */}
-          {(member !== null) && (member.name === state.memberName) &&
-          <div>
-          <DeleteButton 
+          {member !== null && member.name === state.memberName && (
+            <div>
+              <DeleteButton className={classes.button} onClick={openModal}>
+                삭제
+              </DeleteButton>
+              <PutButton
+                className={classes.button}
+                onClick={() => history.push(`/recipe/modify/${props.data.id}`)}
+              >
+                수정
+              </PutButton>
+            </div>
+          )}
+          <ColorButton
             className={classes.button}
-            onClick={openModal}
-            >
-            삭제
-          </DeleteButton>
-          <PutButton 
-            className={classes.button}
-            onClick={() => history.push(`/recipe/modify/${props.data.id}`)}>
-            수정
-          </PutButton>
-          </div>
-          }
-          <ColorButton 
-            className={classes.button}
-            onClick={() => history.push("/recipe")}>
+            onClick={() => history.push("/recipe")}
+          >
             뒤로가기
           </ColorButton>
         </div>

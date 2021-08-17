@@ -137,7 +137,7 @@ export const recipeAPI = {
           return li;
         });
         const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
-          return Number(li) / 15;
+          return Number(li);
         });
         const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
         setComments(recipeComment)

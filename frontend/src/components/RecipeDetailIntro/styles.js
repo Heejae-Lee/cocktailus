@@ -8,22 +8,25 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     margin: "auto",
     marginBottom: 30,
-    maxWidth: "1000px",
+    maxWidth: "850px",
     height: "auto",
     backgroundColor: "#f3e5f5",
   },
-  image: {
+  recipeInfoWrapper: {
+    display: "flex",
     marginTop: 40,
+  },
+  image: {
     marginLeft: 20,
     marginRight: 10,
     width: 300,
     height: 300,
   },
-  subTitle:{
+  subTitle: {
     marginBottom: 20,
   },
   detailBody: {
-    marginTop: 30,
+    flex: 1,
     marginLeft: 40,
   },
   img: {
@@ -32,11 +35,17 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     maxHeight: "100%",
   },
-  info:{
+  ratioWrapper: {
+    height: 190,
+    marginLeft: 20,
+    display: "flex",
+    flexDirection: "column",
+  },
+  info: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: 'flex-start',
-    marginTop: '20px',
+    alignItems: "flex-start",
+    marginTop: "20px",
   },
   likeImg: {
     width: 18,
@@ -55,9 +64,9 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     position: "relative",
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '90%',
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "90%",
     margin: 20,
   },
   content: {
@@ -67,15 +76,14 @@ const useStyles = makeStyles((theme) => ({
     float: "flex",
     marginLeft: "10px",
     marginRight: "0px",
-    backgroundColor: '#9C27B4',
-    color: 'white',
+    backgroundColor: "#9C27B4",
+    color: "white",
   },
   right: {
     display: "flex",
     justifyContent: "flex-end",
-    alignItems: 'center',
-  }
-
+    alignItems: "center",
+  },
 }));
 
 export default useStyles;
