@@ -13,7 +13,7 @@ import LottieModal from "../LottieModal";
 import SimpleModal from "../SimpleModal";
 import recipes from "../../asset/recipe/recipe";
 // 기능 관련
-import { hardwareAPI } from "../../utils/axios";
+import { recipeAPI, hardwareAPI } from "../../utils/axios";
 import { useHistory } from "react-router-dom";
 
 export default function CardDetail(props) {
@@ -23,7 +23,7 @@ export default function CardDetail(props) {
     title: "",
     drink: [],
     image:
-      "https://post-phinf.pstatic.net/MjAxOTAxMTBfMjk2/MDAxNTQ3MDk5NTI0NTcw.nRDPstqlbUkdrc7hisU0ykCk1HyW5QGbEfukf2_pu3Eg.0lqUH00w3zpjp222n3aKc1QrtXYwQMWQk48Q5osx26cg.JPEG/%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg?type=w1200",
+      "",
   });
   const [hose, setHose] = React.useState({
     first: 0,
@@ -35,25 +35,26 @@ export default function CardDetail(props) {
     isConfirmed: false,
     making: false,
     isComplete: false,
+    isDuplicated: false,
+    error: false
   });
 
   // props를 통하여 칵테일 데이터를 로컬에서 가져올지 서버에서 가져올지 결정함
   React.useEffect(() => {
-    if (props.variant !== "basic") {
-      const recipeData = props.data;
-      const drinkList = recipeData.drink.split("|");
-      const drinkRatioList = recipeData.drinkRatio.split("|").splice("");
-      const drink = drinkList.map((el, index) => {
-        return {
-          drink: el,
-          ratio: Number(drinkRatioList[index].replace("ml", "")),
-        };
-      });
+    const flag = props.url.indexOf("bookmark") > -1 ? true : false;
+    console.log(props.url.indexOf("bookmark"));
+    console.log(flag)
 
-      setState({
-        title: recipeData.title,
-        drink: drink,
-      });
+    if ( flag ) {
+      recipeAPI.getRecipeDetail(props.id).then((res)=>{
+        console.log(res);
+        setState(res);
+      }).catch((err) => {
+        // 정보 가져오기 실패 모달
+        let newModalState = Object.assign({}, modalState, { error: true });
+        setModalState(newModalState);
+    });
+      
     } else {
       const basic = recipes[props.id];
       const drinkList = basic.drink.split("|");
@@ -122,7 +123,8 @@ export default function CardDetail(props) {
       let newModalState = Object.assign({}, modalState, { isConfirmed: true });
       setModalState(newModalState);
     } else {
-      alert("선택된 호스의 중복을 확인해주세요");
+      let newModalState = Object.assign({}, modalState, { isDuplicated: true });
+      setModalState(newModalState);
     }
   };
 
@@ -194,6 +196,7 @@ export default function CardDetail(props) {
                 isConfirmed: false,
                 making: false,
                 isComplete: true,
+                isDuplicated: false,
               };
               setModalState(newModalState);
             }
@@ -206,6 +209,11 @@ export default function CardDetail(props) {
   const buttonComplete = () => {
     history.push("/");
   };
+
+  const buttonDuplicated = () => {
+    let newModalState = Object.assign({}, modalState, { isDuplicated: false });
+    setModalState(newModalState);
+  }
 
   const handleConfirmedClose = () => {
     let newModalState = Object.assign({}, modalState, { isConfirmed: false });
@@ -394,6 +402,16 @@ export default function CardDetail(props) {
           </div>
         </div>
       </div>
+      {/* 이하 모달 목록들 */}
+            {/* 제조 완료를 알리는 모달 */}
+            <SimpleModal
+        open={modalState.error}
+        text={"레시피 가져오기를 실패했어요!"}
+        subText={"홈으로 돌아갈까요?"}
+        type="canceled"
+        buttonYes={buttonComplete}
+        buttonText="홈으로!"
+      />
       {/* 제조 전 확인을 위한 모달 */}
       <SimpleModal
         open={modalState.isConfirmed}
@@ -422,6 +440,14 @@ export default function CardDetail(props) {
         buttonYes={buttonComplete}
         buttonNo={handleCompleteClose}
         buttonText="홈으로!"
+      />
+      {/* 호스가 중복이 되었을 경우 */}
+      <SimpleModal
+        open={modalState.isDuplicated}
+        type="canceled"
+        text={"설정을 다시 확인해주세요!"}
+        subText={"중복된 호스가 있는것 같네요?"}
+        buttonYes={buttonDuplicated}
       />
     </div>
   );

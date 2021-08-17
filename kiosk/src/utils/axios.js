@@ -10,12 +10,12 @@ export const userAPI = {
       data: credentials,
     })
       .then((res) => {
-        console.log("axios::login::Success");
+        //console.log("axios::login::Success");
         //console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log("axios::login::Failed");
+        //console.log("axios::login::Failed");
         console.log(err);
         return err;
       });
@@ -31,15 +31,51 @@ export const recipeAPI = {
       url: `http://i5a103.p.ssafy.io:8080/myrecipe/${member.name}`,
       method: "get",
       headers: {
-        "Auth-Token": localStorage.getItem(member.token),
+        "Auth-Token": member.token,
       },
     })
       .then((res) => {
-        console.log("axios::getRecipes::Success");
+        //console.log("axios::getRecipes::Success");
         return res;
       })
       .catch((err) => {
-        console.log("axios::getRecipes::Failed");
+        //console.log("axios::getRecipes::Failed");
+        console.log(err);
+        return err;
+      });
+  },
+  getRecipeDetail: (recipeId) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    return axios({
+      url: `http://i5a103.p.ssafy.io:8080/recipe-articles/${recipeId}`,
+      method: "get",
+      headers: {
+        "Auth-Token": member.token,
+      },
+    })
+      .then((res) => {
+        const recipeData = res.data["recipe-article"];
+        const drinkList = recipeData.drink.split("|").filter((el) => el !== "");
+        const drinkRatioList = recipeData.drinkRatio
+          .split("|")
+          .filter((el) => el !== "");
+        const drink = drinkList.map((el, index) => {
+          if (el !== "") {
+            return {
+              drink: el,
+              ratio: Number(drinkRatioList[index].replace("ml", "")),
+            };
+          }
+        });
+        console.log(recipeData);
+        return {
+          title: recipeData.title,
+          drink: drink,
+          image: recipeData.imageURL,
+        };
+      })
+      .catch((err) => {
+        //console.log("getRecipeDetail fail");
         console.log(err);
       });
   },
@@ -55,11 +91,11 @@ export const hardwareAPI = {
       data: credentials.drink,
     })
       .then((res) => {
-        console.log("axios::makeRequest::Success");
+        //console.log("axios::makeRequest::Success");
         return res;
       })
       .catch((err) => {
-        console.log("axios::makeRequest::Failed");
+        //console.log("axios::makeRequest::Failed");
         console.log(err);
         return err;
       });
@@ -70,11 +106,11 @@ export const hardwareAPI = {
       method: "get",
     })
       .then((res) => {
-        console.log("axios::cleanRequest::Success");
+        //console.log("axios::cleanRequest::Success");
         return res;
       })
       .catch((err) => {
-        console.log("axios::cleanRequest::Failed");
+        //console.log("axios::cleanRequest::Failed");
         console.log(err);
         return err;
       });
@@ -85,26 +121,26 @@ export const hardwareAPI = {
       method: "get",
     })
       .then((res) => {
-        console.log("axios::stopRequest::Success");
+        //console.log("axios::stopRequest::Success");
         return res;
       })
       .catch((err) => {
-        console.log("axios::stopRequest::Failed");
+        //console.log("axios::stopRequest::Failed");
         console.log(err);
         return err;
       });
   },
   deviceAvailable: () => {
-    return axios({
+    axios({
       url: "http://localhost:8080/api/hose/available",
       method: "get",
     })
       .then((res) => {
-        console.log("axios::deviceAvailable::Success");
+        //console.log("axios::deviceAvailable::Success");
         return res;
       })
       .catch((err) => {
-        console.log("axios::deviceAvailable::Failed");
+        //console.log("axios::deviceAvailable::Failed");
         console.log(err);
         return err;
       });

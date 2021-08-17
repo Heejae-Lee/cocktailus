@@ -28,7 +28,6 @@ export default function BasicCocktails() {
         list: recipes.slice(newIndex, newIndex + 6),
       });
     }
-    console.log(state);
   };
 
   const clickNext = () => {
@@ -59,7 +58,7 @@ export default function BasicCocktails() {
                 className={classes.Link}
                 to={`/basic-detail/${el.id}`}
               >
-                <RecipeCard data={el} key={index} />
+                <RecipeCard data={el} img={process.env.PUBLIC_URL + "/images/" + el.image} key={index} />
               </Link>
             );
           })}

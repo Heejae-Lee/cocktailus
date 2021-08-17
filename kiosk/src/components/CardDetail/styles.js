@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
   CocktailImg: {
     width: "27vw",
     height: "40vh",
+    minWidth: "27vw",
+    minHeight: "40vh",
     borderRadius: "10px",
     boxShadow: "0 2px 4px 3px rgba(0, 0, 0, 0.5)",
   },

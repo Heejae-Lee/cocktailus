@@ -15,12 +15,14 @@ import { userAPI } from "../../utils/axios";
 
 export default function LoginModal(props) {
   const classes = useStyles();
+  const memberData = JSON.parse(window.localStorage.getItem("memberData"));
   const [open, setOpen] = React.useState(false);
   const [keyboardOpen, setKeyboardOpen] = React.useState({
     target: null,
     open: false,
   });
   const [sent, setSent] = React.useState(false);
+  const [ memberState, setMemberState ] = React.useState(false);
   const [member, setMember] = React.useState({
     email: "",
     password: "",
@@ -32,9 +34,30 @@ export default function LoginModal(props) {
     subText: ""
   });
 
+  React.useEffect(()=> {
+    if (memberData) {
+      setMemberState(true);
+    }
+  }, [])
+
   // 로그인 버튼을 누르면 모달창이 활성화 됨
-  const handleOpen = (e) => {
-    setOpen(true);
+  const handleLogin = (e) => {
+    if (memberState){
+      setMemberState(false);
+      
+      // 로그아웃 성공 모달 출력
+      const newLoginState = {
+        open: true,
+        type: "checked",
+        text: "로그아웃에 성공했습니다.",
+        subText: "다시 로그인해주실거죠?"
+      };
+      setLoginState(newLoginState);
+
+      JSON.parse(window.localStorage.removeItem("memberData"));
+    } else {
+      setOpen(true);
+    }
   };
 
   // 모달의 바깥쪽을 클릭하면 모달창이 비활성화 됨
@@ -87,9 +110,19 @@ export default function LoginModal(props) {
 
     // 로그인 요청
     const res = await userAPI.login(formData);
-    //console.log(res);
-    
-    if (res.status === 200) {
+    console.log(res);
+
+    if (!res){
+      // 네트워크 오류로 인한 로그인 실패 모달 출력
+      const newLoginState = {
+        open: true,
+        type: "canceled",
+        text: "로그인에 실패했습니다.",
+        subText: "네트워크 혹은 관리자에게 문의해주세요"
+      };
+
+      setLoginState(newLoginState);
+    } else if (res.status === 200) {
       const payload = {
         token: res.data["access-token"],
         email: member.email,
@@ -110,6 +143,7 @@ export default function LoginModal(props) {
       };
 
       setLoginState(newLoginState);
+      setMemberState(true);
 
       // 모달창 제거
       setOpen(false);
@@ -141,8 +175,8 @@ export default function LoginModal(props) {
 
   return (
     <div>
-      <Button className={classes.font} onClick={handleOpen}>
-        Login
+      <Button className={classes.font} onClick={handleLogin}>
+        {memberState ? "Logout" : "Login" }
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
