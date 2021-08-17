@@ -21,6 +21,7 @@ import NoticeDetail from './pages/NoticeDetail';
 
 import PrivateRoute from "./router/PrivateRoute"
 import PublicRoute from "./router/PublicRoute"
+import AdminRoute from "./router/AdminRoute"
 
 function App() {
   return (
@@ -47,8 +48,8 @@ function App() {
         <PrivateRoute exact path="/myRecipe/:filter" component={MyRecipe} />
 
         {/* admin */}
-        <PrivateRoute exact path="/notice/write" component={NoticeWrite} />
-        <PrivateRoute exact path="/notice/modify/:noticeId" component={NoticeModify} />
+        <AdminRoute exact path="/notice/write" component={NoticeWrite} />
+        <AdminRoute exact path="/notice/modify/:noticeId" component={NoticeModify} />
 
         {/* 존재하지 않는 url이면 error page */}
         <Redirect to="/error"/>
