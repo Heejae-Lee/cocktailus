@@ -3,14 +3,13 @@ import Container from '@material-ui/core/Container';
 import Typography from '../../components/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useStyles from './styles'
-import clsx from 'clsx';
 
 function Copyright() {
   return (
     <Fragment>
       {'© '}
       {new Date().getFullYear()}
-      {', made by A103'}
+      {', made by Cocktail.Us'}
     </Fragment>
   );
 }
@@ -19,9 +18,9 @@ export default function AppFooter() {
   const classes = useStyles();
 
   return (
-    <div className={clsx(classes.root)}>
+    <div className={classes.root}>
       <CssBaseline />
-      <footer className={clsx(classes.footer)}>
+      <footer className={classes.footer}>
         <Container className={classes.between}>
           <Typography 
             color="inherit"
