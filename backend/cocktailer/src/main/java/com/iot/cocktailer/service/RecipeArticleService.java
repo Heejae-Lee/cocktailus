@@ -6,6 +6,7 @@ import com.iot.cocktailer.domain.LikeId;
 import com.iot.cocktailer.domain.RecipeArticle;
 import com.iot.cocktailer.repository.JpaCommentRepository;
 import com.iot.cocktailer.repository.JpaLikeRepository;
+import com.iot.cocktailer.repository.JpaMemberRepository;
 import com.iot.cocktailer.repository.JpaRecipeArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,18 +20,18 @@ import java.util.Optional;
 public class RecipeArticleService {
     private final JpaRecipeArticleRepository jpaRecipeArticleRepository;
     private final JpaCommentRepository jpaCommentRepository;
-    private final JpaLikeRepository jpaLikeRepository;
     private final S3UploadService s3UploadService;
     private final LikeService likeService;
+    private final MemberService memberService;
 
     @Autowired
-    public RecipeArticleService(JpaRecipeArticleRepository jpaRecipeArticleRepository,JpaCommentRepository jpaCommentRepository,
-                                S3UploadService s3UploadService,JpaLikeRepository jpaLikeRepository,LikeService likeService){
+    public RecipeArticleService(JpaRecipeArticleRepository jpaRecipeArticleRepository, JpaCommentRepository jpaCommentRepository,
+                                S3UploadService s3UploadService, LikeService likeService, MemberService memberService){
         this.jpaRecipeArticleRepository = jpaRecipeArticleRepository;
         this.jpaCommentRepository = jpaCommentRepository;
-        this.jpaLikeRepository = jpaLikeRepository;
         this.s3UploadService = s3UploadService;
         this.likeService = likeService;
+        this.memberService = memberService;
     }
 
     public Map<String,Object> getRecipeArticle(Long id){
@@ -50,12 +51,13 @@ public class RecipeArticleService {
         return result;
     }
 
-    public List<RecipeArticle> getRecipeArticles(){
+    public List<RecipeArticle> getRecipeArticles(String jwt){
         List<RecipeArticle> recipeArticles = jpaRecipeArticleRepository.findAll();
+        String member_name = memberService.getMembernameByJwt(jwt);
 
         // member liked
         for(RecipeArticle recipeArticle : recipeArticles){
-            Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(),recipeArticle.getMember_name()));
+            Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(),member_name));
             recipeArticle.setLiked(like.getLiked());
         }
 
@@ -86,9 +88,6 @@ public class RecipeArticleService {
 
         // member liked
         List<RecipeArticle> likedRecipeArticles = jpaRecipeArticleRepository.findLikedByNameOrderByUpdatedDesc(member_name);
-        for(RecipeArticle recipeArticle : likedRecipeArticles){
-            recipeArticle.setLiked(true);
-        }
 
         result.put("uploaded-recipe-articles",uploadedRecipeArticles);
         result.put("liked-recipe-articles",likedRecipeArticles);
