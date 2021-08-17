@@ -61,12 +61,13 @@ export default function Comment(props) {
             </Typography>
 
             <Typography
-              className={classes.commentBody}
               variant="body2"
-              component="h2"
+              className={classes.commentBody}
+              display="block"
             >
               {el.content}
             </Typography>
+            
             <Typography
               className={classes.commentDate}
               variant="body2"

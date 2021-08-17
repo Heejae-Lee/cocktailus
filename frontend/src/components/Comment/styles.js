@@ -21,15 +21,19 @@ const useStyles = makeStyles((theme) => ({
   },
   commentBody: {
     flex: 1,
+    width: 300,
+    wordWrap: "break-word",
     whiteSpace: "pre-line"
   },
   commentDate: {
-    width: '80px'
+    marginLeft: '15px',
+    width: '80px',
   },
   commentDivider: {
     margin: '15px auto'
   },
   deleteIcon: {
+    marginLeft: '10px',
     color: '#ccc',
     fontSize: '24px',
     cursor: 'pointer',

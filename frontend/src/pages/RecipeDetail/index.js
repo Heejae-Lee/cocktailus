@@ -3,7 +3,7 @@ import withRoot from "../../components/withRoot";
 import useStyles from "./styles";
 
 import React, { useState, useEffect } from "react";
-import { Box, Container, Divider } from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 
 import AppHeader from "../../layout/Header";
 import AppFooter from "../../layout/Footer";
@@ -75,11 +75,6 @@ function RecipeDetail(match) {
           comments={comments}
         />
         <div style={{ width: "100%", height: "50px" }} />
-        <Divider variant="inset" />
-        <div style={{ width: "100%", height: "50px" }} />
-        <Typography variant="h4" gutterBottom marked="center" align="center">
-          {"보고계신 음료와 비슷한 레시피"}
-        </Typography>
       </Container>
       <AppFooter />
     </Box>
