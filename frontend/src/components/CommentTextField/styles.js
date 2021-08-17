@@ -18,16 +18,18 @@ const useStyles = makeStyles((theme) => ({
   },
   commentUser: {
     marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+    fontWeight: 'bold',
+    textDecoration: 'underline',
     width: '150px'
   },
   commentTextArea: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     flex: 1,
-    resize: "none",
   },
   commentButton: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(6),
     borderRadius: 10,
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: purple[500],

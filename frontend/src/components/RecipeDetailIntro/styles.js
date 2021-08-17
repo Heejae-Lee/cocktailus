@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     marginBottom: 30,
     maxWidth: "850px",
+    minWidth: "600px",
     height: "auto",
     backgroundColor: "#f3e5f5",
   },
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   info: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "flex-end",
     marginTop: "20px",
   },
   likeImg: {
@@ -60,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 30,
   },
   bottomInfo: {
-    marginRight: 30,
+    marginRight: 50,
+    marginBottom: 5,
   },
   divider: {
     position: "relative",

@@ -30,18 +30,18 @@ export default function CommentTextField(props) {
   return (
     <div className={classes.root}>
       <div className={classes.commentWrite}>
-        <Typography className={classes.commentUser} variant="h6" component="h2">
+        <div className={classes.commentTextArea}>
+        <Typography className={classes.commentUser} variant="body1">
           {member.name}
         </Typography>
 
         <TextareaAutosize
           id="mTxtArea"
-          className={classes.commentTextArea}
           onChange={commentChange}
           resize={"none"}
           placeholder="댓글을 입력하세요"
-          minRows={3}
-          maxRows={3}
+          minRows={2}
+          maxRows={2}
           maxLength={500}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
@@ -51,7 +51,7 @@ export default function CommentTextField(props) {
             }
           }}
         />
-
+        </div>
         <Button
           variant="contained"
           size="medium"
