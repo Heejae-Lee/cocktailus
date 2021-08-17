@@ -18,9 +18,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2%',
   },
   container: {
-    padding: '30px 30px',
     display: 'block',
-    width: '85%',
+    width: '90%',
     margin: 'auto',
   },
   right: {
