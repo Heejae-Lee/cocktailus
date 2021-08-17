@@ -30,7 +30,6 @@ function App() {
         {/* Public */}
         <PublicRoute exact path="/" component={Home} />
         <PublicRoute exact path="/recipe" component={Recipe} />
-        <PublicRoute exact path="/recipe/:page" component={Recipe} />
         <PublicRoute exact path="/recipe/detail/:recipeId" component={RecipeDetail} />
         <PublicRoute exact path="/recipe/list/:filter" component={Recipe} />
         <PublicRoute exact path="/ForgotPassword" component={ForgotPassword} />

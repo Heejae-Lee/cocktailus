@@ -37,17 +37,13 @@ function Recipe(match) {
   const [searchedValue, setSearchedValue] = useState('');
   const [state, setState] = useState(1);
   const [text, setText] = useState('최신순');
-  const [page, setPage] = useState(isNaN(parseInt(match.match.params.page)) ? 1 : parseInt(match.match.params.page));
+  const [page, setPage] = useState(1);
   const search = useCallback((q) => {
     recipeAPI.searchRecipes(q, setRecipes);
   }, [setRecipes]);
 
   useEffect(()=>{
     const filter = match.match.params.filter;
-    const curPage = match.match.params.page;
-    if ((curPage !== undefined) && (isNaN(parseInt(curPage)) === false)) {
-        setPage(parseInt(curPage));
-    }
     const query = qs.parse(match.location.search, {
       ignoreQueryPrefix: true
     });
@@ -92,7 +88,8 @@ function Recipe(match) {
   };
   
   const pageChange = (e, nextPage) => {
-    history.push(`/recipe/${nextPage}`);
+    // history.push(`/recipe/page/${nextPage}`);
+    setPage(nextPage);
   };
 
   return (
@@ -145,7 +142,7 @@ function Recipe(match) {
           ))}
         </Grid>
         <Pagination
-          defaultPage={page}
+          defaultPage={1}
           count={Math.ceil(recipes.length/6)} 
           showFirstButton 
           showLastButton 
