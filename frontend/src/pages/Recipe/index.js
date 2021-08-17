@@ -13,6 +13,7 @@ import Box from '@material-ui/core/Box';
 
 import { Container, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
+import { Pagination } from '@material-ui/lab';
 
 import { recipeAPI } from '../../utils/recipeAPI';
 // url 쿼리 값 읽기
@@ -30,19 +31,23 @@ const ColorButton = withStyles((theme) => ({
 
 function Recipe(match) {
   const classes = useStyles();
+  const history = useHistory();
   
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
   const [state, setState] = useState(1);
-  const history = useHistory();
   const [text, setText] = useState('최신순');
- 
+  const [page, setPage] = useState(isNaN(parseInt(match.match.params.page)) ? 1 : parseInt(match.match.params.page));
   const search = useCallback((q) => {
     recipeAPI.searchRecipes(q, setRecipes);
   }, [setRecipes]);
 
   useEffect(()=>{
     const filter = match.match.params.filter;
+    const curPage = match.match.params.page;
+    if ((curPage !== undefined) && (isNaN(parseInt(curPage)) === false)) {
+        setPage(parseInt(curPage));
+    }
     const query = qs.parse(match.location.search, {
       ignoreQueryPrefix: true
     });
@@ -86,6 +91,10 @@ function Recipe(match) {
     setSearchedValue(e.target.value);
   };
   
+  const pageChange = (e, nextPage) => {
+    history.push(`/recipe/${nextPage}`);
+  };
+
   return (
     <React.Fragment>
       <Header />
@@ -119,7 +128,7 @@ function Recipe(match) {
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
-          {recipes.map(recipe => (
+          {recipes.slice(6*(page-1),6*page).map(recipe => (
             <RecipePreview
               key={recipe.id}
               id = {recipe.id}
@@ -135,6 +144,14 @@ function Recipe(match) {
               />
           ))}
         </Grid>
+        <Pagination
+          defaultPage={page}
+          count={Math.ceil(recipes.length/6)} 
+          showFirstButton 
+          showLastButton 
+          className={classes.pagination}
+          onChange={pageChange}
+        />
       </Container>
       <Footer />
     </React.Fragment>
