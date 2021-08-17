@@ -12,15 +12,21 @@ const useStyles = makeStyles((theme) => ({
   },
   Link: {
     cursor: "none",
+    margin: "1vw"
   },
   listWrapper:{
+    width: "100vw",
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     cursor: "none",
   },
   btnLayout: {
     cursor: "none",
+    minWidth: '4vw',
+    marginLeft: '2vw',
+    marginRight: '2vw'
   },
   cards: {
     flex:1,
@@ -32,13 +38,10 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   nextIcon: {
-    width: '4vw',
     position: 'relative',
     top: '50%',
     transform: 'translateY(-50%)',
     color: 'white',
-    marginLeft: '2vw',
-    marginRight: '2vw',
     cursor: "none",
   }
 }));
