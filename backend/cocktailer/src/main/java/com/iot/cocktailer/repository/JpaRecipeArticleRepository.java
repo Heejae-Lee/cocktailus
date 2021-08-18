@@ -67,8 +67,8 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
 
     @Override
     public List<RecipeArticle> findByTitleDesc(String title) {
-        List<RecipeArticle> recipeArticles = em.createQuery("select ra from RecipeArticle ra where ra.title = :title",RecipeArticle.class)
-                                                .setParameter("title",title)
+        List<RecipeArticle> recipeArticles = em.createQuery("select ra from RecipeArticle ra where ra.title like :title",RecipeArticle.class)
+                                                .setParameter("title","%"+title+"%")
                                                 .getResultList();
         recipeArticles.sort(Comparator.comparing(RecipeArticle::getUpdated));
         return recipeArticles;
