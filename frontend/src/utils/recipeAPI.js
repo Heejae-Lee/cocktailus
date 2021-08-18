@@ -55,13 +55,13 @@ export const recipeAPI = {
       headers: {'Auth-Token': `${token}`},
       }
     )
-    .then(() => {
+    .then((res) => {
       console.log("Upload Recipe Success");
-      history.push(`/recipe`); // 성공하면 작성 게시글로 이동 => router추가
+      history.push(`/recipe/detail/${res.data.id}`); // 성공하면 작성 게시글로 이동 => router추가
     })
-    .catch((err) => {
+    .catch(() => {
       console.log("Upload Recipe failed");
-      console.log(err);
+      // console.log(err);
       // 모달창으로 경고표시
     })
   },
