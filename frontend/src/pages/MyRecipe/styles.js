@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    '& > *': {
+      marginTop: theme.spacing(2),
+    },
   },
   paper: {
     flex: 1,
@@ -27,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(12),
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(7),
+    marginBottom: theme.spacing(10),
   }
 }));
 

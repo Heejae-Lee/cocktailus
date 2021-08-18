@@ -32,43 +32,41 @@ export const recipeAPI = {
   searchRecipes: (keyword, setRecipes) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     if (member !== null) {
-      axios
-        .get(`/recipe-articles?title=${keyword}`, {
-          headers: { "Auth-Token": `${member.token}` },
-        })
-        .then((res) => {
-          console.log("Get Recipe Success");
-          setRecipes(res.data);
-        })
-        .catch(() => {
-          console.log("Get Recipe failed");
-        });
+      axios.get(`/recipe-articles?title=${keyword}`, {
+        headers: {'Auth-Token': `${member.token}`},
+      })
+      .then((res) => {
+        console.log("Searched Success");
+        setRecipes(res.data);
+      })
+      .catch(() => {
+        console.log("Searched failed");
+      })
     } else {
-      axios
-        .get(`/recipe-articles?title=${keyword}`)
-        .then((res) => {
-          console.log("Get Recipe Success");
-          setRecipes(res.data);
-        })
-        .catch(() => {
-          console.log("Get Recipe failed");
-        });
+      axios.get(`/recipe-articles?title=${keyword}`)
+      .then((res) => {
+        console.log("Searched Success");
+        setRecipes(res.data);
+      })
+      .catch(() => {
+        console.log("Searched failed");
+      })
     }
   },
-  saveRecipe: (data, token, history) => {
-    axios
-      .post("/recipe-articles", data, {
-        headers: { "Auth-Token": `${token}` },
-      })
-      .then(() => {
-        console.log("Upload Recipe Success");
-        history.push(`/recipe`); // 성공하면 작성 게시글로 이동 => router추가
-      })
-      .catch((err) => {
-        console.log("Upload Recipe failed");
-        console.log(err);
-        // 모달창으로 경고표시
-      });
+  saveRecipe: (data,token,history) => {
+    axios.post("/recipe-articles", data, {
+      headers: {'Auth-Token': `${token}`},
+      }
+    )
+    .then((res) => {
+      console.log("Upload Recipe Success");
+      history.push(`/recipe/detail/${res.data.id}`); // 성공하면 작성 게시글로 이동 => router추가
+    })
+    .catch(() => {
+      console.log("Upload Recipe failed");
+      // console.log(err);
+      // 모달창으로 경고표시
+    })
   },
   modifyRecipe: (data, token, history, recipeId) => {
     console.log(data);
@@ -194,6 +192,7 @@ export const recipeAPI = {
         .then((res) => {
           let recipeData = res.data["recipe-article"];
           const recipeComment = res.data["comments"];
+
           const tag = recipeData.tag.split("|").reduce((acc, cur) => {
             acc = acc + `#${cur} `;
             return acc;
@@ -204,8 +203,8 @@ export const recipeAPI = {
           const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
             return Number(li);
           });
-          const likedImg = recipeData.liked ? "like.png" : "no_like.png";
-          setComments(recipeComment);
+          const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
+          setComments(recipeComment)
           setState({
             id: recipeData.id,
             title: recipeData.title,
@@ -265,7 +264,6 @@ export const recipeAPI = {
         .get("/recipe-articles?sort=like")
         .then((res) => {
           result.trendyRecipes = res.data.slice(0, 3);
-
           // 인기순 데이터를 가져오는데 성공하면 최신순 레시피 데이터도 요청함
           axios
             .get("/recipe-articles?sort=update")

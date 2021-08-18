@@ -33,53 +33,72 @@ function Recipe(match) {
   const classes = useStyles();
   const history = useHistory();
   
+  const query = qs.parse(match.location.search, {
+    ignoreQueryPrefix: true
+  });
+
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
   const [state, setState] = useState(1);
   const [text, setText] = useState('최신순');
   const [page, setPage] = useState(1);
+
   const search = useCallback((q) => {
     recipeAPI.searchRecipes(q, setRecipes);
   }, [setRecipes]);
 
   useEffect(()=>{
-    const filter = match.match.params.filter;
-    const query = qs.parse(match.location.search, {
-      ignoreQueryPrefix: true
-    });
-    if (query.title !== undefined) {
+    if (query.page !== undefined) {
+      setPage(query.page);
+    } else {
+      setPage(1);
+    }
+    if (query.title !== undefined && query.title > 0) {
       search(query.title);
       setText(query.title);
     } else {
-      if (filter === "new") {
-        setState(1);
-        setText("최신순");
-      } else if (filter === "popular") {
+      if (query.filter === "popular") {
         setState(0);
         setText("인기순");
+      } else {
+        setState(1);
+        setText("최신순");
       }
       recipeAPI.getRecipes(setRecipes);
     }
-  }, [match, search]);
+  }, [match, search, query.filter, query.title, query.page]);
+
 
   const orderByLatest = () => {
     // 최신순
     console.log("최신순");
-    history.push(`/recipe/list/new`);
+    const newQueryParam = {
+      ...query,
+      filter: 'new',
+      page: 1,
+    }
+    history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
   };
 
   const orderByPopulation = () => {
     // 좋아요 순
+    const newQueryParam = {
+      ...query,
+      filter: 'popular',
+      page: 1,
+    }
     console.log("인기순");
-    setState(0);
-    history.push(`/recipe/list/popular`);
+    history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
   };
 
   const searchRecipes = () => {
+    const newQueryParam = {
+      title: searchedValue,
+    }
     if (searchedValue === '') {
-      history.push(`/recipe/list/new`);
+      history.push(`/recipe?filter=new`);
     } else {
-      history.push(`/recipe?title=${searchedValue}`);
+      history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
     }
   };
 
@@ -88,8 +107,11 @@ function Recipe(match) {
   };
   
   const pageChange = (e, nextPage) => {
-    // history.push(`/recipe/page/${nextPage}`);
-    setPage(nextPage);
+    const newQueryParam = {
+      ...query,
+      page: nextPage,
+    }
+    history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
   };
 
   return (
@@ -142,10 +164,11 @@ function Recipe(match) {
           ))}
         </Grid>
         <Pagination
-          defaultPage={1}
+          defaultPage={page}
           count={Math.ceil(recipes.length/6)} 
-          showFirstButton 
-          showLastButton 
+          showFirstButton
+          showLastButton
+          color="secondary"
           className={classes.pagination}
           onChange={pageChange}
         />

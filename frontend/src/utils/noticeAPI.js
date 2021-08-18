@@ -4,17 +4,16 @@ export const noticeAPI = {
   getNoticeList: (setRows, setFilteredRows) => {
     axios.get("/notices")
       .then((res) => {
-        console.log("getNoticeList success");
+        // console.log("getNoticeList success");
         let datas = res.data
         for (let i = 0; i < datas.length; i++) {
           datas[i].created = datas[i].created.slice(0, 10);
         }
-        res.data.reverse(); // 최신순으로 변경
         setRows(res.data);
         setFilteredRows(res.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        console.log("get NoticeList failed.");
       })
   },
   saveNotice: (data, token, history) => {
@@ -22,13 +21,11 @@ export const noticeAPI = {
       headers: {'Auth-Token': `${token}`},
       }
     )
-    .then(() => {
-      history.push("/notice"); // 성공하면 작성 게시글로 이동 => router추가
+    .then((res) => {
+      history.push(`/notice/detail/${res.data.id}`);
     })
     .catch((err) => {
       console.log("Upload failed");
-      console.log(err);
-      alert(err); // 모달창으로 경고표시
     })
   },
   modifyNotice: (data, token, history, noticeId) => {
@@ -37,12 +34,10 @@ export const noticeAPI = {
       }
     )
     .then(() => {
-      // console.log("modify notice success");
       history.push(`/notice/detail/${noticeId}`, noticeId); // 성공하면 작성 게시글로 이동
     })
-    .catch((err) => {
+    .catch(() => {
       console.log("modify notice failed");
-      // console.log(err);
     })
   },
   deleteNotice: (noticeId, history) => {
@@ -52,15 +47,12 @@ export const noticeAPI = {
         console.log("deleteNotice success");
         history.push("/notice");
       })
-      .catch((err) => {
+      .catch(() => {
         console.log("deleteNotice fail");
-        console.log(err);
       })
   },
   getNoticeDetail: (noticeId, setData, history) => {
-    const member = JSON.parse(window.localStorage.getItem("memberData"));
-    // axios.get(`/notices/${noticeId}`)
-    axios.get(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
+    axios.get(`/notices/${noticeId}`)
       .then((res) => {
         console.log("getNotice success");
         let datas = res.data
@@ -72,9 +64,8 @@ export const noticeAPI = {
         datas.updated = datas.updated.slice(0, 10) + " " + datas.updated.slice(11, 16);
         setData(datas);
       })
-      .catch((err) => {
+      .catch(() => {
         console.log("getNotice fail");
-        console.log(err);
       })
   },
   getNoticeModifyDetail: (noticeId, setData) => {
@@ -91,7 +82,7 @@ export const noticeAPI = {
         document.getElementById("modifyContent").value=datas.content;
         setData(datas);
       })
-      .catch((err) => {
+      .catch(() => {
         console.log("getNotice fail");
       })
     },
