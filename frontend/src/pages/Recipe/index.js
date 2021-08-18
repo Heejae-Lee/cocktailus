@@ -38,6 +38,7 @@ function Recipe(match) {
   const [state, setState] = useState(1);
   const [text, setText] = useState('최신순');
   const [page, setPage] = useState(1);
+
   const search = useCallback((q) => {
     recipeAPI.searchRecipes(q, setRecipes);
   }, [setRecipes]);
@@ -63,6 +64,7 @@ function Recipe(match) {
     }
   }, [match, search]);
 
+
   const orderByLatest = () => {
     // 최신순
     console.log("최신순");
@@ -72,7 +74,6 @@ function Recipe(match) {
   const orderByPopulation = () => {
     // 좋아요 순
     console.log("인기순");
-    setState(0);
     history.push(`/recipe/list/popular`);
   };
 

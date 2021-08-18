@@ -30,12 +30,14 @@ const ColorButton = withStyles((theme) => ({
 
 function MyRecipe(match) {
   const classes = useStyles();
+  const history = useHistory();
   
   const [state, setState] = useState(1); // 내 업로드, 좋아요 구분용 1: MyUpload, 0: MyLike
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
   const [isChange, setIsChange] = useState(false);
-  const history = useHistory();
+  const [page, setPage] = useState(1);
+
   // 전체 레시피 조회
   const changeMyUploadState = () => {
     history.push('/myRecipe/uploads');
@@ -64,6 +66,7 @@ function MyRecipe(match) {
         } else {
           setRecipes(res.data["liked-recipe-articles"]);
         }
+        console.log(res.data);
       })
       .catch(() => {
         console.log("Get MyUploadRecipe failed");
@@ -81,13 +84,16 @@ function MyRecipe(match) {
     setSearchedValue(e.target.value);
   };
 
+  const pageChange = (e, nextPage) => {
+    setPage(nextPage);
+  };
+
   const isExist = () => {
     if (recipes.length > 0) {
       return true
-    } else {
-      return false
-    }
-  }
+    } else { return false }
+  };
+  
   return (
     <Fragment>
       <Header />
@@ -121,7 +127,7 @@ function MyRecipe(match) {
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
-          {recipes.map(recipe => (
+          {recipes.slice(6*(page-1),6*page).map(recipe => (
             <RecipePreview
               key={recipe.id}
               id = {recipe.id}
@@ -139,6 +145,14 @@ function MyRecipe(match) {
               />
           ))}
         </Grid>
+        <Pagination
+          defaultPage={1}
+          count={Math.ceil(recipes.length/6)} 
+          showFirstButton 
+          showLastButton 
+          className={classes.pagination}
+          onChange={pageChange}
+        />
       </Container>
       <Footer />
     </Fragment>

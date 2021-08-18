@@ -108,7 +108,6 @@ export default function RecipeDetailIntro(props) {
         drink_ratio: state.drink_ratio[i],
       });
     }
-    console.log(recipeData);
     return (
       <div className={classes.ratioWrapper}>
         {recipeData.map((data, index) => (
