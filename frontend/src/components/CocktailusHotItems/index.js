@@ -13,11 +13,9 @@ import RecipePreview from "../../components/RecipePreview";
 import PropTypes from "prop-types";
 import { NavLink as RouterLink } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { recipeAPI } from "../../utils/recipeAPI";
 
 function CocktailusHotItems(props) {
   const { classes } = props;
-  const [recipes, setRecipes] = useState([]);
 
   const isPc = useMediaQuery({
     query: "(min-width:909px)",
@@ -26,9 +24,6 @@ function CocktailusHotItems(props) {
     query: "(max-width:908px)",
   });
 
-  useEffect(() => {
-    recipeAPI.getRecipes(setRecipes);
-  }, []);
   return (
     <section className={classes.root}>
       {/* pc 버전 충분한 가로 폭이 있을 경우 */}
@@ -58,7 +53,7 @@ function CocktailusHotItems(props) {
           </Box>
           {/* 트렌디한 칵테일 리스트 */}
           <Grid container spacing={10} direction="row">
-            {recipes.slice(0, 3).map((recipe) => (
+            {props.recipeData.map((recipe) => (
               <RecipePreview
                 key={recipe.id}
                 style={{ width: "400px" }}
@@ -88,7 +83,7 @@ function CocktailusHotItems(props) {
           </div>
           {/* 트렌디한 칵테일 리스트 */}
           <div className={classes.grid}>
-            {recipes.slice(0, 3).map((recipe) => (
+            {props.recipeData.map((recipe) => (
               <div key={recipe.id} className={classes.recipe}>
                 <RecipePreview
                   id={recipe.id}

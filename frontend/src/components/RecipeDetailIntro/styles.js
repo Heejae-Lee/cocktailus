@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     marginBottom: 30,
     maxWidth: "850px",
-    minWidth: "600px",
+    minWidth: "550px",
     height: "auto",
     backgroundColor: "#f3e5f5",
   },

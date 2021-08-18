@@ -1,6 +1,5 @@
 // 스타일 관련
 import withRoot from "../../components/withRoot";
-import useStyles from "./styles";
 import animationData from "../../lotties/404-not-found.json";
 // 컴포넌트 관련
 import React from "react";
@@ -11,7 +10,6 @@ import AppHeader from "../../layout/Header";
 import Lottie from "react-lottie";
 
 function PageNotFound() {
-  const classes = useStyles();
 
   const defaultOptions = {
     loop: true,
