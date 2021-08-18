@@ -9,7 +9,6 @@ export const noticeAPI = {
         for (let i = 0; i < datas.length; i++) {
           datas[i].created = datas[i].created.slice(0, 10);
         }
-        res.data.reverse(); // 최신순으로 변경
         setRows(res.data);
         setFilteredRows(res.data);
       })
