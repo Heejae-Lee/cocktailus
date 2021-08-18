@@ -74,8 +74,10 @@ public class RecipeArticleService {
 
         // member uploaded liked
         List<RecipeArticle> uploadedRecipeArticles = jpaRecipeArticleRepository.findUploadedByNameOrderByUpdatedDesc(member_name);
-        for(RecipeArticle recipeArticle : uploadedRecipeArticles){
-            recipeArticle.setLiked(true);
+
+        for (RecipeArticle recipeArticle : uploadedRecipeArticles) {
+            Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(), member_name));
+            recipeArticle.setLiked(like.getId().getMember_name().equals(member_name) ? like.getLiked() : false);
         }
 
         // member liked
