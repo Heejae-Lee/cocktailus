@@ -53,7 +53,7 @@ export default function MenuList() {
     } else {
       return (
       <List>
-        <ListItem button key={"SignIn"} onClick={() => alert("유저 버튼 왜 눌러요")}>
+        <ListItem button key={"SignIn"}>
           <ListItemIcon>
             <EmojiPeopleIcon />
           </ListItemIcon>
