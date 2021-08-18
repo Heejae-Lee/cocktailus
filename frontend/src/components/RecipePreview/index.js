@@ -78,7 +78,7 @@ export default function RecipePreview(props) {
 
         <CardActions className={classes.between}>
           <Typography className={classes.date}>
-              {String(props.created).substr(0, 10)}
+              {String(props.updated).substr(0, 10)}
           </Typography>
           <div className={classes.right}>
             <Typography variant="subtitle2" className={classes.right}>

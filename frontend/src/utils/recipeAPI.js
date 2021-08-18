@@ -281,6 +281,62 @@ export const recipeAPI = {
         });
     }
   },
+  // 최신순 레시피 조회
+  getNewRecipes: (setRecipes) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member !== null) {
+      axios
+        .get("/recipe-articles?sort=update", {
+          headers: { "Auth-Token": `${member.token}` },
+        })
+        .then((res) => {
+          setRecipes(res.data);
+          console.log(res.data);
+        })
+        .catch(() => {
+          console.log("Get new Recipe failed");
+        });
+      } 
+      else {
+        axios
+        .get("/recipe-articles?sort=update")
+        .then((res) => {
+          setRecipes(res.data);
+          console.log(res)
+        })
+        .catch(() => {
+          console.log("Get new Recipe failed");
+        });
+      }
+    },
+  // 좋아요순 레시피 조회
+  getPopularRecipes: (setRecipes) => {
+    const member = JSON.parse(window.localStorage.getItem("memberData"));
+    if (member !== null) {
+      axios
+        .get("/recipe-articles?sort=like", {
+          headers: { "Auth-Token": `${member.token}` },
+        })
+        .then((res) => {
+          setRecipes(res.data);
+          console.log(res.data);
+        })
+        .catch(() => {
+          console.log("Get popular Recipe failed");
+        });
+      } 
+      else {
+        axios
+        .get("/recipe-articles?sort=update")
+        .then((res) => {
+          setRecipes(res.data);
+          console.log(res)
+        })
+        .catch(() => {
+          console.log("Get popular Recipe failed");
+        });
+      }
+    } 
 };
 
 export const recipeCommentAPI = {

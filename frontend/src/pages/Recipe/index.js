@@ -39,8 +39,8 @@ function Recipe(match) {
 
   const [recipes, setRecipes] = useState([]);
   const [searchedValue, setSearchedValue] = useState('');
-  const [state, setState] = useState(1);
-  const [text, setText] = useState('최신순');
+  const [state, setState] = useState(1); // 버튼 상태
+  const [text, setText] = useState('최신순'); // 타이틀 텍스트
   const [page, setPage] = useState(1);
 
   const search = useCallback((q) => {
@@ -53,29 +53,31 @@ function Recipe(match) {
     } else {
       setPage(1);
     }
-    if (query.title !== undefined && query.title > 0) {
+
+    if (query.title !== undefined || query.title > 0) { // 검색어 있으면 검색
       search(query.title);
       setText(query.title);
-    } else {
+    } else { // 검색이 아니면
       if (query.filter === "popular") {
         setState(0);
         setText("인기순");
+        recipeAPI.getPopularRecipes(setRecipes);
       } else {
         setState(1);
         setText("최신순");
+        recipeAPI.getNewRecipes(setRecipes);
       }
-      recipeAPI.getRecipes(setRecipes);
     }
-  }, [match, search, query.filter, query.title, query.page]);
+  }, [match, search, query.filter, query.title, page, query.page]);
 
 
   const orderByLatest = () => {
     // 최신순
-    console.log("최신순");
     const newQueryParam = {
       ...query,
       filter: 'new',
       page: 1,
+      title: undefined,
     }
     history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
   };
@@ -86,8 +88,8 @@ function Recipe(match) {
       ...query,
       filter: 'popular',
       page: 1,
+      title: undefined,
     }
-    console.log("인기순");
     history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
   };
 
@@ -111,6 +113,7 @@ function Recipe(match) {
       ...query,
       page: nextPage,
     }
+    setPage(nextPage);
     history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
   };
 
@@ -164,7 +167,7 @@ function Recipe(match) {
           ))}
         </Grid>
         <Pagination
-          defaultPage={page}
+          defaultPage={1}
           count={Math.ceil(recipes.length/6)} 
           showFirstButton
           showLastButton
