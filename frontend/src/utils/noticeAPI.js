@@ -53,9 +53,7 @@ export const noticeAPI = {
       })
   },
   getNoticeDetail: (noticeId, setData, history) => {
-    const member = JSON.parse(window.localStorage.getItem("memberData"));
-    // axios.get(`/notices/${noticeId}`)
-    axios.get(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
+    axios.get(`/notices/${noticeId}`)
       .then((res) => {
         console.log("getNotice success");
         let datas = res.data

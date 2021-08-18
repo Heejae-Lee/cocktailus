@@ -151,43 +151,79 @@ export const recipeAPI = {
   getRecipeDetail: (recipeId, setState, setComments) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     if (member !== null) {
-    axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
-      .then((res) => {
-        let recipeData = res.data["recipe-article"]
-        const recipeComment = res.data["comments"]
-        const tag = recipeData.tag.split("|").reduce((acc, cur) => {
-          acc = acc + `#${cur} `;
-          return acc;
-        }, "");
-        const drink = recipeData.drink.split("|").map((li) => {
-          return li;
-        });
-        const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
-          return Number(li);
-        });
-        const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
-        setComments(recipeComment)
-        setState({
-          id: recipeData.id,
-          title: recipeData.title,
-          tag: tag,
-          drink: drink,
-          drink_ratio: drink_ratio,
-          memberName: recipeData["member_name"],
-          content: recipeData.content,
-          created: recipeData.created.substr(0, 10),
-          liked: recipeData.liked,
-          likeImg: likedImg,
-          likeCount: recipeData.likeCount,
-          imageURL: recipeData.imageURL,
-        });
-      })
-      .catch((err) => {
-        console.log("getRecipeDetail fail");
-        console.log(err);
-      })
+      axios.get(`/recipe-articles/${recipeId}`, {headers: {'Auth-Token': `${member.token}`}})
+        .then((res) => {
+          let recipeData = res.data["recipe-article"]
+          const recipeComment = res.data["comments"]
+          const tag = recipeData.tag.split("|").reduce((acc, cur) => {
+            acc = acc + `#${cur} `;
+            return acc;
+          }, "");
+          const drink = recipeData.drink.split("|").map((li) => {
+            return li;
+          });
+          const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
+            return Number(li);
+          });
+          const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
+          setComments(recipeComment)
+          setState({
+            id: recipeData.id,
+            title: recipeData.title,
+            tag: tag,
+            drink: drink,
+            drink_ratio: drink_ratio,
+            memberName: recipeData["member_name"],
+            content: recipeData.content,
+            created: recipeData.created.substr(0, 10),
+            liked: recipeData.liked,
+            likeImg: likedImg,
+            likeCount: recipeData.likeCount,
+            imageURL: recipeData.imageURL,
+          });
+        })
+        .catch((err) => {
+          console.log("getRecipeDetail fail");
+          console.log(err);
+        })
+    } else {
+      axios.get(`/recipe-articles/${recipeId}`)
+        .then((res) => {
+          let recipeData = res.data["recipe-article"]
+          const recipeComment = res.data["comments"]
+          const tag = recipeData.tag.split("|").reduce((acc, cur) => {
+            acc = acc + `#${cur} `;
+            return acc;
+          }, "");
+          const drink = recipeData.drink.split("|").map((li) => {
+            return li;
+          });
+          const drink_ratio = recipeData.drinkRatio.split("|").map((li) => {
+            return Number(li);
+          });
+          const likedImg = (recipeData.liked) ? "like.png" : "no_like.png";
+          setComments(recipeComment)
+          setState({
+            id: recipeData.id,
+            title: recipeData.title,
+            tag: tag,
+            drink: drink,
+            drink_ratio: drink_ratio,
+            memberName: recipeData["member_name"],
+            content: recipeData.content,
+            created: recipeData.created.substr(0, 10),
+            liked: recipeData.liked,
+            likeImg: likedImg,
+            likeCount: recipeData.likeCount,
+            imageURL: recipeData.imageURL,
+          });
+        })
+        .catch((err) => {
+          console.log("getRecipeDetail fail");
+          console.log(err);
+        })
+      }
   }
-}
 };
 
 export const recipeCommentAPI = {
