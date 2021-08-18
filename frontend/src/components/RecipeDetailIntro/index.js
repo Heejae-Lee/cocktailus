@@ -12,6 +12,7 @@ import { recipeAPI } from "../../utils/recipeAPI";
 import axios from "axios";
 import AlertDialog from "../ModalAlert";
 import { useHistory } from "react-router";
+import { useMediaQuery } from "react-responsive";
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -58,6 +59,13 @@ export default function RecipeDetailIntro(props) {
   const history = useHistory();
 
   const member = JSON.parse(window.localStorage.getItem("memberData"));
+
+  const isPc = useMediaQuery({
+    query: "(min-width:768px)",
+  });
+  const isMobile = useMediaQuery({
+    query: "(max-width:767px)",
+  });
 
   const [open, setOpen] = useState(false); // 삭제 모달
   const [imageOpen, setImageOpen] = useState(false); // 이미지 모달
@@ -178,6 +186,7 @@ export default function RecipeDetailIntro(props) {
         content="정말 삭제하시겠습니까?"
       />
       <Paper className={classes.paper}>
+        { isPc && (
         <div className={classes.recipeInfoWrapper}>
           <ButtonBase className={classes.image}>
             <img
@@ -235,6 +244,66 @@ export default function RecipeDetailIntro(props) {
             </div>
           </div>
         </div>
+        )}
+        { isMobile && (
+        <div className={classes.recipeInfoWrapper} style={{flexDirection: "column", alignItems: "center"}}>
+          <ButtonBase style={{ marginBottom: "32px"}}>
+            <img
+              className={classnames(classes.imgMobile, "detailScale")}
+              alt="cocktailImg"
+              src={state.imageURL}
+              onClick={() => setImageOpen(true)}
+            />
+            {imageOpen && (
+              <Modal
+                src={state.imageURL}
+                alt="cocktail-image"
+                caption="이미지를 클릭하면 닫힙니다."
+                onClose={() => setImageOpen(false)}
+              />
+            )}
+            {/* 레시피 대표 이미지 */}
+          </ButtonBase>
+          <div className={classes.detailBody} style={{width: "95%"}}>
+            <div className={classes.detail}>
+              <Typography
+                className={classes.subTitle}
+                gutterBottom
+                variant="h6"
+                marked="left"
+              >
+                제조법
+              </Typography>
+              {/* 제조법에 대한 정보(술의 정보 및 비율) */}
+              <ShowRecipeDrinks />
+
+              {/* 레시피 제작자 및 제작일, 좋아요 개수 표시 */}
+              <div className={classes.info}>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <Typography
+                    variant="subtitle2"
+                    style={{ textDecoration: "overline" }}
+                  >
+                    {state.memberName}
+                  </Typography>
+                  <Typography variant="subtitle2">{state.created}</Typography>
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    className={classnames(classes.likeImg, "scaleLike")}
+                    src={process.env.PUBLIC_URL + "/images/" + state.likeImg}
+                    alt="좋아요 이미지"
+                    onClick={clickLike}
+                  />
+                  <Typography className={classes.bottomInfo} variant="h6">
+                    {state.likeCount}
+                  </Typography>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        )}
         <Divider className={classes.divider} />
 
         <div className={classes.discription}>
