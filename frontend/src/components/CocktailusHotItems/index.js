@@ -46,7 +46,7 @@ function CocktailusHotItems(props) {
               size="large"
               className={classes.btn}
               variant="contained"
-              to="/recipe/list/popular"
+              to="/recipe?filter=popular"
             >
               더 보러가기
             </Button>
@@ -107,7 +107,7 @@ function CocktailusHotItems(props) {
               size="large"
               className={classes.btn}
               variant="contained"
-              to="/recipe/list/popular"
+              to="/recipe?filter=popular"
             >
               더 보러가기
             </Button>

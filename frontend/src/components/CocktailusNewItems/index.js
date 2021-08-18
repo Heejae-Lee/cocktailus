@@ -51,7 +51,7 @@ function CocktailusNewItems(props) {
               size="large"
               className={classes.btn}
               variant="contained"
-              to="/recipe/list/new"
+              to="/recipe"
             >
               더 보러가기
             </Button>
@@ -117,7 +117,7 @@ function CocktailusNewItems(props) {
               size="large"
               className={classes.btn}
               variant="contained"
-              to="/recipe/list/new"
+              to="/recipe"
             >
               더 보러가기
             </Button>
