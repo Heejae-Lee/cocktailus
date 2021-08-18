@@ -143,7 +143,6 @@ function SignUp() {
               noValidate
             >
               <Field
-                autoFocus
                 autoComplete="email"
                 component={RFTextField}
                 disabled={submitting || sent}
