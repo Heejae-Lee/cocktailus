@@ -6,11 +6,15 @@ export const memberSlice = createSlice({
     token: null,
     userEmail: null,
     userName: null,
+    isFirstAccess: true,
   },
   reducers: {
     getToken: (state, action) => {
       state.token = action.payload.token;
       // console.log(action);
+    },
+    setIsFirstAccess: (state, action) => {
+      state.isFirstAccess = action.payload.isFirstAccess;
     },
     getMemberInfo: (state, action) => {
       state.userEmail = action.payload.email;
@@ -25,7 +29,7 @@ export const memberSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { getToken, getMemberInfo, refreshMemberInfo } =
+export const { getToken, setIsFirstAccess, getMemberInfo, refreshMemberInfo } =
   memberSlice.actions;
 
 export default memberSlice.reducer;

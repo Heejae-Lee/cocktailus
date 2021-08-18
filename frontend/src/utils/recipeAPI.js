@@ -325,11 +325,12 @@ export const recipeAPI = {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     if (member !== null) {
       axios
-        .get("/recipe-articles?sort=update", {
+        .get("/recipe-articles", {
           headers: { "Auth-Token": `${member.token}` },
         })
         .then((res) => {
           setRecipes(res.data);
+          console.log(res.data);
           console.log("Get new Recipe success");
         })
         .catch(() => {
@@ -338,7 +339,7 @@ export const recipeAPI = {
       }
       else {
         axios
-        .get("/recipe-articles?sort=update")
+        .get("/recipe-articles")
         .then((res) => {
           setRecipes(res.data);
           console.log("Get new Recipe success");

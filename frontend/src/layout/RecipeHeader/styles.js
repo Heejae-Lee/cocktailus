@@ -10,7 +10,7 @@ const tooltip = {
     borderRadius: "3px",
     boxShadow:
       "0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2)",
-    maxWidth: "200px",
+    maxWidth: "300px",
     textAlign: "center",
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
     fontSize: "0.875em",
@@ -31,6 +31,7 @@ const headerLinksStyle = (theme) => ({
     ...defaultFont,
     fontSize: "14px",
     margin: 0,
+    left: 0,
     paddingLeft: "0",
     listStyle: "none",
     paddingTop: "0",
@@ -40,7 +41,7 @@ const headerLinksStyle = (theme) => ({
   listItem: {
     float: "left",
     color: "inherit",
-    // position: "relative",
+    position: "relative",
     display: "block",
     width: "auto",
     marginRight: "8px",
@@ -87,9 +88,6 @@ const headerLinksStyle = (theme) => ({
     },
   },
   ...tooltip,
-  marginRight5: {
-    marginRight: "5px",
-  },
 });
 
 const navbarsStyle = (theme) => ({
@@ -118,7 +116,7 @@ const navbarsStyle = (theme) => ({
     paddingTop: "0",
   },
   inputRootCustomClasses: {
-    margin: "0!important",
+    margin: "0 !important",
   },
   searchIcon: {
     width: "20px",
@@ -141,6 +139,9 @@ const navbarsStyle = (theme) => ({
     fontWeight: "bold",
     fontSize: "11px",
     border: "1px solid #ccc",
+  },
+  searchInput: {
+    paddingTop: "0.8rem",
   }
 });
 

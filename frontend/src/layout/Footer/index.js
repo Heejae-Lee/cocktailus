@@ -16,7 +16,7 @@ function Copyright() {
     <Fragment>
       {'© '}
       {new Date().getFullYear()}
-      {', made by Cocktailer'}
+      {', made by Cocktail.Us'}
       <div className={classes.between}>
         <Link
           component={RouterLink}
