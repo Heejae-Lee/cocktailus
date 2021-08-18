@@ -135,7 +135,7 @@ public class RecipeArticleService {
                 recipeArticles.sort(Comparator.comparing(RecipeArticle::getLikeCount).reversed());
                 break;
             case "create":
-                recipeArticles.sort(Comparator.comparing(RecipeArticle::getCreated));
+                recipeArticles.sort(Comparator.comparing(RecipeArticle::getCreated).reversed());
                 break;
         }
 

@@ -44,7 +44,7 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
         List<RecipeArticle> result = em.createQuery("select ra from RecipeArticle ra where ra.member_name = :member_name",RecipeArticle.class)
                 .setParameter("member_name",member_name)
                 .getResultList();
-        result.sort(Comparator.comparing(RecipeArticle::getCreated));
+        result.sort(Comparator.comparing(RecipeArticle::getCreated).reversed());
         return result;
     }
 
@@ -61,7 +61,7 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
                         .setLiked(true)
             );
         }
-        result.sort(Comparator.comparing(RecipeArticle::getCreated));
+        result.sort(Comparator.comparing(RecipeArticle::getCreated).reversed());
         return result;
     }
 
@@ -70,7 +70,7 @@ public class JpaRecipeArticleRepository implements RecipeArticleRepository{
         List<RecipeArticle> recipeArticles = em.createQuery("select ra from RecipeArticle ra where ra.title like :title",RecipeArticle.class)
                                                 .setParameter("title","%"+title+"%")
                                                 .getResultList();
-        recipeArticles.sort(Comparator.comparing(RecipeArticle::getCreated));
+        recipeArticles.sort(Comparator.comparing(RecipeArticle::getCreated).reversed());
         return recipeArticles;
     }
 
