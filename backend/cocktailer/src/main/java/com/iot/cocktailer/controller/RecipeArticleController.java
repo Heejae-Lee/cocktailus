@@ -28,7 +28,7 @@ public class RecipeArticleController {
     @GetMapping
     public ResponseEntity getRecipeArticles(HttpServletRequest httpServletRequest){
         String jwt = httpServletRequest.getHeader("Auth-Token");
-        return new ResponseEntity<>(recipeArticleService.getRecipeArticlesWithLiked(jwt), HttpStatus.OK);
+        return new ResponseEntity<>(recipeArticleService.getRecipeArticles(jwt), HttpStatus.OK);
     }
 
     @PostMapping

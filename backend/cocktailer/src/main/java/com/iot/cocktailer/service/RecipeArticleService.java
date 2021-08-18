@@ -51,8 +51,9 @@ public class RecipeArticleService {
         return result;
     }
 
-    public List<RecipeArticle> getRecipeArticlesWithLiked(String jwt){
+    public List<RecipeArticle> getRecipeArticles(String jwt){
         List<RecipeArticle> recipeArticles = jpaRecipeArticleRepository.findAll();
+        recipeArticles.sort(Comparator.comparing(RecipeArticle::getCreated).reversed());
         return getRecipeArticlesWithLiked(jwt, recipeArticles);
     }
 
