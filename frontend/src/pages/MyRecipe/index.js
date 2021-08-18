@@ -13,6 +13,7 @@ import RecipeHeader from '../../layout/RecipeHeader';
 // material-ui/core
 import { Container, Box, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
+import { Pagination } from '@material-ui/lab';
 
 import axios from 'axios'
 

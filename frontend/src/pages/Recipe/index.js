@@ -50,13 +50,14 @@ function Recipe(match) {
     if (query.title !== undefined) {
       search(query.title);
       setText(query.title);
+      setPage(1);
     } else {
-      if (filter === "new") {
-        setState(1);
-        setText("최신순");
-      } else if (filter === "popular") {
+      if (filter === "popular") {
         setState(0);
         setText("인기순");
+      } else {
+        setState(1);
+        setText("최신순");
       }
       recipeAPI.getRecipes(setRecipes);
     }
@@ -88,7 +89,6 @@ function Recipe(match) {
   };
   
   const pageChange = (e, nextPage) => {
-    // history.push(`/recipe/page/${nextPage}`);
     setPage(nextPage);
   };
 
