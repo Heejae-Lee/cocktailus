@@ -49,7 +49,7 @@ function AboutUs() {
             <Typography variant="h6" align="center">.</Typography>
             <Typography variant="h6" align="center">방지환(FE)</Typography>
             <Typography variant="subtitle1" align="center">
-              무슨말을 해야할까!
+              모히또에서 몰디브 한잔 어떠세요?
             </Typography>
             <Typography variant="subtitle2" align="center">qkdwlghks00@gmail.com</Typography>
             <Typography variant="h6" align="center">.</Typography>

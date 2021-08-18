@@ -59,6 +59,7 @@ export default function RecipeHeader(props) {
               onKeyPress: (e) => {
                 if (e.key === "Enter") {
                   props.searchRecipes();
+                  document.getElementById("search").value='';
                 }
               },
               placeholder: "Search",

@@ -141,7 +141,7 @@ const navbarsStyle = (theme) => ({
     border: "1px solid #ccc",
   },
   searchInput: {
-    paddingTop: "0.65rem",
+    paddingTop: "0.8rem",
   }
 });
 

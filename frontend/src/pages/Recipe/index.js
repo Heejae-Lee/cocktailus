@@ -54,8 +54,8 @@ function Recipe(match) {
     } else {
       setPage(1);
     }
-
-    if (query.title !== undefined || query.title > 0) { // 검색어 있으면 검색
+    console.log(query.title);
+    if (query.title !== undefined && query.title !== '') { // 검색어 있으면 검색
       search(query.title);
       setText(query.title);
     } else { // 검색이 아니면
@@ -77,7 +77,7 @@ function Recipe(match) {
     const newQueryParam = {
       ...query,
       filter: 'new',
-      page: 1,
+      // page: 1,
       title: undefined,
     }
     history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
@@ -88,7 +88,7 @@ function Recipe(match) {
     const newQueryParam = {
       ...query,
       filter: 'popular',
-      page: 1,
+      // page: 1,
       title: undefined,
     }
     history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
@@ -98,9 +98,10 @@ function Recipe(match) {
     const newQueryParam = {
       title: searchedValue,
     }
-    if (searchedValue === '') {
-      history.push(`/recipe?filter=new`);
+    if (searchedValue === "" || searchedValue === null) {
+      history.push(`/recipe`);
     } else {
+      setSearchedValue("");
       history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
     }
   };
@@ -115,6 +116,7 @@ function Recipe(match) {
       page: nextPage,
     }
     setPage(nextPage);
+    window.scrollTo(0, 0);
     history.push({pathname:`/recipe`, search: qs.stringify(newQueryParam)});
   };
 

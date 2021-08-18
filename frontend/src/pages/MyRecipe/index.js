@@ -90,6 +90,7 @@ function MyRecipe(match) {
 
   const pageChange = (e, nextPage) => {
     setPage(nextPage);
+    window.scrollTo(0, 0);
   };
 
   const isExist = () => {
