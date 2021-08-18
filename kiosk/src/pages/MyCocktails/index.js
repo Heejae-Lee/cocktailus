@@ -33,60 +33,66 @@ export default function MyCocktails() {
     // axios에서 레시피 가져오기
     const memberData = JSON.parse(window.localStorage.getItem("memberData"));
     if (memberData !== null) {
-      const res = recipeAPI.getRecipes(memberData);
-      console.log(res);
-      if (!res) {
-        const newModalState = {
-          open: true,
-          type: "canceled",
-          text: "시스템에 문제가 있는것 같아요.",
-          subText: "관리자에게 문의해주세요",
-        };
-        setModalState(newModalState);
-      } else if (res.status === 200) {
-        // 받아온 레시피를 recipes state에 저장
-        // 현재 data 는 내가 업로드한 레시피 + 좋아요 한 레시피
-        // 중복이 있을 수 있음
-        const data = res.data["uploaded-recipe-articles"].concat(
-          res.data["liked-recipe-articles"]
-        );
+      recipeAPI
+        .getRecipes(memberData)
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            // 받아온 레시피를 recipes state에 저장
+            // 현재 data 는 내가 업로드한 레시피 + 좋아요 한 레시피
+            // 중복이 있을 수 있음
+            const data = res.data["uploaded-recipe-articles"].concat(
+              res.data["liked-recipe-articles"]
+            );
 
-        // 중복 제거
-        const myRecipes = data.reduce((acc, cur) => {
-          if (acc.findIndex(({ id }) => id === cur.id) === -1) {
-            acc.push(cur);
+            // 중복 제거
+            const myRecipes = data.reduce((acc, cur) => {
+              if (acc.findIndex(({ id }) => id === cur.id) === -1) {
+                acc.push(cur);
+              }
+              return acc;
+            }, []);
+
+            setRecipes(myRecipes);
+
+            // 받아온 레시피 토대로 state 갱신
+            const newLastIndex = myRecipes.length - 6;
+            const newList = myRecipes.slice(0, 6);
+            let newState = Object.assign({}, state, {
+              lastIndex: newLastIndex,
+              list: newList,
+            });
+
+            setState(newState);
+          } else {
+            // 데이터를 가져올 수 없음
+            const newModalState = {
+              open: true,
+              type: "canceled",
+              text: "서버가 불안정한것 같아요.",
+              subText: "관리자에게 문의해주세요",
+            };
+            setModalState(newModalState);
           }
-          return acc;
-        }, []);
+        })
+        .catch((err) => {
+          console.log(err);
 
-        setRecipes(myRecipes);
-
-        // 받아온 레시피 토대로 state 갱신
-        const newLastIndex = myRecipes.length - 6;
-        const newList = myRecipes.slice(0, 6);
-        let newState = Object.assign({}, state, {
-          lastIndex: newLastIndex,
-          list: newList,
+          // 실패 모달 출력
+          const newModalState = {
+            open: true,
+            type: "canceled",
+            text: "시스템에 문제가 있는것 같아요.",
+            subText: "관리자에게 문의해주세요",
+          };
+          setModalState(newModalState);
         });
-
-        setState(newState);
-      } else {
-        //console.log("MyCocktails::error::Load user recipy failed");
-      }
-    } else {
-      const newModalState = {
-        open: true,
-        type: "canceled",
-        text: "로그인이 되어있지 않습니다.",
-        subText: "로그인을 부탁드려요(찡끗)",
-      };
-      setModalState(newModalState);
     }
   }, []);
 
   // 문제 발생시 모달 버튼, 클릭하면 홈으로 이동
   const buttonOK = () => {
-    history.push("/")
+    history.push("/");
   };
 
   const clickPrev = () => {
