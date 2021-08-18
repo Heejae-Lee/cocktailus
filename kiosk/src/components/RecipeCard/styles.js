@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     cursor: "none",
+    objectFit: "fill"
   },
   between: {
     display: 'flex',
