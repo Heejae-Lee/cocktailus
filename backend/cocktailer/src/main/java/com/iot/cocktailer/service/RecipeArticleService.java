@@ -73,7 +73,7 @@ public class RecipeArticleService {
         Map<String,List<RecipeArticle>> result = new HashMap<>();
 
         // member uploaded liked
-        List<RecipeArticle> uploadedRecipeArticles = jpaRecipeArticleRepository.findUploadedByNameOrderByUpdatedDesc(member_name);
+        List<RecipeArticle> uploadedRecipeArticles = jpaRecipeArticleRepository.findUploadedByNameOrderByCreatedDesc(member_name);
 
         for (RecipeArticle recipeArticle : uploadedRecipeArticles) {
             Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(), member_name));
@@ -81,7 +81,7 @@ public class RecipeArticleService {
         }
 
         // member liked
-        List<RecipeArticle> likedRecipeArticles = jpaRecipeArticleRepository.findLikedByNameOrderByUpdatedDesc(member_name);
+        List<RecipeArticle> likedRecipeArticles = jpaRecipeArticleRepository.findLikedByNameOrderByCreatedDesc(member_name);
 
         result.put("uploaded-recipe-articles",uploadedRecipeArticles);
         result.put("liked-recipe-articles",likedRecipeArticles);
@@ -134,8 +134,8 @@ public class RecipeArticleService {
             case "like":
                 recipeArticles.sort(Comparator.comparing(RecipeArticle::getLikeCount).reversed());
                 break;
-            case "update":
-                recipeArticles.sort(Comparator.comparing(RecipeArticle::getUpdated));
+            case "create":
+                recipeArticles.sort(Comparator.comparing(RecipeArticle::getCreated));
                 break;
         }
 

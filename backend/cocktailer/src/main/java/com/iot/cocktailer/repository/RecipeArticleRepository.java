@@ -9,8 +9,8 @@ public interface RecipeArticleRepository {
     List<RecipeArticle> findAll();
     RecipeArticle save(RecipeArticle recipeArticle);
     Optional<RecipeArticle> findById(Long id);
-    List<RecipeArticle> findUploadedByNameOrderByUpdatedDesc(String member_name);
-    List<RecipeArticle> findLikedByNameOrderByUpdatedDesc(String member_name);
+    List<RecipeArticle> findUploadedByNameOrderByCreatedDesc(String member_name);
+    List<RecipeArticle> findLikedByNameOrderByCreatedDesc(String member_name);
     List<RecipeArticle> findByTitleDesc(String title);
     void remove(RecipeArticle recipeArticle);
 }
