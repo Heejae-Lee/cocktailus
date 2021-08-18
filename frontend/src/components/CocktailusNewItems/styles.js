@@ -58,7 +58,7 @@ const styles = (theme) => ({
     recipe: {
       display: 'flex',
       justifyContent: 'center',
-      width: '100%',
+      width: '1080px',
       marginBottom: theme.spacing(5)
     }
 });
