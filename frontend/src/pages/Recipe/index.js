@@ -45,6 +45,7 @@ function Recipe(match) {
 
   const search = useCallback((q) => {
     recipeAPI.searchRecipes(q, setRecipes);
+    document.getElementById("search").value="";
   }, [setRecipes]);
 
   useEffect(()=>{
