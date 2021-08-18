@@ -13,11 +13,9 @@ import RecipePreview from "../../components/RecipePreview";
 import PropTypes from "prop-types";
 import { NavLink as RouterLink } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { recipeAPI } from "../../utils/recipeAPI";
 
 function CocktailusNewItems(props) {
   const { classes } = props;
-  const [recipes, setRecipes] = useState([]);
 
   const isPc = useMediaQuery({
     query: "(min-width:909px)",
@@ -25,10 +23,6 @@ function CocktailusNewItems(props) {
   const isMobile = useMediaQuery({
     query: "(max-width:908px)",
   });
-
-  useEffect(() => {
-    recipeAPI.getRecipes(setRecipes);
-  }, []);
 
   return (
     <section className={classes.root}>
@@ -64,7 +58,7 @@ function CocktailusNewItems(props) {
           </Box>
           {/* 새로 추가된 칵테일 리스트 */}
           <Grid container spacing={10} direction="row">
-            {recipes.slice(0, 3).map((recipe) => (
+            {props.recipeData.map((recipe) => (
               <RecipePreview
                 key={recipe.id}
                 id={recipe.id}
@@ -99,7 +93,7 @@ function CocktailusNewItems(props) {
           </div>
           {/* 트렌디한 칵테일 리스트 */}
           <div className={classes.grid}>
-            {recipes.slice(0, 3).map((recipe) => (
+            {props.recipeData.map((recipe) => (
               <div key={recipe.id} className={classes.recipe}>
                 <RecipePreview
                   id={recipe.id}
