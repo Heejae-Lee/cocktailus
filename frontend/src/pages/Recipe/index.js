@@ -145,8 +145,9 @@ function Recipe(match) {
         <Pagination
           defaultPage={1}
           count={Math.ceil(recipes.length/6)} 
-          showFirstButton 
-          showLastButton 
+          showFirstButton
+          showLastButton
+          color="secondary"
           className={classes.pagination}
           onChange={pageChange}
         />

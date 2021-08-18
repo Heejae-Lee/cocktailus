@@ -150,6 +150,7 @@ function MyRecipe(match) {
           count={Math.ceil(recipes.length/6)} 
           showFirstButton 
           showLastButton 
+          color="secondary"
           className={classes.pagination}
           onChange={pageChange}
         />
