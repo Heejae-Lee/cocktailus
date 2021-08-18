@@ -23,9 +23,11 @@ import PrivateRoute from "./router/PrivateRoute"
 import PublicRoute from "./router/PublicRoute"
 import AdminRoute from "./router/AdminRoute"
 
+import ScrollToTop from './utils/ScrollRestoration';
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Switch>
         {/* Public */}
         <PublicRoute exact path="/" component={Home} />
