@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     margin: "auto",
     marginBottom: 30,
-    maxWidth: "850px",
+    maxWidth: "780px",
     minWidth: "550px",
     height: "auto",
     borderRadius: "18px",
@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
   img: {
     margin: "auto",
     display: "block",
-    maxHeight: "310px",
-    maxWidth: "310px",
+    maxHeight: "300px",
+    maxWidth: "300px",
     objectFit: "contain",
     borderRadius: "15px",
     boxShadow: "3px 3px 3px #606060"
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   discription: {
     paddingLeft: 30,
     paddingRight: 30,
-    paddingBottom: 30,
+    paddingBottom: 12,
   },
   bottomInfo: {
     marginRight: 50,
@@ -83,10 +83,12 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     transform: "translateX(-50%)",
     width: "90%",
-    margin: 20,
+    marginTop: 18,
+    marginBottom: 24
   },
   content: {
     whiteSpace: "pre-line",
+    marginLeft: "18px"
   },
   button: {
     float: "flex",
