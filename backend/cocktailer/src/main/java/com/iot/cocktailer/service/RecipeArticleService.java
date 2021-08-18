@@ -38,7 +38,7 @@ public class RecipeArticleService {
 
         // member liked
         if(jwt != null) {
-            String member_name = memberService.getMembernameByJwt(jwt);
+            String member_name = memberService.getMemberNameByJwt(jwt);
 
             Like like = likeService.getLikeByLikeId(new LikeId(recipeArticle.getId(), member_name));
             recipeArticle.setLiked(like.getLiked());
@@ -145,7 +145,7 @@ public class RecipeArticleService {
 
     private List<RecipeArticle> getRecipeArticlesWithLiked(String jwt, List<RecipeArticle> recipeArticles) {
         if(jwt != null) {
-            String member_name = memberService.getMembernameByJwt(jwt);
+            String member_name = memberService.getMemberNameByJwt(jwt);
 
             // member liked
             for (RecipeArticle recipeArticle : recipeArticles) {

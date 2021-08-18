@@ -74,7 +74,7 @@ public class MemberService implements UserDetailsService {
         return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
 
-    public String getMembernameByJwt(String jwt){
+    public String getMemberNameByJwt(String jwt){
         return jwtTokenService.getMemberName(jwt);
     }
 }
