@@ -282,7 +282,7 @@ export const recipeAPI = {
           
           // 인기순 데이터를 가져오는데 성공하면 최신순 레시피 데이터도 요청함
           axios
-            .get("/recipe-articles?sort=update", {
+            .get("/recipe-articles", {
               headers: { "Auth-Token": `${member.token}` },
             })
             .then((res) => {
@@ -305,7 +305,7 @@ export const recipeAPI = {
           result.trendyRecipes = res.data.slice(0, 3);
           // 인기순 데이터를 가져오는데 성공하면 최신순 레시피 데이터도 요청함
           axios
-            .get("/recipe-articles?sort=update")
+            .get("/recipe-articles")
             .then((res) => {
               result.recentlyRecipes = res.data.slice(0, 3);
               setRecipes(result);
