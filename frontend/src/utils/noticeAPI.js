@@ -4,11 +4,11 @@ export const noticeAPI = {
   getNoticeList: (setRows, setFilteredRows) => {
     axios.get("/notices")
       .then((res) => {
-        // console.log("getNoticeList success");
         let datas = res.data
         for (let i = 0; i < datas.length; i++) {
           datas[i].created = datas[i].created.slice(0, 10);
         }
+        datas.reverse();
         setRows(res.data);
         setFilteredRows(res.data);
       })

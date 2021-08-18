@@ -291,18 +291,18 @@ export const recipeAPI = {
         })
         .then((res) => {
           setRecipes(res.data);
-          console.log(res.data);
+          console.log("Get new Recipe success");
         })
         .catch(() => {
           console.log("Get new Recipe failed");
         });
-      } 
+      }
       else {
         axios
         .get("/recipe-articles?sort=update")
         .then((res) => {
           setRecipes(res.data);
-          console.log(res)
+          console.log("Get new Recipe success");
         })
         .catch(() => {
           console.log("Get new Recipe failed");
@@ -319,7 +319,7 @@ export const recipeAPI = {
         })
         .then((res) => {
           setRecipes(res.data);
-          console.log(res.data);
+          console.log("Get popular Recipe success");
         })
         .catch(() => {
           console.log("Get popular Recipe failed");
@@ -327,10 +327,10 @@ export const recipeAPI = {
       } 
       else {
         axios
-        .get("/recipe-articles?sort=update")
+        .get("/recipe-articles?sort=like")
         .then((res) => {
           setRecipes(res.data);
-          console.log(res)
+          console.log("Get popular Recipe success");
         })
         .catch(() => {
           console.log("Get popular Recipe failed");
