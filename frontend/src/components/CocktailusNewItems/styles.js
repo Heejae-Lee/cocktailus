@@ -19,9 +19,9 @@ const styles = (theme) => ({
       padding: theme.spacing(0, 5),
     },
     title: {
-      paddingLeft: theme.spacing(8),
+      paddingLeft: theme.spacing(3),
       marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(7),
+      marginBottom: theme.spacing(5),
       // marginLeft: theme.spacing(5),
     },
     curvyLines: {
@@ -47,7 +47,7 @@ const styles = (theme) => ({
       width: '100%',
       display: 'flex',
       justifyContent: 'flex-end',
-      paddingRight: theme.spacing(8)
+      paddingRight: theme.spacing(3)
     },
     grid: {
       display: 'flex',
