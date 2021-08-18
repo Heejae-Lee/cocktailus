@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "850px",
     minWidth: "550px",
     height: "auto",
+    borderRadius: "18px",
     backgroundColor: "#f3e5f5",
+    boxShadow: "3px 3px 3px #A0A0A0"
   },
   recipeInfoWrapper: {
     display: "flex",
@@ -33,8 +35,20 @@ const useStyles = makeStyles((theme) => ({
   img: {
     margin: "auto",
     display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    maxHeight: "310px",
+    maxWidth: "310px",
+    objectFit: "contain",
+    borderRadius: "15px",
+    boxShadow: "3px 3px 3px #606060"
+  },
+  imgMobile: {
+    margin: "auto",
+    display: "block",
+    maxHeight: "430px",
+    maxWidth: "430px",
+    objectFit: "contain",
+    borderRadius: "15px",
+    boxShadow: "3px 3px 3px #606060"
   },
   ratioWrapper: {
     height: 190,
