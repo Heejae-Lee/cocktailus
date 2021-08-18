@@ -52,8 +52,8 @@ public class RecipeArticleController {
     }
 
     @GetMapping("/{recipe-articles_id}")
-    public ResponseEntity getRecipeArticles(@PathVariable("recipe-articles_id")Long id,HttpServletRequest httpServletRequest){
-        String jwt = httpServletRequest.getHeader("Auto-Token");
+    public ResponseEntity getRecipeArticle(@PathVariable("recipe-articles_id")Long id,HttpServletRequest httpServletRequest){
+        String jwt = httpServletRequest.getHeader("Auth-Token");
         return new ResponseEntity<>(recipeArticleService.getRecipeArticle(id,jwt),HttpStatus.OK);
     }
 
