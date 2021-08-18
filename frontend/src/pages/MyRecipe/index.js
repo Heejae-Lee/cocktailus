@@ -40,10 +40,12 @@ function MyRecipe(match) {
 
   // 전체 레시피 조회
   const changeMyUploadState = () => {
+    setPage(1);
     history.push('/myRecipe/uploads');
   };
 
   const changeMyLikeState = () => {
+    setPage(1);
     history.push('/myRecipe/likes');
   };
 
@@ -51,8 +53,10 @@ function MyRecipe(match) {
     const member = JSON.parse(window.localStorage.getItem("memberData"))
     const filter = match.match.params.filter;
     if (filter === 'likes') {
+      setPage(1);
       setState(0);
     } else {
+      setPage(1);
       setState(1);
     }
     const getMyUploadRecipes = () => {

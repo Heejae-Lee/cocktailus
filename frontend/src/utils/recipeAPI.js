@@ -33,20 +33,20 @@ export const recipeAPI = {
         headers: {'Auth-Token': `${member.token}`},
       })
       .then((res) => {
-        console.log("Get Recipe Success");
+        console.log("Searched Success");
         setRecipes(res.data);
       })
       .catch(() => {
-        console.log("Get Recipe failed");
+        console.log("Searched failed");
       })
     } else {
       axios.get(`/recipe-articles?title=${keyword}`)
       .then((res) => {
-        console.log("Get Recipe Success");
+        console.log("Searched Success");
         setRecipes(res.data);
       })
       .catch(() => {
-        console.log("Get Recipe failed");
+        console.log("Searched failed");
       })
     }
   },
