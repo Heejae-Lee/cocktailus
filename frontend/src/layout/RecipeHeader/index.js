@@ -3,7 +3,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import { Link } from "@material-ui/core";
+
 // @material-ui/icons
 import Search from "@material-ui/icons/Search";
 
@@ -11,30 +11,37 @@ import Search from "@material-ui/icons/Search";
 import Header from "./RecipeHeaderComponents/Header";
 import CustomInput from "../../components/CustomInput";
 import Button from "./RecipeHeaderComponents/Button";
-import styles from "./styles";
+import navbarsStyle from "./styles";
 
+const useStyles = makeStyles(navbarsStyle);
 
-const useStyles = makeStyles(styles);
-
-export default function RecipeHeader() {
+export default function RecipeHeader(props) {
   const classes = useStyles();
   return (
     <Header
-      brand="Brand"
+      fixed
       color="rose"
       leftLinks={
         <List className={classes.list}>
           <ListItem className={classes.listItem}>
-
+            <Button
+            round
+            variant="outlined" color={props.state===0 ? "github" : "facebook"}
+            size="sm"
+            onClick={props.orderByOption1}
+            >
+              {props.button1}
+            </Button>
           </ListItem>
           <ListItem className={classes.listItem}>
-            <Link
-              href="#pablo"
-              className={classes.navLink}
-              onClick={(e) => e.preventDefault()}
-            >
-              Link
-            </Link>
+            <Button
+              round
+              variant="outlined" color={props.state===1 ? "github" : "facebook"}
+              size="sm"
+              onClick={props.orderByOption2}
+              >
+                {props.button2}
+            </Button>
           </ListItem>
         </List>
       }
@@ -42,11 +49,19 @@ export default function RecipeHeader() {
         <div>
           <CustomInput
             white
+            id="search"
             inputRootCustomClasses={classes.inputRootCustomClasses}
             formControlProps={{
               className: classes.formControl,
             }}
             inputProps={{
+              onChange: props.updateSearchedValue,
+              onKeyPress: (e) => {
+                if (e.key === "Enter") {
+                  props.searchRecipes();
+                  document.getElementById("search").value='';
+                }
+              },
               placeholder: "Search",
               inputProps: {
                 "aria-label": "Search",
@@ -54,7 +69,10 @@ export default function RecipeHeader() {
               },
             }}
           />
-          <Button justIcon round color="white">
+          <Button
+            onClick={props.searchRecipes}
+            justIcon round color="white"
+            >
             <Search className={classes.searchIcon} />
           </Button>
         </div>

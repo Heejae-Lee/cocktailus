@@ -1,12 +1,20 @@
 import { styles as toolbarStyles } from '../../components/Toolbar';
 
 const styles = (theme) => ({
+    logo: {
+      width: '140px',
+      height: '170px',
+    },
     title: {
       fontSize: 24,
+    },
+    hamburger: {
+      cursor: 'pointer',
     },
     placeholder: toolbarStyles(theme).root,
     toolbar: {
       backgroundColor: '#28282A',
+      display: 'flex',
       justifyContent: 'space-between',
     },
     left: {
@@ -29,12 +37,10 @@ const styles = (theme) => ({
     linkSecondary: {
       color: theme.palette.secondary.main,
     },
-    user: {
+    imageLink: {
       fontSize: 16,
       color: theme.palette.common.white,
-      marginLeft: theme.spacing(3),
-      display: 'flex',
-      alignItems: 'center',
+      position: 'relative',
     },
     userAvater: {
       width: 36,

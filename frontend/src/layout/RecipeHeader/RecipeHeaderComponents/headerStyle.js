@@ -16,12 +16,12 @@ const headerStyle = {
   appBar: {
     display: "flex",
     border: "0",
-    borderRadius: "3px",
+    // borderRadius: "3px",
     padding: "0.625rem 0",
     marginBottom: "20px",
     color: "#555",
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#424242",
     boxShadow:
       "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)",
     transition: "all 150ms ease 0s",
@@ -38,6 +38,7 @@ const headerStyle = {
   fixed: {
     position: "fixed",
     zIndex: "1100",
+    top: "auto"
   },
   container: {
     ...container,
@@ -55,7 +56,7 @@ const headerStyle = {
     ...defaultFont,
     lineHeight: "30px",
     fontSize: "18px",
-    borderRadius: "3px",
+    // borderRadius: "3px",
     textTransform: "none",
     color: "inherit",
     padding: "8px 16px",
@@ -145,6 +146,7 @@ const headerStyle = {
     textAlign: "left",
     paddingRight: "0px",
     paddingLeft: "0",
+    backgroundColor: "#808080",
     ...transition,
   },
 };

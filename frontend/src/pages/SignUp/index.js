@@ -2,7 +2,7 @@
 import withRoot from "../../components/withRoot";
 import useStyles from "./styles";
 // 컴포넌트 관련
-import React from "react";
+import React, { useState } from "react";
 import Link from "@material-ui/core/Link";
 import { Field, Form, FormSpy } from "react-final-form";
 import Typography from "../../components/Typography";
@@ -21,12 +21,17 @@ import {
   checkPasswordConfirm,
 } from "../../common/validation";
 import { useHistory } from "react-router";
-import { userAPI } from "../../utils/axios";
+import { userAPI } from "../../utils/userAPI";
+import { NavLink as RouterLink } from "react-router-dom";
+// 모달
+import CustomizedDialogs from "../../components/Modal";
 
 function SignUp() {
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
   const history = useHistory();
+  const [openFailModal, setOpenFailModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   // 회원가입 폼에서 입력의 유효성을 확인
   // ex) 이메일 형식, 닉네임, 비밀번호 길이 등등...
@@ -82,18 +87,18 @@ function SignUp() {
     };
 
     const res = await userAPI.register(formData);
-    console.log(res);
 
     if (res.status === 201) {
       // SignIn Page로 redirection
-      history.push("/SignIn");
-      
-      // modal 창 띄우기
-      alert('회원가입 성공\n로그인 페이지로 이동합니다.')
 
-    } else {
       // modal 창 띄우기
-      alert('회원가입 실패\n중복된 이메일 혹은 닉네임입니다')
+      setOpenSuccessModal(true);
+      // alert('회원가입 성공\n로그인 페이지로 이동합니다.')
+      // history.push("/SignIn");
+    } else {
+      setOpenFailModal(true);
+      // modal 창 띄우기
+      // alert('회원가입 실패\n중복된 이메일 혹은 닉네임입니다')
     }
 
     // form 잠금 해제
@@ -105,6 +110,20 @@ function SignUp() {
       <AppHeader />
       <AppForm>
         <React.Fragment>
+          <CustomizedDialogs
+            open={openSuccessModal}
+            title="회원가입 성공"
+            content="로그인 페이지로 이동합니다."
+            setOpen={setOpenSuccessModal}
+            goto="/SignIn"
+            history={history}
+          />
+          <CustomizedDialogs
+            open={openFailModal}
+            title="회원가입 실패"
+            content="중복된 이메일 혹은 닉네임입니다!"
+            setOpen={setOpenFailModal}
+          />
           {/* 회원가입 배너 */}
           <Typography variant="h3" gutterBottom marked="center" align="center">
             회원가입
@@ -123,11 +142,11 @@ function SignUp() {
               noValidate
             >
               <Field
-                autoFocus
                 autoComplete="email"
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
+                maxLength="40"
                 label="이메일"
                 margin="normal"
                 name="email"
@@ -137,6 +156,7 @@ function SignUp() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
+                maxLength="15"
                 label="닉네임"
                 name="userName"
                 required
@@ -146,6 +166,7 @@ function SignUp() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 required
+                maxLength="20"
                 name="password"
                 label="비밀번호"
                 type="password"
@@ -156,6 +177,7 @@ function SignUp() {
                 disabled={submitting || sent}
                 component={RFTextField}
                 required
+                maxLength="20"
                 name="passwordConfirm"
                 label="비밀번호 확인"
                 type="password"
@@ -182,7 +204,7 @@ function SignUp() {
           )}
         />
         <Typography variant="body2" align="right">
-          <Link href="/signIn" underline="always">
+          <Link component={RouterLink} to="/signIn" underline="always">
             이미 아이디가 있으세요?
           </Link>
         </Typography>

@@ -1,25 +1,32 @@
+// 스타일 관련
 import withRoot from '../../components/withRoot';
-// --- Post bootstrap -----
+// 컴포넌트 관련
 import React from 'react';
-import ProductCategories from '../../components/ProductCategories';
-import ProductSmokingHero from '../../components/ProductSmokingHero';
-import ProductHero from '../../components/ProductHero/';
-import ProductValues from '../../components/ProductValues/';
-import ProductHowItWorks from '../../components/ProductHowItWorks/';
-import ProductCTA from '../../components/ProductCTA/';
-import Header from '../../layout/Header'
-import Footer from '../../layout/Footer'
+import CocktailusBanner from '../../components/CocktailusBanner';
+import CocktailusValues from '../../components/CocktailusValues';
+import CocktailusHotItems from '../../components/CocktailusHotItems';
+import CocktailusNewItems from '../../components/CocktailusNewItems';
+import Header from '../../layout/Header';
+import Footer from '../../layout/Footer';
+import { recipeAPI } from '../../utils/recipeAPI';
 
 function Home() {
+  const [recipes, setRecipes] = React.useState({
+    trendyRecipes: [],
+    recentlyRecipes: [],
+  });
+
+  React.useEffect(() =>{
+    recipeAPI.getMainPageRecipes(setRecipes);
+  }, [])
+
   return (
     <React.Fragment>
       <Header />
-      <ProductHero />
-      <ProductValues />
-      <ProductCategories />
-      <ProductHowItWorks />
-      <ProductCTA />
-      <ProductSmokingHero />
+      <CocktailusBanner />
+      <CocktailusValues />
+      <CocktailusHotItems recipeData={recipes.trendyRecipes}/>
+      <CocktailusNewItems recipeData={recipes.recentlyRecipes}/>
       <Footer />
     </React.Fragment>
   );

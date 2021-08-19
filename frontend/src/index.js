@@ -5,6 +5,9 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from './app/store';
 import { Provider } from 'react-redux';
+import axios from 'axios';
+// axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.baseURL = 'https://i5a103.p.ssafy.io/api/';
 
 ReactDOM.render(
   <React.StrictMode>

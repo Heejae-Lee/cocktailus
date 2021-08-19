@@ -2,7 +2,7 @@
 import withRoot from "../../components/withRoot";
 import useStyles from "./styles";
 // 컴포넌트 관련
-import React from "react";
+import React, { useState } from "react";
 import { Field, Form, FormSpy } from "react-final-form";
 import Link from "@material-ui/core/Link";
 import Typography from "../../components/Typography";
@@ -13,18 +13,22 @@ import { email, required } from "../../common/validation";
 import RFTextField from "../../components/RFTextField";
 import FormButton from "../../components/FormButton/";
 import FormFeedback from "../../components/FormFeedback";
+import CustomizedDialogs from "../../components/Modal"
+
 // 기능 관련
+import { NavLink as RouterLink } from 'react-router-dom';
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { getToken, getMemberInfo } from "../../app/reducer";
-import { userAPI } from "../../utils/axios";
+import { userAPI } from "../../utils/userAPI";
 
 function SignIn() {
   const classes = useStyles();
-  const [sent, setSent] = React.useState(false);
   const Dispatch = useDispatch();
   const history = useHistory();
-
+  const [sent, setSent] = useState(false);
+  const [open, setOpen] = useState(false);
+  
   // 이메일 형식 유효성 검사
   const validate = (values) => {
     const errors = required(["email", "password"], values);
@@ -43,7 +47,7 @@ function SignIn() {
   const onSubmit = async (values) => {
     // form이 제출되면 로그인을 더 이상 수정할 수 없도록 잠금
     setSent(true);
-
+    
     const formData = {
       email: values.email,
       password: values.password,
@@ -53,38 +57,56 @@ function SignIn() {
     const res = await userAPI.login(formData);
     //console.log(res);
 
+    // 로그인 성공
+    
     if (res.status === 200) {
+      const base64Payload = res.data["access-token"].split('.')[1];
+      const p = Buffer.from(base64Payload, 'base64'); 
+      const result = JSON.parse(p.toString());
+      
       const payload = {
         token: res.data["access-token"],
         email: values.email,
         name: res.data.name,
+        exp: result.exp*1000,
+        role: result.role
       };
-      console.log(payload);
+      // console.log(payload);
       // store에 token 및 유저 데이터 저장
       Dispatch(getToken(payload));
       Dispatch(getMemberInfo(payload));
+      // 유저 데이터 로컬 스토리지에 저장
+      // console.log(payload);
+      window.localStorage.setItem("memberData", JSON.stringify(payload));
+      // 꺼내올 때는 아래와 같이 가져옴 (window.localStorage.getItem("memberData")) 은 문자열임
+      // const memberData = JSON.parse(window.localStorage.getItem("memberData"))
 
       // modal 창 띄우기
-      // alert는 임시
-      alert("로그인 성공!");
-
+      setOpen(false);
       // home으로 redirection
       history.push("/");
     } else {
-      // modal 창 띄우기
-      // alert는 임시
-      alert("로그인에 실패하였습니다.\n아이디 혹은 비밀번호를 확인해주세요!");
+      // 로그인 실패
+      setOpen(true);
     }
-
+    
     // form 잠금 해제
     setSent(false);
   };
+
 
   return (
     <React.Fragment>
       <AppHeader />
       <AppForm>
         <React.Fragment>
+          {/* 로그인 실패 모달 */}
+          <CustomizedDialogs
+            open={open}
+            title="로그인 실패"
+            content="아이디 혹은 비밀번호를 확인해주세요!"
+            setOpen={setOpen}
+          />
           {/* 로그인 배너 */}
           <Typography variant="h3" gutterBottom marked="center" align="center">
             로그인
@@ -104,10 +126,10 @@ function SignIn() {
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Field
                 autoComplete="email"
-                autoFocus
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
+                maxLength="40"
                 label="이메일"
                 margin="normal"
                 name="email"
@@ -120,6 +142,7 @@ function SignIn() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 required
+                maxLength="20"
                 name="password"
                 autoComplete="current-password"
                 label="비밀번호"
@@ -142,7 +165,7 @@ function SignIn() {
                 color="secondary"
                 fullWidth
               >
-                {submitting || sent ? "In progress…" : "Sign In"}
+                {submitting || sent ? "In progress…" : "로그인"}
               </FormButton>
             </form>
           )}
@@ -150,7 +173,7 @@ function SignIn() {
 
         {/* 회원가입 창으로 이동을 위한 링크 */}
         <Typography align="right">
-          <Link href="/signUp/" align="center" underline="always">
+          <Link component={RouterLink} to="/signUp" align="center" underline="always">
             아이디가 없으신가요?
           </Link>
         </Typography>

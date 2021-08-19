@@ -19,6 +19,7 @@ function RFTextField(props) {
       InputProps={{
         inputProps: {
           autoComplete,
+          maxLength: props.maxLength ? props.maxLength : 40,
         },
         ...InputProps,
       }}
