@@ -337,7 +337,7 @@ export default function RecipeDetailIntro(props) {
           )}
           <ColorButton
             className={classes.button}
-            onClick={() => history.push("/recipe")}
+            onClick={() => history.go(-1)}
           >
             뒤로가기
           </ColorButton>
