@@ -24,115 +24,125 @@ const fourth = new GPIO(5, {
     mode: GPIO.OUTPUT
 });
 
-let available;
-let available1;
-let available2;
-let available3;
-let available4;
+//LED 핀 21번(접지)
+const led = new GPIO(21, {mode: GPIO.INPUT});
+
+//LED 세팅
+let on = 1;
+led.digitalWrite(on); 
+
+//LED 파랑빛 설정
+let ledblue = new GPIO(20, {mode: GPIO.OUTPUT});
+let ledred = new GPIO(16, {mode: GPIO.INPUT});
+
+let available = 0;
+
 
 // 호스 정보 입력 받아 데이터 출력
 router.post("/", async(req,res)=>{
     try{
-        
-        //호스 작동중 확인
-        available = 0;
-        available1 = 0;
-        available2 = 0;
-        available3 = 0;
-        available4 = 0;
-        
-        console.log(available);
-        
+        if(available == 0){
+            available = 1; // 기계 작동중일떄
+            //POST 불러오기
+            // 호스별 작동시간 변수 선언
+            let onetime = 0;
+            let twotime = 0;
+            let threetime = 0;
+            let fourtime = 0;
 
-        //POST 불러오기
-        // 호스별 수량 변수 선언
-        let oneratio
-        let tworatio
-        let threeratio
-        let fourratio
+            // 호스별 수량 변수 선언
+            let oneratio = 0;
+            let tworatio = 0;
+            let threeratio = 0;
+            let fourratio = 0;
 
-        //POST에서 각 호스별 수량 데이터 넣기
-		for (i=0; i<4; i++){
-            if(req.body[i].order == 0){
-                oneratio =  req.body[i].ratio;
+
+            //LED 빨강빛 설정
+            ledblue = new GPIO(20, {mode: GPIO.INPUT});
+            ledred = new GPIO(16, {mode: GPIO.OUTPUT});
+            
+            //술 종류 갯수 확인
+            const length = Object.keys(req.body).length;
+
+            //POST에서 각 호스별 수량 데이터 넣기
+	    	for (i=0; i<length; i++){
+                if(req.body[i].order == 0){
+                    oneratio =  req.body[i].ratio;
+                }
+                else if(req.body[i].order == 1){
+                    tworatio =  req.body[i].ratio;
+                }
+                else if(req.body[i].order == 2){
+                    threeratio =  req.body[i].ratio;
+                }
+                else{
+                    fourratio =  req.body[i].ratio;
+                }
             }
-            else if(req.body[i].order == 1){
-                tworatio =  req.body[i].ratio;
-            }
-            else if(req.body[i].order == 2){
-                threeratio =  req.body[i].ratio;
-            }
-            else{
-                fourratio =  req.body[i].ratio;
-            }
+
+            // LED ON/OFF 여부 on (1), off (0)
+            let on = 1;
+            let off = 0;
+        
+            //밸브 전부 open
+	        first.digitalWrite(on);
+            second.digitalWrite(on);
+            third.digitalWrite(on);
+            fourth.digitalWrite(on);
+        
+            // 시간함수
+            //1번호스 15ml 3초  30-
+            //2번호스 15ml 9초  30-
+            //3번호스 15ml 2초   30-
+            //4번호스 15ml 2.5초  30-
+            onetime = (oneratio/15)*2000;  
+            twotime = (tworatio/15)*4500;   
+            threetime = (threeratio/15)*3000;
+            fourtime = (fourratio/15)*1800;
+
+
+        
+        
+            //밸브 꺼지는 시간 함수
+            setTimeout(function() {
+                first.digitalWrite(off);
+                console.log("1")
+            }, onetime);
+
+            setTimeout(function() {
+                second.digitalWrite(off);
+                console.log("2")
+             }, twotime);
+
+            setTimeout(function() {
+                third.digitalWrite(off);
+                console.log("3")
+            }, threetime);
+        
+            setTimeout(function() {
+               fourth.digitalWrite(off);
+               console.log("4")
+            }, fourtime);  
+
+            //제일 늦게 완료되는 호스 시간
+            let maxtime = Math.max(onetime,twotime,threetime,fourtime);
+
+            //LED 제조 완료시 빨강 -> 파랑
+            setTimeout(function() {
+                ledblue = new GPIO(20, {mode: GPIO.OUTPUT});
+                ledred = new GPIO(16, {mode: GPIO.INPUT});  
+                available = 0; //기계 작동끝일떄
+             }, maxtime);  
+
+        
+            return res.json({status:"make-done"});
         }
-
-        // LED ON/OFF 여부 on (1), off (0)
-        let on = 1;
-        let off = 0;
-		
-        //밸브 전부 open
-	    first.digitalWrite(on);
-        second.digitalWrite(on);
-        third.digitalWrite(on);
-        fourth.digitalWrite(on);
-        
-        // 시간함수
-        //1번호스 15ml 3초
-        //2번호스 15ml 4.5초
-        //3번호스 15ml 2초
-        //4번호스 15ml 5초
-        let onetime = (oneratio/15)*3000;
-        let twotime = (tworatio/15)*4500;
-        let threetime = (threeratio/15)*2000;
-        let fourtime = (fourratio/15)*5000;
-
-
-        
-        
-        //밸브 꺼지는 시간 함수
-        setTimeout(function() {
-            first.digitalWrite(off);
-            available1 = 1;
-            if(available1==1 && available2==1 && available3==1 && available4==1){
-                available=1;
-            }
-            console.log(available);
-         }, onetime);
-
-        setTimeout(function() {
-            second.digitalWrite(off);
-            available2 = 1;
-            if(available1==1 && available2==1 && available3==1 && available4==1){
-                available=1;
-            }
-            console.log(available);
-         }, twotime);
-
-        setTimeout(function() {
-            third.digitalWrite(off);
-            available3 = 1;
-            if(available1==1 && available2==1 && available3==1 && available4==1){
-                available=1;
-            }
-            console.log(available);
-         }, threetime);
-        
-        setTimeout(function() {
-           fourth.digitalWrite(off);
-           available4 = 1;
-           if(available1==1 && available2==1 && available3==1 && available4==1){
-            available=1;
-            }
-            console.log(available);
-        }, fourtime);  
-
-        //각호스별 작동확인
-        
-        return res.json({status:"ok"});
+        else {
+            return res.json({status:"make-working"});
+        }
     } catch(error) {
         console.log(error);
-        return res.json({status:"fail"});
+        return res.json({status:"make-fail"});
     }
 })
 
@@ -142,44 +152,60 @@ router.post("/", async(req,res)=>{
 
 router.get("/clean", async(req,res)=>{
     try{
-        available = 0;
-        // LED ON/OFF 여부 on (1), off (0)
-        let on = 1;
-        let off = 0;
-		
-        //밸브 전부 open
-	    first.digitalWrite(on);
-        second.digitalWrite(on);
-        third.digitalWrite(on);
-        fourth.digitalWrite(on);
+        if(available == 0){
+           available = 1; //기계 작동중일떄
 
-        //밸브 꺼지는 시간 함수(5초간 청소)
-        setTimeout(function() {
-            first.digitalWrite(off);
-            second.digitalWrite(off);
-            third.digitalWrite(off);
-            fourth.digitalWrite(off);
-            available = 1;
-         }, 5000);
+           //LED 빨강빛 설정
+           ledblue = new GPIO(20, {mode: GPIO.INPUT});
+           ledred = new GPIO(16, {mode: GPIO.OUTPUT});
+
+           // LED ON/OFF 여부 on (1), off (0)
+           let on = 1;
+           let off = 0;
+            
+           //밸브 전부 open
+	       first.digitalWrite(on);
+           second.digitalWrite(on);
+           third.digitalWrite(on);
+           fourth.digitalWrite(on);
+
+           //밸브 꺼지는 시간 함수(5초간 청소)
+           setTimeout(function() {
+               first.digitalWrite(off);
+               second.digitalWrite(off);
+               third.digitalWrite(off);
+               fourth.digitalWrite(off);
+               ledblue = new GPIO(20, {mode: GPIO.OUTPUT});
+               ledred = new GPIO(16, {mode: GPIO.INPUT});
+               available = 0; //기계 작동끝일떄
+               console.log("clean-finish")
+            }, 5000);
 
 
-        return res.json({status:"cleanok"});
+           return res.json({status:"clean-done"});
+           }
+        else{
+            return res.json({status:"clean-working"});
+        }
     } catch(error) {
         console.log(error);
-        return res.json({status:"cleanfail"});
+        return res.json({status:"clean-fail"});
     }
 })
 
 
 router.get("/available", async(req,res)=>{
     try{
-        if(available == 1){
-            return res.json({status:"finish"});
+        if(available === 1){ //기계가 작동중일때는 available = 1;
+            return res.json({status:"available-working"});
         }
-
+        else{
+            return res.json({status:"available-done"});
+        }
+         
     } catch(error) {
         console.log(error);
-        return res.json({status:"fail2"});
+        return res.json({status:"available-fail"});
     }
 })
 
