@@ -85,7 +85,7 @@ function NoticeDetail(match) {
       <Container className={classes.root}>
         
         {/* 페이지 타이틀 */}
-        <Typography variant="h3" gutterBottom marked="center" align="center">
+        <Typography variant="h4" gutterBottom marked="center" align="center">
           공지사항/이벤트
         </Typography>
         <Typography
