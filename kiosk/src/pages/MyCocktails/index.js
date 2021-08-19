@@ -36,7 +36,7 @@ export default function MyCocktails() {
       recipeAPI
         .getRecipes(memberData)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           if (res.data) {
             // 받아온 레시피를 recipes state에 저장
             // 현재 data 는 내가 업로드한 레시피 + 좋아요 한 레시피
@@ -76,7 +76,7 @@ export default function MyCocktails() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
 
           // 실패 모달 출력
           const newModalState = {
@@ -87,6 +87,14 @@ export default function MyCocktails() {
           };
           setModalState(newModalState);
         });
+    } else {
+      const newModalState = {
+        open: true,
+        type: "warning",
+        text: "로그인이 필요한 서비스입니다!",
+        subText: "로그인을 부탁드려요",
+      };
+      setModalState(newModalState);
     }
   }, []);
 

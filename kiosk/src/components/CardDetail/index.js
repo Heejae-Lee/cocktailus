@@ -45,7 +45,7 @@ export default function CardDetail(props) {
 
     if ( flag ) {
       recipeAPI.getRecipeDetail(props.id).then((res)=>{
-        console.log(res);
+        //console.log(res);
         setState(res);
       }).catch((err) => {
         // 정보 가져오기 실패 모달

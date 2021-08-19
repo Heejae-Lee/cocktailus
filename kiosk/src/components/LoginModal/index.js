@@ -116,7 +116,7 @@ export default function LoginModal(props) {
 
     // 로그인 요청
     const res = await userAPI.login(formData);
-    console.log(res);
+    //console.log(res);
 
     if (!res) {
       // 네트워크 오류로 인한 로그인 실패 모달 출력
@@ -215,7 +215,7 @@ export default function LoginModal(props) {
                 onClick={handleKeyboardOpen}
                 defaultValue={member.email}
                 placeholder="아이디"
-                autoFocus
+                autoComplete="off"
                 maxLength="40"
                 disabled={sent}
               />
@@ -226,6 +226,7 @@ export default function LoginModal(props) {
                 onClick={handleKeyboardOpen}
                 defaultValue={member.password}
                 placeholder="비밀번호"
+                autoComplete="current-password"
                 maxLength="20"
                 disabled={sent}
               />
