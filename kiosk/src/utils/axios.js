@@ -5,7 +5,7 @@ export const userAPI = {
   // 로그인
   login: (credentials) => {
     return axios({
-      url: "http://i5a103.p.ssafy.io:8080/members/login",
+      url: "http://i5a103.p.ssafy.io:8080/api/members/login",
       method: "post",
       data: credentials,
     })
@@ -16,7 +16,7 @@ export const userAPI = {
       })
       .catch((err) => {
         //console.log("axios::login::Failed");
-        console.log(err);
+        //console.log(err);
         return err;
       });
   },
@@ -28,7 +28,7 @@ export const recipeAPI = {
   // 내가 좋아요한 레시피 목록을 가져옴
   getRecipes: (member) => {
     return axios({
-      url: `http://i5a103.p.ssafy.io:8080/myrecipe/${member.name}`,
+      url: `http://i5a103.p.ssafy.io:8080/api/myrecipe/${member.name}`,
       method: "get",
       headers: {
         "Auth-Token": member.token,
@@ -40,14 +40,14 @@ export const recipeAPI = {
       })
       .catch((err) => {
         //console.log("axios::getRecipes::Failed");
-        console.log(err);
+        //console.log(err);
         return err;
       });
   },
   getRecipeDetail: (recipeId) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     return axios({
-      url: `http://i5a103.p.ssafy.io:8080/recipe-articles/${recipeId}`,
+      url: `http://i5a103.p.ssafy.io:8080/api/recipe-articles/${recipeId}`,
       method: "get",
       headers: {
         "Auth-Token": member.token,
@@ -65,7 +65,6 @@ export const recipeAPI = {
             ratio: Number(drinkRatioList[index].replace("ml", "")),
           };
         });
-        console.log(recipeData);
         return {
           title: recipeData.title,
           drink: drink,
@@ -74,7 +73,7 @@ export const recipeAPI = {
       })
       .catch((err) => {
         //console.log("getRecipeDetail fail");
-        console.log(err);
+        return err
       });
   },
 };
@@ -94,7 +93,7 @@ export const hardwareAPI = {
       })
       .catch((err) => {
         //console.log("axios::makeRequest::Failed");
-        console.log(err);
+        //console.log(err);
         return err;
       });
   },
@@ -109,7 +108,7 @@ export const hardwareAPI = {
       })
       .catch((err) => {
         //console.log("axios::cleanRequest::Failed");
-        console.log(err);
+        //console.log(err);
         return err;
       });
   },
@@ -124,7 +123,7 @@ export const hardwareAPI = {
       })
       .catch((err) => {
         //console.log("axios::stopRequest::Failed");
-        console.log(err);
+        //console.log(err);
         return err;
       });
   },
@@ -139,7 +138,7 @@ export const hardwareAPI = {
       })
       .catch((err) => {
         //console.log("axios::deviceAvailable::Failed");
-        console.log(err);
+        //console.log(err);
         return err;
       });
   },
