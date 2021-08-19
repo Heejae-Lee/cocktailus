@@ -11,21 +11,21 @@ export const recipeAPI = {
           headers: { "Auth-Token": `${member.token}` },
         })
         .then((res) => {
-          console.log("Get Recipe Success");
+          // console.log("Get Recipe Success");
           setRecipes(res.data);
         })
         .catch(() => {
-          console.log("Get Recipe failed");
+          // console.log("Get Recipe failed");
         });
     } else {
       axios
         .get("/recipe-articles")
         .then((res) => {
-          console.log("Get Recipe Success");
+          // console.log("Get Recipe Success");
           setRecipes(res.data);
         })
         .catch(() => {
-          console.log("Get Recipe failed");
+          // console.log("Get Recipe failed");
         });
     }
   },
@@ -36,20 +36,20 @@ export const recipeAPI = {
         headers: {'Auth-Token': `${member.token}`},
       })
       .then((res) => {
-        console.log("Searched Success");
+        // console.log("Searched Success");
         setRecipes(res.data);
       })
       .catch(() => {
-        console.log("Searched failed");
+        // console.log("Searched failed");
       })
     } else {
       axios.get(`/recipe-articles?title=${keyword}`)
       .then((res) => {
-        console.log("Searched Success");
+        // console.log("Searched Success");
         setRecipes(res.data);
       })
       .catch(() => {
-        console.log("Searched failed");
+        // console.log("Searched failed");
       })
     }
   },
@@ -59,28 +59,27 @@ export const recipeAPI = {
       }
     )
     .then((res) => {
-      console.log("Upload Recipe Success");
+      // console.log("Upload Recipe Success");
       history.push(`/recipe/detail/${res.data.id}`); // 성공하면 작성 게시글로 이동 => router추가
     })
     .catch(() => {
-      console.log("Upload Recipe failed");
+      // console.log("Upload Recipe failed");
       // console.log(err);
       // 모달창으로 경고표시
     })
   },
   modifyRecipe: (data, token, history, recipeId) => {
-    console.log(data);
     axios
       .put(`/recipe-articles/${recipeId}`, data, {
         headers: { "Auth-Token": `${token}` },
       })
       .then(() => {
-        console.log("Modify Recipe Success");
+        // console.log("Modify Recipe Success");
         history.push(`/recipe/detail/${recipeId}`); // 성공하면 작성 게시글로 이동 => router추가
       })
       .catch((err) => {
-        console.log("Modify Recipe failed");
-        console.log(err);
+        // console.log("Modify Recipe failed");
+        // console.log(err);
       });
   },
   likeRequest: (
@@ -105,7 +104,7 @@ export const recipeAPI = {
         { headers: { "Auth-Token": `${member.token}` } }
       )
       .then(() => {
-        console.log("like success");
+        // console.log("like success");
         if (like) {
           setLike(!like);
           setlikeCount(likeCount - 1);
@@ -117,8 +116,8 @@ export const recipeAPI = {
         }
       })
       .catch((err) => {
-        console.log("like fail");
-        console.log(err);
+        // console.log("like fail");
+        // console.log(err);
       });
   },
   likeRequestInMyPage: (
@@ -144,7 +143,7 @@ export const recipeAPI = {
         { headers: { "Auth-Token": `${member.token}` } }
       )
       .then(() => {
-        console.log("like success");
+        // console.log("like success");
         if (like) {
           setLike(!like);
           setlikeCount(likeCount - 1);
@@ -157,8 +156,8 @@ export const recipeAPI = {
         setIsChange();
       })
       .catch((err) => {
-        console.log("like fail");
-        console.log(err);
+        // console.log("like fail");
+        // console.log(err);
       });
   },
   likeRequestInDetail: (articleId, history) => {
@@ -175,11 +174,11 @@ export const recipeAPI = {
         { headers: { "Auth-Token": `${member.token}` } }
       )
       .then(() => {
-        console.log("like success");
+        // console.log("like success");
       })
       .catch((err) => {
-        console.log("like fail");
-        console.log(err);
+        // console.log("like fail");
+        // console.log(err);
       });
   },
   getRecipeDetail: (recipeId, setState, setComments) => {
@@ -221,8 +220,8 @@ export const recipeAPI = {
           });
         })
         .catch((err) => {
-          console.log("getRecipeDetail fail");
-          console.log(err);
+          // console.log("getRecipeDetail fail");
+          // console.log(err);
         });
     } 
     else {
@@ -260,8 +259,8 @@ export const recipeAPI = {
           });
         })
         .catch((err) => {
-          console.log("getRecipeDetail fail");
-          console.log(err);
+          // console.log("getRecipeDetail fail");
+          // console.log(err);
         });
     }
   },
@@ -290,12 +289,12 @@ export const recipeAPI = {
               setRecipes(result);
             })
             .catch(() => {
-              console.log("Get new Recipe failed");
+              // console.log("Get new Recipe failed");
             });
 
         })
         .catch(() => {
-          console.log("Get trendy Recipe failed");
+          // console.log("Get trendy Recipe failed");
         });
     } else {
       // 로그인 되어있지 않은 경우
@@ -311,12 +310,12 @@ export const recipeAPI = {
               setRecipes(result);
             })
             .catch(() => {
-              console.log("Get new Recipe failed");
+              // console.log("Get new Recipe failed");
             });
 
         })
         .catch(() => {
-          console.log("Get trendy Recipe failed");
+          // console.log("Get trendy Recipe failed");
         });
     }
   },
@@ -330,11 +329,11 @@ export const recipeAPI = {
         })
         .then((res) => {
           setRecipes(res.data);
-          console.log(res.data);
-          console.log("Get new Recipe success");
+          // console.log(res.data);
+          // console.log("Get new Recipe success");
         })
         .catch(() => {
-          console.log("Get new Recipe failed");
+          // console.log("Get new Recipe failed");
         });
       }
       else {
@@ -342,10 +341,10 @@ export const recipeAPI = {
         .get("/recipe-articles")
         .then((res) => {
           setRecipes(res.data);
-          console.log("Get new Recipe success");
+          // console.log("Get new Recipe success");
         })
         .catch(() => {
-          console.log("Get new Recipe failed");
+          // console.log("Get new Recipe failed");
         });
       }
     },
@@ -359,10 +358,10 @@ export const recipeAPI = {
         })
         .then((res) => {
           setRecipes(res.data);
-          console.log("Get popular Recipe success");
+          // console.log("Get popular Recipe success");
         })
         .catch(() => {
-          console.log("Get popular Recipe failed");
+          // console.log("Get popular Recipe failed");
         });
       } 
       else {
@@ -370,10 +369,10 @@ export const recipeAPI = {
         .get("/recipe-articles?sort=like")
         .then((res) => {
           setRecipes(res.data);
-          console.log("Get popular Recipe success");
+          // console.log("Get popular Recipe success");
         })
         .catch(() => {
-          console.log("Get popular Recipe failed");
+          // console.log("Get popular Recipe failed");
         });
       }
     } 
@@ -391,7 +390,7 @@ export const recipeCommentAPI = {
         closeModal();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   },
   writeComment: (articleId, comment, setNewComment, newComment) => {
@@ -405,12 +404,12 @@ export const recipeCommentAPI = {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setNewComment(!newComment);
         document.getElementById("mTxtArea").value = ""; // 댓글 저장하고 입력창 비우기
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("로그인 후 이용해주세요");
       });
   },

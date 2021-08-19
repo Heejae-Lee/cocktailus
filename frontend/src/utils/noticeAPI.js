@@ -13,7 +13,7 @@ export const noticeAPI = {
         setFilteredRows(res.data);
       })
       .catch(() => {
-        console.log("get NoticeList failed.");
+        // console.log("get NoticeList failed.");
       })
   },
   saveNotice: (data, token, history) => {
@@ -25,7 +25,7 @@ export const noticeAPI = {
       history.push(`/notice/detail/${res.data.id}`);
     })
     .catch((err) => {
-      console.log("Upload failed");
+      // console.log("Upload failed");
     })
   },
   modifyNotice: (data, token, history, noticeId) => {
@@ -37,24 +37,24 @@ export const noticeAPI = {
       history.push(`/notice/detail/${noticeId}`, noticeId); // 성공하면 작성 게시글로 이동
     })
     .catch(() => {
-      console.log("modify notice failed");
+      // console.log("modify notice failed");
     })
   },
   deleteNotice: (noticeId, history) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     axios.delete(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
       .then(() => {
-        console.log("deleteNotice success");
+        // console.log("deleteNotice success");
         history.push("/notice");
       })
       .catch(() => {
-        console.log("deleteNotice fail");
+        // console.log("deleteNotice fail");
       })
   },
   getNoticeDetail: (noticeId, setData, history) => {
     axios.get(`/notices/${noticeId}`)
       .then((res) => {
-        console.log("getNotice success");
+        // console.log("getNotice success");
         let datas = res.data
         if (datas === "No matching id") {
           history.push('/error');
@@ -65,7 +65,7 @@ export const noticeAPI = {
         setData(datas);
       })
       .catch(() => {
-        console.log("getNotice fail");
+        // console.log("getNotice fail");
       })
   },
   getNoticeModifyDetail: (noticeId, setData) => {
@@ -73,7 +73,7 @@ export const noticeAPI = {
     axios.get(`/notices/${noticeId}`, {headers: {'Auth-Token': `${member.token}`}})
       .then((res) => {
         // 관리자 권한이 아니면 접근 제한 설정하기
-        console.log("getNotice success");
+        // console.log("getNotice success");
         let datas = res.data
         for (let i = 0; i < datas.length; i++) {
           datas[i].created = datas[i].created.substr(0, 10);
@@ -83,7 +83,7 @@ export const noticeAPI = {
         setData(datas);
       })
       .catch(() => {
-        console.log("getNotice fail");
+        // console.log("getNotice fail");
       })
     },
 }

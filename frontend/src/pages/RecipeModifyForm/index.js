@@ -118,7 +118,7 @@ function RecipeModifyForm(match) {
           setModifyTags(modifyTag);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           history.push('/recipe');
         })
       };
@@ -127,7 +127,6 @@ function RecipeModifyForm(match) {
 
   function handleSelecetedTags(items) {
     setTages(items.map(item => item).join("|"));
-    console.log(tags);
   }
 
 

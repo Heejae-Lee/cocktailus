@@ -167,12 +167,12 @@ export default function RecipeDetailIntro(props) {
         headers: { "Auth-Token": `${member.token}` },
       })
       .then(() => {
-        console.log("delete success");
+        // console.log("delete success");
         history.push("/recipe");
       })
       .catch((err) => {
-        console.log("delete fail");
-        console.log(err);
+        // console.log("delete fail");
+        // console.log(err);
       });
   };
 

@@ -19,7 +19,7 @@ export default function CommentTextField(props) {
   };
 
   const writeComment = () => {
-    console.log(comment);
+    // console.log(comment);
     if (comment.trim() !== "") {
       recipeCommentAPI.writeComment(
         props.articleId,

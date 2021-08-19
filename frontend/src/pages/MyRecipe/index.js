@@ -64,16 +64,16 @@ function MyRecipe(match) {
         headers: {'Auth-Token': `${member.token}`},
       })
       .then((res) => {
-        console.log("Get MyUploadRecipe Success");
+        // console.log("Get MyUploadRecipe Success");
         if (state === 1) {
           setRecipes(res.data["uploaded-recipe-articles"]);
         } else {
           setRecipes(res.data["liked-recipe-articles"]);
         }
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch(() => {
-        console.log("Get MyUploadRecipe failed");
+        // console.log("Get MyUploadRecipe failed");
       })
     };
     getMyUploadRecipes()

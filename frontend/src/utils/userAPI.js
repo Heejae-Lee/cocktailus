@@ -5,12 +5,12 @@ export const userAPI = {
   register: function (credentials) {
     return axios.post("/members", credentials)
       .then((res) => {
-        console.log("register success");
+        // console.log("register success");
         //console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log("register fail");
+        // console.log("register fail");
         //console.log(err);
         return err;
       });
@@ -19,12 +19,12 @@ export const userAPI = {
   login: (credentials) => {
     return axios.post("/members/login", credentials)
       .then((res) => {
-        console.log("login success!");
+        // console.log("login success!");
         //console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log("login fail");
+        // console.log("login fail");
         //console.log(err);
         return err;
       });

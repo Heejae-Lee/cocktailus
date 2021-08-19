@@ -71,7 +71,7 @@ function SignIn() {
         exp: result.exp*1000,
         role: result.role
       };
-      console.log(payload);
+      // console.log(payload);
       // store에 token 및 유저 데이터 저장
       Dispatch(getToken(payload));
       Dispatch(getMemberInfo(payload));

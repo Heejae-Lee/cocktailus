@@ -88,7 +88,6 @@ function RecipeAddForm() {
 
   function handleSelecetedTags(items) {
     setTages(items.map(item => item).join("|"));
-    console.log(tags);
   }
 
   function handleUploadClick(event) { // upload 클릭시 uploaded 상태

@@ -54,7 +54,6 @@ function Recipe(match) {
     } else {
       setPage(1);
     }
-    console.log(query.title);
     if (query.title !== undefined && query.title !== '') { // 검색어 있으면 검색
       search(query.title);
       setText(query.title);

@@ -47,7 +47,7 @@ export default function RecipePreview(props) {
         props.id, like, likeCount, 
         setLike, setlikeCount, setLikeImg, setIsChange, history);
     }
-    console.log("click");
+    // console.log("click");
   };
 
   return (

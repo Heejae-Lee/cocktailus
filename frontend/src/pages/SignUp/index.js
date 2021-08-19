@@ -87,7 +87,6 @@ function SignUp() {
     };
 
     const res = await userAPI.register(formData);
-    console.log(res);
 
     if (res.status === 201) {
       // SignIn Page로 redirection
