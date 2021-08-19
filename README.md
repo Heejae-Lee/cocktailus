@@ -1,10 +1,134 @@
 [TOC]
 
-# 칵테일러
+# :cocktail:Cocktail.Us
 
-## ⚙Settings
+> Cocktail + Us
+>
+> 칵테일을 좋아하는 우리들을 위한 칵테일 레시피 공유 및 제조 서비스
+>
+> 개발기간 : 7/12 ~ 8/20 (6주)
+>
+> 배포 주소: https://i5a103.p.ssafy.io/
+
+
+
+## 🤔왜 Cocktail.Us를 만들었나요?
+
+1. 나만의 칵테일 레시피를 남들과 공유하고 싶은 '희재'를 위해
+2. 칵테일을 좋아하지만 만드는 방법은 모르는 '지환'이를 위해
+3. 칵테일을 좋아하지만 직접 만들기는 귀찮은 '기호'를 위해
+4. 코딩에 지칠 때 한 잔 하면서 스트레스를 풀고 싶은 '규태'를 위해
+
+**칵테일을 잘 알아도, 잘 몰라도 칵테일을 좋아한다면 누구나 쉽게 칵테일을 즐길 수 있게 하기 위해 `Cocktail.Us` 프로젝트를 시작하였습니다.**
+
+
+
+## 👨🏻‍🤝‍👨🏻팀원 소개 및 담당
+
+> > 담당 역할, 기술
+
+이희재 (FE/EM)
+
+방지환 (FE)
+
+신기호 (EM)
+
+임규태 (BE)
+
+
+
+## :movie_camera:프로젝트 소개
+
+> > youtube 주소 + gif 몇장 추가
+> >
+> > [사용시나리오](./exec/4.시연시나리오.md)
+>
+> `+` 서비스 특징 / 차별성
+
+
+
+## 개발 스택
+
+#### Front
+
+  React.js, meterial-UI, react-router, etc...
+
+#### Backend
+
+ SpringBoot, JPA&Hibernate, spring springsecurity, swagger, etc...
+
+#### Embedded
+
+Rpi, nodejs, express, react, etc...
+
+#### DB
+
+MySQL, AWS S3
+
+#### 배포
+
+AWS EC2, nginx, etc...
+
+#### 협업툴
+
+JIRA(일정관리), Gitlab(코드관리), Notion(정리용), Discord, Webex(스크럼미팅), etc...
+
+> > 전체 구조 정리된 사진 추가
+
+
+
+## ⚙Getting Started
 
 > 프로젝트 환경설정
+
+#### backend (Spring-boot)
+
+#### frontend, kiosk (React)
+
+```bash
+$ npm install
+$ npm start
+```
+
+#### kiosk_backend (Express)
+
+#### AWS
+
+>  [배포문서 참고](./exec/1.git_소스_클론_이후_빌드_및_배포.pdf)
+
+
+
+
+
+## 🎨Wireframe
+
+> https://www.figma.com/file/izR0IDEuFe6mNSpEEZ1WoN/material-kit-free?node-id=0%3A1 - Figma (Web용)
+>
+> https://balsamiq.cloud/sa0ta5t/pbvs7zb/r3020 - Balsamiq (EM Balsamiq)
+
+![Cocktailus-Figma](README.assets/Cocktailus-Figma.png)
+
+
+
+![Cocktailus-Balsamiq](./README.assets/Cocktailus-Balsamiq.png)
+
+
+
+## 📝ERD설계
+
+> https://www.erdcloud.com/d/nsaZWcpuitdyf5qxc
+
+![Cocktailus-ERD](README.assets/Cocktailus-ERD.png)
+
+## ✒API 설계
+
+> https://app.swaggerhub.com/apis/lktg/Cocktailer/1.0.0 - SwaggerHub
+
+
+
+
+
+
 
 ## 📃네이밍 규칙
 
@@ -123,12 +247,6 @@ Related to: #48, #45
 
 
 
-## 🎨ProtoType
+## ✉Contact-Us
 
-> https://www.figma.com/file/izR0IDEuFe6mNSpEEZ1WoN/material-kit-free?node-id=0%3A1 - Figma(Web용)
-
-
-
-## ✒API 설계
-
-> https://app.swaggerhub.com/apis/lktg/Cocktailer/1.0.0 - SwaggerHub
+> 메일 or Github 주소
