@@ -53,11 +53,11 @@ export default function RecipePreview(props) {
   return (
     <Grid item xs={4}>
       <Card className={classes.root}>
-        <CardActionArea className={classes.center}>
-          <Link 
-            component={RouterLink}
-            to={`/recipe/detail/${props.id}`}
-            >
+        <Link 
+          component={RouterLink}
+          to={`/recipe/detail/${props.id}`}
+          >
+          <CardActionArea className={classes.center}>
             <CardMedia
               component="img"
               alt="Cocktail-image"
@@ -65,12 +65,17 @@ export default function RecipePreview(props) {
               title="Cocktail-image"
               className={classnames('scale', classes.img)}
             />
-          </Link>
           </CardActionArea>
+        </Link>
           <CardContent>
-            <Typography gutterBottom variant="h6" component="h2" className={classes.title}>
-              {props.title}
-            </Typography>
+            <Link
+              component={RouterLink}
+              to={`/recipe/detail/${props.id}`}
+            >
+              <Typography gutterBottom variant="h6" component="h2" className={classes.title}>
+                {props.title}
+              </Typography>
+            </Link>
             <Typography className={classes.name}>
               {props.name}
             </Typography>
