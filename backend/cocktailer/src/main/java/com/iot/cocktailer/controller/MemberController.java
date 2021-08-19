@@ -2,16 +2,21 @@ package com.iot.cocktailer.controller;
 
 import com.iot.cocktailer.domain.LoginForm;
 import com.iot.cocktailer.domain.Member;
+import com.iot.cocktailer.repository.JpaMemberRepository;
 import com.iot.cocktailer.service.JwtTokenService;
 import com.iot.cocktailer.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
+@CrossOrigin(origins = "*")
 public class MemberController {
     private final MemberService memberService;
 
@@ -25,14 +30,24 @@ public class MemberController {
         System.out.println(member.getName());
         String result = memberService.createMember(member);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Access-Control-Allow-Origin","*");
-        headers.set("Access-Control-Allow-Credentials","true");
-        return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity loginMember(@RequestBody LoginForm loginForm){
-//
-//    }
+    @PostMapping("/login")
+    public ResponseEntity loginMember(@RequestBody LoginForm loginForm){
+        String jwtToken = memberService.loginMember(loginForm);
+
+        return new ResponseEntity<>(jwtToken, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity illegalStateExceptionHandler(Exception e){
+        String message = e.getMessage();
+        switch(message){
+            case "Wrong password":
+                return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            default:
+                return new ResponseEntity<>("Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

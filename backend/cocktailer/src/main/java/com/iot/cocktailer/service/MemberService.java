@@ -1,5 +1,6 @@
 package com.iot.cocktailer.service;
 
+import com.iot.cocktailer.domain.LoginForm;
 import com.iot.cocktailer.domain.Member;
 import com.iot.cocktailer.repository.JpaMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -35,25 +35,37 @@ public class MemberService implements UserDetailsService {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         validateDuplicateMember(member);
         jpaMemberRepository.save(member);
-        return jwtTokenService.createToken(member.getName(),new ArrayList<>());
+        return jwtTokenService.createToken(member.getEmail(),"Member");
+    }
+
+    public String loginMember(LoginForm loginForm){
+        Optional<Member> optionalMember = jpaMemberRepository.findByEmail(loginForm.getEmail());
+        Member member = optionalMember.orElseThrow(()->
+                new UsernameNotFoundException(loginForm.getEmail())
+            );
+        if(!passwordEncoder.matches(loginForm.getPassword(),member.getPassword())){
+            throw new IllegalStateException("Wrong password");
+        }
+        String jwtToken = jwtTokenService.createToken(member.getEmail(),member.getRole());
+        return jwtToken;
     }
 
     private void validateDuplicateMember(Member member){
-        jpaMemberRepository.findByName(member.getName())
+        jpaMemberRepository.findByEmail(member.getEmail())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
     }
 
     @Override
-    public UserDetails loadUserByUsername(String member_name) throws UsernameNotFoundException {
-        Optional<Member> memberWrapper = jpaMemberRepository.findByName(member_name);
+    public UserDetails loadUserByUsername(String member_email) throws UsernameNotFoundException {
+        Optional<Member> memberWrapper = jpaMemberRepository.findByEmail(member_email);
         Member member = memberWrapper.orElseThrow(()->
-                new UsernameNotFoundException(member_name)
+                new UsernameNotFoundException(member_email)
         );
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("Member"));
-        return new User(member.getName(), member.getPassword(), grantedAuthorities);
+        return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
     }
 }
