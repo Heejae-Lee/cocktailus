@@ -28,8 +28,6 @@ export default function MenuList() {
   const logOut = () => {
     // 데이터 초기화
     Dispatch(refreshMemberInfo());
-    // modal 창을 띄울 예정
-    alert("로그아웃\n(이후 모달창으로 교체 예정)");
   };
   
   const alreadyLoggedIn = () => {
@@ -109,7 +107,7 @@ export default function MenuList() {
         <ListItem
           button
           key={"MyFavorites"}
-          onClick={() => history.push("/recipe")}
+          onClick={() => history.push("/myRecipe")}
         >
           <ListItemIcon>
             <BookmarkIcon />
