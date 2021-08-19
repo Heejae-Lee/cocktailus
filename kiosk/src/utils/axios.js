@@ -5,7 +5,7 @@ export const userAPI = {
   // 로그인
   login: (credentials) => {
     return axios({
-      url: "http://i5a103.p.ssafy.io:8080/api/members/login",
+      url: "https://i5a103.p.ssafy.io/api/members/login",
       method: "post",
       data: credentials,
     })
@@ -28,7 +28,7 @@ export const recipeAPI = {
   // 내가 좋아요한 레시피 목록을 가져옴
   getRecipes: (member) => {
     return axios({
-      url: `http://i5a103.p.ssafy.io:8080/api/myrecipe/${member.name}`,
+      url: `https://i5a103.p.ssafy.io/api/myrecipe/${member.name}`,
       method: "get",
       headers: {
         "Auth-Token": member.token,
@@ -47,7 +47,7 @@ export const recipeAPI = {
   getRecipeDetail: (recipeId) => {
     const member = JSON.parse(window.localStorage.getItem("memberData"));
     return axios({
-      url: `http://i5a103.p.ssafy.io:8080/api/recipe-articles/${recipeId}`,
+      url: `https://i5a103.p.ssafy.io/api/recipe-articles/${recipeId}`,
       method: "get",
       headers: {
         "Auth-Token": member.token,
