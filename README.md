@@ -57,17 +57,21 @@
 
 ### 간략한 기능 미리보기
 
-#### 회원가입 & 로그인
+#### 메인페이지, 회원가입 & 로그인
 
-<img src="./README.assets/회원가입로그인.gif" style="zoom:70%;" align="left" />
+![회원가입로그인](./README.assets/회원가입로그인.gif)
+
+
 
 #### 레시피 공유
 
-<img src="./README.assets/레시피공유.gif" style="zoom:70%;" align="left" />
+![레시피공유](./README.assets/레시피공유.gif)
+
+
 
 #### 칵테일 제조
 
-<img src="./README.assets/칵테일제조.gif" style="zoom:50%;" align="left" />
+![칵테일제조](./README.assets/칵테일제조.gif)
 
 
 
@@ -103,7 +107,7 @@ JIRA(일정관리), Gitlab(코드관리), Notion(정리용), Discord, Webex(스�
 
 ## 🔎서비스 구조
 
-<img src="./README.assets/서비스구조.png" style="zoom:67%;" align="left"/>
+![서비스구조](./README.assets/서비스구조.png)
 
 #### 1. 칵테일러스(Web Service)
 
@@ -156,15 +160,15 @@ $ npm start
 
 > https://www.figma.com/file/izR0IDEuFe6mNSpEEZ1WoN/material-kit-free?node-id=0%3A1 - Figma (Web용)
 >
-> https://balsamiq.cloud/sa0ta5t/pbvs7zb/r3020 - Balsamiq (EM Balsamiq)
+> https://balsamiq.cloud/sa0ta5t/pbvs7zb/r3020 - Balsamiq (Embedded Kiosk용)
 >
-> 메인색상 : Black + Pink + Purple
+> 메인색상은 칵테일바의 분위기에 어울리도록 Black + Pink + Purple 로 선정
 
-<img src="./README.assets/메인색상.png" style="zoom:40%;" align="left" />
+### Web
 
 <img src="./README.assets/Cocktailus-Figma.png" width="80%" align="left">
 
-
+### Embedded - Kiosk
 
 <img src="./README.assets/Cocktailus-Balsamiq.png" width="80%" align="left">
 
@@ -174,7 +178,7 @@ $ npm start
 
 > https://www.erdcloud.com/d/nsaZWcpuitdyf5qxc
 
-<img src="./README.assets/Cocktailus-ERD.png" align="left">
+![ERD](./README.assets/Cocktailus-ERD.png)
 
 
 
