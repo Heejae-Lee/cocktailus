@@ -166,11 +166,11 @@ $ npm start
 
 ### Web
 
-<img src="./README.assets/Cocktailus-Figma.png" width="80%" align="left">
+![Figma](./README.assets/Cocktailus-Figma.png)
 
 ### Embedded - Kiosk
 
-<img src="./README.assets/Cocktailus-Balsamiq.png" width="80%" align="left">
+![Balsamiq](./README.assets/Cocktailus-Balsamiq.png)
 
 
 
