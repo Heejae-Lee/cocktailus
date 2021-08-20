@@ -10,7 +10,8 @@ public class CocktailerApplication {
 	public static final String APPLICATION_LOCATIONS = "spring.config.location=" +
 			"classpath:application.properties," +
 			"classpath:aws.properties," +
-			"classpath:datasource.properties";
+			"classpath:datasource.properties," +
+			"classpath:jwt.properties";
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(CocktailerApplication.class)
