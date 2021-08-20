@@ -1,6 +1,6 @@
 [TOC]
 
-# :cocktail:Cocktail.Us
+# 🍸Cocktail.Us
 
 > Cocktail + Us
 >
@@ -23,31 +23,57 @@
 
 
 
-## 👨🏻‍🤝‍👨🏻팀원 소개 및 담당
+## 팀원 소개 및 담당역할
 
-> > 담당 역할, 기술
+> 담당 역할, 기술
 
-이희재 (FE/EM)
+#### 이희재 (Leader)
 
-방지환 (FE)
+- Project Leader
+- Embedded FE 담당
+- Web - FE 보조
 
-신기호 (EM)
+#### 방지환
 
-임규태 (BE)
+- FE 담당자
+
+#### 신기호
+
+- Embedded 담당자
+- UCC 제작
+
+#### 임규태
+
+- BE 담당자
+- DB / 서버 관리
 
 
 
-## :movie_camera:프로젝트 소개
+## 🎥프로젝트 소개
 
-> > youtube 주소 + gif 몇장 추가
-> >
-> > [사용시나리오](./exec/4.시연시나리오.md)
+> 소개 영상 : https://youtu.be/T6K2UBvN3Ao
 >
-> `+` 서비스 특징 / 차별성
+> 사용 설명서: [서비스시나리오](./exec/4.시연시나리오.md)
+
+### 간략한 기능 미리보기
+
+#### 회원가입 & 로그인
+
+<img src="./README.assets/회원가입로그인.gif" style="zoom:70%;" align="left" />
+
+#### 레시피 공유
+
+<img src="./README.assets/레시피공유.gif" style="zoom:70%;" align="left" />
+
+#### 칵테일 제조
+
+<img src="./README.assets/칵테일제조.gif" style="zoom:50%;" align="left" />
 
 
 
-## 개발 스택
+
+
+## 💻개발 스택
 
 #### Front
 
@@ -73,7 +99,33 @@ AWS EC2, nginx, etc...
 
 JIRA(일정관리), Gitlab(코드관리), Notion(정리용), Discord, Webex(스크럼미팅), etc...
 
-> > 전체 구조 정리된 사진 추가
+
+
+## 🔎서비스 구조
+
+<img src="./README.assets/서비스구조.png" style="zoom:67%;" align="left"/>
+
+#### 1. 칵테일러스(Web Service)
+
+React
+
+Spring-boot
+
+DB : MySQL ,AWS S3(이미지 저장)
+
+#### 2. 칵테일러(Local Service)
+
+React
+
+Express
+
+RaspberryPi
+
+#### 3. Server
+
+AWS EC2, Nginx
+
+
 
 
 
@@ -92,25 +144,29 @@ $ npm start
 
 #### kiosk_backend (Express)
 
-#### AWS
+#### Server
 
->  [배포문서 참고](./exec/1.git_소스_클론_이후_빌드_및_배포.pdf)
-
-
+>  [배포문서 참고](./exec/1.gitlab_소스_클론_이후_빌드_및_배포.pdf)
 
 
 
-## 🎨Wireframe
+
+
+## 🎨Design
 
 > https://www.figma.com/file/izR0IDEuFe6mNSpEEZ1WoN/material-kit-free?node-id=0%3A1 - Figma (Web용)
 >
 > https://balsamiq.cloud/sa0ta5t/pbvs7zb/r3020 - Balsamiq (EM Balsamiq)
+>
+> 메인색상 : Black + Pink + Purple
 
-![Cocktailus-Figma](README.assets/Cocktailus-Figma.png)
+<img src="./README.assets/메인색상.png" style="zoom:40%;" align="left" />
+
+<img src="./README.assets/Cocktailus-Figma.png" width="80%" align="left">
 
 
 
-![Cocktailus-Balsamiq](./README.assets/Cocktailus-Balsamiq.png)
+<img src="./README.assets/Cocktailus-Balsamiq.png" width="80%" align="left">
 
 
 
@@ -118,13 +174,15 @@ $ npm start
 
 > https://www.erdcloud.com/d/nsaZWcpuitdyf5qxc
 
-![Cocktailus-ERD](README.assets/Cocktailus-ERD.png)
+<img src="./README.assets/Cocktailus-ERD.png" align="left">
+
+
 
 ## ✒API 설계
 
+>  Backend와 Frontend간 소통을 위한 RESTful API 문서화
+>
 > https://app.swaggerhub.com/apis/lktg/Cocktailer/1.0.0 - SwaggerHub
-
-
 
 
 
@@ -247,6 +305,9 @@ Related to: #48, #45
 
 
 
-## ✉Contact-Us
 
-> 메일 or Github 주소
+
+## 💡배운점, 느낀점, etc
+
+> 프로젝트 진행하면서 배운 내용, 느낀점, 좋았던점, 아쉬운점 등
+
