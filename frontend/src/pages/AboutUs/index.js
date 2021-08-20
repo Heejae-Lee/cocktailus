@@ -55,13 +55,13 @@ function AboutUs() {
             <Typography variant="h6" align="center">.</Typography>
             <Typography variant="h6" align="center">임규태(BE)</Typography>
             <Typography variant="subtitle1" align="center">
-              무슨말을 해야할까!
+              칵테일이 좋은 술린이
             </Typography>
             <Typography variant="subtitle2" align="center">lktgt15@gmail.com</Typography>
             <Typography variant="h6" align="center">.</Typography>
             <Typography variant="h6" align="center">신기호(EM)</Typography>
             <Typography variant="subtitle1" align="center">
-              무슨말을 해야할까!
+              술은 안전하게 즐겁게 화목하게~
             <Typography variant="subtitle2" align="center">rlgh944@naver.com</Typography>
             </Typography>
             <Typography variant="h6" align="center">.</Typography>
