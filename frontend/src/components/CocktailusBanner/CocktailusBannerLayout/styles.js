@@ -5,9 +5,9 @@ const styles = (theme) => ({
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.up('sm')]: {
-        height: '70vh',
+        height: '120vh',
         minHeight: 400,
-        maxHeight: 1300,
+        maxHeight: 1800,
       },
     },
     container: {
@@ -41,6 +41,12 @@ const styles = (theme) => ({
       position: 'absolute',
       bottom: theme.spacing(4),
     },
+    video: {
+      border: '3px solid #e5e5e5',
+      borderRadius: '15px',
+      marginTop: '2rem',
+      marginBottom: '1rem',
+    }
 });
 
 export default styles;

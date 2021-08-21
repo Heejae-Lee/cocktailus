@@ -64,7 +64,6 @@ function AboutUs() {
               술은 안전하게 즐겁게 화목하게~
             <Typography variant="subtitle2" align="center">rlgh944@naver.com</Typography>
             </Typography>
-            <Typography variant="h6" align="center">.</Typography>
         </Box>
       </Container>
       <AppFooter />
