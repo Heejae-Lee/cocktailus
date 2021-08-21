@@ -79,29 +79,30 @@
 
 ## 💻개발 스택
 
-#### Front
+#### Frontend
 
-  React.js, meterial-UI, react-router, etc...
+- React, Material-UI, React-router
 
 #### Backend
 
- SpringBoot, JPA&Hibernate, spring springsecurity, swagger, etc...
+- Spring Boot, JPA & Hibernate, Spring Security , Swagger
 
 #### Embedded
 
-Rpi, nodejs, express, react, etc...
+- RaspberryPi, Node.js, Express, React
 
 #### DB
 
-MySQL, AWS S3
+- MySQL, AWS S3
 
 #### 배포
 
-AWS EC2, nginx, etc...
+- AWS EC2, nginx
 
 #### 협업툴
 
-JIRA(일정관리), Gitlab(코드관리), Notion(정리용), Discord, Webex(스크럼미팅), etc...
+- JIRA(일정관리), Gitlab(코드관리)
+- Notion(정리용), Discord, Webex(스크럼미팅)
 
 
 
@@ -111,25 +112,23 @@ JIRA(일정관리), Gitlab(코드관리), Notion(정리용), Discord, Webex(스�
 
 #### 1. 칵테일러스(Web Service)
 
-React
+- React
 
-Spring-boot
-
-DB : MySQL ,AWS S3(이미지 저장)
+- Spring-boot
 
 #### 2. 칵테일러(Local Service)
 
-React
+- React
 
-Express
+- Express
 
-RaspberryPi
+- RaspberryPi
 
 #### 3. Server
 
-AWS EC2, Nginx
+- AWS EC2, Nginx
 
-
+- DB : MySQL ,AWS S3(이미지)
 
 
 
