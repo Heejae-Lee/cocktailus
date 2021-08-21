@@ -15,6 +15,7 @@ import { Container, Box, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 import { Pagination } from '@material-ui/lab';
 
+import { useMediaQuery } from "react-responsive";
 import axios from 'axios'
 
 const ColorButton = withStyles((theme) => ({
@@ -37,6 +38,13 @@ function MyRecipe(match) {
   const [searchedValue, setSearchedValue] = useState('');
   const [isChange, setIsChange] = useState(false);
   const [page, setPage] = useState(1);
+
+  const isPc = useMediaQuery({
+    query: "(min-width:909px)",
+  });
+  const isMobile = useMediaQuery({
+    query: "(max-width:908px)",
+  });
 
   // 전체 레시피 조회
   const changeMyUploadState = () => {
@@ -129,6 +137,7 @@ function MyRecipe(match) {
           </ColorButton>
         </Box>
       </Container>
+      {isPc &&
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
@@ -159,7 +168,41 @@ function MyRecipe(match) {
           className={classes.pagination}
           onChange={pageChange}
         />
-      </Container>
+      </Container>}
+      {isMobile &&
+      <Container className={classes.paper}>
+        <Grid container spacing={10}>
+          {/* 전체 리스트 반복문 돌면서보여주기 */}
+          {recipes.slice(6*(page-1),6*page).map(recipe => (
+            <div key={recipe.id} className={classes.recipe}>
+              <RecipePreview
+                key={recipe.id}
+                id = {recipe.id}
+                image={recipe.image}
+                title={recipe.title}
+                content={recipe.content}
+                name={recipe.member_name}
+                created={recipe.created}
+                updated={recipe.updated}
+                imageURL={recipe.imageURL}
+                likeCount={recipe.likeCount}
+                liked={recipe.liked}
+                setIsChange={setIsChange}
+                isChange={isChange}
+                />
+            </div>
+          ))}
+        </Grid>
+        <Pagination
+          defaultPage={1}
+          count={Math.ceil(recipes.length/6)} 
+          showFirstButton 
+          showLastButton 
+          color="secondary"
+          className={classes.pagination}
+          onChange={pageChange}
+        />
+      </Container>}
       <Footer />
     </Fragment>
   );

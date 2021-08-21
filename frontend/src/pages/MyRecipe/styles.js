@@ -36,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(10),
+  },
+  recipe: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '1080px',
+    marginBottom: theme.spacing(5)
   }
 }));
 

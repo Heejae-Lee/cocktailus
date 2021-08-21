@@ -15,6 +15,8 @@ import { Container, Grid, Button, withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 import { Pagination } from '@material-ui/lab';
 
+import { useMediaQuery } from "react-responsive";
+
 import { recipeAPI } from '../../utils/recipeAPI';
 // url 쿼리 값 읽기
 import qs from 'qs';
@@ -35,6 +37,13 @@ function Recipe(match) {
   
   const query = qs.parse(match.location.search, {
     ignoreQueryPrefix: true
+  });
+
+  const isPc = useMediaQuery({
+    query: "(min-width:909px)",
+  });
+  const isMobile = useMediaQuery({
+    query: "(max-width:908px)",
   });
 
   const [recipes, setRecipes] = useState([]);
@@ -149,6 +158,7 @@ function Recipe(match) {
           </ColorButton>
         </Box>
       </Container>
+      {isPc &&
       <Container className={classes.paper}>
         <Grid container spacing={10}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
@@ -177,7 +187,39 @@ function Recipe(match) {
           className={classes.pagination}
           onChange={pageChange}
         />
-      </Container>
+      </Container>}
+      {isMobile &&
+      <Container className={classes.paper}>
+        <Grid container spacing={10}>
+          {/* 전체 리스트 반복문 돌면서보여주기 */}
+          {recipes.slice(6*(page-1),6*page).map(recipe => (
+            <div key={recipe.id} className={classes.recipe}>
+              <RecipePreview
+                key={recipe.id}
+                id = {recipe.id}
+                image={recipe.image}
+                title={recipe.title}
+                content={recipe.content}
+                name={recipe.member_name}
+                created={recipe.created}
+                updated={recipe.updated}
+                imageURL={recipe.imageURL}
+                likeCount={recipe.likeCount}
+                liked={recipe.liked}
+                />
+            </div>
+          ))}
+        </Grid>
+        <Pagination
+          defaultPage={1}
+          count={Math.ceil(recipes.length/6)} 
+          showFirstButton
+          showLastButton
+          color="secondary"
+          className={classes.pagination}
+          onChange={pageChange}
+        />
+      </Container>}
       <Footer />
     </React.Fragment>
   );
