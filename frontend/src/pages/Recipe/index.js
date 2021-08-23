@@ -190,7 +190,7 @@ function Recipe(match) {
       </Container>}
       {isMobile &&
       <Container className={classes.paper}>
-        <Grid container spacing={10}>
+        <div className={classes.grid}>
           {/* 전체 리스트 반복문 돌면서보여주기 */}
           {recipes.slice(6*(page-1),6*page).map(recipe => (
             <div key={recipe.id} className={classes.recipe}>
@@ -209,7 +209,7 @@ function Recipe(match) {
                 />
             </div>
           ))}
-        </Grid>
+        </div>
         <Pagination
           defaultPage={1}
           count={Math.ceil(recipes.length/6)} 

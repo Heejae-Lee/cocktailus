@@ -35,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(7),
     marginBottom: theme.spacing(10),
   },
+  grid: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   recipe: {
     display: 'flex',
     justifyContent: 'center',
