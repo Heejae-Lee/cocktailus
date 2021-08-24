@@ -63,7 +63,7 @@ export default function CleanCompleteLoading() {
       {!isWaited && (
         <SimpleModal
           open={!isWaited}
-          text={"호스 청소를 진행하시겠어요? (약 1분 소요)"}
+          text={"호스 청소를 진행하시겠어요? (약 10초 소요)"}
           subText={"아니요를 누르면 홈으로 돌아가요!"}
           type="question"
           buttonType="yesNo"

@@ -37,7 +37,7 @@ export default function LoginModal(props) {
   React.useEffect(() => {
     const timestamp = new Date().getTime();
 
-    if (memberData) {
+    if (memberData !== null) {
       if (memberData.exp < timestamp) {
         localStorage.removeItem("memberData");
       } else {
